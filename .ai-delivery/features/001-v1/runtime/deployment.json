@@ -1,0 +1,10 @@
+{
+  "developerSetupCommands": ["npm ci"],
+  "developerValidationCommands": {
+    "staticAnalysis": ["npm run lint", "npm run typecheck"],
+    "build": ["npm run build"],
+    "developerTests": ["npm test"],
+    "integrationTests": ["npm run test:integration"],
+    "functionalTests": ["npm run test:e2e"]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "web",
+      "description": "实时会议中文字幕 Web 应用：提供页面与脚本、语音授权令牌签发（/api/speech-token）与流式翻译代理（/api/translations）。",
+      "build": { "context": ".", "file": "Dockerfile" },
+      "port": 8080,
+      "healthPath": "/healthz",
+      "exposed": true
+    }
+  ],
+  "operations": {
+    "errorLogRules": [
+      {
+        "name": "app-error-or-fatal",
+        "type": "structured",
+        "field": "level",
+        "values": ["error", "fatal"],
+        "messageField": "msg",
+        "severity": "high"
+      },
+      {
+        "name": "upstream-errors-burst",
+        "type": "structured",
+        "field": "event",
+        "values": ["upstream_error"],
+        "messageField": "errorCode",
+        "severity": "medium",
+        "threshold": { "windowMinutes": 5, "count": 10 }
+      },
+      {
+        "name": "node-crash-output",
+        "type": "pattern",
+        "pattern": "^(?<message>(?:Uncaught |node:internal)?[A-Za-z]*Error(?: \\[[A-Z_]+\\])?: .+)$",
+        "severity": "high"
+      }
+    ]
+  }
+}
