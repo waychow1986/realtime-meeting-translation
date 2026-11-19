@@ -1,0 +1,127 @@
+{
+ "schemaVersion": 1,
+ "stepId": "G2",
+ "result": "done",
+ "summary": "设计复审建议通过：S17 第三次修订（R-11 大模型改为 gpt-5.1、R-12 账户名加随机段、TD-016）在意图 A-05 允许的回退范围内，应用调用方式、接口和验收分配都没有变；规格仍完整覆盖 AC-01～AC-09。不过已锁定的独立测试会因账户模型目录列出 gpt-sol-6.1 而把 IQA-007 判为失败，这项风险需要人决定；以往 4 个非阻断文字问题仍未修正。",
+ "asks": [],
+ "outputs": [
+  ".ai-delivery/features/001-v1/.state/results/NR-DLV-20261119-FC493E665B52-0031.json"
+ ],
+ "review": {
+  "mode": "g2",
+  "conclusion": "建议通过 G2，进入测试计划（S34）和第 1 批编码（S35）。\n\n规格本轮未变：FR-001～FR-022、IQA-001～IQA-011 仍逐条覆盖意图 v2 的 AC-01～AC-09、各项假设、Q-01～Q-05 与 PQ-001 的人工答案。\n\n本轮复核 S17 第三次修订（e256a87）：\n① R-11/TD-016 把部署由 gpt-sol-6.1 改为 gpt-5.1。依据是 Azure 返回的 DeploymentModelNotSupported，属于 A-05“gpt-sol-6.1 不可用时选用可关闭 reasoning 的其它 Foundry 模型”的已确认范围，没有越出意图。gpt-5.1 接受 reasoning_effort=none，usage 中会报告 reasoning_tokens；TD-011 不传 temperature、TD-012 使用 max_completion_tokens 与 v1 路径，这些对 gpt-5.1 都适用，应用调用参数无需改动。AC-07 的证据链（集成测试断言 reasoning_tokens=0，加上 IQA-007）成立。\n② R-12 给两个模块各加一个 random_string 作为账户名与自定义子域的随机段，可以避免重跑时与残留或软删除的同名资源冲突。输出与连接模板不变，资源清单为 5 个 create，全部在 var.resource_group_name 内；design.md 的技术上下文、TD-014、部署拓扑、开放决策和 dependencies.json 已同步。\n\n主要残余风险在已锁定的 runtime/qa-run.sh：IQA-007 检查点 5 通过 ARM /models 读取账户的模型目录，只要目录里出现 gpt-sol-6.1，就把“使用替代模型”判为 fail。而依赖绑定的事实是：该模型可能列在目录中，但不能部署到 AIServices 账户。这会让 AC-07 在独立测试中被误判。测试计划已锁定，设计步骤无法自行修复，见 items。\n\n上一轮 G2 的 4 个非阻断问题仍未修正，其中 design.md 第 421 行的步骤编号又随计划 v7 失效了一次；第 1 批编码与审查必须按 findings 写明的权威条款执行。",
+  "items": [
+   {
+    "category": "technical",
+    "question": "已锁定的独立测试 runtime/qa-run.sh 在 IQA-007 检查点 5 读取账户 ARM /models 目录：目录中出现 gpt-sol-6.1、而实际部署的是 gpt-5.1 时，判为 fail（“测试环境中 gpt-sol-6.1 可用却未使用”）。依赖绑定已证明 gpt-sol-6.1 不能部署到 AIServices 账户（DeploymentModelNotSupported），但“列在目录中”与“可部署”不是一回事，AC-07 可能因此被误判失败。S18（0030）提出了同一问题，至今未见人工答复。出现这种结果时如何处理？",
+    "recommended": "接受 gpt-5.1 作为 A-05 的替代模型。第 1 批编码在部署记录和设计说明中保留 DeploymentModelNotSupported 证据；若 IQA-007 仅因模型目录列出 gpt-sol-6.1 而判为 fail，验收时按“测试判定与环境事实不符”处理，不退回编码。",
+    "alternatives": [
+     "退回技术方案，尝试用其它 Foundry 账户类型或区域部署 gpt-sol-6.1（需要重写 IaC 并重新绑定依赖，至少多用 4 个会话，且不保证可行）。",
+     "视为阻塞，由业务负责人重新确认是否必须使用 gpt-sol-6.1。"
+    ]
+   },
+   {
+    "category": "technical",
+    "question": "两个依赖（speech、chat-model）在依赖与机密任务中采用哪种认证方式？在 platform-identity 方式下，语音 STS（/sts/v1.0/issueToken）需要接受 Entra Bearer 令牌，能否接受要看探测结果。此前多次提出，提示中未见人工答复。",
+    "recommended": "两个依赖都用 platform-identity（宪章要求支持时使用 managed identity）。探测报告 authenticated=false 或 STS 不接受 Entra 令牌时，该依赖改用 credential（密钥只在服务端使用，应用两种方式都实现）。",
+    "alternatives": [
+     "两个依赖都直接用 credential。",
+     "按依赖分别选择。"
+    ]
+   },
+   {
+    "category": "business",
+    "question": "不登录、凭地址即可访问（Q-05），任何拿到地址的人都能领取语音令牌、调用翻译，消耗付费资源；同源校验和可信地址限流只能降低风险。是否确认本次只部署到测试环境？此前多次提出，提示中未见人工答复。",
+    "recommended": "确认本次只部署到测试环境、不上生产，并记录“正式上线前须另行加入企业账号登录或网络访问限制”。",
+    "alternatives": [
+     "本次就给测试地址加网络访问限制（只允许公司网络或指定 IP）。",
+     "接受现状，不另作说明。"
+    ]
+   }
+  ],
+  "invariants": [
+   {
+    "name": "关口齐全（G1～G5）",
+    "ok": true,
+    "note": "计划图 v7 依次包含 G1（意图之后）、G2（设计之后）、G3、G4、G5（实施之后）。"
+   },
+   {
+    "name": "设计区顺序：规格 → 技术方案 → 细化计划",
+    "ok": true,
+    "note": "S5 依赖 S4，S6 依赖 S5；重做的技术方案 S17 之后是细化计划 S18（S18 依赖 S17），产出已提交（e256a87、8541254）。"
+   },
+   {
+    "name": "测试计划先于编码",
+    "ok": true,
+    "note": "实施区以 S34（testplan）开头，排在第 1 批编码 S35 之前；tasks-qa.md 与 runtime/qa-run.sh 已锁定（S29 只按平台规则做了 IQA-009 日志来源过滤这一处修改，0b0ddb8）。S35 的 dependsOn 为空，顺序由平台骨架保证。design.md 第 421 行的 S19/S20 写法与事实不符，见 findings。"
+   },
+   {
+    "name": "编码批次按顺序",
+    "ok": true,
+    "note": "第 1 批 S35 → S36；第 2 批 S37 依赖 S36，S38 依赖 S37。"
+   },
+   {
+    "name": "每批编码之后有代码审查",
+    "ok": true,
+    "note": "S36 审查第 1 批，S38 审查第 2 批。"
+   },
+   {
+    "name": "批次覆盖全部验收标准",
+    "ok": true,
+    "note": "第 1 批覆盖 AC-01、03、06、07、08、09，第 2 批覆盖 AC-02、04、05，两批合计覆盖 AC-01～AC-09；S18 要求第 1 批的 AC-07 证据包含实际模型名 gpt-5.1 与 reasoning_effort=none。"
+   },
+   {
+    "name": "规格覆盖意图与每条验收标准",
+    "ok": true,
+    "note": "spec.md 未变，AC-01～AC-09 均映射到 FR、SC、IQA；改选模型属于 A-05 的已确认范围，不需要改规格。"
+   },
+   {
+    "name": "技术方案与规格、计划一致",
+    "ok": true,
+    "note": "TD-016 与 TD-011/TD-012 兼容；IaC、dependencies.json、design.md 的模型名、资源清单（5 个 create）一致。仍有文字层面的不一致（第 296 行 trustProxy、第 421 行步骤编号），见 findings。"
+   },
+   {
+    "name": "外部集成以真实测试服务验证（宪章）",
+    "ok": true,
+    "note": "两个依赖在 dev、test 均使用真实实例，不设 Mock 模式；AC-07 由集成测试与 IQA-007 在真实服务上取证（IQA-007 的误判风险见 items）。"
+   },
+   {
+    "name": "凭据不进浏览器、日志不含客户内容（宪章）",
+    "ok": true,
+    "note": "浏览器只拿 10 分钟 STS 令牌；Terraform 的密钥输出为 sensitive；本次修订没有引入新的凭据路径。"
+   },
+   {
+    "name": "档位依据",
+    "ok": true,
+    "note": "完整档的依据成立：新项目的首个交付，跨两个真实外部依赖，依赖绑定已退回多次，环境不确定性高，并且有安全、隐私与流式时序风险。"
+   },
+   {
+    "name": "预算",
+    "ok": true,
+    "note": "计划预算为 40 个会话、11 次修订、12 小时。含本次已用 31 个会话（运行编号 0001～0031），剩余 S34～S38 与 G3～G5 共 8 步，合计 39 个，只余约 1 个会话；若依赖绑定或编码再返工一次，就会触及上限。余量偏紧，但计划本身成立。"
+   }
+  ],
+  "findings": [
+   {
+    "ownerStep": "S17",
+    "blocking": false,
+    "text": "design.md 第 296 行“同源校验”仍写“Fastify trustProxy: true”，与第 297 行和 TD-010 的“trustProxy = TRUSTED_PROXY_HOPS（默认 1）”矛盾（连续三轮 G2 指出，未修正）。照 trustProxy: true 实现时，request.ip 会取到客户端可伪造的 X-Forwarded-For 最左侧地址，限流键因此可以伪造。要求：S35 以 TD-010 与第 297 行为准，S36 审查必须核对；有机会修订 design.md 时改为同一可信跳数。"
+   },
+   {
+    "ownerStep": "S17",
+    "blocking": false,
+    "text": "design.md 第 421 行“测试计划（S19）锁定后才开始第 1 批编码（S20）……该依赖由细化计划（S18）写入计划图”与计划图 v7 不符：测试计划是 S34，第 1 批编码是 S35，S35 的 dependsOn 为空，顺序由平台骨架保证。建议改为不带步骤编号的写法，执行顺序以平台计划图为准。"
+   },
+   {
+    "ownerStep": "S17",
+    "blocking": false,
+    "text": "infra/probes/chat-model.sh 第 117 行在 reasoning_tokens 缺失（absent）时仍把 reasoning-disabled 判为 satisfied，与 dependencies.json 的约束文本“reasoning_tokens 为 0”及 TD-012 不一致（此前 G2 已指出，未修正）。gpt-5.1 会报告该字段，所以这次实际影响小；但改绑其它模型时，可能得出无法支撑 AC-07 的“满足”结论。建议缺失时判为 unsatisfied，或在 evidence 中写明“无法证明”。"
+   },
+   {
+    "ownerStep": "S4",
+    "blocking": false,
+    "text": "spec.md 第 4 行称“仓库中的 intent.md 正文早于意图 v2，其中 AC-03 的写法（‘中途切换为日语’）……”，这已与当前 intent.md 不符，会误导后续步骤去比对不存在的差异。建议删除，或改为“以意图 v2 为准”。"
+   }
+  ]
+ }
+}
