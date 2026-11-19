@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S6",
+  "result": "done",
+  "summary": "按已完成的技术方案细化计划：维持完整档，实施区分两批纵向切片编码，每批后各做一次代码审查。第 1 批打通“开始→实时识别（连续语言识别）→定稿句中文翻译→停止”的端到端主干及凭据与日志安全，第 2 批加入临时译文流式更新、定稿替换、多句顺序与含义一致性及失败恢复。",
+  "asks": [],
+  "outputs": [],
+  "plan": {
+    "schemaVersion": 1,
+    "steps": [
+      {"id": "S8", "capability": "code", "zone": "build", "dependsOn": ["S6"], "batch": 1},
+      {"id": "S9", "capability": "review", "zone": "build", "dependsOn": ["S8"], "batch": 1},
+      {"id": "S10", "capability": "code", "zone": "build", "dependsOn": ["S9"], "batch": 2},
+      {"id": "S11", "capability": "review", "zone": "build", "dependsOn": ["S10"], "batch": 2}
+    ],
+    "omitted": [
+      {"capability": "spec", "reason": "规格 spec.md 已完成（S4），PQ-001 已有人工答案，FR-001～FR-022 与 IQA-001～IQA-011 覆盖全部验收标准，无需重做。"},
+      {"capability": "solution", "reason": "技术方案 design.md、依赖声明、探测脚本、IaC 与部署声明已完成（S5），本次细化没有发现需要回到技术方案的缺口。"},
+      {"capability": "plan", "reason": "本步骤即为技术方案之后的细化计划；之后的步骤已全部确定，不需要再安排计划。"}
+    ],
+    "batches": [
+      {"n": 1, "criteria": ["AC-01", "AC-03", "AC-06", "AC-07", "AC-08", "AC-09"]},
+      {"n": 2, "criteria": ["AC-02", "AC-04", "AC-05"]}
+    ],
+    "factors": [
+      {"name": "change-size", "lean": "medium", "basis": "从零构建单服务 Web 应用：服务端约 8 个模块（配置、身份、白名单日志、语音令牌、流式翻译代理、路由/安全头/同源/限流），浏览器端约 6 个模块（识别、字幕状态机、翻译客户端、渲染、文案），外加单元、集成与端到端测试和 Dockerfile；功能面集中，但全部为新写。"},
+      {"name": "modules", "lean": "heavy", "basis": "涉及浏览器端、Node 服务端、Azure Foundry 语音服务（实时连续识别 + 连续语言识别 + 测试素材合成）、Azure Foundry 大模型（流式、reasoning_effort=none）以及容器部署，跨两个真实外部依赖。"},
+      {"name": "new-or-first", "lean": "heavy", "basis": "新项目首个交付，TD-001 首次建立技术基线（TypeScript + Node 22 + Fastify + esbuild），无既有代码可复用。"},
+      {"name": "risk", "lean": "medium", "basis": "无数据迁移、无持久化。安全与隐私风险明确且可测：浏览器只拿 10 分钟 STS 令牌（AC-08）、字段白名单日志（AC-09）、无登录下以同源校验与限流防滥用。主要技术风险是真实流式时序（节流与定稿替换）与外部服务可用性（gpt-sol-6.1 可用性、区域是否支持连续语言识别）。"}
+    ],
+    "tier": "full",
+    "budget": {"revisions": 4, "sessions": 16, "hours": 6.0},
+    "items": [
+      {"category": "technical", "question": "TD-001 技术基线：本交付首次建立技术基线，是否采纳技术方案中的 TypeScript + Node.js 22 + Fastify 单服务、前端原生 DOM + esbuild？", "recommended": "采纳（前后端同一语言、Speech SDK 浏览器端为 JS，功能面小，符合宪章“最简单架构”）。", "alternatives": ["Python FastAPI 服务端 + 前端独立打包（两套工具链）。", ".NET 服务端（浏览器端仍需 JS Speech SDK）。"]},
+      {"category": "technical", "question": "两个依赖（speech、chat-model）在依赖与机密任务中采用哪种认证方式？", "recommended": "均采用 platform-identity（managed identity），符合宪章“支持时使用 managed identity”；数据面角色只授予 Cognitive Services Speech User / OpenAI User。", "alternatives": ["均采用 credential（密钥只在服务端使用）；适用于隔离环境取不到平台身份令牌时。", "按依赖分别选择（例如复用的已有资源只能用密钥）。"]},
+      {"category": "technical", "question": "TD-005 连续语言识别候选语言清单（服务上限 10 种）是否按技术方案取 en-US、ja-JP、ko-KR、fr-FR、de-DE、es-ES、it-IT、pt-BR、ru-RU、zh-CN？", "recommended": "按方案执行，英语居首并包含 zh-CN；以服务端配置 CANDIDATE_LANGUAGES 可调，页面无语言控件。", "alternatives": ["缩小为 en-US + zh-CN 两种，提升英语识别稳定性但覆盖面变窄。", "由技术负责人提供其它 10 种以内的清单。"]},
+      {"category": "business", "question": "本次不做登录、凭地址即可访问（Q-05），测试环境的付费语音与大模型资源存在被滥用的风险；技术方案以同源校验与按 IP 限流作为基本防护。是否接受仅部署在测试环境、正式上线前另行加入企业账号登录？", "recommended": "接受：本交付只部署在测试环境，正式上线前另立交付加入 Microsoft Entra ID 登录。", "alternatives": ["额外用网络访问限制（仅公司网络或指定 IP）保护测试地址。", "本次就加入 Entra ID 登录（需修改已确认的 Q-05 答案并回到意图）。"]}
+    ],
+    "reason": "技术方案已建立基线，因此只列实施区剩余步骤。采用纵向切片：第 1 批交付可独立验证的端到端主干——静态页面与中文界面、开始/停止与麦克风释放（含 E-1 提示）、服务端签发 STS 令牌与浏览器 Speech SDK 实时连续识别 + 连续语言识别、对定稿识别结果调用 /api/translations（流式 NDJSON、reasoning_effort=none）显示中文字幕、安全头/同源/限流、白名单日志、Dockerfile 与健康检查；以集成测试（真实 dev 实例：STS、Node 端连续识别 + LID、流式翻译 reasoning_tokens=0）和端到端测试（Playwright 假麦克风：打开即用、无语言控件、停止后 30 秒无变化且音轨停止、页面/脚本/网络全量凭据扫描、日志无测试文本）验证 AC-01、AC-03、AC-06、AC-07、AC-08、AC-09。第 2 批在主干之上实现字幕流式化与质量——临时译文节流单飞最新者获胜（TD-006）、定稿中止临时请求并替换冻结（TD-007）、epoch 丢弃与再次开始的 interrupted 处理、多句顺序不重不漏、静音不出字幕、E-2/E-3 错误恢复与定稿重试、测试语音集（≥5 句、含 ≥10 秒长句及参考译文与关键信息点）；以端到端时序记录验证 AC-02、AC-04、AC-05，并回归第 1 批全部场景。两批编码后各安排一次代码审查；测试计划与关口由平台按骨架补入。维持完整档与原预算（4 次修订、16 个会话、6 小时），因为四项依据中模块数与首个交付偏重、规模与风险中等，且需真实外部服务验证。"
+  }
+}
