@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S6",
+  "result": "done",
+  "summary": "按 G2 退回意见重新计划：维持完整档，先重做技术方案（IaC 由 Bicep 改为 Terraform 或 az 命令并遵守作用范围与平台变量、候选语言收窄为 en-US/zh-CN/ja-JP/ko-KR、补断句静音阈值与测试素材停顿约束、可信网关地址限流、日志白名单加入检出语言代码、第 1 批编码依赖测试计划），再做一次细化计划，然后分两批编码并各做一次代码审查；建议把预算提高到 26 个会话、7 次修订、8 小时。",
+  "asks": [],
+  "outputs": [],
+  "plan": {
+    "schemaVersion": 1,
+    "steps": [
+      {"id": "S17", "capability": "solution", "zone": "design", "dependsOn": []},
+      {"id": "S18", "capability": "plan", "zone": "design", "dependsOn": ["S17"]},
+      {"id": "S19", "capability": "code", "zone": "build", "dependsOn": ["S18"], "batch": 1},
+      {"id": "S20", "capability": "review", "zone": "build", "dependsOn": ["S19"], "batch": 1},
+      {"id": "S21", "capability": "code", "zone": "build", "dependsOn": ["S20"], "batch": 2},
+      {"id": "S22", "capability": "review", "zone": "build", "dependsOn": ["S21"], "batch": 2}
+    ],
+    "omitted": [
+      {"capability": "spec", "reason": "spec.md 已按意图第 2 版编写（FR-008 不要求中途切换语言，PQ-001 把中文发言排除在验收之外），G2 判定规格完整覆盖 AC-01～AC-09；本次退回的各项都属于技术方案，不需要重做规格。第 4 行关于 intent.md 旧版本的说明已经过时，但不影响任何需求条款。"}
+    ],
+    "batches": [
+      {"n": 1, "criteria": ["AC-01", "AC-03", "AC-06", "AC-07", "AC-08", "AC-09"]},
+      {"n": 2, "criteria": ["AC-02", "AC-04", "AC-05"]}
+    ],
+    "factors": [
+      {"name": "change-size", "lean": "medium", "basis": "从零构建单服务 Web 应用。服务端约 8 个模块，浏览器端约 6 个，另有单元、集成、端到端测试和 Dockerfile。功能面集中，但全部是新写代码；IaC 改写只涉及两个依赖。"},
+      {"name": "modules", "lean": "heavy", "basis": "涉及浏览器端、Node 服务端、Azure Foundry 语音服务（实时连续识别、连续语言识别，以及用于合成测试素材的语音合成）、Azure Foundry 大模型（流式调用，关闭 reasoning）和容器部署，跨两个真实外部依赖。"},
+      {"name": "new-or-first", "lean": "heavy", "basis": "新项目的首个交付，本交付首次建立技术基线，没有可复用的既有代码；依赖的 IaC 也是首次按平台支持的形态（Terraform 或 az 命令）编写。"},
+      {"name": "risk", "lean": "medium", "basis": "没有数据迁移，也没有持久化。安全与隐私要求明确且可以测试：浏览器只拿短时 STS 令牌，日志按字段白名单输出，不登录的情况下用同源校验加可信地址限流防止滥用。主要风险在真实流式时序与断句是否一一对应（AC-02、AC-05），以及外部服务的可用性（gpt-sol-6.1、所在区域是否支持连续语言识别）。"}
+    ],
+    "tier": "full",
+    "budget": {"revisions": 7, "sessions": 26, "hours": 8.0},
+    "items": [
+      {
+        "category": "business",
+        "question": "预算：原预算为 16 个会话、4 次修订、6 小时。算上本次已用 13 个会话；G2 退回又新增了技术方案重做（S17）、细化计划（S18）和 G2 复审，后面还有测试计划、两批编码和审查（S19～S22），以及 G3～G5。照此估算至少要 22 个会话，修订次数也已经用完。是否追加预算？",
+        "recommended": "调整为 26 个会话、7 次修订、8 小时（为审查后的返工和关口重提留出约 4 个会话的余量）。",
+        "alternatives": [
+          "调整为 22 个会话、6 次修订、7 小时，不留返工余量，超出时由平台暂停后再决定。",
+          "维持原预算；超出时由平台按规则暂停，再由人决定是否追加。"
+        ]
+      },
+      {
+        "category": "technical",
+        "question": "两个依赖（speech、chat-model）在依赖与机密任务中采用哪种认证方式？在 platform-identity 方式下，语音 STS 换取令牌需要接受 Entra Bearer 令牌，能否接受要看探测结果。",
+        "recommended": "两个依赖都用 platform-identity（宪章要求支持时使用 managed identity）；如果探测报告 authenticated=false，或 STS 不接受 Entra 令牌，该依赖改用 credential（密钥只在服务端使用）。",
+        "alternatives": [
+          "两个依赖都直接用 credential，降低隔离环境取不到身份令牌的风险。",
+          "按依赖分别选择。"
+        ]
+      },
+      {
+        "category": "business",
+        "question": "不登录、凭地址即可访问（Q-05）意味着任何拿到地址的人都能领取语音令牌、调用翻译，消耗付费资源。同源校验和可信地址限流只能降低风险，挡不住脚本直接调用。是否确认本次只部署到测试环境？",
+        "recommended": "确认本次只部署到测试环境、不上生产，并记录“正式上线前须另行加入企业账号登录或网络访问限制”。",
+        "alternatives": [
+          "本次就给测试地址加网络访问限制（只允许公司网络或指定 IP）。",
+          "接受现状，不另作说明。"
+        ]
+      }
+    ],
+    "reason": "G2 把技术部分退回技术方案修改，所以本次只列仍要做或要重做的步骤。S17 重做技术方案，内容包括：①按参考资料 execution/cloud 把 infra/speech、infra/chat-model 的 Bicep 改写为 Terraform 或 az 命令，遵守资源组作用范围规则，使用平台变量，并同步 docs/dependencies.json 的 cloud 段与 design.md 的 TD-014 等描述；②以意图第 2 版为准，AC-03 不要求同一次使用中途切换语言，中文发言的行为不纳入验收；③明确语音断句的静音阈值（Speech_SegmentationSilenceTimeoutMs 等），并约束测试素材的句间停顿长于这个阈值、句内停顿短于它，以支撑 AC-05 的一一对应；限流键改用网关追加的可信客户端地址，不信任客户端自己填写的 X-Forwarded-For；日志白名单加入检出的语言代码；在测试计划与验证矩阵中写明第 1 批编码依赖测试计划；④按 G2 事项的回答，把 TD-005 的候选语言收窄为 en-US、zh-CN、ja-JP、ko-KR。S18 在技术方案定稿后做细化计划，确认批次划分与预算。规格已符合意图第 2 版，不需要重做。实施区沿用纵向切片。第 1 批搭建端到端主干：中文界面、开始/停止与麦克风释放、服务端签发 STS 令牌、实时连续识别和连续语言识别、定稿句子的流式翻译（reasoning_effort=none）、安全头、同源校验、可信地址限流、白名单日志和健康检查，用来验证 AC-01、AC-03、AC-06、AC-07、AC-08、AC-09。第 2 批加入临时译文的节流与流式更新、定稿替换、多句顺序不重不漏、静音时不出字幕、错误恢复，以及带停顿约束的测试语音集，用来验证 AC-02、AC-04、AC-05，并回归第 1 批的全部场景。两批编码之后各安排一次代码审查。测试计划和关口由平台按骨架补入；第 1 批编码（S19）必须排在测试计划锁定之后，并显式依赖它。档位维持完整档：模块数和“首个交付”两项依据偏重，改动规模和风险中等，而且要在真实外部服务上验证。"
+  }
+}
