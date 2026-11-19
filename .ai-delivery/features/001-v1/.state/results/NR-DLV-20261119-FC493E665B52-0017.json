@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "stepId": "G2",
+  "result": "done",
+  "summary": "设计复审建议通过：上一轮 G2 的 4 个问题和退回意见 R-1～R-7 都已在 S17/S18 中落实；规格完整覆盖 AC-01～AC-09，技术方案可行，与规格、计划一致；仅剩 4 个非阻断的一致性问题，以及 2 项仍待人决定的事项（认证方式、仅部署测试环境）。",
+  "asks": [],
+  "outputs": [".ai-delivery/features/001-v1/.state/results/NR-DLV-20261119-FC493E665B52-0017.json"],
+  "review": {
+    "mode": "g2",
+    "conclusion": "建议通过 G2，进入测试计划（S24）与编码。规格未变：FR-001～FR-022、IQA-001～IQA-011 逐条覆盖意图 v2 的 AC-01～AC-09、假设 A-01/A-02/A-04/A-05/A-06、Q-01～Q-05 的人工答案以及 PQ-001 的人工答案，没有越出意图的范围。S17 修订后的技术方案逐条处理了上一轮 G2 的意见。IaC 改为 Terraform（azurerm 4.x，只在 var.resource_group_name 内新增 3 个资源，只引用平台变量，密钥输出标 sensitive）。新增 TD-015：断句静音阈值 800 ms，测试素材句内停顿不超过 300 ms、句间静音 2000 ms，集成测试断言 recognized 条数等于句数，支撑 AC-05 和 IQA-002。限流改按网关追加的可信地址（最右侧第 N 条），临时译文和定稿分桶，阈值按同一出口约 20 个页面计算，不会破坏 AC-05/AC-06。日志白名单加入经正则校验的 sourceLanguage，作为 AC-07“由服务返回识别出的语言”的服务侧证据。候选语言按 G2 事项收窄为 en-US/zh-CN/ja-JP/ko-KR。客户约束 1～6 与宪章各条（凭据留在服务端并优先 managed identity、白名单日志不记录客户内容、外部集成用真实 dev/test 实例验证、不设 Mock 模式）都有对应设计。剩余 4 个问题都不阻断，可在测试计划或编码前由设计步骤顺手修正：同源校验与 TD-010 的 trustProxy 写法矛盾；design.md 中的步骤编号已过时；chat-model 探测把缺失 reasoning_tokens 判为满足；spec.md 开头关于 intent.md 过时的说明已经失效。仍有 2 项人工决定没有答复（见 items）。",
+    "items": [
+      {
+        "category": "technical",
+        "question": "两个依赖（speech、chat-model）在依赖与机密任务中采用哪种认证方式？在 platform-identity 方式下，语音 STS（/sts/v1.0/issueToken）需要接受 Entra Bearer 令牌（IaC 已为此配置自定义子域），能否接受要看探测结果。G2、S6、S18 都提出过这个问题，至今没有人工答复。",
+        "recommended": "两个依赖都用 platform-identity（宪章要求支持时使用 managed identity）；如果探测报告 authenticated=false，或 STS 不接受 Entra 令牌，该依赖改用 credential（密钥只在服务端使用，应用两种方式都实现）。",
+        "alternatives": [
+          "两个依赖都直接用 credential，降低隔离环境取不到身份令牌的风险。",
+          "按依赖分别选择。"
+        ]
+      },
+      {
+        "category": "business",
+        "question": "不登录、凭地址即可访问（Q-05）意味着任何拿到地址的人都能领取语音令牌、调用翻译，消耗付费资源；同源校验和可信地址限流只能降低风险，挡不住脚本直接调用。G1、S2、G2、S6、S18 都提出过这个问题，至今没有人工答复。是否确认本次只部署到测试环境？",
+        "recommended": "确认本次只部署到测试环境、不上生产，并记录“正式上线前须另行加入企业账号登录或网络访问限制”。",
+        "alternatives": [
+          "本次就给测试地址加网络访问限制（只允许公司网络或指定 IP）。",
+          "接受现状，不另作说明。"
+        ]
+      }
+    ],
+    "invariants": [
+      {"name": "关口齐全（G1～G5）", "ok": true, "note": "计划图（version 5）依次包含 G1（意图后）、G2（设计后）、G3、G4、G5（实施后）。"},
+      {"name": "设计区顺序：规格 → 技术方案 → 细化计划", "ok": true, "note": "S5 依赖 S4、S6 依赖 S5；按 G2 退回意见重做的技术方案 S17 之后是细化计划 S18（S18 依赖 S17），产出已提交（design.md、docs/dependencies.json、infra/*.tf、探测脚本）。"},
+      {"name": "测试计划先于编码", "ok": true, "note": "实施区以 S24（testplan）开头，排在第 1 批编码 S25 之前。S25 的 dependsOn 为空，因为平台检查只允许 dependsOn 引用本计划内的步骤（S18 第二版的说明），顺序由平台骨架保证。design.md 第 405 行仍写作 S19/S20，见 findings。"},
+      {"name": "编码批次按顺序", "ok": true, "note": "第 1 批 S25 → S26；第 2 批 S27 依赖 S26，S28 依赖 S27。"},
+      {"name": "每批编码之后有代码审查", "ok": true, "note": "S26 审查第 1 批，S28 审查第 2 批。"},
+      {"name": "批次覆盖全部验收标准", "ok": true, "note": "第 1 批覆盖 AC-01、03、06、07、08、09（端到端主干：开始→连续识别+连续 LID→定稿翻译→停止，以及凭据与日志安全），第 2 批覆盖 AC-02、04、05（临时译文流式更新、定稿替换、多句顺序、含义一致、失败恢复），两批合计覆盖 AC-01～AC-09；每批都能在真实 dev 实例上独立验证。"},
+      {"name": "规格覆盖意图与每条验收标准", "ok": true, "note": "spec.md 的验收标准表把 AC-01～AC-09 分别映射到 FR、SC、IQA；范围外与非目标一致。"},
+      {"name": "技术方案与规格、计划一致", "ok": true, "note": "FR-006/007/011/014 分别由 TD-006、TD-007、TD-015、epoch 丢弃与 track.stop() 落实；FR-021/022 由 STS 短时令牌与字段白名单日志落实；验证矩阵覆盖 IQA-001～011 的开发者版本。只有若干文字层面的不一致，见 findings。"},
+      {"name": "外部集成以真实测试服务验证（宪章）", "ok": true, "note": "两个依赖在 dev、test 的 realInstance 均为 true；集成测试与端到端测试直连 dev 实例，独立测试使用 test 实例，不设 Mock 模式。"},
+      {"name": "凭据不进浏览器、日志不含客户内容（宪章）", "ok": true, "note": "浏览器只拿 STS 签发的 10 分钟令牌，不下发 aad# 令牌；日志按字段白名单输出，sourceLanguage 经正则校验后才写入，上游错误只记录状态码和错误码枚举；探测脚本不输出密钥、令牌和模型回复文本。"},
+      {"name": "档位依据", "ok": true, "note": "选择完整档的依据成立：新项目的首个交付，需要建立技术基线，跨两个真实外部依赖，并且有明确的安全、隐私与流式时序风险。"},
+      {"name": "预算", "ok": true, "note": "预算为 26 个会话、7 次修订、8 小时。含本次已用 17 个会话（0001～0017），剩余 S24～S28 和 G3～G5 共 8 步，合计约 25 个会话，只有约 1 次返工余量。按“每批之后审查”的结构和两个真实外部依赖来看，余量偏紧，但预算已按 S6 的建议调整并写入计划，本次不再提出。"}
+    ],
+    "findings": [
+      {"ownerStep": "S17", "blocking": false, "text": "design.md 的“通用规则·同源校验”写的是“优先 X-Forwarded-Host，否则 Host；Fastify trustProxy: true”，与同一节“客户端地址”和 TD-010 的“trustProxy = TRUSTED_PROXY_HOPS（默认 1）”相互矛盾。如果编码照 trustProxy: true 实现，Fastify 会信任整条 X-Forwarded-For 链，request.ip 取到客户端可伪造的最左侧地址，等于把 G2 已修正的限流键问题（R-4）重新引入。建议统一写成 trustProxy = TRUSTED_PROXY_HOPS，并说明外部主机按同一可信跳数取值。"},
+      {"ownerStep": "S17", "blocking": false, "text": "design.md 第 405 行“测试计划（S19）锁定后才开始第 1 批编码（S20）……”与 R-7 中的步骤编号已经过时：平台计划图中，测试计划是 S24，第 1 批编码是 S25，审查是 S26/S28。编码与审查步骤若按文中编号核对依赖，会对不上。建议改为不带编号的写法（“实施区的测试计划锁定后才开始第 1 批编码”），或改为 S24/S25。"},
+      {"ownerStep": "S17", "blocking": false, "text": "infra/probes/chat-model.sh 在 usage.completion_tokens_details.reasoning_tokens 缺失（\"absent\"）时也把约束 reasoning-disabled 判为 satisfied，而 design.md TD-012 和验证矩阵要求以 reasoning_tokens=0 作为“关闭 reasoning”的证据（AC-07、IQA-007）。如果所绑模型不返回该字段，探测会给出无法支撑 AC-07 的“满足”结论。建议缺失时判为 unsatisfied，或至少在 evidence 中明确写“无法证明”，不要判为满足。另外，脚本用 python3 判断回复是否含中文，环境里没有 python3 时会落到 unknown（不影响约束判定，可改用 grep -P 或 jq test）。"},
+      {"ownerStep": "S4", "blocking": false, "text": "spec.md 第 4 行说明“仓库中的 intent.md 正文早于意图 v2，其中 AC-03 的写法（‘中途切换为日语’）与假设 A-03 已被意图 v2 取代”已经失效：平台已在 1d256bf 把 intent.md 更新为意图第 2 版，AC-03 与交付输入一致。这条过时说明会误导测试计划步骤去比对不存在的差异，建议删除或改为“以意图 v2 为准”。"}
+    ]
+  }
+}
