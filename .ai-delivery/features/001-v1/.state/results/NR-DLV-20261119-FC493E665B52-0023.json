@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "stepId": "G2",
+  "result": "done",
+  "summary": "设计复审建议通过：S17 第二次修订只改了依赖声明的字段名与格式（R-8～R-10），已与注入变量、探测脚本和测试计划核对一致；规格完整覆盖意图 v2 的 AC-01～AC-09，技术方案可行，与规格和计划 v6 一致；上一轮 G2 提出的 4 个非阻断文字问题仍未修正（S18 已决定交给第 1 批编码与审查按权威条款处理），认证方式与“仅部署测试环境”两项仍待人决定。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/001-v1/.state/results/NR-DLV-20261119-FC493E665B52-0023.json"
+  ],
+  "review": {
+    "mode": "g2",
+    "conclusion": "建议通过 G2，进入测试计划（S29）和第 1 批编码（S30）。规格未变：FR-001～FR-022 与 IQA-001～IQA-011 逐条覆盖意图 v2 的 AC-01～AC-09、假设 A-01/A-02/A-04/A-05/A-06、Q-01～Q-05 的人工答案以及 PQ-001 的人工答案，没有越出意图范围。S17 第二次修订（R-8～R-10）只把接入字段与 connection 键改为大写（ENDPOINT、STT_HOST、TTS_HOST、REGION、KEY、DEPLOYMENT），把目标字段 example 改为“主机名:端口”格式，删除机密字段的 example，并把 identityAccess 改为数组。逐项核对：docs/dependencies.json 的 connection 键与 Terraform output（endpointHost、sttHost、ttsHost、region、key、deploymentName、resourceId）一一对应；注入的环境变量名（AIDH_DEP_SPEECH_*、AIDH_DEP_CHAT_MODEL_*）在 design.md 配置表、两个探测脚本和已锁定的 runtime/qa-run.sh 中保持一致；架构、TD-001～TD-015、契约、IaC 资源清单（3 个 create 资源，只在 var.resource_group_name 内）与部署声明均未改动。上一轮 G2 的结论仍然成立：浏览器经 Speech SDK 直连 universal/v2 做连续识别与连续语言识别（AC-02、AC-03、AC-07）；服务端以 reasoning_effort=none 流式代理翻译（AC-07）；STS 短时令牌（AC-08）、字段白名单日志（AC-09）、epoch 丢弃与 track.stop()（AC-06）、TD-015 断句（AC-05）都有对应设计，外部依赖在 dev/test 均使用真实实例，符合宪章“测试与质量”。上一轮 G2 的 4 个非阻断文字问题在 design.md、spec.md 和探测脚本中仍未修正。S18 在 omitted 中已明确交给第 1 批编码按权威条款落实、由第 1 批审查核对，以节省预算。这个安排可以接受，但第 1 批编码与审查必须按 findings 中写明的权威条款执行，其中限流 trustProxy 一条最重要。认证方式与“仅部署测试环境”两项人工决定仍未答复，见 items。",
+    "items": [
+      {
+        "category": "technical",
+        "question": "两个依赖（speech、chat-model）在依赖与机密任务中采用哪种认证方式？platform-identity 方式下，语音 STS（/sts/v1.0/issueToken）需要接受 Entra Bearer 令牌（IaC 已为此配置自定义子域），能否接受要看探测结果。G2、S6、S18 多次提出，至今没有人工答复。",
+        "recommended": "两个依赖都用 platform-identity（宪章要求支持时使用 managed identity）；探测报告 authenticated=false 或 STS 不接受 Entra 令牌时，该依赖改用 credential（密钥只在服务端使用，应用两种方式都实现）。",
+        "alternatives": [
+          "两个依赖都直接用 credential，降低隔离环境取不到身份令牌的风险。",
+          "按依赖分别选择。"
+        ]
+      },
+      {
+        "category": "business",
+        "question": "不登录、凭地址即可访问（Q-05），意味着任何拿到地址的人都能领取语音令牌、调用翻译，消耗付费资源；同源校验和可信地址限流只能降低风险，挡不住脚本直接调用。是否确认本次只部署到测试环境？G1、S2、G2、S6、S18 多次提出，至今没有人工答复。",
+        "recommended": "确认本次只部署到测试环境、不上生产，并记录“正式上线前须另行加入企业账号登录或网络访问限制”。",
+        "alternatives": [
+          "本次就给测试地址加网络访问限制（只允许公司网络或指定 IP）。",
+          "接受现状，不另作说明。"
+        ]
+      }
+    ],
+    "invariants": [
+      {"name": "关口齐全（G1～G5）", "ok": true, "note": "计划图 version 6 依次包含 G1（意图之后）、G2（设计之后）、G3、G4、G5（实施之后）。"},
+      {"name": "设计区顺序：规格 → 技术方案 → 细化计划", "ok": true, "note": "S5 依赖 S4，S6 依赖 S5；重做的技术方案 S17 之后是细化计划 S18（S18 依赖 S17），产出均已提交（4d39a7d、2783a59）。"},
+      {"name": "测试计划先于编码", "ok": true, "note": "实施区以 S29（testplan）开头，排在第 1 批编码 S30 之前；tasks-qa.md 与 runtime/qa-run.sh 已在 b0603c4 锁定。S30 的 dependsOn 为空，这是因为平台只允许 dependsOn 引用计划内的步骤，顺序由平台骨架保证（与上一轮 G2 的判断相同）。design.md 第 413 行仍写着 S19/S20，并称“由 S18 写入计划图”，与事实不符，见 findings。"},
+      {"name": "编码批次按顺序", "ok": true, "note": "第 1 批 S30 → S31；第 2 批 S32 依赖 S31，S33 依赖 S32。"},
+      {"name": "每批编码之后有代码审查", "ok": true, "note": "S31 审查第 1 批，S33 审查第 2 批。"},
+      {"name": "批次覆盖全部验收标准", "ok": true, "note": "第 1 批覆盖 AC-01、03、06、07、08、09（端到端主干与安全），第 2 批覆盖 AC-02、04、05（临时译文流式更新、定稿替换、多句顺序、含义一致）；两批合计覆盖 AC-01～AC-09，每批都能在真实 dev 实例上独立验证。"},
+      {"name": "规格覆盖意图与每条验收标准", "ok": true, "note": "spec.md 验收标准表把 AC-01～AC-09 映射到 FR、SC、IQA；非目标与范围外和意图 v2 一致。"},
+      {"name": "技术方案与规格、计划一致", "ok": true, "note": "FR-006/007/011/013/014/021/022 分别由 TD-006、TD-007、TD-015、track.stop()、epoch 丢弃、STS 短时令牌、白名单日志落实；本次 R-8～R-10 只改依赖声明格式，与配置表、探测脚本、QA 脚本的变量名一致。仍有文字层面的不一致，见 findings。"},
+      {"name": "外部集成以真实测试服务验证（宪章）", "ok": true, "note": "两个依赖在 dev、test 的 realInstance 均为 true；集成测试与端到端测试直连 dev，独立测试使用 test，不设 Mock 模式。"},
+      {"name": "凭据不进浏览器、日志不含客户内容（宪章）", "ok": true, "note": "浏览器只拿 10 分钟 STS 令牌；Terraform 的密钥输出标为 sensitive，机密字段没有 example；探测脚本不输出密钥、令牌和回复文本；日志按白名单输出。"},
+      {"name": "档位依据", "ok": true, "note": "完整档的依据成立：新项目的首个交付，需要建立技术基线，跨两个真实外部依赖，并且有明确的安全、隐私与流式时序风险。"},
+      {"name": "预算", "ok": true, "note": "计划预算为 32 个会话、9 次修订、10 小时。含本次已用 23 个会话（0001～0023），剩余 S29～S33 与 G3～G5 共 8 步，合计约 31 个，只留约 1 个会话的返工余量。修订已用约 3 次（G2 退回、平台检查修正、依赖绑定前检查退回），余量充足。会话余量偏紧但成立；S29 的测试计划已锁定，若平台只做核对，会话消耗还会更少。"}
+    ],
+    "findings": [
+      {"ownerStep": "S17", "blocking": false, "text": "design.md 第 288 行“通用规则·同源校验”仍写“Fastify trustProxy: true”，与第 289 行和 TD-010 的“trustProxy = TRUSTED_PROXY_HOPS（默认 1）”矛盾（上一轮 G2 已指出，未修正）。照 trustProxy: true 实现时，request.ip 会取到客户端可伪造的 X-Forwarded-For 最左侧地址，把 R-4 已修正的限流键问题重新引入。S18 已决定由第 1 批编码按 TD-010 落实，但这一决定只写在 S18 的结果信封里，编码步骤主要依据 design.md。要求：S30 实现时以 TD-010 与第 289 行为准，S31 审查必须核对；有机会修订 design.md 时，把第 288 行改为同一可信跳数。"},
+      {"ownerStep": "S17", "blocking": false, "text": "design.md 第 413 行写“测试计划（S19）锁定后才开始第 1 批编码（S20）……该依赖由细化计划（S18）写入计划图”，与计划图 v6 不符：测试计划是 S29，第 1 批编码是 S30，审查是 S31/S33；S30 的 dependsOn 为空，顺序由平台骨架保证，并不是 S18 写入的依赖。R-7 也是同样的旧写法。建议改为不带编号的写法。执行顺序以平台计划图为准。"},
+      {"ownerStep": "S17", "blocking": false, "text": "infra/probes/chat-model.sh 在 usage.completion_tokens_details.reasoning_tokens 缺失（\"absent\"）时仍把约束 reasoning-disabled 判为 satisfied（上一轮 G2 已指出，未修正），与 dependencies.json 约束文本“reasoning_tokens 为 0”以及 TD-012 不一致，会让依赖绑定时得出无法支撑 AC-07 的“满足”结论。按 S18 的决定，AC-07 的证据以集成测试 reasoning_tokens=0 的断言和 IQA-007 为准，探测结论不作为证据。建议缺失时判为 unsatisfied，或在 evidence 中写明“无法证明”。另外，脚本用 python3 判断回复是否含中文，缺少 python3 时结果为 unknown，不影响判定。"},
+      {"ownerStep": "S4", "blocking": false, "text": "spec.md 第 4 行“仓库中的 intent.md 正文早于意图 v2，其中 AC-03 的写法（‘中途切换为日语’）与假设 A-03 已被意图 v2 取代”已经失效：当前 intent.md 第 25 行的 AC-03 已与意图 v2 一致。这条说明不改变任何需求条款，但会误导后续步骤去比对不存在的差异，建议删除或改为“以意图 v2 为准”。"}
+    ]
+  }
+}
