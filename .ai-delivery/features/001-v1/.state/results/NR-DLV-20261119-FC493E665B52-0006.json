@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S4",
+  "result": "done",
+  "summary": "已按 PQ-001 人工答案（中文发言行为不规定、不纳入验收）修订 spec.md：PQ-001 标记已解决，行为模型、范围外与验收素材约定同步更新；FR-001～FR-022、SC-001～SC-009、IQA-001～IQA-011 覆盖 AC-01～AC-09，无阻塞产品问题。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/001-v1/spec.md"
+  ]
+}
