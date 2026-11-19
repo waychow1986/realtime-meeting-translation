@@ -1630,7 +1630,8 @@ def main():
 
     # ---- IQA-009 ----
     sid = "IQA-009"
-    ok_src = [s for s in log_src if s.get("status") == 200 or (isinstance(s.get("status"), list) and 200 in s["status"])]
+    ok_src = [s for s in log_src if s.get("source") != "resource-graph" and
+              (s.get("status") == 200 or (isinstance(s.get("status"), list) and 200 in s["status"]))]
     hits, ne, nc = search_logs(log_lines)
     ev(sid, write_evd("iqa-009-logs.json", {"assumption": "QA-A8", "window": [iso(w0 - 120000) if w0 else None, iso(int(time.time() * 1000))],
                                              "sources": log_src, "lines": len(log_lines), "needles": {"english5gram": ne, "chinese8": nc, "secrets": len(SECRETS)},
