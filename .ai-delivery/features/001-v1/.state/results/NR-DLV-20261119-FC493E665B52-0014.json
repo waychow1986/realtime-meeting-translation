@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S17",
+  "result": "done",
+  "summary": "按 G2 退回意见修订技术方案：依赖 IaC 由 Bicep 改写为 Terraform（infra/speech/main.tf、infra/chat-model/main.tf，只引用平台变量、只新增 3 个资源，删除 main.bicep）并同步依赖声明；候选语言收窄为 en-US/zh-CN/ja-JP/ko-KR；新增 TD-015 断句静音阈值 800 ms 与测试素材停顿约束（句内 ≤300 ms、句间 2000 ms），集成测试断言定稿条数等于句数；限流改用网关追加的可信客户端地址并按同一出口约 20 个页面重算阈值、临时与定稿分桶；日志白名单加入经校验的 sourceLanguage 作为 AC-07 证据；写明第 1 批编码须在测试计划锁定之后。探测脚本、部署声明与开发者命令沿用上一版。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/001-v1/design.md",
+    "docs/dependencies.json",
+    "infra/speech/main.tf",
+    "infra/chat-model/main.tf"
+  ]
+}
