@@ -14,7 +14,7 @@
     "errorLogRules": [
       {
         "name": "app-error-or-fatal",
-        "type": "structured",
+        "kind": "structured",
         "field": "level",
         "values": ["error", "fatal"],
         "messageField": "msg",
@@ -22,7 +22,7 @@
       },
       {
         "name": "upstream-errors-burst",
-        "type": "structured",
+        "kind": "structured",
         "field": "event",
         "values": ["upstream_error"],
         "messageField": "errorCode",
@@ -31,7 +31,7 @@
       },
       {
         "name": "node-crash-output",
-        "type": "pattern",
+        "kind": "pattern",
         "pattern": "^(?<message>(?:Uncaught |node:internal)?[A-Za-z]*Error(?: \\[[A-Z_]+\\])?: .+)$",
         "severity": "high"
       }

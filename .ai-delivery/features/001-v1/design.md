@@ -342,7 +342,7 @@ tests/
 
 ### 错误日志识别规则（`docs/deployment.json` → `operations.errorLogRules`）
 
-| 规则 | 类型 | 匹配 | 严重度 | 阈值 |
+| 规则 | 类型（`kind`） | 匹配 | 严重度 | 阈值 |
 | --- | --- | --- | --- | --- |
 | `app-error-or-fatal` | structured | `level` ∈ {`error`,`fatal`}，messageField `msg` | high | 出现即报 |
 | `upstream-errors-burst` | structured | `event` = `upstream_error`，messageField `errorCode` | medium | 5 分钟内 10 次 |
