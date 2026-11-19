@@ -1,6 +1,8 @@
 # Dependency "chat-model": Azure AI Foundry (AIServices) resource with a chat model
 # deployment used for translation with reasoning disabled (reasoning_effort "none").
-# gpt-sol-6.1 is the customer's preferred model (preference, not a hard constraint, A-05).
+# The customer's preferred gpt-sol-6.1 (a preference, not a hard constraint, A-05) was rejected
+# by Azure with DeploymentModelNotSupported on AIServices accounts, so this module deploys
+# gpt-5.1 (OpenAI format, GlobalStandard), which supports reasoning_effort "none".
 #
 # Platform rules (execution/cloud.md, form "terraform"):
 # - Only adds resources to the platform-injected resource group (var.resource_group_name).
@@ -14,6 +16,9 @@ terraform {
       source  = "hashicorp/azurerm"
       version = ">= 4.0.0, < 5.0.0"
     }
+    random = {
+      source = "hashicorp/random"
+    }
   }
 }
 
@@ -22,10 +27,21 @@ provider "azurerm" {
   resource_provider_registrations = "none"
 }
 
+# Extra random part of the account name. var.aidh_suffix is fixed per request, so a retried
+# apply would otherwise collide with an account left by an earlier attempt or with a
+# soft-deleted account of the same name (Cognitive Services keeps deleted names reserved).
+resource "random_string" "name" {
+  length  = 4
+  lower   = true
+  upper   = false
+  numeric = true
+  special = false
+}
+
 locals {
-  account_name    = lower("rtmt-llm-${var.aidh_suffix}")
-  model_name      = "gpt-sol-6.1"
-  deployment_name = "gpt-sol-6.1"
+  account_name    = lower("rtmt-llm-${var.aidh_suffix}-${random_string.name.result}")
+  model_name      = "gpt-5.1"
+  deployment_name = "gpt-5.1"
   deployment_sku  = "GlobalStandard"
   # Thousands of tokens per minute. A page issues about 1-3 short translation calls per second
   # (about 150-300 tokens each), roughly 30-50K TPM for 1-2 concurrent pages in the test env.

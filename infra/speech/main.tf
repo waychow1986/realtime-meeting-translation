@@ -13,6 +13,9 @@ terraform {
       source  = "hashicorp/azurerm"
       version = ">= 4.0.0, < 5.0.0"
     }
+    random = {
+      source = "hashicorp/random"
+    }
   }
 }
 
@@ -23,9 +26,20 @@ provider "azurerm" {
   resource_provider_registrations = "none"
 }
 
+# Extra random part of the account name. var.aidh_suffix is fixed per request, so a retried
+# apply would otherwise collide with an account left by an earlier attempt or with a
+# soft-deleted account of the same name (Cognitive Services keeps deleted names reserved).
+resource "random_string" "name" {
+  length  = 4
+  lower   = true
+  upper   = false
+  numeric = true
+  special = false
+}
+
 locals {
   # Also used as the custom subdomain, which must be globally unique.
-  account_name = lower("rtmt-speech-${var.aidh_suffix}")
+  account_name = lower("rtmt-speech-${var.aidh_suffix}-${random_string.name.result}")
 }
 
 resource "azurerm_cognitive_account" "speech" {

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Probe for dependency "chat-model" (Azure AI Foundry chat model, preferred gpt-sol-6.1).
+# Probe for dependency "chat-model" (Azure AI Foundry chat model deployment, gpt-5.1 by default).
 # Reports: reachable, authenticated, and constraint
 #   reasoning-disabled : a call with reasoning_effort "none" succeeds and uses 0 reasoning tokens
 # Never prints secrets, tokens or model output text.
