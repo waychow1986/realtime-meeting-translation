@@ -15,6 +15,14 @@
 | R-6 | 连续语言识别候选语言过多影响英语稳定性（G2 事项，按退回意见收窄） | 候选语言收窄为 `en-US, zh-CN, ja-JP, ko-KR`（英语居首），可经配置调整 | TD-005 |
 | R-7 | 第 1 批编码须在测试计划锁定之后 | 验证矩阵与快速验证指南写明：第 1 批编码以锁定的测试计划为前提（由细化计划 S18 落实依赖） | 验证矩阵 |
 
+### 本版修订（S17 重跑，按 S25 依赖绑定前检查）
+
+| # | 检查意见 | 本版处理 | 位置 |
+| --- | --- | --- | --- |
+| R-8 | 接入字段与 `connection` 键名须匹配 `^[A-Z][A-Z0-9_]*$` | 接入字段改名为 `ENDPOINT`、`STT_HOST`、`TTS_HOST`、`REGION`、`KEY`（speech）与 `ENDPOINT`、`DEPLOYMENT`、`KEY`（chat-model），`connection` 键同步；注入的环境变量名（`AIDH_DEP_SPEECH_STT_HOST` 等）与上一版一致，应用、测试与探测脚本无需改读取方式 | `docs/dependencies.json`、“依赖声明摘要” |
+| R-9 | 目标字段 `example` 须为“主机名:端口”，机密字段不得写 `example` | 目标字段示例改为 `example-speech.cognitiveservices.azure.com:443` 等格式示意；删除两个 `KEY` 的示例 | `docs/dependencies.json` |
+| R-10 | `cloud.identityAccess` 须为数组 | 改为 `[{role, resource}]`，角色与输出名不变 | `docs/dependencies.json` |
+
 ## 技术上下文（Technical Context）
 
 | 项 | 选择 |
@@ -46,7 +54,7 @@
 | 客户约束 6（测试环境可创建或复用） | 两个依赖推荐 `cloud`（平台执行本方案的 Terraform），也可在依赖与机密任务中改为复用已有实例或客户提供。 |
 | 平台 IaC 规则（`execution/cloud.md`：F-1～F-3、S-1～S-5、T-1～T-11） | 只用 `terraform` 形态；只新增资源、只在 `var.resource_group_name` 内；不声明平台变量、不写 backend/provisioner/角色分配/标签名与值；provider 不设身份、租户、订阅；支持标签的资源写 `tags = var.aidh_tags`；全局唯一名用 `var.aidh_suffix`（TD-014）。 |
 | Q-05 不做登录 | 不做身份认证；用同源校验 + 按网关可信客户端地址的频率限制降低付费资源被滥用的风险（TD-010），阈值按同一出口多页面并用留足余量，不影响正常使用体验。 |
-| 平台：候选部署网络默认拒绝，出站只到已声明依赖 | 服务端只访问 `speech.endpoint` 与 `chat-model.endpoint`；浏览器访问 `speech.stt-host`（声明为目标字段，以便 QA Pod 放行）。 |
+| 平台：候选部署网络默认拒绝，出站只到已声明依赖 | 服务端只访问 `speech.ENDPOINT` 与 `chat-model.ENDPOINT`；浏览器访问 `speech.STT_HOST`（声明为目标字段，以便 QA Pod 放行）。 |
 | 平台：镜像用户必须为正整数 UID | Dockerfile `USER 10001`。 |
 
 ## 架构概览（Architecture）
@@ -68,7 +76,7 @@
 │ TranslationService ── Chat Completions stream, reasoning none─▶│ 依赖 chat-model：gpt-sol-6.1│
 │ 静态文件 / 安全头 / 同源校验 / 频率限制 / 白名单日志       │   └───────────────────────────┘
 └────────────────────────────────────────────────────────────┘
-          浏览器 ──WSS──▶ {stt-host}/speech/universal/v2（依赖 speech 的实时识别端点）
+          浏览器 ──WSS──▶ {STT_HOST}/speech/universal/v2（依赖 speech 的实时识别端点）
 ```
 
 要点：
@@ -83,7 +91,7 @@
 | 决策 ID | 选择 | 理由 | 已考虑替代方案 | 来源 |
 |---|---|---|---|---|
 | TD-001 | 建立技术基线：TypeScript + Node.js 22 + Fastify 单服务，前端原生 DOM + esbuild | 仓库为空，无既有基线；Speech SDK 官方 JS 版本在浏览器中最成熟，前后端同一语言便于共享契约类型；功能面小，无需前端框架 | Python FastAPI + 前端 SPA（两种语言、两套工具链）；.NET（Speech 浏览器端仍需 JS） | 宪章·最简单架构；FR-001 |
-| TD-002 | 浏览器经 Speech SDK 直连语音服务做连续识别（`fromEndpoint(wss://{stt-host}/speech/universal/v2)` + `authorizationToken`） | 中间结果时延最低，服务端无音频负载；连续 LID 只在 SDK/WebSocket 实时通道上可用 | 浏览器把音频经 WebSocket 推给服务端再转发（多一跳时延与带宽，服务端要处理音频编解码与长连接） | FR-006、FR-018；AC-02、AC-07 |
+| TD-002 | 浏览器经 Speech SDK 直连语音服务做连续识别（`fromEndpoint(wss://{STT_HOST}/speech/universal/v2)` + `authorizationToken`） | 中间结果时延最低，服务端无音频负载；连续 LID 只在 SDK/WebSocket 实时通道上可用 | 浏览器把音频经 WebSocket 推给服务端再转发（多一跳时延与带宽，服务端要处理音频编解码与长连接） | FR-006、FR-018；AC-02、AC-07 |
 | TD-003 | 浏览器自行 `getUserMedia` 取得 MediaStream，再以 `AudioConfig.fromStreamInput(mediaStream)` 交给 SDK | 停止时直接 `track.stop()`，浏览器麦克风指示立即消失，不依赖 SDK 释放时机 | `AudioConfig.fromDefaultMicrophoneInput()`（SDK 关闭麦克风有延迟/遗留指示的已知问题） | FR-013；IQA-006 |
 | TD-004 | 服务端向语音服务 STS `https://{endpoint}/sts/v1.0/issueToken` 换取 10 分钟语音令牌下发给浏览器；`credential` 模式用 `Ocp-Apim-Subscription-Key`，`platform-identity` 模式用 Entra 访问令牌（scope `https://cognitiveservices.azure.com/.default`）作 `Authorization: Bearer` | 浏览器永远拿不到密钥或 Entra 令牌（Entra 令牌受众为 cognitiveservices，可能也能调用大模型，故不下发 `aad#` 形式令牌）；STS 令牌只对语音资源有效且 10 分钟过期 | 下发 `aad#{resourceId}#{entraToken}`（暴露 1 小时、范围更广的 Entra 令牌）；下发密钥（违反 AC-08） | FR-021；AC-08；宪章·安全 |
 | TD-005 | 连续语言自动识别候选语言 4 种：`en-US, zh-CN, ja-JP, ko-KR`（英语居首）；服务端配置 `CANDIDATE_LANGUAGES` 可调（1～10 项，启动时校验），通过令牌接口下发，页面无语言控件 | Q-02 答案“以服务能力为准，实际会议一般是英语，不要求中途切换语言”；连续 LID 必须给候选集合（上限 10），候选越多英语越易被误判、首条结果越慢，按 G2 退回意见收窄为英语 + 两种常见亚洲外语；保留 zh-CN 以免中文插话被强行识别为外语后乱译（中文发言行为不纳入验收，PQ-001）。语言仍由服务自动识别，不是由用户或代码指定 | 10 种（服务上限，G2 指出影响英语稳定性）；只给 `en-US`（不再是“自动识别”）；`en-US`+`zh-CN` | FR-003、FR-008；Q-02；G2 |
@@ -183,7 +191,7 @@ tests/
 3. `POST /api/speech-token` 取 `{token, sttEndpoint, candidateLanguages, segmentationSilenceMs}`；失败 → 停掉刚获得的音轨，提示 E-2 文案，状态 `stopped`。
 4. 构建识别器：
    ```ts
-   const cfg = SpeechConfig.fromEndpoint(new URL(sttEndpoint));    // wss://{stt-host}/speech/universal/v2
+   const cfg = SpeechConfig.fromEndpoint(new URL(sttEndpoint));    // wss://{STT_HOST}/speech/universal/v2
    cfg.authorizationToken = token;
    cfg.setProperty(PropertyId.SpeechServiceConnection_LanguageIdMode, 'Continuous');
    cfg.setProperty(PropertyId.Speech_SegmentationSilenceTimeoutMs, String(segmentationSilenceMs)); // TD-015
@@ -243,7 +251,7 @@ tests/
 ### `GET /`、静态资源
 
 - `index.html`、`app.js`、`styles.css`。响应头：
-  - `Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' wss://{stt-host} https://{stt-host}; frame-ancestors 'none'; base-uri 'none'; form-action 'none'`（`{stt-host}` 取自 `AIDH_DEP_SPEECH_STT_HOST`，去掉 `:443`）
+  - `Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' wss://{STT_HOST} https://{STT_HOST}; frame-ancestors 'none'; base-uri 'none'; form-action 'none'`（`{STT_HOST}` 取自 `AIDH_DEP_SPEECH_STT_HOST`，去掉 `:443`）
   - `Permissions-Policy: microphone=(self)`、`Referrer-Policy: no-referrer`、`X-Content-Type-Options: nosniff`
 - 页面与脚本中不含任何地址常量之外的配置；`sttEndpoint` 与候选语言只经令牌接口下发。
 
@@ -254,7 +262,7 @@ tests/
   ```json
   {
     "token": "<STS 签发的语音授权令牌，10 分钟有效>",
-    "sttEndpoint": "wss://<stt-host>/speech/universal/v2",
+    "sttEndpoint": "wss://<STT_HOST>/speech/universal/v2",
     "candidateLanguages": ["en-US","zh-CN","ja-JP","ko-KR"],
     "segmentationSilenceMs": 800,
     "refreshAfterSeconds": 240
@@ -338,7 +346,7 @@ tests/
 
 | 变量 | 来源 | 必填 | 用途 |
 | --- | --- | --- | --- |
-| `AIDH_DEP_SPEECH_ENDPOINT` | 平台（= `endpoint` 字段） | 是 | STS 主机:端口 |
+| `AIDH_DEP_SPEECH_ENDPOINT` | 平台（= `ENDPOINT` 字段） | 是 | STS 主机:端口 |
 | `AIDH_DEP_SPEECH_STT_HOST` | 平台 | 是 | 浏览器实时识别主机:端口 |
 | `AIDH_DEP_SPEECH_TTS_HOST` | 平台 | 否（仅测试使用） | 测试素材合成 |
 | `AIDH_DEP_SPEECH_REGION` | 平台 | 是 | 资源区域（诊断与测试用） |
@@ -383,7 +391,7 @@ tests/
 
 - 部署声明 `docs/deployment.json`：一个服务 `web`，构建上下文 `.`、构建文件 `Dockerfile`，`port: 8080`，`healthPath: /healthz`，`exposed: true`（平台提供 HTTPS 地址；`getUserMedia` 需要安全上下文，HTTPS 满足）。
 - Dockerfile：多阶段，`node:22-bookworm-slim`；构建阶段 `npm ci` + `npm run build`（tsc 编译服务端、esbuild 打包前端到 `dist/web/`）；运行阶段 `npm ci --omit=dev`，只复制 `dist/`，`USER 10001`，`EXPOSE 8080`，`CMD ["node","dist/server/main.js"]`。
-- 网络：服务出站仅 `speech.endpoint`、`chat-model.endpoint`（`platform-identity` 模式下还需平台的身份端点，由平台提供）。
+- 网络：服务出站仅 `speech.ENDPOINT`、`chat-model.ENDPOINT`（`platform-identity` 模式下还需平台的身份端点，由平台提供）。
 - 依赖资源（平台执行，Agent 不执行）：`infra/speech/main.tf` 新增 `azurerm_cognitive_account.speech`（`AIServices`，S0）；`infra/chat-model/main.tf` 新增 `azurerm_cognitive_account.chat`（`AIServices`，S0）与 `azurerm_cognitive_deployment.chat`（`gpt-sol-6.1`，GlobalStandard，容量 50）。预览出的资源清单即这 3 个资源，全部为 create、全部在平台资源组内；技术负责人确认清单后平台执行。区域取 `var.location`，须同时支持语音连续语言识别与目标模型，否则在依赖与机密任务中改为复用或客户提供。
 - 迁移：无数据、无迁移。
 - Rollout：平台按候选 SHA 构建镜像并部署到 `cand-{deliveryShortId}`；健康检查 `/healthz`。
@@ -404,7 +412,7 @@ tests/
 
 执行顺序：测试计划（S19）锁定后才开始第 1 批编码（S20），第 1 批编码以锁定的测试计划中的场景为自测目标；该依赖由细化计划（S18）写入计划图。
 
-测试素材：`tests/fixtures/sentences.en.json` 保存英语句子、参考中文译文与关键信息点（含至少 1 句 10～20 秒的长句、≥ 5 句的多句组），并按 TD-015 约束：每条只含一个句末标点、句内停顿 ≤ 300 ms（SSML `comma-exact 200ms`）、句间静音 2000 ms、尾部静音 ≥ 3000 ms、开头静音 1000 ms。测试运行时用 `speech` 依赖的 TTS（`https://{tts-host}/cognitiveservices/v1`，用与识别相同的认证方式取令牌）逐句合成 16 kHz 16-bit 单声道 WAV，再按上述静音拼接，同时生成每句起止时间（供 IQA-002 时序判定），缓存到仓库外的临时目录。素材只含英语（PQ-001、意图 v2 AC-03 不要求中途切换语言）。合成素材不是客户内容。Playwright 版本需与镜像预装的浏览器一致（Coding 以 `npx playwright --version` 核对后固定版本）。
+测试素材：`tests/fixtures/sentences.en.json` 保存英语句子、参考中文译文与关键信息点（含至少 1 句 10～20 秒的长句、≥ 5 句的多句组），并按 TD-015 约束：每条只含一个句末标点、句内停顿 ≤ 300 ms（SSML `comma-exact 200ms`）、句间静音 2000 ms、尾部静音 ≥ 3000 ms、开头静音 1000 ms。测试运行时用 `speech` 依赖的 TTS（`https://{TTS_HOST}/cognitiveservices/v1`，用与识别相同的认证方式取令牌）逐句合成 16 kHz 16-bit 单声道 WAV，再按上述静音拼接，同时生成每句起止时间（供 IQA-002 时序判定），缓存到仓库外的临时目录。素材只含英语（PQ-001、意图 v2 AC-03 不要求中途切换语言）。合成素材不是客户内容。Playwright 版本需与镜像预装的浏览器一致（Coding 以 `npx playwright --version` 核对后固定版本）。
 
 ## 快速验证指南（Quickstart）
 
@@ -446,8 +454,8 @@ npm run test:e2e             # functionalTests：本地服务 + Playwright 假�
 
 | 依赖 | 推荐形态 | 约束（探测逐条报告） | 接入字段 | 身份访问角色 |
 | --- | --- | --- | --- | --- |
-| `speech`（Foundry 语音转文字） | `cloud`：`infra/speech/main.tf`（Terraform）创建 `AIServices` 资源（自定义子域） | `realtime-streaming-stt`：实时识别 WebSocket 端点接受认证连接；`language-auto-detection`：支持连续语言识别的 `universal/v2` 端点接受认证连接 | `endpoint`（目标）、`stt-host`（目标）、`tts-host`（目标，测试素材合成）、`region`、`key`（机密） | `Cognitive Services Speech User` |
-| `chat-model`（Foundry 大模型，优先 `gpt-sol-6.1`） | `cloud`：`infra/chat-model/main.tf`（Terraform）创建 `AIServices` 资源与模型部署 | `reasoning-disabled`：以 `reasoning_effort: "none"` 调用成功且 `reasoning_tokens` 为 0 | `endpoint`（目标）、`deployment`、`key`（机密） | `Cognitive Services OpenAI User` |
+| `speech`（Foundry 语音转文字） | `cloud`：`infra/speech/main.tf`（Terraform）创建 `AIServices` 资源（自定义子域） | `realtime-streaming-stt`：实时识别 WebSocket 端点接受认证连接；`language-auto-detection`：支持连续语言识别的 `universal/v2` 端点接受认证连接 | `ENDPOINT`（目标）、`STT_HOST`（目标）、`TTS_HOST`（目标，测试素材合成）、`REGION`、`KEY`（机密） | `Cognitive Services Speech User` |
+| `chat-model`（Foundry 大模型，优先 `gpt-sol-6.1`） | `cloud`：`infra/chat-model/main.tf`（Terraform）创建 `AIServices` 资源与模型部署 | `reasoning-disabled`：以 `reasoning_effort: "none"` 调用成功且 `reasoning_tokens` 为 0 | `ENDPOINT`（目标）、`DEPLOYMENT`、`KEY`（机密） | `Cognitive Services OpenAI User` |
 
 说明：
 

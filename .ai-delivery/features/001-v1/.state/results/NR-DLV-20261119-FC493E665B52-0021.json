@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S17",
+  "result": "done",
+  "summary": "按 S25 依赖绑定前检查修订依赖声明：接入字段与 connection 键改为大写名称（ENDPOINT、STT_HOST、TTS_HOST、REGION、KEY、DEPLOYMENT，注入的环境变量名不变），目标字段 example 改为“主机名:端口”格式示意，删除机密字段 KEY 的 example，identityAccess 改为数组；design.md 同步字段名并新增修订记录 R-8～R-10，探测脚本只更新了证据文案中的字段名；架构、约束、IaC 与部署声明未改动。",
+  "asks": [],
+  "outputs": [
+    "docs/dependencies.json",
+    ".ai-delivery/features/001-v1/design.md",
+    "infra/probes/speech.sh",
+    "infra/probes/chat-model.sh"
+  ]
+}

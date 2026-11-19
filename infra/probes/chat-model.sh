@@ -33,7 +33,7 @@ DEPLOYMENT="${AIDH_DEP_CHAT_MODEL_DEPLOYMENT:-}"
 AUTH_MODE="${AIDH_DEP_CHAT_MODEL_AUTH_MODE:-credential}"
 
 if [ -z "$HOST" ] || [ -z "$DEPLOYMENT" ]; then
-  rd_evidence="endpoint or deployment access field is empty"; write_result; exit 0
+  rd_evidence="ENDPOINT or DEPLOYMENT access field is empty"; write_result; exit 0
 fi
 
 get_entra_token() {
@@ -62,7 +62,7 @@ HDR_FILE="$WORK/auth.hdr"
 case "$AUTH_MODE" in
   credential)
     if [ -z "${AIDH_DEP_CHAT_MODEL_KEY:-}" ]; then
-      rd_evidence="auth mode credential but key access field is empty"; write_result; exit 0
+      rd_evidence="auth mode credential but KEY access field is empty"; write_result; exit 0
     fi
     printf 'api-key: %s\n' "$AIDH_DEP_CHAT_MODEL_KEY" > "$HDR_FILE" ;;
   platform-identity)

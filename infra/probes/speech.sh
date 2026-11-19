@@ -38,7 +38,7 @@ STT_HOST="$(host_of "${AIDH_DEP_SPEECH_STT_HOST:-}")"
 AUTH_MODE="${AIDH_DEP_SPEECH_AUTH_MODE:-credential}"
 
 if [ -z "$ENDPOINT_HOST" ] || [ -z "$STT_HOST" ]; then
-  rt_evidence="endpoint or stt-host access field is empty"
+  rt_evidence="ENDPOINT or STT_HOST access field is empty"
   lid_evidence="$rt_evidence"
   write_result; exit 0
 fi
@@ -71,7 +71,7 @@ HDR_FILE="$WORK/sts.hdr"
 case "$AUTH_MODE" in
   credential)
     if [ -z "${AIDH_DEP_SPEECH_KEY:-}" ]; then
-      rt_evidence="auth mode credential but key access field is empty"; lid_evidence="$rt_evidence"
+      rt_evidence="auth mode credential but KEY access field is empty"; lid_evidence="$rt_evidence"
       write_result; exit 0
     fi
     printf 'Ocp-Apim-Subscription-Key: %s\n' "$AIDH_DEP_SPEECH_KEY" > "$HDR_FILE" ;;

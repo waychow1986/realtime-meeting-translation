@@ -20,33 +20,32 @@
       "access": {
         "fields": [
           {
-            "name": "endpoint",
+            "name": "ENDPOINT",
             "purpose": "资源自定义子域主机与端口，用于 STS 令牌换取（/sts/v1.0/issueToken）",
             "target": true,
-            "example": "<resource-name>.cognitiveservices.azure.com:443"
+            "example": "example-speech.cognitiveservices.azure.com:443"
           },
           {
-            "name": "stt-host",
+            "name": "STT_HOST",
             "purpose": "资源所在区域的实时语音识别主机与端口（浏览器与测试经 WSS 连接 /speech/universal/v2）",
             "target": true,
-            "example": "<region>.stt.speech.microsoft.com:443"
+            "example": "example-region.stt.speech.microsoft.com:443"
           },
           {
-            "name": "tts-host",
+            "name": "TTS_HOST",
             "purpose": "资源所在区域的语音合成主机与端口，仅用于测试时合成英语测试语音",
             "target": true,
-            "example": "<region>.tts.speech.microsoft.com:443"
+            "example": "example-region.tts.speech.microsoft.com:443"
           },
           {
-            "name": "region",
+            "name": "REGION",
             "purpose": "资源所在 Azure 区域名",
             "example": "<region>"
           },
           {
-            "name": "key",
+            "name": "KEY",
             "purpose": "资源访问密钥，仅在 credential 认证方式下使用，只留在服务端",
-            "secret": true,
-            "example": "<32 位十六进制密钥>"
+            "secret": true
           }
         ]
       },
@@ -56,16 +55,18 @@
       "cloud": {
         "files": "infra/speech",
         "connection": {
-          "endpoint": "{{output.endpointHost}}",
-          "stt-host": "{{output.sttHost}}",
-          "tts-host": "{{output.ttsHost}}",
-          "region": "{{output.region}}",
-          "key": "{{output.key}}"
+          "ENDPOINT": "{{output.endpointHost}}",
+          "STT_HOST": "{{output.sttHost}}",
+          "TTS_HOST": "{{output.ttsHost}}",
+          "REGION": "{{output.region}}",
+          "KEY": "{{output.key}}"
         },
-        "identityAccess": {
-          "role": "Cognitive Services Speech User",
-          "resource": "resourceId"
-        }
+        "identityAccess": [
+          {
+            "role": "Cognitive Services Speech User",
+            "resource": "resourceId"
+          }
+        ]
       },
       "sharing": {
         "description": "应用无状态，不在语音资源中创建或保存任何数据（不使用自定义模型、批量转写或存储），共享时只共享区域配额与并发连接数，无需隔离脚本。"
@@ -89,21 +90,20 @@
       "access": {
         "fields": [
           {
-            "name": "endpoint",
+            "name": "ENDPOINT",
             "purpose": "Foundry/Azure OpenAI 资源主机与端口，应用调用 /openai/v1/chat/completions",
             "target": true,
-            "example": "<resource-name>.openai.azure.com:443"
+            "example": "example-llm.openai.azure.com:443"
           },
           {
-            "name": "deployment",
+            "name": "DEPLOYMENT",
             "purpose": "模型部署名，作为请求中的 model 字段",
             "example": "<deployment-name>"
           },
           {
-            "name": "key",
+            "name": "KEY",
             "purpose": "资源访问密钥，仅在 credential 认证方式下使用，只留在服务端",
-            "secret": true,
-            "example": "<32 位十六进制密钥>"
+            "secret": true
           }
         ]
       },
@@ -113,14 +113,16 @@
       "cloud": {
         "files": "infra/chat-model",
         "connection": {
-          "endpoint": "{{output.endpointHost}}",
-          "deployment": "{{output.deploymentName}}",
-          "key": "{{output.key}}"
+          "ENDPOINT": "{{output.endpointHost}}",
+          "DEPLOYMENT": "{{output.deploymentName}}",
+          "KEY": "{{output.key}}"
         },
-        "identityAccess": {
-          "role": "Cognitive Services OpenAI User",
-          "resource": "resourceId"
-        }
+        "identityAccess": [
+          {
+            "role": "Cognitive Services OpenAI User",
+            "resource": "resourceId"
+          }
+        ]
       },
       "sharing": {
         "description": "应用无状态，只做推理调用，不上传文件、不创建助手或存储数据；共享时只共享部署的 TPM/RPM 配额，无需隔离脚本。"
