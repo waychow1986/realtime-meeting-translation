@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S38",
+  "result": "done",
+  "summary": "首次审查批次 2（S37）的临时译文节流、资源释放和多句流式测试改动，未发现阻断问题，记录 1 项观察项。",
+  "asks": [],
+  "outputs": [],
+  "review": {
+    "mode": "code-review",
+    "conclusion": "通过。captionPipeline 按 TD-006 实现临时译文：每句同时最多 1 个 partial 请求；请求完成后以最新文本补发，两次发送间隔 ≥ 500 ms（不足时用定时器补足）；原文未变不重发；只有当较新版本的累积文本长度不小于当前显示长度、或该版本的流已结束时，才替换显示，与设计第 217 行一致；partial 失败或被限流时静默处理，不计入失败或网络计数，不触发错误停止（TD-010，设计第 223 行）。并发与失败恢复方面：handleRecognized、dropSegment、endRun 都会中止进行中的 partial 请求并清除节流定时器；sendPartial 返回后按 controller 身份、aborted、status=interim 和 epoch 逐一检查，迟到的增量不会覆盖 finalizing 或 final 字幕，停止后也不会再发请求或更新字幕（AC-06 不受影响）。release 在句段定稿或丢弃后清空 sourceText 并从 Map 中删除；beginRun 在遍历中删除当前条目，在 JS 中是安全的。translator.sseData 提前退出时会 cancel 上游响应体，并补充了测试。TTS 测试辅助改为按 AUTH_MODE 签发 STS 短时令牌，代码和日志中都不出现凭据。S36 的 4 项观察均已处理。测试方面：原有单元测试只删除了“识别中不发请求”这一条断言，原因是 TD-006 改变了这一行为，属于规格要求的改动，不是放宽断言；其余既有断言改为按 kind 筛选后断言不变，停止测试改为断言所有请求均已中止，比原来更严格。新增 9 项 TD-006 单元测试；新增 e2e streaming.spec 在真实服务上验证 AC-02（S1 结束前出现字幕且至少变化 2 次，S1 结束前已发出 partial 请求）、AC-04（6 句均为中文且命中全部关键要素）、AC-05（定稿条数恰好 6，锚点一一对应，没有残留的临时字幕，定稿后不再变化），并验证页面不显示原文；captions.spec 已改为断言定稿条数恰好为 3。",
+    "items": [],
+    "findings": [
+      {
+        "ownerStep": "S37",
+        "text": "[观察·调用量] src/web/captionPipeline.ts:244-248：partial 请求失败（包括 upstream_rejected、invalid_request、forbidden 这类重试也不会成功的原因），或成功但返回空译文时，partialSource 不会更新，maybeSendPartial 会在 500 ms 后用同一文本再发一次，直到该句识别结束。这符合设计“下一节拍以最新文本再发”的写法，调用量受单飞、≥500 ms 间隔和 TD-010 限流约束，不影响定稿与验收。建议对不可重试的原因记录 partialSource，等原文变化后再发，以减少无效的大模型调用。",
+        "blocking": false
+      }
+    ]
+  }
+}
