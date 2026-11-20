@@ -173,90 +173,90 @@
  ],
  "files": {
   "main": {
-   "duration_ms": 40760,
-   "speech_end_ms": 38260,
+   "duration_ms": 39940,
+   "speech_end_ms": 37440,
    "sentences": [
     {
      "id": "S1",
      "start_ms": 300,
-     "end_ms": 10320
+     "end_ms": 9320
     },
     {
      "id": "S2",
-     "start_ms": 12820,
-     "end_ms": 15620
+     "start_ms": 11820,
+     "end_ms": 14740
     },
     {
      "id": "S3",
-     "start_ms": 18120,
-     "end_ms": 20800
+     "start_ms": 17240,
+     "end_ms": 19900
     },
     {
      "id": "S4",
-     "start_ms": 23300,
-     "end_ms": 26680
+     "start_ms": 22400,
+     "end_ms": 25720
     },
     {
      "id": "S5",
-     "start_ms": 29180,
-     "end_ms": 32400
+     "start_ms": 28220,
+     "end_ms": 31620
     },
     {
      "id": "S6",
-     "start_ms": 34900,
-     "end_ms": 38260
+     "start_ms": 34120,
+     "end_ms": 37440
     }
    ]
   },
   "stop": {
-   "duration_ms": 40760,
-   "speech_end_ms": 38260,
+   "duration_ms": 39940,
+   "speech_end_ms": 37440,
    "sentences": [
     {
      "id": "S1",
      "start_ms": 300,
-     "end_ms": 10320
+     "end_ms": 9320
     },
     {
      "id": "S2",
-     "start_ms": 12820,
-     "end_ms": 15620
+     "start_ms": 11820,
+     "end_ms": 14740
     },
     {
      "id": "S3",
-     "start_ms": 18120,
-     "end_ms": 20800
+     "start_ms": 17240,
+     "end_ms": 19900
     },
     {
      "id": "S4",
-     "start_ms": 23300,
-     "end_ms": 26680
+     "start_ms": 22400,
+     "end_ms": 25720
     },
     {
      "id": "S5",
-     "start_ms": 29180,
-     "end_ms": 32400
+     "start_ms": 28220,
+     "end_ms": 31620
     },
     {
      "id": "S6",
-     "start_ms": 34900,
-     "end_ms": 38260
+     "start_ms": 34120,
+     "end_ms": 37440
     }
    ]
   },
   "short": {
-   "duration_ms": 9780,
-   "speech_end_ms": 7780,
+   "duration_ms": 9880,
+   "speech_end_ms": 7880,
    "sentences": [
     {
      "id": "S2",
      "start_ms": 300,
-     "end_ms": 3100
+     "end_ms": 3220
     },
     {
      "id": "S3",
-     "start_ms": 5100,
-     "end_ms": 7780
+     "start_ms": 5220,
+     "end_ms": 7880
     }
    ]
   }
