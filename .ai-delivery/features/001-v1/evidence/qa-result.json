@@ -1,6 +1,6 @@
 {
  "passed": false,
- "testedCommitSha": "287c4f2fd65762a06761220612014a5e88a5b719",
+ "testedCommitSha": "a7e22dae5d815b43065b5f498c896408f5a5de72",
  "summary": "独立测试 9/11 个场景通过；产品缺陷 0 条，无法验证（测试缺口）4 条。依据 tasks-qa.md，带“依赖假设”的判定见各检查点观察。",
  "defects": [],
  "testGaps": [
@@ -84,7 +84,7 @@
     {
      "step": "5 出现中文字幕",
      "passed": true,
-     "observation": "开始后 4.9 秒出现首条字幕：下午"
+     "observation": "开始后 5.1 秒出现首条字幕：下午"
     }
    ],
    "evidence": "通过：5 个检查点全部通过；证据文件：browser-info.json、iqa-main-1-loaded.png、iqa-main-2-translating.png、iqa-main-3-final.png、iqa-main-4-stopped.png、iqa-main-console.log、iqa-main-network.json、iqa-main-timeline.json、iqa-main.webm"
@@ -100,22 +100,22 @@
     {
      "step": "1 首条字幕早于句末",
      "passed": true,
-     "observation": "S1 语音 0.3–9.9 秒；首条字幕出现于 4.9 秒"
+     "observation": "S1 语音 0.3–9.4 秒；首条字幕出现于 5.1 秒"
     },
     {
      "step": "2 句中持续更新",
      "passed": true,
-     "observation": "S1 结束前字幕出现 25 个不同状态（要求 ≥ 2）"
+     "observation": "S1 结束前字幕出现 26 个不同状态（要求 ≥ 2）"
     },
     {
      "step": "3 句末定稿",
      "passed": true,
-     "observation": "S3 字幕出现时的 S1 字幕=“今天我们将回顾第三季度的销售报告，之后我们会详细讨论明年的营销计划。”；最终=“今天我们将回顾第三季度的销售报告，之后我们会详细讨论明年的营销计划。”"
+     "observation": "S3 字幕出现时的 S1 字幕=“今天我们要回顾第三季度的销售报告，之后我们将详细讨论明年的营销计划。”；最终=“今天我们要回顾第三季度的销售报告，之后我们将详细讨论明年的营销计划。”"
     },
     {
      "step": "4 非整句后一次性出现",
      "passed": true,
-     "observation": "S1 结束前已有 25 次字幕变化"
+     "observation": "S1 结束前已有 26 次字幕变化"
     }
    ],
    "evidence": "通过：4 个检查点全部通过；证据文件：iqa-002-timing.json、iqa-main-1-loaded.png、iqa-main-2-translating.png、iqa-main-3-final.png、iqa-main-4-stopped.png、iqa-main-console.log、iqa-main-network.json、iqa-main-timeline.json、iqa-main.webm"
@@ -198,7 +198,7 @@
     {
      "step": "4 条数",
      "passed": true,
-     "observation": "定稿字幕行 6 条，素材 6 句：大家下午好。今天我们将回顾第三季度的销售 | 新加坡的新办公室将于三月五日开业。 | 我们团队有12名工程师和4名设计师。 | 我们不会取消这个项目，因为预算已经获批。 | 请在星期五下午之前把最终合同发给迈克尔。 | 去年该产品的价格上涨了15%。"
+     "observation": "定稿字幕行 6 条，素材 6 句：各位下午好。今天我们要回顾第三季度的销售 | 新加坡的新办公室将于三月五日开放。 | 我们团队有12名工程师和4名设计师。 | 我们不会取消这个项目，因为预算已经获批。 | 请在星期五下午之前把最终合同发给迈克尔。 | 去年该产品的价格上涨了15%。"
     },
     {
      "step": "5 定稿不变",
@@ -224,12 +224,12 @@
     {
      "step": "1 停止前已有字幕",
      "passed": true,
-     "observation": "停止时字幕：下午好，各位。今天我们将回顾第三季度的销售报告，之后我们会详细讨论明年的营销计划。 / 新的"
+     "observation": "停止时字幕：各位下午好。今天我们将回顾第三季度的销售报告，之后我们会详细讨论明年的营销计划。"
     },
     {
      "step": "2 停止后麦克风释放与状态",
      "passed": true,
-     "observation": "停止后 2 秒内轨道状态：全部 ended（48 毫秒）；状态=idle（依赖假设 QA-A2、QA-A4）"
+     "observation": "停止后 2 秒内轨道状态：全部 ended（34 毫秒）；状态=idle（依赖假设 QA-A2、QA-A4）"
     },
     {
      "step": "3 停止后不再发送音频",
@@ -244,7 +244,7 @@
     {
      "step": "5 停止前字幕保留",
      "passed": true,
-     "observation": "S1 定稿字幕“今天我们将回顾第三季度的销售报告，之后我们会详细讨论明年的营销计划。新的”停止后仍在"
+     "observation": "S1 定稿字幕“今天我们将回顾第三季度的销售报告，之后我们会详细讨论明年的营销计划。”停止后仍在"
     },
     {
      "step": "6 再次开始",
@@ -270,12 +270,12 @@
     {
      "step": "2 实时（流式）识别",
      "passed": true,
-     "observation": "浏览器可见语音连接中间结果 110 条；IQA-002 首条字幕早于句末=pass"
+     "observation": "浏览器可见语音连接中间结果 105 条；IQA-002 首条字幕早于句末=pass"
     },
     {
      "step": "3 语言自动识别",
      "passed": true,
-     "observation": "语言识别标记：浏览器语音连接 137 处，诊断接口=False；IQA-003 无语言选择=pass"
+     "observation": "语言识别标记：浏览器语音连接 133 处，诊断接口=False；IQA-003 无语言选择=pass"
     },
     {
      "step": "4 大模型完成翻译",
@@ -298,7 +298,7 @@
     {
      "step": "1 长期凭据命中数为 0",
      "passed": true,
-     "observation": "扫描 94 个请求、88 个响应（80 个正文）、5 个实时连接（文本帧 159、二进制帧 1002）、4 份 DOM、4 份存储：命中 0"
+     "observation": "扫描 95 个请求、85 个响应（83 个正文）、5 个实时连接（文本帧 155、二进制帧 974）、4 份 DOM、4 份存储：命中 0"
     }
    ],
    "evidence": "通过：1 个检查点全部通过；证据文件：iqa-008-scan.json"
@@ -340,7 +340,7 @@
     {
      "step": "3 恢复",
      "passed": true,
-     "observation": "授予权限后再次开始：状态=running；字幕=新加坡的新办公室"
+     "observation": "授予权限后再次开始：状态=running；字幕=新加坡的新办公室将于3月5日开放。"
     }
    ],
    "evidence": "通过：3 个检查点全部通过；证据文件：iqa-010-1-denied.png、iqa-010-2-recovered.png、iqa-010-console.log、iqa-010-timeline.json、iqa-010.webm"
@@ -356,7 +356,7 @@
     {
      "step": "1 页面 A 已有字幕",
      "passed": true,
-     "observation": "页面 A 字幕：新办公室将在新加坡于3月5日开业。 / 我们团队有12名工程师和四"
+     "observation": "页面 A 字幕：新加坡的新办公室将于三月五日开业。 / 我们团队有12名工程师并且"
     },
     {
      "step": "2 页面互不可见",

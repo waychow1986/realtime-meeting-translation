@@ -1,8 +1,8 @@
 {
  "assumption": "QA-A7",
  "window": [
-  "2026-11-20T03:25:00Z",
-  "2026-11-20T03:27:46Z"
+  "2026-11-20T03:44:14Z",
+  "2026-11-20T03:46:57Z"
  ],
  "dependencies": {
   "CHAT_MODEL": {
@@ -41,7 +41,7 @@
    "host": "eastus2.stt.speech.microsoft.com",
    "path": "/speech/universal/v2",
    "azure": true,
-   "sentFrames": 570,
+   "sentFrames": 560,
    "recvFrames": 71,
    "runs": [
     "iqa-main"
@@ -51,8 +51,8 @@
    "host": "eastus2.stt.speech.microsoft.com",
    "path": "/speech/universal/v2",
    "azure": true,
-   "sentFrames": 145,
-   "recvFrames": 32,
+   "sentFrames": 137,
+   "recvFrames": 30,
    "runs": [
     "iqa-006"
    ]
@@ -61,8 +61,8 @@
    "host": "eastus2.stt.speech.microsoft.com",
    "path": "/speech/universal/v2",
    "azure": true,
-   "sentFrames": 73,
-   "recvFrames": 16,
+   "sentFrames": 63,
+   "recvFrames": 14,
    "runs": [
     "iqa-006"
    ]
@@ -71,8 +71,8 @@
    "host": "eastus2.stt.speech.microsoft.com",
    "path": "/speech/universal/v2",
    "azure": true,
-   "sentFrames": 57,
-   "recvFrames": 10,
+   "sentFrames": 62,
+   "recvFrames": 13,
    "runs": [
     "iqa-010"
    ]
@@ -81,15 +81,15 @@
    "host": "eastus2.stt.speech.microsoft.com",
    "path": "/speech/universal/v2",
    "azure": true,
-   "sentFrames": 171,
-   "recvFrames": 16,
+   "sentFrames": 166,
+   "recvFrames": 13,
    "runs": [
     "iqa-011"
    ]
   }
  ],
- "browserHypothesisMessages": 110,
- "browserLidMarkers": 137,
+ "browserHypothesisMessages": 105,
+ "browserLidMarkers": 133,
  "fixedLanguageQueries": 0,
  "browserModelRequests": 0,
  "diagnostics": [
