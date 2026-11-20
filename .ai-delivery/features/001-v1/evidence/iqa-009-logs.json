@@ -1,0 +1,25 @@
+{
+ "assumption": "QA-A8",
+ "window": [
+  "2026-11-20T03:23:00Z",
+  "2026-11-20T03:36:48Z"
+ ],
+ "sources": [
+  {
+   "source": "resource-graph",
+   "status": 200,
+   "matched": []
+  }
+ ],
+ "lines": 0,
+ "needles": {
+  "english5gram": 59,
+  "chinese8": 79,
+  "secrets": 2
+ },
+ "hits": {
+  "englishSource": 0,
+  "chineseCaptions": 0,
+  "secrets": 0
+ }
+}

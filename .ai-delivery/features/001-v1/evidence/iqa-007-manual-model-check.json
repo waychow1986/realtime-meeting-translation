@@ -1,0 +1,49 @@
+{
+ "note": "手工补充核对（tasks-qa.md IQA-007 QA-A7④ 的直接调用步骤；锁定脚本因注入的 ENDPOINT 缺少 https:// 前缀未能执行）。不含密钥与客户内容；输入为合成测试句。",
+ "endpointHost": "https://rtmt-llm-5f1a6d-3lpq.openai.azure.com",
+ "deployment": "gpt-5.1",
+ "calls": [
+  {
+   "label": "default",
+   "api": "deployments",
+   "status": 200,
+   "model": "gpt-5.1-2025-11-13",
+   "reasoning_tokens": 0,
+   "completion_tokens": 22,
+   "output": "我们的团队有十二名工程师和四名设计师。"
+  },
+  {
+   "label": "reasoning_effort=none",
+   "api": "deployments",
+   "status": 200,
+   "model": "gpt-5.1-2025-11-13",
+   "reasoning_tokens": 0,
+   "completion_tokens": 22,
+   "output": "我们的团队有十二名工程师和四名设计师。"
+  },
+  {
+   "label": "default",
+   "api": "v1",
+   "status": 200,
+   "model": "gpt-5.1-2025-11-13",
+   "reasoning_tokens": 0,
+   "completion_tokens": 22,
+   "output": "我们的团队有十二名工程师和四名设计师。"
+  },
+  {
+   "label": "reasoning_effort=none",
+   "api": "v1",
+   "status": 200,
+   "model": "gpt-5.1-2025-11-13",
+   "reasoning_tokens": 0,
+   "completion_tokens": 22,
+   "output": "我们团队有十二名工程师和四名设计师。"
+  },
+  {
+   "label": "gpt-sol-6.1 deployment probe",
+   "api": "deployments",
+   "status": 404,
+   "error": "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"DeploymentNotFound\",\n    \"message\": \"The API deployment for this resource does not exist. If you created the deployment within the last 5 minutes, please wait a moment and try again.\"\n  }\n}"
+  }
+ ]
+}
