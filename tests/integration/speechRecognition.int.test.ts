@@ -12,7 +12,7 @@ import {
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import type { SpeechTokenResponse } from '../../src/shared/contracts.js';
 import { buildRealApp, type RealApp } from '../support/realApp.js';
-import { ensureSpeechWav, pcmOf, readWav, sentencesOf, wavDurationMs, type SentenceSetName } from '../support/tts.js';
+import { ensureSpeechAudio, ensureSpeechWav, pcmOf, readWav, sentencesOf, wavDurationMs, type SentenceSetName } from '../support/tts.js';
 
 interface RecognitionTrace {
   recognizing: { offsetMs: number; language?: string }[];
@@ -106,9 +106,24 @@ describe('Azure Speech streaming recognition with automatic language identificat
     expect(trace.recognized[2]?.text.toLowerCase()).toContain('revenue');
   });
 
+  it('returns exactly one final result per sentence for the six-sentence meeting set (AC-05 / IQA-005)', async () => {
+    const audio = await ensureSpeechAudio('meeting');
+    const expected = sentencesOf('meeting');
+    expect(audio.timings).toHaveLength(expected.length);
+    const firstSentenceMs = (audio.timings[0]?.endMs ?? 0) - (audio.timings[0]?.startMs ?? 0);
+    expect(firstSentenceMs).toBeGreaterThanOrEqual(8_000);
+    const trace = await recognize('meeting');
+    expect(trace.canceled).toBeUndefined();
+    expect(trace.recognized).toHaveLength(expected.length);
+    for (const result of trace.recognized) expect(result.language).toBe('en-US');
+    const keywords = [/third quarter/, /singapore/, /engineers/, /cancel/, /contract/, /15\s*%|fifteen percent/];
+    keywords.forEach((keyword, index) => expect(trace.recognized[index]?.text.toLowerCase()).toMatch(keyword));
+  });
+
   it('keeps a 10–20 second sentence with short comma pauses as a single final result', async () => {
-    const wav = await readWav(await ensureSpeechWav('long'));
-    const speechMs = wavDurationMs(wav) - 1000 - 4000;
+    const audio = await ensureSpeechAudio('long');
+    expect(wavDurationMs(await readWav(audio.wav))).toBeCloseTo(audio.durationMs, -1);
+    const speechMs = (audio.timings[0]?.endMs ?? 0) - (audio.timings[0]?.startMs ?? 0);
     expect(speechMs).toBeGreaterThan(10_000);
     expect(speechMs).toBeLessThan(20_000);
     const trace = await recognize('long');

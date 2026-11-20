@@ -13,6 +13,49 @@
         "Our revenue grew by twelve percent compared with the same period last year."
       ]
     },
+    "meeting": {
+      "description": "6 句英语（首句为 ≥ 8 秒长句），句间停顿 2 秒，用于流式临时字幕（AC-02）、含义一致（AC-04）与多句不重不漏（AC-05）；每句附参考中文译文、关键要素（每组为可接受写法的正则，全部命中才算含义一致）与唯一锚点",
+      "sentences": [
+        "Good afternoon everyone, today we are going to review the sales report for the third quarter, and after that we will discuss the marketing plan for next year in detail.",
+        "The new office in Singapore will open on the fifth of March.",
+        "Our team has twelve engineers and four designers.",
+        "We will not cancel the project because the budget has been approved.",
+        "Please send the final contract to Michael before Friday afternoon.",
+        "The price of the product increased by fifteen percent last year."
+      ],
+      "annotations": [
+        {
+          "reference": "大家下午好，今天我们将审阅第三季度的销售报告，之后我们将详细讨论明年的营销计划。",
+          "keyPoints": ["销售", "三季度|第3季度|Q3", "营销|市场", "明年|下一年|来年"],
+          "anchor": "三季度|第3季度|Q3"
+        },
+        {
+          "reference": "新加坡的新办公室将于三月五日开业。",
+          "keyPoints": ["新加坡", "3\\s*月\\s*5|三月五", "办公室|办事处"],
+          "anchor": "新加坡"
+        },
+        {
+          "reference": "我们团队有十二名工程师和四名设计师。",
+          "keyPoints": ["十二|12", "四|4", "工程师", "设计师"],
+          "anchor": "工程师"
+        },
+        {
+          "reference": "我们不会取消这个项目，因为预算已经获批。",
+          "keyPoints": ["取消", "不|没", "项目", "预算", "批准|获批|通过|核准|审批"],
+          "anchor": "取消"
+        },
+        {
+          "reference": "请在周五下午之前把最终合同发给迈克尔。",
+          "keyPoints": ["合同", "迈克尔|迈克|麦克|麦可|Michael", "周五|星期五|礼拜五", "下午"],
+          "anchor": "合同"
+        },
+        {
+          "reference": "该产品的价格去年上涨了百分之十五。",
+          "keyPoints": ["价格|价钱", "百分之十五|15\\s*[%％]", "去年", "上涨|增长|提高|上升|涨"],
+          "anchor": "百分之十五|15\\s*[%％]"
+        }
+      ]
+    },
     "long": {
       "description": "1 句 10–20 秒的长句，句内只有逗号短停顿，用于断句阈值验证",
       "sentences": [

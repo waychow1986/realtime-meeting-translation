@@ -1,7 +1,7 @@
 # realtime-meeting-translation
 AIDelivery Hub project: 会议中把外语发言实时翻译成中文字幕的 Web 应用
 
-浏览器打开页面、点击“开始”并允许麦克风后，发言由 Azure 语音服务流式识别（连续语言自动识别，无需选择语言），每句识别完成后由 Foundry 大模型（`gpt-5.1`，`reasoning_effort: "none"`）流式翻译成中文字幕；点击“停止”立即释放麦克风。字幕只保存在当前页面内存中，刷新即清空。设计依据见 `.ai-delivery/features/001-v1/design.md`。
+浏览器打开页面、点击“开始”并允许麦克风后，发言由 Azure 语音服务流式识别（连续语言自动识别，无需选择语言），说话过程中即按中间识别结果显示临时中文译文（同一句同时最多 1 个临时翻译请求、两次请求间隔 ≥ 500 ms、原文未变化不重发，失败静默），每句识别完成后由 Foundry 大模型（`gpt-5.1`，`reasoning_effort: "none"`）流式翻译成定稿中文字幕并替换临时译文；点击“停止”立即释放麦克风。字幕只保存在当前页面内存中，刷新即清空。设计依据见 `.ai-delivery/features/001-v1/design.md`。
 
 ## 结构
 
@@ -42,7 +42,7 @@ npm run test:e2e                    # 构建后用 Playwright 运行端到端测
 
 本地运行：`npm run build && node dist/server/main.js`，访问 `http://localhost:8080`（localhost 为安全上下文，可使用麦克风）。
 
-端到端测试说明：每个 worker 在本机端口 `18180+` 启动构建产物，服务端输出写入 `test-results/server-logs/`（用于检查日志不含客户内容）；浏览器使用完整版 Chromium（`channel: 'chromium'`，headless shell 不支持假音频采集），以 `--use-fake-device-for-media-stream --use-file-for-fake-audio-capture` 把 TTS 合成的英语 WAV 作为麦克风输入。测试素材见 `tests/fixtures/sentences.en.json`，合成结果缓存在系统临时目录。
+端到端测试说明：每个 worker 在本机端口 `18180+` 启动构建产物，服务端输出写入 `test-results/server-logs/`（用于检查日志不含客户内容）；浏览器使用完整版 Chromium（`channel: 'chromium'`，headless shell 不支持假音频采集），以 `--use-fake-device-for-media-stream --use-file-for-fake-audio-capture` 把 TTS 合成的英语 WAV 作为麦克风输入。测试素材见 `tests/fixtures/sentences.en.json`（`meeting` 组为 6 句会议发言，附参考译文、关键要素与唯一锚点，用于流式临时字幕、含义一致与多句不重不漏的测试）。TTS 按句合成后拼接（前导静音 1 秒、句间 2 秒、末尾 4 秒），WAV 与每句起止时间（`.json`）缓存在系统临时目录；TTS 鉴权与应用相同，按 `AIDH_DEP_SPEECH_AUTH_MODE` 签发短时令牌后以 `Authorization: Bearer` 调用。假麦克风会循环播放 WAV，因此“字幕条数恰好等于句数”的断言在末尾静音之后、循环重放第一句之前进行。
 
 ## 日志
 

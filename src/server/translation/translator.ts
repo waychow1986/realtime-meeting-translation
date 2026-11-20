@@ -74,10 +74,14 @@ export async function* sseData(body: ReadableStream<Uint8Array>): AsyncGenerator
   const decoder = new TextDecoder();
   let buffer = '';
   const reader = body.getReader();
+  let finished = false;
   try {
     for (;;) {
       const { value, done } = await reader.read();
-      if (done) break;
+      if (done) {
+        finished = true;
+        break;
+      }
       buffer += decoder.decode(value, { stream: true });
       let idx: number;
       while ((idx = buffer.search(/\r?\n\r?\n/)) >= 0) {
@@ -99,6 +103,8 @@ export async function* sseData(body: ReadableStream<Uint8Array>): AsyncGenerator
       .join('\n');
     if (tail) yield tail;
   } finally {
+    // The consumer may stop early ([DONE], content_filter, abort): release the upstream connection too.
+    if (!finished) await reader.cancel().catch(() => undefined);
     reader.releaseLock();
   }
 }

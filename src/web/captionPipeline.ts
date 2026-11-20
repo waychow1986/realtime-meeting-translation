@@ -19,7 +19,17 @@ interface CaptionSegment {
   sourceLanguage?: string;
   status: SegmentStatus;
   shownText: string;
+  /** Version of the last partial request sent / of the partial text currently shown (TD-006). */
+  partialRev: number;
+  shownRev: number;
+  /** In-flight final translation (or its retry wait). */
   inflight?: AbortController;
+  /** In-flight partial translation; at most one per segment (TD-006). */
+  partialInflight?: AbortController;
+  lastPartialAt?: number;
+  /** Source text whose partial translation succeeded last; unchanged text is not re-sent. */
+  partialSource?: string;
+  cancelPartialTimer?: () => void;
 }
 
 export interface CaptionPipelineDeps {
@@ -28,6 +38,9 @@ export interface CaptionPipelineDeps {
   /** Called once when translation is considered unavailable (E-2). */
   onTranslationUnavailable: () => void;
   sleep?: (ms: number, signal: AbortSignal) => Promise<void>;
+  /** Clock and timer used by the partial throttle; injectable for tests. */
+  now?: () => number;
+  schedule?: (fn: () => void, ms: number) => () => void;
 }
 
 const RETRYABLE: ReadonlySet<TranslateFailureReason> = new Set([
@@ -42,6 +55,12 @@ const NOT_COUNTED: ReadonlySet<TranslateFailureReason> = new Set(['upstream_reje
 const MAX_CONSECUTIVE_FAILURES = 3;
 const RETRY_DELAY_MS = 1000;
 const MAX_RETRY_AFTER_MS = 2000;
+export const PARTIAL_INTERVAL_MS = 500;
+
+function defaultSchedule(fn: () => void, ms: number): () => void {
+  const timer = setTimeout(fn, ms);
+  return () => clearTimeout(timer);
+}
 
 function defaultSleep(ms: number, signal: AbortSignal): Promise<void> {
   return new Promise((resolve) => {
@@ -70,9 +89,13 @@ export class CaptionPipeline {
   private failedSegments = 0;
   private networkFailures = 0;
   private readonly sleep: (ms: number, signal: AbortSignal) => Promise<void>;
+  private readonly now: () => number;
+  private readonly schedule: (fn: () => void, ms: number) => () => void;
 
   constructor(private readonly deps: CaptionPipelineDeps) {
     this.sleep = deps.sleep ?? defaultSleep;
+    this.now = deps.now ?? Date.now;
+    this.schedule = deps.schedule ?? defaultSchedule;
   }
 
   beginRun(): number {
@@ -86,6 +109,7 @@ export class CaptionPipeline {
         seg.status = 'interrupted';
         this.deps.view.setStatus(seg.id, 'interrupted');
       }
+      this.release(seg);
     }
     return this.activeEpoch;
   }
@@ -95,6 +119,7 @@ export class CaptionPipeline {
     this.activeEpoch = null;
     this.current = undefined;
     for (const seg of this.segments.values()) {
+      this.stopPartials(seg);
       seg.inflight?.abort();
       seg.inflight = undefined;
     }
@@ -103,14 +128,16 @@ export class CaptionPipeline {
   handleRecognizing(epoch: number, text: string, language: string | undefined): void {
     if (epoch !== this.activeEpoch) return;
     const seg = this.current ?? this.createSegment(epoch);
-    seg.sourceText = text;
+    seg.sourceText = text.slice(0, MAX_TRANSLATION_TEXT_LENGTH);
     seg.sourceLanguage = normalizeLanguage(language) ?? seg.sourceLanguage;
+    this.maybeSendPartial(seg);
   }
 
   handleRecognized(epoch: number, text: string, language: string | undefined): void {
     if (epoch !== this.activeEpoch) return;
     const seg = this.current ?? this.createSegment(epoch);
     this.current = undefined;
+    this.stopPartials(seg);
     seg.inflight?.abort();
     seg.inflight = undefined;
     const finalText = text.trim();
@@ -127,7 +154,15 @@ export class CaptionPipeline {
 
   private createSegment(epoch: number): CaptionSegment {
     this.seq += 1;
-    const seg: CaptionSegment = { id: this.seq, runEpoch: epoch, sourceText: '', status: 'interim', shownText: '' };
+    const seg: CaptionSegment = {
+      id: this.seq,
+      runEpoch: epoch,
+      sourceText: '',
+      status: 'interim',
+      shownText: '',
+      partialRev: 0,
+      shownRev: 0,
+    };
     this.segments.set(seg.id, seg);
     this.current = seg;
     this.deps.view.append(seg.id);
@@ -147,8 +182,76 @@ export class CaptionPipeline {
   private dropSegment(seg: CaptionSegment): void {
     seg.status = 'dropped';
     seg.inflight?.abort();
-    this.segments.delete(seg.id);
+    this.stopPartials(seg);
+    this.release(seg);
     this.deps.view.remove(seg.id);
+  }
+
+  /** Forgets a segment that can no longer change, including its source text (kept in memory only while needed). */
+  private release(seg: CaptionSegment): void {
+    seg.sourceText = '';
+    seg.partialSource = undefined;
+    this.segments.delete(seg.id);
+  }
+
+  private stopPartials(seg: CaptionSegment): void {
+    seg.cancelPartialTimer?.();
+    seg.cancelPartialTimer = undefined;
+    seg.partialInflight?.abort();
+    seg.partialInflight = undefined;
+  }
+
+  /** TD-006: single flight per segment, latest text wins, at most one send per PARTIAL_INTERVAL_MS. */
+  private maybeSendPartial(seg: CaptionSegment): void {
+    if (seg.status !== 'interim' || !this.isLive(seg) || seg.partialInflight || seg.cancelPartialTimer) return;
+    if (!seg.sourceText.trim() || seg.sourceText === seg.partialSource) return;
+    const wait = seg.lastPartialAt === undefined ? 0 : seg.lastPartialAt + PARTIAL_INTERVAL_MS - this.now();
+    if (wait <= 0) {
+      void this.sendPartial(seg);
+      return;
+    }
+    seg.cancelPartialTimer = this.schedule(() => {
+      seg.cancelPartialTimer = undefined;
+      this.maybeSendPartial(seg);
+    }, wait);
+  }
+
+  private async sendPartial(seg: CaptionSegment): Promise<void> {
+    const controller = new AbortController();
+    seg.partialInflight = controller;
+    seg.lastPartialAt = this.now();
+    seg.partialRev += 1;
+    const rev = seg.partialRev;
+    const text = seg.sourceText;
+    let buffer = '';
+    const request: TranslationRequest = { kind: 'partial', text };
+    if (seg.sourceLanguage) request.sourceLanguage = seg.sourceLanguage;
+    const outcome = await this.deps.translate(request, {
+      signal: controller.signal,
+      onDelta: (delta) => {
+        if (controller.signal.aborted) return;
+        buffer += delta;
+        // Avoid flicker: a newer revision replaces the caption only once it is at least as long.
+        if (rev === seg.shownRev || (rev > seg.shownRev && buffer.length >= seg.shownText.length)) {
+          this.showInterim(seg, rev, buffer);
+        }
+      },
+    });
+    if (seg.partialInflight !== controller || controller.signal.aborted) return;
+    seg.partialInflight = undefined;
+    if (seg.status !== 'interim' || !this.isLive(seg)) return;
+    // Failures and rate limits are silent and not counted (TD-010); the next tick retries with the latest text.
+    if (outcome.ok && buffer.trim()) {
+      if (rev >= seg.shownRev) this.showInterim(seg, rev, buffer);
+      seg.partialSource = text;
+    }
+    this.maybeSendPartial(seg);
+  }
+
+  private showInterim(seg: CaptionSegment, rev: number, text: string): void {
+    if (seg.status !== 'interim' || !this.isLive(seg)) return;
+    seg.shownRev = rev;
+    this.show(seg, text);
   }
 
   private async attempt(seg: CaptionSegment): Promise<TranslateOutcome> {
@@ -194,6 +297,7 @@ export class CaptionPipeline {
     if (outcome.ok) {
       seg.status = 'final';
       this.deps.view.setStatus(seg.id, 'final');
+      this.release(seg);
       this.failedSegments = 0;
       return;
     }

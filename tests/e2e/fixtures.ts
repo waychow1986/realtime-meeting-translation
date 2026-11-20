@@ -37,21 +37,55 @@ interface Options {
   grantMicrophone: boolean;
 }
 
-/** Records every MediaStreamTrack obtained via getUserMedia so tests can check that stop really ends capture. */
+/**
+ * Records every MediaStreamTrack obtained via getUserMedia (so tests can check that stop really ends capture),
+ * the time the first capture started (the fake microphone plays the WAV from its start at that moment) and a
+ * timeline of every caption change: { at, index (order of appearance), status, text }.
+ */
 // Kept as browser source text: the test tsconfig has no DOM lib.
 const INSTRUMENTATION = `(() => {
-  const record = { gumCalls: 0, tracks: [] };
+  const record = { gumCalls: 0, tracks: [], captureStartedAt: undefined, timeline: [] };
   Object.defineProperty(window, '__rtmt', { value: record });
+  const indexes = new WeakMap();
+  let nextIndex = 0;
+  const snapshot = () => {
+    const list = document.getElementById('captions');
+    if (!list) return;
+    for (const item of list.querySelectorAll('li.caption')) {
+      if (!indexes.has(item)) indexes.set(item, { index: nextIndex++, last: '' });
+      const state = indexes.get(item);
+      const entry = { status: item.dataset.status || '', text: item.textContent || '' };
+      const key = entry.status + '\\u0000' + entry.text;
+      if (key === state.last) continue;
+      state.last = key;
+      record.timeline.push({ at: Date.now(), index: state.index, status: entry.status, text: entry.text });
+    }
+  };
+  const observe = () => {
+    const list = document.getElementById('captions');
+    if (!list) return;
+    new MutationObserver(snapshot).observe(list, { subtree: true, childList: true, characterData: true, attributes: true });
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', observe);
+  else observe();
   const devices = navigator.mediaDevices;
   if (!devices || !devices.getUserMedia) return;
   const original = devices.getUserMedia.bind(devices);
   devices.getUserMedia = async (constraints) => {
     record.gumCalls += 1;
     const stream = await original(constraints);
+    if (record.captureStartedAt === undefined) record.captureStartedAt = Date.now();
     record.tracks.push(...stream.getTracks());
     return stream;
   };
 })();`;
+
+export interface CaptionEvent {
+  at: number;
+  index: number;
+  status: string;
+  text: string;
+}
 
 async function waitForServer(baseURL: string, child: ChildProcess): Promise<void> {
   const deadline = Date.now() + 20_000;
@@ -159,6 +193,31 @@ export async function trackStates(page: Page): Promise<{ gumCalls: number; state
   return page.evaluate<{ gumCalls: number; states: string[] }>(
     '({ gumCalls: window.__rtmt.gumCalls, states: window.__rtmt.tracks.map((track) => track.readyState) })',
   );
+}
+
+export async function captionTimeline(page: Page): Promise<CaptionEvent[]> {
+  return page.evaluate<CaptionEvent[]>('window.__rtmt.timeline.slice()');
+}
+
+/** Epoch ms when the fake microphone started playing the WAV (first successful getUserMedia). */
+export async function captureStartedAt(page: Page): Promise<number> {
+  await expect.poll(() => page.evaluate<number | null>('window.__rtmt.captureStartedAt ?? null')).not.toBeNull();
+  return page.evaluate<number>('window.__rtmt.captureStartedAt');
+}
+
+/**
+ * Waits until the fake microphone is at `offsetMs` into the WAV. The file loops, so assertions about
+ * "exactly N captions" must happen before the replay's first sentence (leading silence after durationMs).
+ */
+export async function waitUntilAudioOffset(page: Page, offsetMs: number): Promise<void> {
+  const remaining = (await captureStartedAt(page)) + offsetMs - Date.now();
+  if (remaining > 0) await page.waitForTimeout(remaining);
+}
+
+/** Count of the Han characters relative to all letters/digits (punctuation and whitespace ignored). */
+export function hanRatio(text: string): number {
+  const significant = text.match(/[\p{L}\p{N}]/gu)?.length ?? 0;
+  return significant === 0 ? 0 : hanCount(text) / significant;
 }
 
 export function hanCount(text: string): number {

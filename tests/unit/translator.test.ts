@@ -106,6 +106,31 @@ describe('translator.translate', () => {
     expect(result).toMatchObject({ ok: false, code: 'upstream_rejected' });
   });
 
+  it('cancels the upstream body when the stream is left early ([DONE] or content_filter before the body ends)', async () => {
+    const encoder = new TextEncoder();
+    const cancelled: unknown[] = [];
+    const openBody = (events: string[]) =>
+      new ReadableStream<Uint8Array>({
+        start(controller) {
+          for (const e of events) controller.enqueue(encoder.encode(e));
+        },
+        cancel(reason) {
+          cancelled.push(reason);
+        },
+      });
+    const done = await makeTranslator(async () => new Response(openBody([chunk('你好'), 'data: [DONE]\n\n']))).translate(
+      { kind: 'final', text: 'x' },
+      { signal: new AbortController().signal, onDelta: () => undefined },
+    );
+    const filtered = await makeTranslator(
+      async () =>
+        new Response(openBody([chunk(null, { choices: [{ index: 0, delta: {}, finish_reason: 'content_filter' }] })])),
+    ).translate({ kind: 'final', text: 'x' }, { signal: new AbortController().signal, onDelta: () => undefined });
+    expect(done.ok).toBe(true);
+    expect(filtered).toMatchObject({ ok: false, code: 'upstream_rejected' });
+    expect(cancelled).toHaveLength(2);
+  });
+
   it('maps network errors to upstream_unavailable', async () => {
     const result = await makeTranslator(async () => {
       throw new TypeError('fetch failed');

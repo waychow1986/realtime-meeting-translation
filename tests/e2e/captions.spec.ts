@@ -1,6 +1,6 @@
 import type { Request, Response } from '@playwright/test';
 import { SecretScanner } from '../support/secretScan.js';
-import { sentencesOf } from '../support/tts.js';
+import { ensureSpeechAudio, sentencesOf } from '../support/tts.js';
 import {
   NOT_RUNNING,
   RUNNING,
@@ -13,6 +13,7 @@ import {
   stopButton,
   test,
   waitForFinalCaptions,
+  waitUntilAudioOffset,
 } from './fixtures.js';
 
 test.use({ audioSet: 'multi' });
@@ -78,9 +79,16 @@ test('IQA-001/003/007/008/009 打开即用：自动识别英语并逐句显示�
   await expect(statusText(page)).toHaveText(RUNNING, { timeout: 10_000 });
   await expect(stopButton(page)).toBeEnabled();
 
-  // IQA-003: three spoken English sentences become three Chinese captions in order, with no further interaction.
-  const finals = (await waitForFinalCaptions(page, 3)).slice(0, 3);
-  ANCHORS.forEach((anchor, index) => expect(finals[index]).toMatch(anchor));
+  // IQA-003: three spoken English sentences become exactly three Chinese captions in order, with no further
+  // interaction. Counted after the trailing silence but before the looping WAV replays its first sentence.
+  await waitForFinalCaptions(page, 3);
+  await waitUntilAudioOffset(page, (await ensureSpeechAudio('multi')).durationMs);
+  const finals = (await captionTexts(page, 'final')).filter((text) => text.trim());
+  expect(finals).toHaveLength(3);
+  expect([...(await captionTexts(page, 'interim')), ...(await captionTexts(page, 'finalizing'))]).toEqual([]);
+  ANCHORS.forEach((anchor, index) => {
+    expect(finals.flatMap((text, i) => (anchor.test(text) ? [i] : []))).toEqual([index]);
+  });
   for (const text of finals) expect(hanCount(text)).toBeGreaterThan(latinWordCount(text));
   await assertNoLanguageControls(page);
 

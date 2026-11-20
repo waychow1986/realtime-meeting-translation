@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S37",
+  "result": "done",
+  "summary": "第 2 批已完成（先写测试再实现）。AC-02：captionPipeline 按 TD-006 发送临时翻译——每句同时最多 1 个 partial 请求，两次间隔 ≥ 500 ms（不足时定时补发），原文未变不重发；做了防闪烁处理；失败静默且不计入网络状态；句子识别完成、丢弃或运行结束时中止临时请求并清除定时器。定稿请求会替换临时译文。为此调整了原有的“识别中不发请求”单元测试，并新增 9 个 TD-006 单元测试。AC-04/AC-05：新增 meeting 素材组（6 句，S1 合成时长 8.3 秒），每句附参考译文、关键要素和唯一锚点。新增 e2e streaming.spec，在真实语音和大模型依赖上验证三点：S1 结束前出现首条字幕且至少变化 2 次；6 条定稿均为中文且关键要素全部命中；定稿条数恰好为 6，锚点各出现 1 次且顺序正确，没有残留的临时字幕，定稿后文字不再变化。S36 的 4 条观察已修复：① TTS 测试辅助改为按 AUTH_MODE 签发短时令牌，以 Bearer 调用，并改为逐句合成，同时输出每句起止时间；② translator 的 sseData 在提前结束（[DONE] 或 content_filter）时取消上游响应体，已补测试；③ captions.spec 改为在循环重放前断言定稿条数恰好为 3，且锚点一一对应；④ 段落定稿或丢弃后释放 sourceText 并从 Map 删除，新一轮开始时清理遗留段落。集成测试新增 meeting 组识别结果恰为 6 句的用例。验证结果：lint、typecheck、build 通过；单元测试 100 项、集成测试 7 项、e2e 5 项全部通过。README 已更新。",
+  "asks": [],
+  "outputs": [
+    "src/web/captionPipeline.ts",
+    "src/server/translation/translator.ts",
+    "tests/unit/captionPipeline.test.ts",
+    "tests/unit/translator.test.ts",
+    "tests/fixtures/sentences.en.json",
+    "tests/support/tts.ts",
+    "tests/integration/speechRecognition.int.test.ts",
+    "tests/e2e/fixtures.ts",
+    "tests/e2e/globalSetup.ts",
+    "tests/e2e/captions.spec.ts",
+    "tests/e2e/streaming.spec.ts",
+    "README.md"
+  ]
+}
