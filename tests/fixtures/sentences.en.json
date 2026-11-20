@@ -1,0 +1,23 @@
+{
+  "voice": "en-US-JennyNeural",
+  "sets": {
+    "single": {
+      "description": "1 句英语，用于打开即用、权限与隔离场景",
+      "sentences": ["Good morning everyone, welcome to our weekly project meeting."]
+    },
+    "multi": {
+      "description": "3 句英语，句间停顿 2 秒，用于多句顺序与停止场景",
+      "sentences": [
+        "Good morning everyone, thank you for joining the meeting today.",
+        "First, let us review the sales results from the last quarter.",
+        "Our revenue grew by twelve percent compared with the same period last year."
+      ]
+    },
+    "long": {
+      "description": "1 句 10–20 秒的长句，句内只有逗号短停顿，用于断句阈值验证",
+      "sentences": [
+        "Before we move on to the next topic, I would like to remind everyone that the updated budget proposal, which includes the new hiring plan, the marketing campaign for the spring season, and the revised schedule for the product launch, must be reviewed and approved by the end of next week."
+      ]
+    }
+  }
+}
