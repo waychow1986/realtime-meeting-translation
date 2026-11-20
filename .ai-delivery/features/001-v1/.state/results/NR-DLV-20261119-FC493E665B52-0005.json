@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S4",
+  "result": "needs-answer",
+  "summary": "已按确认的意图 v2 写出 spec.md（FR-001～FR-022、SC-001～SC-009、IQA-001～IQA-011，AC-01～AC-09 全覆盖）；中文发言时的字幕行为意图未规定，需业务负责人决定（PQ-001）。",
+  "asks": [
+    {
+      "kind": "decide",
+      "category": "business",
+      "question": "PQ-001：会议中有人用中文发言时，字幕应如何呈现？（意图 v2 删除了早期假设“中文发言按原样显示”，这会改变字幕区域的可见内容和 AC-05“不重复、不遗漏”的判定范围。）",
+      "recommended": "中文发言也显示为中文字幕（内容与发言一致），与外语字幕按先后顺序混排。",
+      "alternatives": [
+        "中文发言不显示字幕，字幕只呈现外语发言的翻译。",
+        "本次不规定中文发言的行为，不纳入验收。"
+      ]
+    }
+  ],
+  "outputs": [
+    ".ai-delivery/features/001-v1/spec.md"
+  ]
+}

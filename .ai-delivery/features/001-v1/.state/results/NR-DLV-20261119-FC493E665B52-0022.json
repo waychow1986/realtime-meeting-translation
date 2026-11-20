@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S18",
+  "result": "done",
+  "summary": "S17 按依赖绑定前检查修订了依赖声明（字段名大写、example 格式、identityAccess 数组），架构与约束未变，据此再次细化计划：维持完整档和两批纵向切片编码，每批之后各做一次代码审查；已用会话（含本次 22 个）加上剩余 7 步将超出 26 个会话的预算，建议提高到 32 个会话、9 次修订、10 小时，请业务负责人决定。",
+  "asks": [],
+  "outputs": [],
+  "plan": {
+    "schemaVersion": 1,
+    "steps": [
+      {"id": "S29", "capability": "code", "zone": "build", "dependsOn": [], "batch": 1},
+      {"id": "S30", "capability": "review", "zone": "build", "dependsOn": ["S29"], "batch": 1},
+      {"id": "S31", "capability": "code", "zone": "build", "dependsOn": ["S30"], "batch": 2},
+      {"id": "S32", "capability": "review", "zone": "build", "dependsOn": ["S31"], "batch": 2}
+    ],
+    "omitted": [
+      {"capability": "spec", "reason": "规格未受本次修订影响，G2 复审判定 FR-001～FR-022、IQA-001～IQA-011 完整覆盖 AC-01～AC-09；第 4 行关于 intent.md 旧版本的说明已过时，但不改变任何需求条款，且测试计划（S24）已据意图 v2 锁定，不值得为此重做规格。"},
+      {"capability": "solution", "reason": "S17 本次只改依赖声明的字段名与格式（R-8～R-10），注入的环境变量名不变，应用的读取方式不受影响，绑定前检查指出的问题已全部处理。G2 复审的 3 个非阻断技术问题不单独重做技术方案，交给第 1 批编码按权威条款落实、由第 1 批审查核对：限流按 TD-010 与“客户端地址”条款统一使用 trustProxy = TRUSTED_PROXY_HOPS，不使用 trustProxy: true；执行顺序以平台计划图为准，不以 design.md 中过时的步骤编号为准；“关闭 reasoning”以集成测试中 reasoning_tokens=0 的断言（TD-012、IQA-007）作为 AC-07 的证据，探测脚本在该字段缺失时给出的“满足”结论不作为证据。"},
+      {"capability": "plan", "reason": "本步骤就是技术方案之后的细化计划，之后的步骤已全部确定，不需要再安排计划。"}
+    ],
+    "batches": [
+      {"n": 1, "criteria": ["AC-01", "AC-03", "AC-06", "AC-07", "AC-08", "AC-09"]},
+      {"n": 2, "criteria": ["AC-02", "AC-04", "AC-05"]}
+    ],
+    "factors": [
+      {"name": "change-size", "lean": "medium", "basis": "从零构建单服务 Web 应用：服务端约 8 个模块（配置、身份、白名单日志、语音令牌、流式翻译代理、路由/安全头/同源校验/可信地址限流），浏览器端约 6 个模块（识别、字幕状态机、翻译客户端、渲染、文案），另有单元、集成、端到端测试、测试素材合成工具和 Dockerfile。功能面集中，但全部是新写代码。"},
+      {"name": "modules", "lean": "heavy", "basis": "涉及浏览器端、Node 服务端、Azure Foundry 语音服务（实时连续识别、连续语言识别、断句阈值，以及用于合成测试素材的语音合成）、Azure Foundry 大模型（流式调用，reasoning_effort=none）和容器部署，跨两个真实外部依赖。"},
+      {"name": "new-or-first", "lean": "heavy", "basis": "新项目的首个交付，首次建立技术基线（TD-001：TypeScript + Node 22 + Fastify + esbuild），没有可复用的既有代码，依赖 IaC 也是首次用 Terraform 编写。"},
+      {"name": "risk", "lean": "medium", "basis": "没有数据迁移，也没有持久化。安全与隐私要求明确且可以测试：浏览器只拿 10 分钟 STS 令牌（AC-08），日志按字段白名单输出（AC-09），在不登录的前提下用同源校验和可信地址限流防滥用。主要风险是真实流式时序与断句一一对应（AC-02、AC-05，已由 TD-015 约束）、可信跳数实现错误会重新引入可伪造的限流键，以及外部服务的可用性（gpt-sol-6.1、所在区域是否支持连续语言识别）。"}
+    ],
+    "tier": "full",
+    "budget": {"revisions": 9, "sessions": 32, "hours": 10.0},
+    "items": [
+      {
+        "category": "business",
+        "question": "当前预算为 26 个会话、7 次修订、8 小时。含本次在内已用 22 个会话（G2 退回 1 次、平台检查修正 1 次、依赖绑定前检查退回 S17 1 次），剩余第 1 批编码与审查、第 2 批编码与审查以及 G3～G5 共 7 步，合计至少 29 个会话，已超出预算，而且没有返工余量。是否提高预算？",
+        "recommended": "提高到 32 个会话、9 次修订、10 小时：除剩余 7 步外，再留约 3 个会话给编码返工或依赖绑定重试（跨两个真实外部依赖）。",
+        "alternatives": [
+          "只补足到 29 个会话、8 次修订、8 小时，不留返工余量，任何一次返工都需要再次追加预算。",
+          "维持现有预算，超出时暂停交付，由业务负责人决定是否继续。"
+        ]
+      },
+      {
+        "category": "technical",
+        "question": "两个依赖（speech、chat-model）在依赖与机密任务中采用哪种认证方式？在 platform-identity 方式下，语音 STS（/sts/v1.0/issueToken）需要接受 Entra Bearer 令牌（IaC 已为此配置自定义子域），能否接受要看探测结果。G2、S6、S18 都提出过这个问题，至今没有人工答复。",
+        "recommended": "两个依赖都用 platform-identity（宪章要求支持时使用 managed identity）；如果探测报告 authenticated=false，或 STS 不接受 Entra 令牌，该依赖改用 credential（密钥只在服务端使用，应用两种方式都实现）。",
+        "alternatives": [
+          "两个依赖都直接用 credential，降低隔离环境取不到身份令牌的风险。",
+          "按依赖分别选择。"
+        ]
+      },
+      {
+        "category": "business",
+        "question": "不登录、凭地址即可访问（Q-05）意味着任何拿到地址的人都能领取语音令牌、调用翻译，消耗付费资源；同源校验和可信地址限流只能降低风险，挡不住脚本直接调用。是否确认本次只部署到测试环境？",
+        "recommended": "确认本次只部署到测试环境、不上生产，并记录“正式上线前须另行加入企业账号登录或网络访问限制”。",
+        "alternatives": [
+          "本次就给测试地址加网络访问限制（只允许公司网络或指定 IP）。",
+          "接受现状，不另作说明。"
+        ]
+      }
+    ],
+    "reason": "这是 S17 第二次修订（依赖声明字段名与格式，R-8～R-10）之后的细化计划，只列出之后仍要做的编码与审查步骤。测试计划 S24 已完成并锁定，关口 G3～G5 由平台按骨架补入。①上一轮第 1 批编码（S25）在依赖绑定前检查时被退回，因此第 1 批从头重做：S29 编码、S30 审查，第 2 批是 S31 编码、S32 审查。dependsOn 只引用本计划内的步骤，第 1 批编码的 dependsOn 为空，测试计划先于编码由平台骨架保证。②批次沿用纵向切片，每批都能在真实 dev 实例上独立验证。第 1 批打通“开始→实时连续识别（连续语言识别，候选 en-US/zh-CN/ja-JP/ko-KR，断句阈值 800 ms）→定稿句中文翻译（reasoning_effort=none）→停止”的端到端主干，同时完成令牌签发、凭据不进浏览器、白名单日志（含 sourceLanguage）、同源校验与可信地址限流（trustProxy = TRUSTED_PROXY_HOPS），覆盖 AC-01、03、06、07、08、09。第 2 批加入临时译文节流与流式更新（TD-006）、定稿替换（TD-007）、多句顺序不重不漏（TD-015 素材与 recognized 条数断言）、含义一致性测试素材，以及失败重试与恢复，覆盖 AC-02、04、05。③G2 复审的非阻断问题不再单独安排技术方案步骤（理由见 omitted），由第 1 批编码按权威条款落实、第 1 批审查核对，以免占用已经超出的预算。④档位维持完整档：四项依据中两项为 heavy（跨两个真实外部依赖、新项目首个交付），两项为 medium。⑤预算：已用 22 个会话，剩余至少 7 个，超出现有的 26 个，建议提高到 32 个会话、9 次修订、10 小时，作为业务事项请人决定。认证方式与“仅部署测试环境”两项仍未答复，继续保留。"
+  }
+}

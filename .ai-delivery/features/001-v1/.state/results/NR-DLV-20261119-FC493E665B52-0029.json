@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S17",
+  "result": "done",
+  "summary": "按 S30 依赖绑定退回意见修订：chat-model 的 IaC 由无法在 AIServices 账户部署的 gpt-sol-6.1 改为 gpt-5.1（GlobalStandard 50K TPM，支持 reasoning_effort=none，应用调用与探测逻辑不变，探测只改注释）；infra/speech 与 infra/chat-model 均新增 random_string 作账户名随机段，避免平台重跑时与残留或软删除的同名账户冲突（资源清单由 3 个变为 5 个 create）；docs/dependencies.json 的 chat-model purpose/reason 与 speech reason 同步；design.md 新增修订 R-11、R-12 与 TD-016，并更新 TD-014、技术上下文、部署拓扑与依赖摘要。",
+  "asks": [],
+  "outputs": [
+    "infra/chat-model/main.tf",
+    "infra/speech/main.tf",
+    "infra/probes/chat-model.sh",
+    "docs/dependencies.json",
+    ".ai-delivery/features/001-v1/design.md"
+  ]
+}

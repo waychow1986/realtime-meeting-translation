@@ -1,0 +1,230 @@
+{
+ "assumption": "QA-A7",
+ "window": [
+  "2026-11-20T07:02:00Z",
+  "2026-11-20T07:04:44Z"
+ ],
+ "dependencies": {
+  "CHAT_MODEL": {
+   "name": "CHAT_MODEL",
+   "kind": "azure-ai-foundry-chat-model",
+   "endpoint": "rtmt-llm-5f1a6d-3lpq.openai.azure.com:443",
+   "host": "",
+   "resourceId": "POOL-BD4209EF-9ED",
+   "account": "POOL-BD4209EF-9ED",
+   "region": "",
+   "deployment": "gpt-5.1",
+   "authMode": "credential",
+   "hasKey": true
+  },
+  "SPEECH": {
+   "name": "SPEECH",
+   "kind": "azure-ai-foundry-speech",
+   "endpoint": "rtmt-speech-79be66.cognitiveservices.azure.com:443",
+   "host": "",
+   "resourceId": "POOL-E51A0053-DC8",
+   "account": "POOL-E51A0053-DC8",
+   "region": "eastus2",
+   "deployment": "",
+   "authMode": "credential",
+   "hasKey": true
+  }
+ },
+ "speechDeps": [
+  "SPEECH"
+ ],
+ "modelDeps": [
+  "CHAT_MODEL"
+ ],
+ "browserRealtimeConnections": [
+  {
+   "host": "eastus2.stt.speech.microsoft.com",
+   "path": "/speech/universal/v2",
+   "azure": true,
+   "sentFrames": 560,
+   "recvFrames": 71,
+   "runs": [
+    "iqa-main"
+   ]
+  },
+  {
+   "host": "eastus2.stt.speech.microsoft.com",
+   "path": "/speech/universal/v2",
+   "azure": true,
+   "sentFrames": 139,
+   "recvFrames": 27,
+   "runs": [
+    "iqa-006"
+   ]
+  },
+  {
+   "host": "eastus2.stt.speech.microsoft.com",
+   "path": "/speech/universal/v2",
+   "azure": true,
+   "sentFrames": 63,
+   "recvFrames": 14,
+   "runs": [
+    "iqa-006"
+   ]
+  },
+  {
+   "host": "eastus2.stt.speech.microsoft.com",
+   "path": "/speech/universal/v2",
+   "azure": true,
+   "sentFrames": 62,
+   "recvFrames": 12,
+   "runs": [
+    "iqa-010"
+   ]
+  },
+  {
+   "host": "eastus2.stt.speech.microsoft.com",
+   "path": "/speech/universal/v2",
+   "azure": true,
+   "sentFrames": 171,
+   "recvFrames": 15,
+   "runs": [
+    "iqa-011"
+   ]
+  }
+ ],
+ "browserHypothesisMessages": 103,
+ "browserLidMarkers": 131,
+ "fixedLanguageQueries": 0,
+ "browserModelRequests": 0,
+ "diagnostics": [
+  {
+   "path": "/api/health",
+   "status": 404,
+   "lid": false,
+   "reasoningOff": false,
+   "mentionsGptSol61": false
+  },
+  {
+   "path": "/health",
+   "status": 404,
+   "lid": false,
+   "reasoningOff": false,
+   "mentionsGptSol61": false
+  },
+  {
+   "path": "/healthz",
+   "status": 200,
+   "lid": false,
+   "reasoningOff": false,
+   "mentionsGptSol61": false
+  },
+  {
+   "path": "/api/config",
+   "status": 404,
+   "lid": false,
+   "reasoningOff": false,
+   "mentionsGptSol61": false
+  },
+  {
+   "path": "/api/diagnostics",
+   "status": 404,
+   "lid": false,
+   "reasoningOff": false,
+   "mentionsGptSol61": false
+  },
+  {
+   "path": "/api/info",
+   "status": 404,
+   "lid": false,
+   "reasoningOff": false,
+   "mentionsGptSol61": false
+  }
+ ],
+ "metricDefinitions": {
+  "POOL-BD4209EF-9ED": {
+   "status": 0,
+   "speech": [],
+   "model": []
+  },
+  "POOL-E51A0053-DC8": {
+   "status": 0,
+   "speech": [],
+   "model": []
+  }
+ },
+ "metrics": {
+  "POOL-BD4209EF-9ED": {
+   "status": 0,
+   "values": {}
+  },
+  "POOL-E51A0053-DC8": {
+   "status": 0,
+   "values": {}
+  }
+ },
+ "speechAccess": {
+  "SPEECH": [
+   true,
+   [
+    {
+     "url": "https://eastus2.api.cognitive.microsoft.com/sts/v1.0/issueToken",
+     "auth": "key",
+     "status": 200
+    }
+   ]
+  ]
+ },
+ "modelCalls": {
+  "CHAT_MODEL": {
+   "plain": {
+    "label": "未指定 reasoning 参数",
+    "auth": "key",
+    "attempts": [
+     {
+      "api": "deployments",
+      "status": 0,
+      "error": "URLError: <urlopen error unknown url type: rtmt-llm-5f1a6d-3lpq.openai.azure.com>"
+     },
+     {
+      "api": "v1",
+      "status": 0,
+      "error": "URLError: <urlopen error unknown url type: rtmt-llm-5f1a6d-3lpq.openai.azure.com>"
+     },
+     {
+      "api": "models",
+      "status": 0,
+      "error": "URLError: <urlopen error unknown url type: rtmt-llm-5f1a6d-3lpq.openai.azure.com>"
+     }
+    ],
+    "ok": null
+   },
+   "none": {
+    "label": "reasoning_effort=none",
+    "auth": "key",
+    "attempts": [
+     {
+      "api": "deployments",
+      "status": 0,
+      "error": "URLError: <urlopen error unknown url type: rtmt-llm-5f1a6d-3lpq.openai.azure.com>"
+     },
+     {
+      "api": "v1",
+      "status": 0,
+      "error": "URLError: <urlopen error unknown url type: rtmt-llm-5f1a6d-3lpq.openai.azure.com>"
+     },
+     {
+      "api": "models",
+      "status": 0,
+      "error": "URLError: <urlopen error unknown url type: rtmt-llm-5f1a6d-3lpq.openai.azure.com>"
+     }
+    ],
+    "ok": null
+   }
+  }
+ },
+ "armModels": {
+  "CHAT_MODEL": {
+   "deploymentsStatus": 0,
+   "deployments": null,
+   "modelsStatus": 0,
+   "solAvailable": null,
+   "modelCount": null
+  }
+ }
+}

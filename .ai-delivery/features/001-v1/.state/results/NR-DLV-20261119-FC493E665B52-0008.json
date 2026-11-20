@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S5",
+  "result": "done",
+  "summary": "按确定性检查修订部署声明：operations.errorLogRules 三条规则的类型字段由 type 改为规范要求的 kind（structured/pattern），规则内容不变；design.md 错误日志规则表同步注明 kind 字段，其余技术方案、依赖声明与探测脚本沿用上一版。",
+  "asks": [],
+  "outputs": [
+    "docs/deployment.json",
+    ".ai-delivery/features/001-v1/design.md"
+  ]
+}

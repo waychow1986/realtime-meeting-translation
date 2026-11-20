@@ -1,0 +1,13 @@
+{
+ "browser": "Chromium (Playwright channel=chromium, 无头新模式)",
+ "version": "159.0.8154.6",
+ "extensions": [],
+ "profile": "全新临时配置",
+ "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/",
+ "httpStatus": 200,
+ "htmlLang": "zh-CN",
+ "buttons": [
+  "开始",
+  "停止"
+ ]
+}

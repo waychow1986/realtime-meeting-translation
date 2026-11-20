@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S18",
+  "result": "done",
+  "summary": "S17 修订后的技术方案已覆盖 G2 提出的全部退回意见，据此细化计划：维持完整档和 26 个会话、7 次修订、8 小时的预算；第 1 批编码（S20）显式依赖测试计划（S19）和本步骤，之后按两批纵向切片编码，每批编码后各做一次代码审查。",
+  "asks": [],
+  "outputs": [],
+  "plan": {
+    "schemaVersion": 1,
+    "steps": [
+      {"id": "S20", "capability": "code", "zone": "build", "dependsOn": ["S18", "S19"], "batch": 1},
+      {"id": "S21", "capability": "review", "zone": "build", "dependsOn": ["S20"], "batch": 1},
+      {"id": "S22", "capability": "code", "zone": "build", "dependsOn": ["S21"], "batch": 2},
+      {"id": "S23", "capability": "review", "zone": "build", "dependsOn": ["S22"], "batch": 2}
+    ],
+    "omitted": [
+      {"capability": "spec", "reason": "spec.md 已按意图第 2 版编写，G2 判定 FR-001～FR-022、IQA-001～IQA-011 完整覆盖 AC-01～AC-09；本轮退回和 S17 的修订都只涉及技术方案，规格不需要重做。"},
+      {"capability": "solution", "reason": "S17 已逐条处理 G2 退回意见（R-1～R-7）：IaC 改为 Terraform，候选语言收窄，新增 TD-015 断句阈值和素材停顿约束，限流改用可信地址，日志白名单加入 sourceLanguage，并写明测试计划先于编码。本次细化没有发现还需要回到技术方案的缺口。"},
+      {"capability": "plan", "reason": "本步骤就是技术方案之后的细化计划，后续步骤已全部确定，不需要再安排计划。"}
+    ],
+    "batches": [
+      {"n": 1, "criteria": ["AC-01", "AC-03", "AC-06", "AC-07", "AC-08", "AC-09"]},
+      {"n": 2, "criteria": ["AC-02", "AC-04", "AC-05"]}
+    ],
+    "factors": [
+      {"name": "change-size", "lean": "medium", "basis": "从零构建单服务 Web 应用：服务端约 8 个模块（配置、身份、白名单日志、语音令牌、流式翻译代理、路由/安全头/同源/可信地址限流），浏览器端约 6 个模块（识别、字幕状态机、翻译客户端、渲染、文案），另有单元、集成、端到端测试、测试素材合成工具和 Dockerfile。功能面集中，但全部是新写代码。"},
+      {"name": "modules", "lean": "heavy", "basis": "涉及浏览器端、Node 服务端、Azure Foundry 语音服务（实时连续识别、连续语言识别、断句阈值，以及合成测试素材用的语音合成）、Azure Foundry 大模型（流式调用，reasoning_effort=none）和容器部署，跨两个真实外部依赖。"},
+      {"name": "new-or-first", "lean": "heavy", "basis": "新项目的首个交付，首次建立技术基线（TD-001：TypeScript + Node 22 + Fastify + esbuild），没有可复用的既有代码，依赖 IaC 也是首次以 Terraform 编写。"},
+      {"name": "risk", "lean": "medium", "basis": "没有数据迁移，也没有持久化。安全与隐私要求明确且可以测试：浏览器只拿 10 分钟 STS 令牌（AC-08），日志按字段白名单输出（AC-09），不登录的情况下用同源校验和可信地址限流防滥用。主要风险是真实流式时序与断句一一对应（AC-02、AC-05，已由 TD-015 约束），以及外部服务的可用性（gpt-sol-6.1、所在区域是否支持连续语言识别）。"}
+    ],
+    "tier": "full",
+    "budget": {"revisions": 7, "sessions": 26, "hours": 8.0},
+    "items": [
+      {"category": "technical", "question": "两个依赖（speech、chat-model）在依赖与机密任务中采用哪种认证方式？在 platform-identity 方式下，语音 STS 换取令牌要能接受 Entra Bearer 令牌，这一点要看探测结果才能确认。", "recommended": "两个依赖都用 platform-identity（宪章要求支持时使用 managed identity）。如果探测报告 authenticated=false，或 STS 不接受 Entra 令牌，该依赖改用 credential（密钥只在服务端使用）。", "alternatives": ["两个依赖都直接用 credential，降低隔离环境取不到身份令牌的风险。", "按依赖分别选择。"]},
+      {"category": "business", "question": "不登录、凭地址即可访问（Q-05）意味着任何拿到地址的人都能领取语音令牌、调用翻译，消耗付费资源；同源校验和可信地址限流只能降低风险，挡不住脚本直接调用。是否确认本次只部署到测试环境？", "recommended": "确认本次只部署到测试环境、不上生产，并记录“正式上线前须另行加入企业账号登录或网络访问限制”。", "alternatives": ["本次就给测试地址加网络访问限制（只允许公司网络或指定 IP）。", "接受现状，不另作说明。"]}
+    ],
+    "reason": "这是 S17 修订技术方案后的细化计划，只列出之后仍要做的编码与审查步骤；测试计划 S19 和关口 G2～G5 由平台按骨架补入。①落实 G2 发现与 design.md R-7：第 1 批编码 S20 显式依赖测试计划 S19，测试计划锁定后才开始编码，并以其中的场景作为自测目标。②批次仍按纵向切片划分，每批都能在真实 dev 实例上独立验证。第 1 批打通“开始→实时连续识别（连续语言识别，候选 en-US/zh-CN/ja-JP/ko-KR，断句阈值 800 ms）→定稿句中文翻译（reasoning_effort=none）→停止”的端到端主干，同时完成令牌签发、凭据不进浏览器、白名单日志（含 sourceLanguage）、同源校验与可信地址限流，覆盖 AC-01、03、06、07、08、09。第 2 批加入临时译文节流与流式更新（TD-006）、定稿替换（TD-007）、多句顺序不重不漏（TD-015 素材与 recognized 条数断言）、含义一致性测试素材，以及失败重试与恢复，覆盖 AC-02、04、05。③档位维持完整档：四项依据中两项为 heavy（跨两个真实外部依赖、新项目首个交付），两项为 medium。④预算沿用已调整的 26 个会话、7 次修订、8 小时。已用会话 15 次（含本次），剩余 G2 复审、S19、S20～S23、G3～G5 约 9 次，合计约 24 次，留有约 2 次返工余量。⑤待人决定的事项只保留认证方式与“仅部署测试环境”两项；预算已按 S6 建议调整，不再提出。"
+  }
+}

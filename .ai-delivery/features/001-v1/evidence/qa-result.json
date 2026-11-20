@@ -1,0 +1,380 @@
+{
+ "passed": false,
+ "testedCommitSha": "3afa08395f9af86b389195ac844fadae032be2ca",
+ "summary": "独立测试 9/11 个场景通过；产品缺陷 0 条，无法验证（测试缺口）4 条。依据 tasks-qa.md，带“依赖假设”的判定见各检查点观察。",
+ "defects": [],
+ "testGaps": [
+  "IQA-007 真实服务与配置 检查点1（真实依赖）：依赖为 Azure 域名，但未能用注入的接入信息访问：语音可访问=['SPEECH']，模型可调用=无（见 iqa-007-services.json）",
+  "IQA-007 真实服务与配置 检查点4（大模型完成翻译）：未取得候选调用大模型的服务侧证据（指标不可读或为 0；依赖假设 QA-A7）",
+  "IQA-007 真实服务与配置 检查点5（模型与 reasoning）：模型=未知；无法从外部确认候选调用时关闭 reasoning（默认 reasoning_tokens=[]；reasoning_effort=none 调用未成功）",
+  "IQA-009 服务端日志无客户内容 检查点1（日志检索）：未能获取候选服务端日志（依赖假设 QA-A8）：[{\"source\": \"resource-graph\", \"status\": 200}]"
+ ],
+ "evidence": [
+  "browser-info.json",
+  "iqa-002-timing.json",
+  "iqa-004-comparison.json",
+  "iqa-005-alignment.json",
+  "iqa-006-1-before-stop.png",
+  "iqa-006-2-stopped.png",
+  "iqa-006-3-after-32s.png",
+  "iqa-006-4-restarted.png",
+  "iqa-006-console.log",
+  "iqa-006-network.json",
+  "iqa-006-timeline.json",
+  "iqa-006.webm",
+  "iqa-007-services.json",
+  "iqa-008-scan.json",
+  "iqa-009-logs.json",
+  "iqa-010-1-denied.png",
+  "iqa-010-2-recovered.png",
+  "iqa-010-console.log",
+  "iqa-010-network.json",
+  "iqa-010-timeline.json",
+  "iqa-010.webm",
+  "iqa-011-1-pageA.png",
+  "iqa-011-2-pageB.png",
+  "iqa-011-3-pageA-reloaded.png",
+  "iqa-011-console.log",
+  "iqa-011-network.json",
+  "iqa-011-p0.webm",
+  "iqa-011-p1.webm",
+  "iqa-011-timeline.json",
+  "iqa-main-1-loaded.png",
+  "iqa-main-2-translating.png",
+  "iqa-main-3-final.png",
+  "iqa-main-4-stopped.png",
+  "iqa-main-console.log",
+  "iqa-main-network.json",
+  "iqa-main-timeline.json",
+  "iqa-main.webm",
+  "materials.json",
+  "qa-run.log",
+  "services-trace.log"
+ ],
+ "bugfixResults": [],
+ "scenarios": [
+  {
+   "id": "IQA-001",
+   "passed": true,
+   "externalServices": [
+    "chat_model",
+    "speech"
+   ],
+   "checkpoints": [
+    {
+     "step": "1 无安装、无插件、无登录",
+     "passed": true,
+     "observation": "干净 Chromium 159.0.8154.6 直接打开即显示应用页面，无跳转、无密码框、无安装/下载入口"
+    },
+    {
+     "step": "2 界面为中文",
+     "passed": true,
+     "observation": "按钮：开始 | 停止；页面汉字 51 个，英文单词 0 个"
+    },
+    {
+     "step": "3 无语言选择控件",
+     "passed": true,
+     "observation": "开始前、翻译中、停止后页面均无选择控件或语言相关控件"
+    },
+    {
+     "step": "4 状态切换",
+     "passed": true,
+     "observation": "开始前=idle，开始后=running，停止后=idle（依赖假设 QA-A2）"
+    },
+    {
+     "step": "5 出现中文字幕",
+     "passed": true,
+     "observation": "开始后 4.9 秒出现首条字幕：下午"
+    }
+   ],
+   "evidence": "通过：5 个检查点全部通过；证据文件：browser-info.json、iqa-main-1-loaded.png、iqa-main-2-translating.png、iqa-main-3-final.png、iqa-main-4-stopped.png、iqa-main-console.log、iqa-main-network.json、iqa-main-timeline.json、iqa-main.webm"
+  },
+  {
+   "id": "IQA-002",
+   "passed": true,
+   "externalServices": [
+    "chat_model",
+    "speech"
+   ],
+   "checkpoints": [
+    {
+     "step": "1 首条字幕早于句末",
+     "passed": true,
+     "observation": "S1 语音 0.3–9.3 秒；首条字幕出现于 4.9 秒"
+    },
+    {
+     "step": "2 句中持续更新",
+     "passed": true,
+     "observation": "S1 结束前字幕出现 28 个不同状态（要求 ≥ 2）"
+    },
+    {
+     "step": "3 句末定稿",
+     "passed": true,
+     "observation": "S3 字幕出现时的 S1 字幕=“今天我们将回顾第三季度的销售报告，之后我们会详细讨论明年的营销计划。”；最终=“今天我们将回顾第三季度的销售报告，之后我们会详细讨论明年的营销计划。”"
+    },
+    {
+     "step": "4 非整句后一次性出现",
+     "passed": true,
+     "observation": "S1 结束前已有 28 次字幕变化"
+    }
+   ],
+   "evidence": "通过：4 个检查点全部通过；证据文件：iqa-002-timing.json、iqa-main-1-loaded.png、iqa-main-2-translating.png、iqa-main-3-final.png、iqa-main-4-stopped.png、iqa-main-console.log、iqa-main-network.json、iqa-main-timeline.json、iqa-main.webm"
+  },
+  {
+   "id": "IQA-003",
+   "passed": true,
+   "externalServices": [
+    "chat_model",
+    "speech"
+   ],
+   "checkpoints": [
+    {
+     "step": "1 全过程无语言选择",
+     "passed": true,
+     "observation": "开始前、翻译中、停止后均无语言选择"
+    },
+    {
+     "step": "2 无需额外操作",
+     "passed": true,
+     "observation": "测试只点击了“开始”和“停止”，未做任何设置"
+    },
+    {
+     "step": "3 每句产生中文字幕",
+     "passed": true,
+     "observation": "S1～S6 均有对应中文字幕"
+    }
+   ],
+   "evidence": "通过：3 个检查点全部通过；证据文件：iqa-main-1-loaded.png、iqa-main-2-translating.png、iqa-main-3-final.png、iqa-main-4-stopped.png、iqa-main-console.log、iqa-main-network.json、iqa-main-timeline.json、iqa-main.webm"
+  },
+  {
+   "id": "IQA-004",
+   "passed": true,
+   "externalServices": [
+    "chat_model",
+    "speech"
+   ],
+   "checkpoints": [
+    {
+     "step": "1 每句定稿字幕为中文",
+     "passed": true,
+     "observation": "6 句定稿字幕汉字占比均 ≥ 70%"
+    },
+    {
+     "step": "2 不显示英语原文",
+     "passed": true,
+     "observation": "整个过程页面未出现任何素材原文的连续 4 个英语单词"
+    },
+    {
+     "step": "3 逐句含义一致",
+     "passed": true,
+     "observation": "6 句定稿字幕的关键要素（主语/对象、数字、时间、否定）全部与参考译文一致"
+    }
+   ],
+   "evidence": "通过：3 个检查点全部通过；证据文件：iqa-004-comparison.json、iqa-main-1-loaded.png、iqa-main-2-translating.png、iqa-main-3-final.png、iqa-main-4-stopped.png、iqa-main-console.log、iqa-main-network.json、iqa-main-timeline.json、iqa-main.webm"
+  },
+  {
+   "id": "IQA-005",
+   "passed": true,
+   "externalServices": [
+    "chat_model",
+    "speech"
+   ],
+   "checkpoints": [
+    {
+     "step": "1 不遗漏",
+     "passed": true,
+     "observation": "6 句均有定稿字幕"
+    },
+    {
+     "step": "2 不重复",
+     "passed": true,
+     "observation": "每句锚点恰好出现 1 次"
+    },
+    {
+     "step": "3 顺序",
+     "passed": true,
+     "observation": "锚点首次位置：13, 41, 67, 82, 111, 131"
+    },
+    {
+     "step": "4 条数",
+     "passed": true,
+     "observation": "定稿字幕行 6 条，素材 6 句：各位下午好。今天我们将回顾第三季度的销售 | 新加坡的新办公室将于3月5日启用。 | 我们团队有12名工程师和4名设计师。 | 我们不会取消这个项目，因为预算已经获批。 | 请在星期五下午之前把最终合同发给迈克尔。 | 去年该产品的价格上涨了15%。"
+    },
+    {
+     "step": "5 定稿不变",
+     "passed": true,
+     "observation": "S1～S4 的定稿字幕在其后第 2 句出现后未再改变"
+    },
+    {
+     "step": "6 静音无新字幕",
+     "passed": true,
+     "observation": "素材结束后 12 秒静音段内字幕无变化"
+    }
+   ],
+   "evidence": "通过：6 个检查点全部通过；证据文件：iqa-005-alignment.json、iqa-main-1-loaded.png、iqa-main-2-translating.png、iqa-main-3-final.png、iqa-main-4-stopped.png、iqa-main-console.log、iqa-main-network.json、iqa-main-timeline.json、iqa-main.webm"
+  },
+  {
+   "id": "IQA-006",
+   "passed": true,
+   "externalServices": [
+    "chat_model",
+    "speech"
+   ],
+   "checkpoints": [
+    {
+     "step": "1 停止前已有字幕",
+     "passed": true,
+     "observation": "停止时字幕：各位下午好。今天我们将回顾第三季度的销售报告，之后会详细讨论明年的营销计划。 / 新的"
+    },
+    {
+     "step": "2 停止后麦克风释放与状态",
+     "passed": true,
+     "observation": "停止后 2 秒内轨道状态：全部 ended（38 毫秒）；状态=idle（依赖假设 QA-A2、QA-A4）"
+    },
+    {
+     "step": "3 停止后不再发送音频",
+     "passed": true,
+     "observation": "停止 2 秒后至再次开始前（32 秒），无 >1KB 发送帧、无新的 getUserMedia 调用；期间虚拟麦克风仍在送入英语语音"
+    },
+    {
+     "step": "4 停止后不再出字幕（含未定稿句）",
+     "passed": true,
+     "observation": "停止后 1～32 秒字幕区域无任何新增或修改"
+    },
+    {
+     "step": "5 停止前字幕保留",
+     "passed": true,
+     "observation": "S1 定稿字幕“今天我们将回顾第三季度的销售报告，之后会详细讨论明年的营销计划。新的”停止后仍在"
+    },
+    {
+     "step": "6 再次开始",
+     "passed": true,
+     "observation": "状态=running；原有字幕保持不变，新 S1 字幕位于其后"
+    }
+   ],
+   "evidence": "通过：6 个检查点全部通过；证据文件：iqa-006-1-before-stop.png、iqa-006-2-stopped.png、iqa-006-3-after-32s.png、iqa-006-4-restarted.png、iqa-006-console.log、iqa-006-network.json、iqa-006-timeline.json、iqa-006.webm"
+  },
+  {
+   "id": "IQA-007",
+   "passed": false,
+   "externalServices": [
+    "chat_model",
+    "speech"
+   ],
+   "checkpoints": [
+    {
+     "step": "1 真实依赖",
+     "passed": false,
+     "observation": "[无法验证] 依赖为 Azure 域名，但未能用注入的接入信息访问：语音可访问=['SPEECH']，模型可调用=无（见 iqa-007-services.json）"
+    },
+    {
+     "step": "2 实时（流式）识别",
+     "passed": true,
+     "observation": "浏览器可见语音连接中间结果 103 条；IQA-002 首条字幕早于句末=pass"
+    },
+    {
+     "step": "3 语言自动识别",
+     "passed": true,
+     "observation": "语言识别标记：浏览器语音连接 131 处，诊断接口=False；IQA-003 无语言选择=pass"
+    },
+    {
+     "step": "4 大模型完成翻译",
+     "passed": false,
+     "observation": "[无法验证] 未取得候选调用大模型的服务侧证据（指标不可读或为 0；依赖假设 QA-A7）"
+    },
+    {
+     "step": "5 模型与 reasoning",
+     "passed": false,
+     "observation": "[无法验证] 模型=未知；无法从外部确认候选调用时关闭 reasoning（默认 reasoning_tokens=[]；reasoning_effort=none 调用未成功）"
+    }
+   ],
+   "evidence": "未通过：真实依赖=无法验证；大模型完成翻译=无法验证；模型与 reasoning=无法验证；证据文件：iqa-007-services.json"
+  },
+  {
+   "id": "IQA-008",
+   "passed": true,
+   "externalServices": [],
+   "checkpoints": [
+    {
+     "step": "1 长期凭据命中数为 0",
+     "passed": true,
+     "observation": "扫描 88 个请求、79 个响应（76 个正文）、5 个实时连接（文本帧 153、二进制帧 981）、4 份 DOM、4 份存储：命中 0"
+    }
+   ],
+   "evidence": "通过：1 个检查点全部通过；证据文件：iqa-008-scan.json"
+  },
+  {
+   "id": "IQA-009",
+   "passed": false,
+   "externalServices": [
+    "chat_model",
+    "speech"
+   ],
+   "checkpoints": [
+    {
+     "step": "1 日志检索",
+     "passed": false,
+     "observation": "[无法验证] 未能获取候选服务端日志（依赖假设 QA-A8）：[{\"source\": \"resource-graph\", \"status\": 200}]"
+    }
+   ],
+   "evidence": "未通过：日志检索=无法验证；证据文件：iqa-009-logs.json"
+  },
+  {
+   "id": "IQA-010",
+   "passed": true,
+   "externalServices": [
+    "chat_model",
+    "speech"
+   ],
+   "checkpoints": [
+    {
+     "step": "1 拒绝时提示",
+     "passed": true,
+     "observation": "getUserMedia 结果：[\"NotAllowedError\"]；麦克风提示：[\"无法使用麦克风：权限被拒绝。请在浏览器中允许本页面使用麦克风后，再次点击“开始”。\"]；状态=idle；疑似字幕行：[]"
+    },
+    {
+     "step": "2 提示不含凭据与内部地址",
+     "passed": true,
+     "observation": "拒绝后的新增页面文字不含服务地址、凭据或客户内容"
+    },
+    {
+     "step": "3 恢复",
+     "passed": true,
+     "observation": "授予权限后再次开始：状态=running；字幕=新加坡的新办公室将于3月5日开放。"
+    }
+   ],
+   "evidence": "通过：3 个检查点全部通过；证据文件：iqa-010-1-denied.png、iqa-010-2-recovered.png、iqa-010-console.log、iqa-010-timeline.json、iqa-010.webm"
+  },
+  {
+   "id": "IQA-011",
+   "passed": true,
+   "externalServices": [
+    "chat_model",
+    "speech"
+   ],
+   "checkpoints": [
+    {
+     "step": "1 页面 A 已有字幕",
+     "passed": true,
+     "observation": "页面 A 字幕：新加坡的新办公室将于3月5日开放。 / 我们团队有12名工程师和4名设计师"
+    },
+    {
+     "step": "2 页面互不可见",
+     "passed": true,
+     "observation": "页面 B 打开 8 秒，未显示页面 A 的任何 2 条字幕行"
+    },
+    {
+     "step": "3 刷新后清空",
+     "passed": true,
+     "observation": "刷新后：保留的旧字幕 0 条；新出现的非界面文字 []；getUserMedia 调用 0 次；状态=idle（依赖假设 QA-A2）"
+    },
+    {
+     "step": "4 无历史/导出/下载/录音入口",
+     "passed": true,
+     "observation": "页面 A（开始前、翻译中、刷新后）与页面 B 均无历史、导出、下载、录音、保存入口"
+    }
+   ],
+   "evidence": "通过：4 个检查点全部通过；证据文件：iqa-011-1-pageA.png、iqa-011-2-pageB.png、iqa-011-3-pageA-reloaded.png、iqa-011-console.log、iqa-011-p0.webm、iqa-011-p1.webm、iqa-011-timeline.json"
+  }
+ ]
+}

@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 3,
+  "dependencies": [
+    {
+      "name": "speech",
+      "kind": "azure-ai-foundry-speech",
+      "purpose": "Azure AI Foundry 语音转文字服务：浏览器经 Speech SDK 以实时（流式）连续识别并开启连续语言自动识别（候选语言 en-US、zh-CN、ja-JP、ko-KR），把会议发言转成文字；服务端只向其 STS 换取 10 分钟语音授权令牌下发给浏览器。测试另用同一资源的语音合成生成英语测试素材。",
+      "recommendation": {
+        "form": "cloud",
+        "reason": "客户要求使用 Azure Foundry 中的语音转文字服务，并允许在测试环境创建或复用（约束 1、6）。推荐由平台执行 infra/speech 的 Terraform（azurerm 4.x 与 random，只在平台注入的资源组内新增一个 AIServices 资源，带自定义子域；资源名带随机段，重跑不会与残留或软删除的同名资源冲突）新建；测试环境已有满足约束（实时识别 + 连续语言识别）的 Foundry/Speech 资源时可直接复用。认证推荐 platform-identity（宪章：支持时使用 managed identity），credential 同样支持。"
+      },
+      "constraints": {
+        "realtime-streaming-stt": "实时（流式）语音识别 WebSocket 端点可用并接受本应用的认证（客户要求：开启实时听录功能即流式）",
+        "language-auto-detection": "支持连续语言自动识别的 universal/v2 实时端点可用并接受本应用的认证（客户要求：开启语言自动识别）"
+      },
+      "realInstance": {
+        "dev": true,
+        "test": true
+      },
+      "access": {
+        "fields": [
+          {
+            "name": "ENDPOINT",
+            "purpose": "资源自定义子域主机与端口，用于 STS 令牌换取（/sts/v1.0/issueToken）",
+            "target": true,
+            "example": "example-speech.cognitiveservices.azure.com:443"
+          },
+          {
+            "name": "STT_HOST",
+            "purpose": "资源所在区域的实时语音识别主机与端口（浏览器与测试经 WSS 连接 /speech/universal/v2）",
+            "target": true,
+            "example": "example-region.stt.speech.microsoft.com:443"
+          },
+          {
+            "name": "TTS_HOST",
+            "purpose": "资源所在区域的语音合成主机与端口，仅用于测试时合成英语测试语音",
+            "target": true,
+            "example": "example-region.tts.speech.microsoft.com:443"
+          },
+          {
+            "name": "REGION",
+            "purpose": "资源所在 Azure 区域名",
+            "example": "<region>"
+          },
+          {
+            "name": "KEY",
+            "purpose": "资源访问密钥，仅在 credential 认证方式下使用，只留在服务端",
+            "secret": true
+          }
+        ]
+      },
+      "probe": {
+        "path": "infra/probes/speech.sh"
+      },
+      "cloud": {
+        "files": "infra/speech",
+        "connection": {
+          "ENDPOINT": "{{output.endpointHost}}",
+          "STT_HOST": "{{output.sttHost}}",
+          "TTS_HOST": "{{output.ttsHost}}",
+          "REGION": "{{output.region}}",
+          "KEY": "{{output.key}}"
+        },
+        "identityAccess": [
+          {
+            "role": "Cognitive Services Speech User",
+            "resource": "resourceId"
+          }
+        ]
+      },
+      "sharing": {
+        "description": "应用无状态，不在语音资源中创建或保存任何数据（不使用自定义模型、批量转写或存储），共享时只共享区域配额与并发连接数，无需隔离脚本。"
+      }
+    },
+    {
+      "name": "chat-model",
+      "kind": "azure-ai-foundry-chat-model",
+      "purpose": "Azure AI Foundry 中的大模型部署，服务端以流式 Chat Completions（Azure OpenAI v1 API）把识别文字翻译成简体中文，调用固定 reasoning_effort=none（客户要求关闭 reasoning）。客户倾向的 gpt-sol-6.1（“可以选择”，非硬性要求，A-05）在测试环境新建时被 Azure 以 DeploymentModelNotSupported 拒绝（不能部署在 AIServices 账户上），因此默认部署 gpt-5.1（支持 reasoning_effort=none）；也可改绑其它支持关闭 reasoning 的 Foundry 模型部署。",
+      "recommendation": {
+        "form": "cloud",
+        "reason": "客户要求使用 Azure Foundry 中的大模型，并允许在测试环境创建或复用（约束 1、6）。推荐由平台执行 infra/chat-model 的 Terraform（azurerm 4.x 与 random，只在平台注入的资源组内新增 AIServices 资源与 gpt-5.1 部署，GlobalStandard 50K TPM，足够测试环境 1～2 个页面并用；资源名带随机段，重跑不会与残留或软删除的同名资源冲突）新建。gpt-sol-6.1 已被 Azure 拒绝部署（DeploymentModelNotSupported），故按 A-05 改用 gpt-5.1；所选区域须提供 gpt-5.1 的 GlobalStandard 部署。测试环境已有其它可关闭 reasoning 的模型部署时也可复用。认证推荐 platform-identity，credential 同样支持。"
+      },
+      "constraints": {
+        "reasoning-disabled": "以 reasoning_effort=none 调用部署成功，且 reasoning_tokens 为 0（客户要求：大模型关闭 reasoning）"
+      },
+      "realInstance": {
+        "dev": true,
+        "test": true
+      },
+      "access": {
+        "fields": [
+          {
+            "name": "ENDPOINT",
+            "purpose": "Foundry/Azure OpenAI 资源主机与端口，应用调用 /openai/v1/chat/completions",
+            "target": true,
+            "example": "example-llm.openai.azure.com:443"
+          },
+          {
+            "name": "DEPLOYMENT",
+            "purpose": "模型部署名，作为请求中的 model 字段",
+            "example": "<deployment-name>"
+          },
+          {
+            "name": "KEY",
+            "purpose": "资源访问密钥，仅在 credential 认证方式下使用，只留在服务端",
+            "secret": true
+          }
+        ]
+      },
+      "probe": {
+        "path": "infra/probes/chat-model.sh"
+      },
+      "cloud": {
+        "files": "infra/chat-model",
+        "connection": {
+          "ENDPOINT": "{{output.endpointHost}}",
+          "DEPLOYMENT": "{{output.deploymentName}}",
+          "KEY": "{{output.key}}"
+        },
+        "identityAccess": [
+          {
+            "role": "Cognitive Services OpenAI User",
+            "resource": "resourceId"
+          }
+        ]
+      },
+      "sharing": {
+        "description": "应用无状态，只做推理调用，不上传文件、不创建助手或存储数据；共享时只共享部署的 TPM/RPM 配额，无需隔离脚本。"
+      }
+    }
+  ],
+  "secrets": []
+}

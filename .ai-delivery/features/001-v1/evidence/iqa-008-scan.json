@@ -1,0 +1,25 @@
+{
+ "assumption": "QA-A9",
+ "knownSecretValuesCompared": 2,
+ "scope": {
+  "requests": 88,
+  "responses": 79,
+  "responseBodies": 76,
+  "wsOpen": 5,
+  "wsTextFrames": 153,
+  "wsBinaryFrames": 981,
+  "dom": 4,
+  "storage": 4,
+  "cookies": 4
+ },
+ "hits": {
+  "knownSecretValues": 0,
+  "keyHeaders": 0,
+  "keyQueryParams": 0,
+  "connectionStrings": 0,
+  "azureKeyPatterns": 0,
+  "keyAssignments": 0
+ },
+ "hitLocations": {},
+ "note": "只记录命中数量与位置（不含查询串），不记录任何值"
+}

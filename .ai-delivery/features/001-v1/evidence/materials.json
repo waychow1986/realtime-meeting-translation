@@ -1,0 +1,264 @@
+{
+ "engine": "piper",
+ "sentences": [
+  {
+   "id": "S1",
+   "text": "Good afternoon everyone, today we are going to review the sales report for the third quarter, and after that we will discuss the marketing plan for next year in detail.",
+   "ref": "大家下午好，今天我们将审阅第三季度的销售报告，之后我们将详细讨论明年的营销计划。",
+   "keys": [
+    [
+     "销售"
+    ],
+    [
+     "第三季度",
+     "三季度",
+     "第3季度",
+     "Q3"
+    ],
+    [
+     "营销",
+     "市场"
+    ],
+    [
+     "明年",
+     "下一年",
+     "来年"
+    ]
+   ],
+   "anchor": [
+    "第三季度",
+    "三季度",
+    "第3季度",
+    "Q3"
+   ]
+  },
+  {
+   "id": "S2",
+   "text": "The new office in Singapore will open on the fifth of March.",
+   "ref": "新加坡的新办公室将于三月五日开业。",
+   "keys": [
+    [
+     "新加坡"
+    ],
+    [
+     "3月5",
+     "三月五",
+     "3 月 5"
+    ],
+    [
+     "办公室",
+     "办事处"
+    ]
+   ],
+   "anchor": [
+    "新加坡"
+   ]
+  },
+  {
+   "id": "S3",
+   "text": "Our team has twelve engineers and four designers.",
+   "ref": "我们团队有十二名工程师和四名设计师。",
+   "keys": [
+    [
+     "十二",
+     "12"
+    ],
+    [
+     "四",
+     "4"
+    ],
+    [
+     "工程师"
+    ],
+    [
+     "设计师"
+    ]
+   ],
+   "anchor": [
+    "工程师"
+   ]
+  },
+  {
+   "id": "S4",
+   "text": "We will not cancel the project because the budget has been approved.",
+   "ref": "我们不会取消这个项目，因为预算已经获批。",
+   "keys": [
+    [
+     "取消"
+    ],
+    [
+     "不",
+     "没"
+    ],
+    [
+     "项目"
+    ],
+    [
+     "预算"
+    ],
+    [
+     "批准",
+     "获批",
+     "通过",
+     "核准",
+     "审批",
+     "批了"
+    ]
+   ],
+   "anchor": [
+    "取消"
+   ]
+  },
+  {
+   "id": "S5",
+   "text": "Please send the final contract to Michael before Friday afternoon.",
+   "ref": "请在周五下午之前把最终合同发给迈克尔。",
+   "keys": [
+    [
+     "合同"
+    ],
+    [
+     "迈克尔",
+     "迈克",
+     "麦克",
+     "麦可",
+     "Michael"
+    ],
+    [
+     "周五",
+     "星期五",
+     "礼拜五"
+    ],
+    [
+     "下午"
+    ]
+   ],
+   "anchor": [
+    "合同"
+   ]
+  },
+  {
+   "id": "S6",
+   "text": "The price of the product increased by fifteen percent last year.",
+   "ref": "该产品的价格去年上涨了百分之十五。",
+   "keys": [
+    [
+     "价格",
+     "价钱"
+    ],
+    [
+     "百分之十五",
+     "15%",
+     "15％",
+     "15 %"
+    ],
+    [
+     "去年"
+    ],
+    [
+     "上涨",
+     "增长",
+     "提高",
+     "上升",
+     "涨"
+    ]
+   ],
+   "anchor": [
+    "百分之十五",
+    "15%",
+    "15％",
+    "15 %"
+   ]
+  }
+ ],
+ "files": {
+  "main": {
+   "duration_ms": 39940,
+   "speech_end_ms": 37440,
+   "sentences": [
+    {
+     "id": "S1",
+     "start_ms": 300,
+     "end_ms": 9320
+    },
+    {
+     "id": "S2",
+     "start_ms": 11820,
+     "end_ms": 14740
+    },
+    {
+     "id": "S3",
+     "start_ms": 17240,
+     "end_ms": 19900
+    },
+    {
+     "id": "S4",
+     "start_ms": 22400,
+     "end_ms": 25720
+    },
+    {
+     "id": "S5",
+     "start_ms": 28220,
+     "end_ms": 31620
+    },
+    {
+     "id": "S6",
+     "start_ms": 34120,
+     "end_ms": 37440
+    }
+   ]
+  },
+  "stop": {
+   "duration_ms": 39940,
+   "speech_end_ms": 37440,
+   "sentences": [
+    {
+     "id": "S1",
+     "start_ms": 300,
+     "end_ms": 9320
+    },
+    {
+     "id": "S2",
+     "start_ms": 11820,
+     "end_ms": 14740
+    },
+    {
+     "id": "S3",
+     "start_ms": 17240,
+     "end_ms": 19900
+    },
+    {
+     "id": "S4",
+     "start_ms": 22400,
+     "end_ms": 25720
+    },
+    {
+     "id": "S5",
+     "start_ms": 28220,
+     "end_ms": 31620
+    },
+    {
+     "id": "S6",
+     "start_ms": 34120,
+     "end_ms": 37440
+    }
+   ]
+  },
+  "short": {
+   "duration_ms": 9880,
+   "speech_end_ms": 7880,
+   "sentences": [
+    {
+     "id": "S2",
+     "start_ms": 300,
+     "end_ms": 3220
+    },
+    {
+     "id": "S3",
+     "start_ms": 5220,
+     "end_ms": 7880
+    }
+   ]
+  }
+ }
+}

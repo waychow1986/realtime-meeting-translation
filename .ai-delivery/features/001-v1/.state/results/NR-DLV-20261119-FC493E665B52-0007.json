@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S5",
+  "result": "done",
+  "summary": "写出技术方案 design.md（TypeScript/Node 22 单服务；浏览器用服务端签发的 10 分钟语音令牌经 Speech SDK 做实时连续识别与连续语言识别，服务端以流式、reasoning_effort=none 调用 gpt-sol-6.1 翻译，节流临时译文 + 定稿替换实现流式字幕；白名单日志、同源与限流），以及依赖声明（speech、chat-model，均推荐 cloud/Bicep、platform-identity）、两份探测脚本、IaC、部署声明（含错误日志识别规则）与开发者命令。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/001-v1/design.md",
+    ".ai-delivery/features/001-v1/runtime/deployment.json",
+    "docs/dependencies.json",
+    "docs/deployment.json",
+    "infra/speech/main.bicep",
+    "infra/chat-model/main.bicep",
+    "infra/probes/speech.sh",
+    "infra/probes/chat-model.sh"
+  ]
+}

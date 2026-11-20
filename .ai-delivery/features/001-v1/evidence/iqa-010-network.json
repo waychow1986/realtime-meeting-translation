@@ -1,0 +1,51 @@
+{
+ "requests": [
+  {
+   "t": 1795158241175,
+   "method": "GET",
+   "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/",
+   "status": 200
+  },
+  {
+   "t": 1795158241256,
+   "method": "GET",
+   "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/styles.css",
+   "status": 200
+  },
+  {
+   "t": 1795158241256,
+   "method": "GET",
+   "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/app.js",
+   "status": 200
+  },
+  {
+   "t": 1795158248441,
+   "method": "POST",
+   "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/api/speech-token",
+   "status": 200
+  },
+  {
+   "t": 1795158252892,
+   "method": "POST",
+   "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/api/translations",
+   "status": 200
+  },
+  {
+   "t": 1795158253287,
+   "method": "POST",
+   "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/api/translations"
+  }
+ ],
+ "websockets": [
+  {
+   "page": 0,
+   "url": "wss://eastus2.stt.speech.microsoft.com/speech/universal/v2",
+   "opened": 1795158248514,
+   "closed": 1795158254297,
+   "sentFrames": 62,
+   "sentBytes": 190717,
+   "recvFrames": 12,
+   "recvBytes": 3044
+  }
+ ]
+}

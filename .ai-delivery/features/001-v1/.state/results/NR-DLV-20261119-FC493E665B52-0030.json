@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S18",
+  "result": "done",
+  "summary": "S17 按依赖绑定退回意见把大模型部署由无法部署的 gpt-sol-6.1 改为 gpt-5.1（按 A-05 改选，调用方式不变），并给账户名加随机段；架构、接口和验收分配都没变，据此再次细化计划：维持完整档，两批纵向切片编码，每批之后各做一次代码审查。剩余步骤加上返工余量会超出 32 个会话的预算，建议提高到 40 个会话、11 次修订、12 小时，请业务负责人决定。",
+  "asks": [],
+  "outputs": [],
+  "plan": {
+    "schemaVersion": 1,
+    "steps": [
+      {"id": "S30", "capability": "code", "zone": "build", "dependsOn": [], "batch": 1},
+      {"id": "S31", "capability": "review", "zone": "build", "dependsOn": ["S30"], "batch": 1},
+      {"id": "S32", "capability": "code", "zone": "build", "dependsOn": ["S31"], "batch": 2},
+      {"id": "S33", "capability": "review", "zone": "build", "dependsOn": ["S32"], "batch": 2}
+    ],
+    "omitted": [
+      {"capability": "spec", "reason": "S17 只改了依赖 IaC（模型部署改为 gpt-5.1、账户名加随机段）和设计记录，没有改变任何需求条款；改选模型属于意图 A-05 已确认的回退范围，spec.md 对 AC-01～AC-09 的覆盖不受影响，不需要重做规格。"},
+      {"capability": "solution", "reason": "S17 刚完成修订（R-11、R-12、TD-016），已逐项回应 S30 依赖绑定的两条退回意见；应用的调用参数（TD-011、TD-012）、接口与模块划分都没变，没有需要再做的技术方案工作。"},
+      {"capability": "plan", "reason": "本步骤就是技术方案之后的细化计划，技术基线与部署声明都已具备，后面不需要再安排计划。"}
+    ],
+    "batches": [
+      {"n": 1, "criteria": ["AC-01", "AC-03", "AC-06", "AC-07", "AC-08", "AC-09"]},
+      {"n": 2, "criteria": ["AC-02", "AC-04", "AC-05"]}
+    ],
+    "factors": [
+      {"name": "change-size", "lean": "medium", "basis": "从零构建单服务 Web 应用：服务端约 8 个模块，浏览器端约 6 个，另有单元、集成、端到端测试和 Dockerfile。功能面集中，但全部是新代码。本次 S17 的修订只涉及 IaC 与声明，没有增加应用代码量。"},
+      {"name": "modules", "lean": "heavy", "basis": "涉及浏览器端、Node 服务端、Azure Foundry 语音服务（实时连续识别与连续语言识别，另用语音合成生成测试素材）、Azure Foundry 大模型（gpt-5.1，流式调用、reasoning_effort=none）和容器部署，跨两个真实外部依赖。"},
+      {"name": "new-or-first", "lean": "heavy", "basis": "新项目的首个交付，本交付首次建立技术基线和依赖 IaC，没有可复用的既有代码；依赖绑定已经退回过两次（字段名、模型部署与重名），说明首次落地环境的不确定性高。"},
+      {"name": "risk", "lean": "medium", "basis": "没有数据迁移和持久化。安全与隐私要求明确且可以测试：浏览器只拿短时 STS 令牌，日志按字段白名单输出，同源校验加可信地址限流。主要风险是真实流式时序与断句的一一对应（AC-02、AC-05），以及外部服务可用性：所在区域是否同时支持连续语言识别和 gpt-5.1，独立测试能否认可替代模型（见待决事项）。"}
+    ],
+    "tier": "full",
+    "budget": {"revisions": 11, "sessions": 40, "hours": 12.0},
+    "items": [
+      {"category": "business", "question": "当前预算为 32 个会话、9 次修订、10 小时。按运行编号计，含本次已用 30 个会话（G2 退回 1 次、平台检查修正 1 次，依赖绑定前检查和依赖绑定各退回 S17 1 次，每次退回都会再触发 S18 和关口复审）。剩余第 1 批编码与审查、第 2 批编码与审查，以及 G3～G5，共 7 步，合计至少 37 个会话，超出预算，修订次数也已接近用完。是否提高预算？", "recommended": "提高到 40 个会话、11 次修订、12 小时：除剩余 7 步外，再留约 3 个会话给依赖绑定重试（区域可能不支持 gpt-5.1 或连续语言识别）和编码返工。", "alternatives": ["只补足到 37 个会话、10 次修订、11 小时，不留余量，再有任何返工都要追加预算。", "维持现有预算，超出时暂停交付，由业务负责人决定是否继续。"]},
+      {"category": "technical", "question": "按 A-05，大模型由 gpt-sol-6.1 改选为 gpt-5.1（Azure 新建部署时返回 DeploymentModelNotSupported）。但已锁定的独立测试脚本判断模型时，会读取账户的模型目录（ARM /models）：只要目录里列出 gpt-sol-6.1，即使它实际不能部署到 AIServices 账户，也会把 IQA-007 判为“gpt-sol-6.1 可用却未使用”的产品缺陷。出现这种结果时如何处理？", "recommended": "接受 gpt-5.1 作为 A-05 的替代模型。若独立测试因模型目录列出 gpt-sol-6.1 而判为失败，以依赖绑定时 Azure 返回的 DeploymentModelNotSupported 作为证据，在验收时按“测试判定与环境事实不符”处理，不退回编码；第 1 批编码在部署记录和设计说明中保留这条证据。", "alternatives": ["退回技术方案，尝试其它账户类型或区域部署 gpt-sol-6.1（需要重写 IaC 并再次绑定依赖，至少多用 4 个会话，且不保证可行）。", "视为阻塞，由业务负责人重新确认是否必须使用 gpt-sol-6.1。"]},
+      {"category": "technical", "question": "两个依赖（speech、chat-model）在依赖与机密任务中采用哪种认证方式？在 platform-identity 方式下，语音 STS（/sts/v1.0/issueToken）需要接受 Entra Bearer 令牌（IaC 已为此配置自定义子域），能否接受要看探测结果。G2、S6 和前几次 S18 都提出过这个问题，至今没有人工答复。", "recommended": "两个依赖都用 platform-identity（宪章要求支持时使用 managed identity）。如果探测报告 authenticated=false，或 STS 不接受 Entra 令牌，该依赖改用 credential（密钥只在服务端使用，应用两种方式都实现）。", "alternatives": ["两个依赖都直接用 credential，降低隔离环境取不到身份令牌的风险。", "按依赖分别选择。"]},
+      {"category": "business", "question": "不登录、凭地址即可访问（Q-05），意味着任何拿到地址的人都能领取语音令牌、调用翻译，消耗付费资源。同源校验和可信地址限流只能降低风险，挡不住脚本直接调用。是否确认本次只部署到测试环境？", "recommended": "确认本次只部署到测试环境、不上生产，并记录“正式上线前须另行加入企业账号登录或网络访问限制”。", "alternatives": ["本次就给测试地址加网络访问限制（只允许公司网络或指定 IP）。", "接受现状，不另作说明。"]}
+    ],
+    "reason": "S17 的第三次修订只改了依赖 IaC（gpt-5.1、随机账户名段）和设计记录，应用架构、接口、调用参数和验收分配都没变，因此沿用两批纵向切片：第 1 批打通“开始→实时识别（连续语言识别）→定稿句中文翻译→停止”的主干，并落实凭据与日志安全，覆盖 AC-01、AC-03、AC-06～AC-09，AC-07 的服务侧证据需包含实际模型名 gpt-5.1 和 reasoning_effort=none；第 2 批加入临时译文的流式更新、定稿替换、多句顺序与含义一致性，覆盖 AC-02、AC-04、AC-05。每批编码后各做一次代码审查。新项目首个交付、跨两个真实外部依赖、模块数多，所以维持完整档；测试计划先于第 1 批编码，由平台骨架保证。"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S36",
+  "result": "done",
+  "summary": "首次审查批次 1（S35）的服务端、浏览器端与测试改动，未发现阻断问题，记录 4 项观察项。",
+  "asks": [],
+  "outputs": [],
+  "review": {
+    "mode": "code-review",
+    "conclusion": "通过。批次 1 的实现与技术方案一致：凭据只在服务端使用，浏览器只拿短时 STS 令牌（TD-004，AC-08）；日志字段白名单在运行时按正则或枚举校验，不记录识别文本和译文（TD-009，AC-09）；翻译接口的输入用严格 Schema 校验，同源校验和按可信代理跳数取客户端地址的限流符合 TD-010；停止时先同步作废 epoch，再停音轨、中止翻译、清除续取定时器，各异步步骤都检查 run/epoch，停止后不会再有字幕变化（AC-06）；连续识别使用 universal/v2、连续语言识别、800 ms 断句，大模型请求固定 reasoning_effort=none 且 stream=true（AC-07）。测试全部为新增，没有放宽断言；集成测试和端到端测试直连真实 dev 服务，覆盖 AC-01/03/06/07/08/09 对应的 IQA 场景。AC-02（临时译文与节流 TD-006）和 ≥5 句素材按计划留在批次 2，本轮不作为问题。",
+    "items": [],
+    "findings": [
+      {
+        "ownerStep": "S35",
+        "text": "[观察·测试与技术方案不一致] tests/support/tts.ts:86 合成测试语音时固定使用 Ocp-Apim-Subscription-Key: AIDH_DEP_SPEECH_KEY。技术方案“测试素材”一节要求“用与识别相同的认证方式取令牌”。如果依赖改绑为 platform-identity，且没有注入 KEY，requireEnv 会抛错，集成测试和端到端测试都无法生成素材。建议按 AIDH_DEP_SPEECH_AUTH_MODE 复用 src/server/auth/azureAuth.ts 的 speechAuth 生成请求头。当前以 credential 模式运行，不影响本批验收。",
+        "blocking": false
+      },
+      {
+        "ownerStep": "S35",
+        "text": "[观察·资源释放] src/server/translation/translator.ts:172-197：收到 [DONE] 后 break，或因 finish_reason=content_filter 提前 return 时，sseData 的 finally 只执行 reader.releaseLock()，没有 cancel 上游响应体，上游连接要等对端关闭或被回收才释放。在正常流量下影响很小，建议提前退出时调用 reader.cancel() 或 response.body.cancel()。",
+        "blocking": false
+      },
+      {
+        "ownerStep": "S35",
+        "text": "[观察·测试覆盖] tests/e2e/captions.spec.ts:82 用 waitForFinalCaptions(page, 3) 取到 ≥3 条定稿后，只用 slice(0, 3) 检查前 3 条的锚点，没有断言定稿条数恰好等于句数，因此重复的定稿字幕不会被发现。AC-05“不重复、不遗漏”按计划在批次 2 用 ≥5 句素材验收，届时应断言定稿条数 = 句数，并逐句与锚点一一对应。",
+        "blocking": false
+      },
+      {
+        "ownerStep": "S35",
+        "text": "[观察·内存中的客户内容] src/web/captionPipeline.ts：segments Map 保留本页面所有句段，句段定稿（final）后不删除，其中的 sourceText（识别原文）在页面生命周期内一直留在浏览器内存中。这不违反 A-04 和宪章（不落盘、不上报），但没有必要保留。建议定稿或丢弃后清空 sourceText，或从 Map 中移除不再需要的句段。",
+        "blocking": false
+      }
+    ]
+  }
+}

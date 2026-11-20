@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>会议实时中文字幕</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body data-state="idle">
+    <header class="toolbar">
+      <h1>会议实时中文字幕</h1>
+      <div class="controls">
+        <span class="status-label">当前状态：<strong id="status" role="status" aria-live="polite">未开始</strong></span>
+        <button id="start-button" type="button">开始</button>
+        <button id="stop-button" type="button" disabled>停止</button>
+      </div>
+    </header>
+    <p id="notice" class="notice" role="alert" hidden></p>
+    <main class="caption-area" aria-label="中文字幕">
+      <p class="hint">点击“开始”并允许使用麦克风，发言内容会自动识别并以中文字幕显示在下方。</p>
+      <ol id="captions" class="captions" aria-live="polite"></ol>
+    </main>
+  </body>
+</html>
