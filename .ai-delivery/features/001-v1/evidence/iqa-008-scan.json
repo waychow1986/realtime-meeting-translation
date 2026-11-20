@@ -2,12 +2,12 @@
  "assumption": "QA-A9",
  "knownSecretValuesCompared": 2,
  "scope": {
-  "requests": 95,
-  "responses": 85,
+  "requests": 93,
+  "responses": 91,
   "responseBodies": 83,
   "wsOpen": 5,
-  "wsTextFrames": 155,
-  "wsBinaryFrames": 974,
+  "wsTextFrames": 159,
+  "wsBinaryFrames": 1012,
   "dom": 4,
   "storage": 4,
   "cookies": 4

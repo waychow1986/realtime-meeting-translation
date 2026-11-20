@@ -1,108 +1,109 @@
 {
  "requests": [
   {
-   "t": 1795146389221,
+   "t": 1795149739003,
    "method": "GET",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/",
    "status": 200
   },
   {
-   "t": 1795146389262,
+   "t": 1795149739059,
    "method": "GET",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/styles.css",
    "status": 200
   },
   {
-   "t": 1795146389262,
+   "t": 1795149739060,
    "method": "GET",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/app.js",
    "status": 200
   },
   {
-   "t": 1795146391383,
+   "t": 1795149741185,
    "method": "POST",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/api/speech-token",
    "status": 200
   },
   {
-   "t": 1795146395827,
+   "t": 1795149745634,
    "method": "POST",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/api/translations",
    "status": 200
   },
   {
-   "t": 1795146396175,
+   "t": 1795149746124,
    "method": "POST",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/api/translations",
    "status": 200
   },
   {
-   "t": 1795146397127,
+   "t": 1795149747167,
    "method": "POST",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/api/translations",
    "status": 200
   },
   {
-   "t": 1795146397634,
+   "t": 1795149747665,
    "method": "POST",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/api/translations",
    "status": 200
   },
   {
-   "t": 1795146398241,
+   "t": 1795149748165,
    "method": "POST",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/api/translations",
    "status": 200
   },
   {
-   "t": 1795146398805,
+   "t": 1795149748874,
    "method": "POST",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/api/translations",
    "status": 200
   },
   {
-   "t": 1795146399305,
+   "t": 1795149749374,
    "method": "POST",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/api/translations",
    "status": 200
   },
   {
-   "t": 1795146399653,
+   "t": 1795149749966,
    "method": "GET",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/",
    "status": 200
   },
   {
-   "t": 1795146399668,
+   "t": 1795149749967,
+   "method": "POST",
+   "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/api/translations",
+   "status": 200
+  },
+  {
+   "t": 1795149749978,
    "method": "GET",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/styles.css",
    "status": 200
   },
   {
-   "t": 1795146399668,
+   "t": 1795149749978,
    "method": "GET",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/app.js",
    "status": 200
   },
   {
-   "t": 1795146400065,
-   "method": "POST",
-   "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/api/translations"
-  },
-  {
-   "t": 1795146407754,
+   "t": 1795149758071,
    "method": "GET",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/",
    "status": 200
   },
   {
-   "t": 1795146407771,
+   "t": 1795149758090,
    "method": "GET",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/styles.css",
    "status": 304
   },
   {
-   "t": 1795146407771,
+   "t": 1795149758091,
    "method": "GET",
    "url": "https://cand-fc493e665b52.eastus2.cloudapp.azure.com/app.js",
    "status": 304
@@ -112,12 +113,12 @@
   {
    "page": 0,
    "url": "wss://eastus2.stt.speech.microsoft.com/speech/universal/v2",
-   "opened": 1795146391460,
+   "opened": 1795149741219,
    "closed": null,
-   "sentFrames": 166,
-   "sentBytes": 539532,
-   "recvFrames": 13,
-   "recvBytes": 3641
+   "sentFrames": 171,
+   "sentBytes": 556037,
+   "recvFrames": 15,
+   "recvBytes": 4237
   }
  ]
 }

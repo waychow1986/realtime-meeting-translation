@@ -1,8 +1,8 @@
 {
  "assumption": "QA-A8",
  "window": [
-  "2026-11-20T03:42:14Z",
-  "2026-11-20T03:55:59Z"
+  "2026-11-20T04:38:01Z",
+  "2026-11-20T04:51:49Z"
  ],
  "sources": [
   {
@@ -14,7 +14,7 @@
  "lines": 0,
  "needles": {
   "english5gram": 59,
-  "chinese8": 95,
+  "chinese8": 80,
   "secrets": 2
  },
  "hits": {

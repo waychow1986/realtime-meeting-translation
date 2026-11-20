@@ -1,22 +1,12 @@
 {
- "note": "手工补充核对（tasks-qa.md IQA-007 QA-A7②④；锁定脚本因注入的 ENDPOINT 缺少 https:// 前缀、RESOURCE_ID 为平台池别名而未能执行）。不含密钥与客户内容；输入为合成测试句。",
- "candidateSha": "a7e22dae5d815b43065b5f498c896408f5a5de72",
- "at": "2026-11-20T03:56:37Z",
+ "note": "手工补充核对（tasks-qa.md IQA-007 QA-A7④）：锁定脚本因注入的 AIDH_DEP_CHAT_MODEL_ENDPOINT 缺少 https:// 前缀而未能调用模型。本核对只证明依赖为真实 Azure 大模型部署、可关闭 reasoning；不能证明候选调用时的参数。不含密钥与客户内容，输入为合成测试句。",
+ "candidateSha": "4c4b93d75ffb2dd73d20f7c7f008cde68bced631",
+ "at": "2026-11-20T04:52:16Z",
  "endpointHost": "https://rtmt-llm-5f1a6d-3lpq.openai.azure.com",
- "deployment": "gpt-5.1",
  "calls": [
   {
    "label": "default",
-   "api": "deployments",
-   "status": 200,
-   "model": "gpt-5.1-2025-11-13",
-   "reasoning_tokens": 0,
-   "completion_tokens": 22,
-   "output": "我们的团队有十二名工程师和四名设计师。"
-  },
-  {
-   "label": "default",
-   "api": "v1",
+   "deployment": "gpt-5.1",
    "status": 200,
    "model": "gpt-5.1-2025-11-13",
    "reasoning_tokens": 0,
@@ -25,16 +15,7 @@
   },
   {
    "label": "reasoning_effort=none",
-   "api": "deployments",
-   "status": 200,
-   "model": "gpt-5.1-2025-11-13",
-   "reasoning_tokens": 0,
-   "completion_tokens": 22,
-   "output": "我们的团队有十二名工程师和四名设计师。"
-  },
-  {
-   "label": "reasoning_effort=none",
-   "api": "v1",
+   "deployment": "gpt-5.1",
    "status": 200,
    "model": "gpt-5.1-2025-11-13",
    "reasoning_tokens": 0,
@@ -43,21 +24,9 @@
   },
   {
    "label": "gpt-sol-6.1 deployment probe",
-   "api": "deployments",
+   "deployment": "gpt-sol-6.1",
    "status": 404,
    "error": "DeploymentNotFound"
   }
- ],
- "armToken": {
-  "status": 200
- },
- "resourceGraph": {
-  "status": 200,
-  "cognitiveAccountsVisible": 1,
-  "matched": []
- },
- "subscriptionsVisible": {
-  "status": 200,
-  "count": 1
- }
+ ]
 }
