@@ -7,7 +7,7 @@ import { loadConfig, type AppConfig } from '../../src/server/config.js';
 import { buildApp } from '../../src/server/http/app.js';
 import { createLogger } from '../../src/server/logger.js';
 import { createSpeechTokenService } from '../../src/server/speech/tokenService.js';
-import { createTranslator } from '../../src/server/translation/translator.js';
+import { createTranslator, type Translator } from '../../src/server/translation/translator.js';
 import { MemoryLogSink } from './memoryLogSink.js';
 
 export interface RealApp {
@@ -17,23 +17,29 @@ export interface RealApp {
   sameOriginHeaders: Record<string, string>;
 }
 
+export interface RealAppOptions {
+  /** Wraps the real translator, e.g. to observe when translation starts or to inject a failure (AC-9). */
+  wrapTranslator?: (real: Translator) => Translator;
+}
+
 /** Builds the real application wired to the injected dev dependency instances (no mocks). */
-export async function buildRealApp(envOverrides: Record<string, string> = {}): Promise<RealApp> {
+export async function buildRealApp(envOverrides: Record<string, string> = {}, options: RealAppOptions = {}): Promise<RealApp> {
   const config = loadConfig({ ...process.env, ...envOverrides });
   const sink = new MemoryLogSink();
   const logger = createLogger({ level: 'info', destination: sink });
   const webRoot = await mkdtemp(path.join(os.tmpdir(), 'rtmt-web-'));
   await writeFile(path.join(webRoot, 'index.html'), '<!doctype html><title>t</title>');
+  const translator = createTranslator({
+    baseUrl: config.chat.baseUrl,
+    deployment: config.chat.deployment,
+    auth: chatAuth(config.chat.auth),
+  });
   const app = await buildApp({
     config,
     logger,
     webRoot,
     tokenService: createSpeechTokenService({ stsBaseUrl: config.speech.stsBaseUrl, auth: speechAuth(config.speech.auth) }),
-    translator: createTranslator({
-      baseUrl: config.chat.baseUrl,
-      deployment: config.chat.deployment,
-      auth: chatAuth(config.chat.auth),
-    }),
+    translator: options.wrapTranslator ? options.wrapTranslator(translator) : translator,
   });
   await app.ready();
   return {

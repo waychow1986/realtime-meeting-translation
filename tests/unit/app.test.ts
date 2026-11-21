@@ -9,6 +9,15 @@ import { createLogger } from '../../src/server/logger.js';
 import { UpstreamError } from '../../src/server/errors.js';
 import type { Translator, TranslateResult } from '../../src/server/translation/translator.js';
 import { MemoryLogSink } from '../support/memoryLogSink.js';
+import type { AddressInfo } from 'node:net';
+import {
+  abortTranslationRequest,
+  CLIENT_ABORTED_KEYS,
+  CLIENT_ABORTED_OPTIONAL_KEYS,
+  waitForClientAborted,
+  type AbortMethod,
+  type AbortTiming,
+} from '../support/abortClient.js';
 
 const SECRET = 'unit-app-secret-key-123';
 const ORIGIN = 'http://app.test';
@@ -329,7 +338,176 @@ describe('POST /api/translations', () => {
   });
 });
 
+interface GatedTranslator {
+  translator: Translator;
+  started: () => Promise<void>;
+}
+
+/** Controlled translator: waits `firstDeltaMs` (or until aborted), then emits a delta every 50 ms until aborted. */
+function gatedTranslator(firstDeltaMs: number, onAbort: 'return' | 'throw' = 'return'): GatedTranslator {
+  let markStarted: () => void = () => undefined;
+  const startedPromise = new Promise<void>((resolve) => {
+    markStarted = resolve;
+  });
+  const sleep = (ms: number, signal: AbortSignal) =>
+    new Promise<boolean>((resolve) => {
+      if (signal.aborted) return resolve(false);
+      const timer = setTimeout(() => resolve(true), ms);
+      signal.addEventListener('abort', () => {
+        clearTimeout(timer);
+        resolve(false);
+      });
+    });
+  return {
+    started: () => startedPromise,
+    translator: {
+      async translate(_req, { signal, onDelta }): Promise<TranslateResult> {
+        markStarted();
+        let deltaCount = 0;
+        let ok = await sleep(firstDeltaMs, signal);
+        while (ok && deltaCount < 200) {
+          onDelta('译文片段');
+          deltaCount += 1;
+          ok = await sleep(50, signal);
+        }
+        if (onAbort === 'throw') throw new DOMException('This operation was aborted', 'AbortError');
+        return { ok: false, code: 'client_aborted', deltaCount };
+      },
+    },
+  };
+}
+
+describe('client aborts on /api/translations (TD-301, TD-302; AC-7, AC-8, AC-10)', () => {
+  const SOURCE_TEXT = 'Sensitive source sentence for abort test';
+  const scenarios: Array<[AbortTiming, AbortMethod]> = [
+    ['before-first-delta', 'abort-controller'],
+    ['before-first-delta', 'socket-destroy'],
+    ['after-first-delta', 'abort-controller'],
+    ['after-first-delta', 'socket-destroy'],
+  ];
+
+  async function listen(translator: GatedTranslator) {
+    const h = await harness({ translator: translator.translator });
+    await h.app.listen({ host: '127.0.0.1', port: 0 });
+    const address = h.app.server.address() as AddressInfo;
+    return { ...h, baseUrl: `http://127.0.0.1:${address.port}` };
+  }
+
+  it.each(scenarios)('%s via %s: no error/fatal logs and exactly one client_aborted record', async (timing, method) => {
+    const gated = gatedTranslator(timing === 'before-first-delta' ? 60_000 : 0);
+    const { app, sink, baseUrl } = await listen(gated);
+    const outcome = await abortTranslationRequest({
+      baseUrl,
+      body: { kind: 'partial', text: SOURCE_TEXT, sourceLanguage: 'ko-KR', inputSource: 'system' },
+      method,
+      timing,
+      serverStarted: gated.started,
+    });
+    if (timing === 'before-first-delta') expect(outcome.received).toBe('');
+    else expect(outcome.received).toContain('"type":"delta"');
+
+    await waitForClientAborted(sink, 0, 5_000);
+    const records = sink.records();
+    expect(records.filter((r) => r.level === 'error' || r.level === 'fatal')).toEqual([]);
+    const aborted = records.filter((r) => r.errorCode === 'client_aborted');
+    expect(aborted).toHaveLength(1);
+    expect(aborted[0]).toMatchObject({ level: 'info', event: 'translation_completed', msg: 'translation aborted by client', kind: 'partial' });
+    expect(Object.keys(aborted[0]!).sort()).toEqual([...CLIENT_ABORTED_KEYS, ...CLIENT_ABORTED_OPTIONAL_KEYS].sort());
+    if (timing === 'before-first-delta') expect(aborted[0]!.deltaCount).toBe(0);
+    else expect(aborted[0]!.deltaCount).toBeGreaterThanOrEqual(1);
+    expect(sink.raw()).not.toContain(SOURCE_TEXT);
+    expect(sink.raw()).not.toContain('译文片段');
+    expect(sink.raw()).not.toContain(SECRET);
+    await app.close();
+  });
+
+  it.each(scenarios)(
+    '%s via %s: an abort-class exception from the translator after the client closed is logged as client_aborted (info)',
+    async (timing, method) => {
+      const gated = gatedTranslator(timing === 'before-first-delta' ? 60_000 : 0, 'throw');
+      const { app, sink, baseUrl } = await listen(gated);
+      await abortTranslationRequest({ baseUrl, body: { kind: 'final', text: SOURCE_TEXT }, method, timing, serverStarted: gated.started });
+      await waitForClientAborted(sink, 0, 5_000);
+      const records = sink.records();
+      expect(records.filter((r) => r.level === 'error' || r.level === 'fatal')).toEqual([]);
+      const aborted = records.filter((r) => r.errorCode === 'client_aborted');
+      expect(aborted).toHaveLength(1);
+      expect(Object.keys(aborted[0]!).sort()).toEqual([...CLIENT_ABORTED_KEYS].sort());
+      if (timing === 'before-first-delta') expect(aborted[0]!.deltaCount).toBe(0);
+      else expect(aborted[0]!.deltaCount).toBeGreaterThanOrEqual(1);
+      await app.close();
+    },
+  );
+});
+
 describe('error handling', () => {
+  it('logs an unexpected translator exception as one unhandled_error at error level (AC-9)', async () => {
+    const { app, sink } = await harness({
+      translator: {
+        async translate() {
+          throw new Error('boom');
+        },
+      },
+    });
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/translations',
+      headers: { ...SAME, 'content-type': 'application/json' },
+      payload: JSON.stringify({ kind: 'final', text: 'x' }),
+    });
+    expect(ndjson(res.body)).toEqual([{ type: 'error', code: 'upstream_unavailable' }]);
+    const errors = sink.records().filter((r) => r.level === 'error' || r.level === 'fatal');
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toMatchObject({ level: 'error', event: 'unhandled_error', route: '/api/translations', errorCode: 'internal_error' });
+    expect(sink.records().some((r) => r.errorCode === 'client_aborted')).toBe(false);
+    await app.close();
+  });
+
+  it('still logs an abort-class exception at error level when the client did not close (AC-9)', async () => {
+    const { app, sink } = await harness({
+      translator: {
+        async translate() {
+          throw new DOMException('This operation was aborted', 'AbortError');
+        },
+      },
+    });
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/translations',
+      headers: { ...SAME, 'content-type': 'application/json' },
+      payload: JSON.stringify({ kind: 'final', text: 'x' }),
+    });
+    expect(ndjson(res.body)).toEqual([{ type: 'error', code: 'upstream_unavailable' }]);
+    const errors = sink.records().filter((r) => r.level === 'error');
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toMatchObject({ event: 'unhandled_error', errorClass: 'AbortError', errorCode: 'internal_error' });
+    expect(sink.records().some((r) => r.errorCode === 'client_aborted')).toBe(false);
+    await app.close();
+  });
+
+  it('logs an exception thrown after deltas were written at error level (AC-9)', async () => {
+    const { app, sink } = await harness({
+      translator: {
+        async translate(_r, { onDelta }) {
+          onDelta('部分');
+          throw new Error('late boom');
+        },
+      },
+    });
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/translations',
+      headers: { ...SAME, 'content-type': 'application/json' },
+      payload: JSON.stringify({ kind: 'final', text: 'x' }),
+    });
+    expect(ndjson(res.body)).toEqual([
+      { type: 'delta', text: '部分' },
+      { type: 'error', code: 'upstream_unavailable' },
+    ]);
+    expect(sink.records().filter((r) => r.level === 'error')).toHaveLength(1);
+    await app.close();
+  });
+
   it('returns internal_error without leaking details', async () => {
     const { app, sink } = await harness({
       translator: {
