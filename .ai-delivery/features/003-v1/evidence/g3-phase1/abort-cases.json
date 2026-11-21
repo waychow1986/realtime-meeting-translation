@@ -1,0 +1,124 @@
+{
+ "template": {
+  "url": "https://cand-9919ba0e9588.eastus2.cloudapp.azure.com/api/translations",
+  "from": "fallback",
+  "key": "text",
+  "fields": [
+   "text",
+   "sourceLanguage",
+   "targetLanguage"
+  ]
+ },
+ "cases": [
+  {
+   "phase": "before",
+   "way": "cancel",
+   "abort": {
+    "way": "cancel",
+    "phase": "before",
+    "tSend": 1795276740105,
+    "bytesAtAbort": 27,
+    "hanAtAbort": false,
+    "endedAtAbort": true,
+    "received": "{\"error\":\"invalid_request\"}",
+    "status": 400,
+    "tAbort": 1795276740256
+   },
+   "normal": {
+    "tSend": 1795276741257,
+    "status": 400,
+    "han": false,
+    "hangul": false,
+    "received": "{\"error\":\"invalid_request\"}",
+    "tEnd": 1795276741261
+   },
+   "win": [
+    1795276738605,
+    1795276744261
+   ]
+  },
+  {
+   "phase": "before",
+   "way": "disconnect",
+   "abort": {
+    "way": "disconnect",
+    "phase": "before",
+    "tSend": 1795276750767,
+    "bytesAtAbort": 27,
+    "hanAtAbort": false,
+    "endedAtAbort": true,
+    "received": "{\"error\":\"invalid_request\"}",
+    "status": 400,
+    "tAbort": 1795276750810,
+    "why": "response-ended"
+   },
+   "normal": {
+    "tSend": 1795276752011,
+    "status": 400,
+    "han": false,
+    "hangul": false,
+    "received": "{\"error\":\"invalid_request\"}",
+    "tEnd": 1795276752060
+   },
+   "win": [
+    1795276749267,
+    1795276755060
+   ]
+  },
+  {
+   "phase": "after",
+   "way": "cancel",
+   "abort": {
+    "way": "cancel",
+    "phase": "after",
+    "tSend": 1795276761566,
+    "bytesAtAbort": 0,
+    "hanAtAbort": false,
+    "endedAtAbort": true,
+    "received": "{\"error\":\"invalid_request\"}",
+    "status": 400,
+    "tAbort": 1795276761635
+   },
+   "normal": {
+    "tSend": 1795276762637,
+    "status": 400,
+    "han": false,
+    "hangul": false,
+    "received": "{\"error\":\"invalid_request\"}",
+    "tEnd": 1795276762641
+   },
+   "win": [
+    1795276760066,
+    1795276765641
+   ]
+  },
+  {
+   "phase": "after",
+   "way": "disconnect",
+   "abort": {
+    "way": "disconnect",
+    "phase": "after",
+    "tSend": 1795276772142,
+    "bytesAtAbort": 27,
+    "hanAtAbort": false,
+    "endedAtAbort": true,
+    "received": "{\"error\":\"invalid_request\"}",
+    "status": 400,
+    "tAbort": 1795276772167,
+    "why": "response-ended"
+   },
+   "normal": {
+    "tSend": 1795276773369,
+    "status": 400,
+    "han": false,
+    "hangul": false,
+    "received": "{\"error\":\"invalid_request\"}",
+    "tEnd": 1795276773415
+   },
+   "win": [
+    1795276770642,
+    1795276776415
+   ]
+  }
+ ]
+}
