@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S29",
+  "result": "done",
+  "summary": "批次 3（S28：AC-12 悬浮字幕小窗）代码审查通过，无阻断问题，记录 4 项观察项。",
+  "asks": [],
+  "outputs": [],
+  "review": {
+    "mode": "code-review",
+    "conclusion": "通过。本批与技术方案 TD-104、TD-105 及规格 FR-136～FR-140 一致：CaptionWindow 按 'documentPictureInPicture' 是否存在判断支持（TD-105），不支持时按钮 disabled，并在旁边用可见的中文说明原因（FR-139）；requestWindow 在点击处理函数中同步发起，尺寸为 560×260，opening 标志防止重复打开；小窗文档只引入同源 /styles.css（符合现有 CSP style-src 'self'），只放状态与字幕列表，没有任何音视频元素，也不发起接口请求（FR-108）。字幕管线仍只有一份：MirroredCaptionView 先写主页面、再写小窗。打开小窗时在 await 之后同步完成“克隆主列表 → 注册已有节点 → attach”，期间不会漏掉更新，两处内容与顺序一致（FR-137）。字号与状态通过 setCaptionSize/setState 同步，.caption 的样式没有限定在主页面容器内，因此小窗中临时、定稿、中断字幕的样式与主页面相同。关闭小窗（按钮或 pagehide）只 detach 小窗视图，不影响采集与主页面；再次弹出会复制当前全部字幕（FR-138）。字幕仍只用 textContent 写入，没有注入风险。DomCaptionView 的改动（用 ownerDocument 创建节点、构造时登记已有节点、alwaysFollow）对主页面行为没有影响，麦克风路径没有其它改动（AC-09）。服务端、CSP、CI、部署脚本、IaC 与依赖声明均未改动；没有新增凭据，也没有复制仓库中的环境配置取值；pip.spec 还检查了小窗中不含凭据。原有测试只做了与本批一致的扩充：IQA-109 增加了 IQA-123 的断言，ui.ts 的布局检查加入 #pip-button；没有删除或放宽任何断言。上一轮 S27 观察项中的 README 描述已更正。",
+    "items": [],
+    "findings": [
+      {
+        "ownerStep": "S28",
+        "text": "观察项：tests/e2e/system.spec.ts 的 IQA-109/123 先在页面脚本运行前删除 documentPictureInPicture，再验证小窗按钮不可用。这证明了代码中“不支持”分支的行为，但不是“经验证不支持字幕小窗的真实浏览器”的证据（spec.md IQA-123 的前置条件）。S28 已就此提出 decide（T-A5/IQA-123 的处理方式），本审查不替人决定；G3/G4 应以该问题的人工答案为准，不能把这个模拟当作 IQA-123 的独立测试证据。",
+        "blocking": false
+      },
+      {
+        "ownerStep": "S28",
+        "text": "观察项：src/web/mirroredCaptionView.ts 的 mirror() 在写小窗视图抛异常时只调用 detach，但 src/web/pip.ts 的 CaptionWindow.current 仍然保留：小窗不会关闭，按钮仍显示“关闭字幕小窗”，状态继续更新，字幕却停止同步。DomCaptionView 写入同源 PiP 文档在正常情况下不会抛异常，读代码找不到现实的触发条件，因此不阻断。可以考虑出错时一并关闭小窗或通知 CaptionWindow，保证不会出现“看起来在同步、实际已停止”的状态。",
+        "blocking": false
+      },
+      {
+        "ownerStep": "S28",
+        "text": "观察项：src/web/pip.ts 的 open() 在 requestWindow 失败时只记录 console.debug，页面上没有任何提示。实际失败多为用户激活失效或浏览器拒绝，按钮会恢复可点击，再点一次即可，不影响字幕与采集，不阻断；可以考虑在 notice 中给出中文提示。",
+        "blocking": false
+      },
+      {
+        "ownerStep": "S28",
+        "text": "观察项：与 DD-101 一致，pip.spec 不判定“小窗悬浮在全屏视频或会议软件之上”，也不判定 Windows/macOS 上的 Chrome / Edge；自动化证据只来自 Linux · Chromium（Xvfb）。这一点需要按 spec.md 中“发布后试用说明”由业务负责人确认，G4 不能把它当作已验证。",
+        "blocking": false
+      }
+    ]
+  }
+}
