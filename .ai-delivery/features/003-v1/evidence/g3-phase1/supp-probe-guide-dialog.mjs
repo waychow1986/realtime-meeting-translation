@@ -1,4 +1,4 @@
-import { chromium } from '/tmp/qarun.5ttb/node_modules/playwright/index.mjs';
+import { chromium } from '/tmp/qa-work/node_modules/playwright/index.mjs';
 const url = process.env.AIDH_SERVICE_WEB_URL;
 const b = await chromium.launch();
 const p = await b.newPage();

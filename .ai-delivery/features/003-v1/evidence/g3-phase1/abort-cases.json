@@ -16,25 +16,25 @@
    "abort": {
     "way": "cancel",
     "phase": "before",
-    "tSend": 1795278418915,
+    "tSend": 1795280086095,
     "bytesAtAbort": 27,
     "hanAtAbort": false,
     "endedAtAbort": true,
     "received": "{\"error\":\"invalid_request\"}",
     "status": 400,
-    "tAbort": 1795278419068
+    "tAbort": 1795280086247
    },
    "normal": {
-    "tSend": 1795278420068,
+    "tSend": 1795280087248,
     "status": 400,
     "han": false,
     "hangul": false,
     "received": "{\"error\":\"invalid_request\"}",
-    "tEnd": 1795278420073
+    "tEnd": 1795280087253
    },
    "win": [
-    1795278417415,
-    1795278423073
+    1795280084595,
+    1795280090253
    ]
   },
   {
@@ -43,26 +43,26 @@
    "abort": {
     "way": "disconnect",
     "phase": "before",
-    "tSend": 1795278429578,
+    "tSend": 1795280096758,
     "bytesAtAbort": 27,
     "hanAtAbort": false,
     "endedAtAbort": true,
     "received": "{\"error\":\"invalid_request\"}",
     "status": 400,
-    "tAbort": 1795278429620,
+    "tAbort": 1795280096805,
     "why": "response-ended"
    },
    "normal": {
-    "tSend": 1795278430822,
+    "tSend": 1795280098006,
     "status": 400,
     "han": false,
     "hangul": false,
     "received": "{\"error\":\"invalid_request\"}",
-    "tEnd": 1795278430852
+    "tEnd": 1795280098043
    },
    "win": [
-    1795278428078,
-    1795278433852
+    1795280095258,
+    1795280101043
    ]
   },
   {
@@ -71,25 +71,25 @@
    "abort": {
     "way": "cancel",
     "phase": "after",
-    "tSend": 1795278440357,
+    "tSend": 1795280107548,
     "bytesAtAbort": 0,
     "hanAtAbort": false,
     "endedAtAbort": true,
     "received": "{\"error\":\"invalid_request\"}",
     "status": 400,
-    "tAbort": 1795278440405
+    "tAbort": 1795280107579
    },
    "normal": {
-    "tSend": 1795278441407,
+    "tSend": 1795280108580,
     "status": 400,
     "han": false,
     "hangul": false,
     "received": "{\"error\":\"invalid_request\"}",
-    "tEnd": 1795278441411
+    "tEnd": 1795280108584
    },
    "win": [
-    1795278438857,
-    1795278444411
+    1795280106048,
+    1795280111584
    ]
   },
   {
@@ -98,26 +98,26 @@
    "abort": {
     "way": "disconnect",
     "phase": "after",
-    "tSend": 1795278450912,
+    "tSend": 1795280118084,
     "bytesAtAbort": 27,
     "hanAtAbort": false,
     "endedAtAbort": true,
     "received": "{\"error\":\"invalid_request\"}",
     "status": 400,
-    "tAbort": 1795278450970,
+    "tAbort": 1795280118132,
     "why": "response-ended"
    },
    "normal": {
-    "tSend": 1795278452172,
+    "tSend": 1795280119334,
     "status": 400,
     "han": false,
     "hangul": false,
     "received": "{\"error\":\"invalid_request\"}",
-    "tEnd": 1795278452200
+    "tEnd": 1795280119383
    },
    "win": [
-    1795278449412,
-    1795278455200
+    1795280116584,
+    1795280122383
    ]
   }
  ]

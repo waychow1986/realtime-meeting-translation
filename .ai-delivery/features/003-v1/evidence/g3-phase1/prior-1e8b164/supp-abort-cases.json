@@ -1,0 +1,159 @@
+[
+ {
+  "phase": "before",
+  "mode": "cancel",
+  "win": [
+   "2026-11-21T16:30:17.659Z",
+   "2026-11-21T16:30:24.489Z"
+  ],
+  "abort": {
+   "tSend": 1795278619159,
+   "mode": "cancel",
+   "phase": "before",
+   "bytes": 0,
+   "ended": false,
+   "status": null,
+   "tAbort": 1795278619320,
+   "bytesAtAbort": 0,
+   "hanAtAbort": false,
+   "endedAtAbort": false,
+   "err": "Error: AbortError",
+   "recvLen": 0,
+   "han": false,
+   "hangul": false
+  },
+  "normal": {
+   "tSend": 1795278620523,
+   "mode": "normal",
+   "bytes": 352,
+   "ended": true,
+   "status": 200,
+   "tEnd": 1795278621488,
+   "recvLen": 326,
+   "han": true,
+   "hangul": false
+  },
+  "fragments": [
+   "谢谢",
+   "的一"
+  ]
+ },
+ {
+  "phase": "before",
+  "mode": "disconnect",
+  "win": [
+   "2026-11-21T16:30:27.993Z",
+   "2026-11-21T16:30:34.445Z"
+  ],
+  "abort": {
+   "tSend": 1795278629493,
+   "mode": "disconnect",
+   "phase": "before",
+   "bytes": 0,
+   "ended": false,
+   "status": null,
+   "tAbort": 1795278629643,
+   "bytesAtAbort": 0,
+   "hanAtAbort": false,
+   "endedAtAbort": false,
+   "err": "ECONNRESET",
+   "recvLen": 0,
+   "han": false,
+   "hangul": false
+  },
+  "normal": {
+   "tSend": 1795278630844,
+   "mode": "normal",
+   "bytes": 352,
+   "ended": true,
+   "status": 200,
+   "tEnd": 1795278631445,
+   "recvLen": 326,
+   "han": true,
+   "hangul": false
+  },
+  "fragments": [
+   "谢谢",
+   "的一"
+  ]
+ },
+ {
+  "phase": "after",
+  "mode": "cancel",
+  "win": [
+   "2026-11-21T16:30:37.948Z",
+   "2026-11-21T16:30:45.262Z"
+  ],
+  "abort": {
+   "tSend": 1795278639448,
+   "mode": "cancel",
+   "phase": "after",
+   "bytes": 33,
+   "ended": false,
+   "status": 200,
+   "tAbort": 1795278640004,
+   "bytesAtAbort": 33,
+   "hanAtAbort": true,
+   "endedAtAbort": false,
+   "err": "Error: AbortError",
+   "recvLen": 29,
+   "han": true,
+   "hangul": false
+  },
+  "normal": {
+   "tSend": 1795278641206,
+   "mode": "normal",
+   "bytes": 382,
+   "ended": true,
+   "status": 200,
+   "tEnd": 1795278642262,
+   "recvLen": 354,
+   "han": true,
+   "hangul": false
+  },
+  "fragments": [
+   "大家",
+   "谢谢",
+   "的一"
+  ]
+ },
+ {
+  "phase": "after",
+  "mode": "disconnect",
+  "win": [
+   "2026-11-21T16:30:48.763Z",
+   "2026-11-21T16:30:55.830Z"
+  ],
+  "abort": {
+   "tSend": 1795278650263,
+   "mode": "disconnect",
+   "phase": "after",
+   "bytes": 33,
+   "ended": false,
+   "status": 200,
+   "tAbort": 1795278650808,
+   "bytesAtAbort": 33,
+   "hanAtAbort": true,
+   "endedAtAbort": false,
+   "recvLen": 29,
+   "han": true,
+   "hangul": false
+  },
+  "normal": {
+   "tSend": 1795278652010,
+   "mode": "normal",
+   "bytes": 352,
+   "ended": true,
+   "status": 200,
+   "tEnd": 1795278652830,
+   "recvLen": 326,
+   "han": true,
+   "hangul": false
+  },
+  "fragments": [
+   "大家",
+   "谢谢",
+   "的一"
+  ]
+ }
+]

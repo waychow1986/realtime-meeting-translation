@@ -1,7 +1,7 @@
 {
  "logStatus": {
   "status": "ok",
-  "logsReadAt": "2026-11-21T16:31:40.804548205Z",
+  "logsReadAt": "2026-11-21T16:58:50.137187259Z",
   "gaps": [],
   "droppedOldest": 0
  },
@@ -10,8 +10,8 @@
    "phase": "before",
    "mode": "cancel",
    "window": [
-    "2026-11-21T16:30:17.659Z",
-    "2026-11-21T16:30:24.489Z"
+    "2026-11-21T16:57:42.979Z",
+    "2026-11-21T16:57:49.506Z"
    ],
    "client": {
     "abortStatus": null,
@@ -22,9 +22,9 @@
     "normalHasHan": true,
     "normalHasHangul": false
    },
-   "logLines": 4,
+   "logLines": 5,
    "levels": {
-    "info": 4
+    "info": 5
    },
    "errorFatal": 0,
    "clientAborted": 1,
@@ -48,8 +48,8 @@
    "phase": "before",
    "mode": "disconnect",
    "window": [
-    "2026-11-21T16:30:27.993Z",
-    "2026-11-21T16:30:34.445Z"
+    "2026-11-21T16:57:53.010Z",
+    "2026-11-21T16:57:59.809Z"
    ],
    "client": {
     "abortStatus": null,
@@ -60,9 +60,9 @@
     "normalHasHan": true,
     "normalHasHangul": false
    },
-   "logLines": 4,
+   "logLines": 5,
    "levels": {
-    "info": 4
+    "info": 5
    },
    "errorFatal": 0,
    "clientAborted": 1,
@@ -86,8 +86,46 @@
    "phase": "after",
    "mode": "cancel",
    "window": [
-    "2026-11-21T16:30:37.948Z",
-    "2026-11-21T16:30:45.262Z"
+    "2026-11-21T16:58:03.310Z",
+    "2026-11-21T16:58:10.310Z"
+   ],
+   "client": {
+    "abortStatus": 200,
+    "bytesAtAbort": 33,
+    "hanAtAbort": true,
+    "endedAtAbort": false,
+    "normalStatus": 200,
+    "normalHasHan": true,
+    "normalHasHangul": false
+   },
+   "logLines": 5,
+   "levels": {
+    "info": 5
+   },
+   "errorFatal": 0,
+   "clientAborted": 1,
+   "clientAbortedLevels": [
+    "info"
+   ],
+   "clientAbortedKinds": [
+    "final"
+   ],
+   "clientAbortedDeltaCount": [
+    1
+   ],
+   "clientAbortedFieldSets": [
+    "deltaCount,durationMs,errorCode,event,inputSource,kind,level,msg,reqId,sourceLanguage,textLength,time"
+   ],
+   "contentHits": 0,
+   "redactionMarkerHits": 0,
+   "secretHits": 0
+  },
+  {
+   "phase": "after",
+   "mode": "disconnect",
+   "window": [
+    "2026-11-21T16:58:13.811Z",
+    "2026-11-21T16:58:20.979Z"
    ],
    "client": {
     "abortStatus": 200,
@@ -119,53 +157,15 @@
    "contentHits": 0,
    "redactionMarkerHits": 0,
    "secretHits": 0
-  },
-  {
-   "phase": "after",
-   "mode": "disconnect",
-   "window": [
-    "2026-11-21T16:30:48.763Z",
-    "2026-11-21T16:30:55.830Z"
-   ],
-   "client": {
-    "abortStatus": 200,
-    "bytesAtAbort": 33,
-    "hanAtAbort": true,
-    "endedAtAbort": false,
-    "normalStatus": 200,
-    "normalHasHan": true,
-    "normalHasHangul": false
-   },
-   "logLines": 4,
-   "levels": {
-    "info": 4
-   },
-   "errorFatal": 0,
-   "clientAborted": 1,
-   "clientAbortedLevels": [
-    "info"
-   ],
-   "clientAbortedKinds": [
-    "final"
-   ],
-   "clientAbortedDeltaCount": [
-    2
-   ],
-   "clientAbortedFieldSets": [
-    "deltaCount,durationMs,errorCode,event,inputSource,kind,level,msg,reqId,sourceLanguage,textLength,time"
-   ],
-   "contentHits": 0,
-   "redactionMarkerHits": 0,
-   "secretHits": 0
   }
  ],
  "allClientAbortedFieldSets": [
   "deltaCount,durationMs,errorCode,event,inputSource,kind,level,msg,reqId,sourceLanguage,textLength,time"
  ],
  "allLevels": {
-  "info": 187
+  "info": 194
  },
- "allLines": 187,
- "allClientAborted": 9,
+ "allLines": 194,
+ "allClientAborted": 8,
  "allSecretHits": 0
 }

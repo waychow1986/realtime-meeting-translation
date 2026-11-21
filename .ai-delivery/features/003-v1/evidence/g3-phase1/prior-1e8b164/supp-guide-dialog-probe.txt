@@ -1,0 +1,58 @@
+{
+ "dlg": [
+  {
+   "tag": "DIALOG",
+   "open": true,
+   "modal": true,
+   "id": "guide",
+   "cls": "guide",
+   "visible": true
+  }
+ ],
+ "radios": [
+  {
+   "name": "input-source",
+   "value": "microphone",
+   "id": "source-microphone",
+   "label": "麦克风",
+   "checked": true
+  },
+  {
+   "name": "input-source",
+   "value": "system",
+   "id": "source-system",
+   "label": "系统声音",
+   "checked": false
+  },
+  {
+   "name": "caption-size",
+   "value": "s",
+   "id": "",
+   "label": "小",
+   "checked": false
+  },
+  {
+   "name": "caption-size",
+   "value": "m",
+   "id": "",
+   "label": "中",
+   "checked": true
+  },
+  {
+   "name": "caption-size",
+   "value": "l",
+   "id": "",
+   "label": "大",
+   "checked": false
+  },
+  {
+   "name": "caption-size",
+   "value": "xl",
+   "id": "",
+   "label": "特大",
+   "checked": false
+  }
+ ],
+ "topAtStart": "DIALOG#guide.guide"
+}
+after dismiss top at start: BUTTON#start-button

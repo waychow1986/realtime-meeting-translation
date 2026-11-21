@@ -3,17 +3,17 @@
   "phase": "before",
   "mode": "cancel",
   "win": [
-   "2026-11-21T16:30:17.659Z",
-   "2026-11-21T16:30:24.489Z"
+   "2026-11-21T16:57:42.979Z",
+   "2026-11-21T16:57:49.506Z"
   ],
   "abort": {
-   "tSend": 1795278619159,
+   "tSend": 1795280264479,
    "mode": "cancel",
    "phase": "before",
    "bytes": 0,
    "ended": false,
    "status": null,
-   "tAbort": 1795278619320,
+   "tAbort": 1795280264640,
    "bytesAtAbort": 0,
    "hanAtAbort": false,
    "endedAtAbort": false,
@@ -23,12 +23,12 @@
    "hangul": false
   },
   "normal": {
-   "tSend": 1795278620523,
+   "tSend": 1795280265843,
    "mode": "normal",
    "bytes": 352,
    "ended": true,
    "status": 200,
-   "tEnd": 1795278621488,
+   "tEnd": 1795280266506,
    "recvLen": 326,
    "han": true,
    "hangul": false
@@ -42,17 +42,17 @@
   "phase": "before",
   "mode": "disconnect",
   "win": [
-   "2026-11-21T16:30:27.993Z",
-   "2026-11-21T16:30:34.445Z"
+   "2026-11-21T16:57:53.010Z",
+   "2026-11-21T16:57:59.809Z"
   ],
   "abort": {
-   "tSend": 1795278629493,
+   "tSend": 1795280274510,
    "mode": "disconnect",
    "phase": "before",
    "bytes": 0,
    "ended": false,
    "status": null,
-   "tAbort": 1795278629643,
+   "tAbort": 1795280274660,
    "bytesAtAbort": 0,
    "hanAtAbort": false,
    "endedAtAbort": false,
@@ -62,12 +62,12 @@
    "hangul": false
   },
   "normal": {
-   "tSend": 1795278630844,
+   "tSend": 1795280275862,
    "mode": "normal",
    "bytes": 352,
    "ended": true,
    "status": 200,
-   "tEnd": 1795278631445,
+   "tEnd": 1795280276809,
    "recvLen": 326,
    "han": true,
    "hangul": false
@@ -81,17 +81,17 @@
   "phase": "after",
   "mode": "cancel",
   "win": [
-   "2026-11-21T16:30:37.948Z",
-   "2026-11-21T16:30:45.262Z"
+   "2026-11-21T16:58:03.310Z",
+   "2026-11-21T16:58:10.310Z"
   ],
   "abort": {
-   "tSend": 1795278639448,
+   "tSend": 1795280284810,
    "mode": "cancel",
    "phase": "after",
    "bytes": 33,
    "ended": false,
    "status": 200,
-   "tAbort": 1795278640004,
+   "tAbort": 1795280285453,
    "bytesAtAbort": 33,
    "hanAtAbort": true,
    "endedAtAbort": false,
@@ -101,13 +101,13 @@
    "hangul": false
   },
   "normal": {
-   "tSend": 1795278641206,
+   "tSend": 1795280286656,
    "mode": "normal",
-   "bytes": 382,
+   "bytes": 352,
    "ended": true,
    "status": 200,
-   "tEnd": 1795278642262,
-   "recvLen": 354,
+   "tEnd": 1795280287310,
+   "recvLen": 326,
    "han": true,
    "hangul": false
   },
@@ -121,17 +121,17 @@
   "phase": "after",
   "mode": "disconnect",
   "win": [
-   "2026-11-21T16:30:48.763Z",
-   "2026-11-21T16:30:55.830Z"
+   "2026-11-21T16:58:13.811Z",
+   "2026-11-21T16:58:20.979Z"
   ],
   "abort": {
-   "tSend": 1795278650263,
+   "tSend": 1795280295311,
    "mode": "disconnect",
    "phase": "after",
    "bytes": 33,
    "ended": false,
    "status": 200,
-   "tAbort": 1795278650808,
+   "tAbort": 1795280295909,
    "bytesAtAbort": 33,
    "hanAtAbort": true,
    "endedAtAbort": false,
@@ -140,12 +140,12 @@
    "hangul": false
   },
   "normal": {
-   "tSend": 1795278652010,
+   "tSend": 1795280297110,
    "mode": "normal",
    "bytes": 352,
    "ended": true,
    "status": 200,
-   "tEnd": 1795278652830,
+   "tEnd": 1795280297979,
    "recvLen": 326,
    "han": true,
    "hangul": false
