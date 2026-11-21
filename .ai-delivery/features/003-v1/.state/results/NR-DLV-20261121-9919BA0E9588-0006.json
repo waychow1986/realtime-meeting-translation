@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S4",
+  "result": "done",
+  "summary": "按 PQ-301 人工答案修订规格 spec.md：清晰韩语、日语合成素材的每一句都必须得到中文译文，任一次运行出现“（此句未能翻译成中文）”提示即判该次不通过（更新 INT-302、US-303、SC-301～SC-303、IQA-301/302、追踪表与通过标准），提示行为仍由 AC-4、AC-5 的受控测试单独验证；当前无阻塞产品问题。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/003-v1/spec.md",
+    ".ai-delivery/features/003-v1/.state/results/NR-DLV-20261121-9919BA0E9588-0006.json"
+  ]
+}
