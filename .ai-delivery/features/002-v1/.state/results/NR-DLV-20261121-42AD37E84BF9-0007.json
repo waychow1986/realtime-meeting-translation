@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S5",
+  "result": "needs-answer",
+  "summary": "已写出技术方案：沿用第 1 版技术基线与现有依赖实例，系统声音用浏览器标准共享能力（getDisplayMedia）取得并下混后接入同一识别与翻译管线，字幕小窗用 Document Picture-in-Picture，界面统一重做；经原型实测确定端到端测试须以有界面 Chromium 在 Xvfb 中运行。仅剩字幕小窗“悬浮在全屏视频之上”的验收证据方式需要决定。",
+  "asks": [
+    {
+      "kind": "decide",
+      "category": "business",
+      "question": "AC-12 中“字幕小窗悬浮在全屏视频 / 桌面会议软件之上仍可见”这一点，验收证据如何取得？自动化测试环境（Linux 虚拟显示，无窗口管理器，也没有 Windows / macOS 桌面）能证明小窗以浏览器的悬浮窗能力（Document Picture-in-Picture）打开、与主页面同一份字幕同步更新、关闭后主页面继续、不支持的浏览器按钮不可用，但无法证明它在其它应用的全屏窗口之上可见（已在与测试环境相同的镜像中核实）。",
+      "recommended": "与 PQ-001 的处理一致：自动化验收以上述可证明的行为为证据；“在全屏视频 / 会议软件之上可见”由浏览器 Document Picture-in-Picture 能力保证，由业务负责人发布后在模拟运行环境用 Windows 上的 Chrome / Edge 亲自试用确认，发现问题走后续修改交付。",
+      "alternatives": [
+        "提供带真实 Windows 或 macOS 桌面的测试机，由独立测试执行该检查（需确认是否有该环境及对工期预算的影响）。",
+        "在测试环境的虚拟显示中加装窗口管理器做近似验证（Linux 环境，不等同于 Windows / macOS 的全屏行为，证据价值有限）。"
+      ]
+    }
+  ],
+  "outputs": [
+    ".ai-delivery/features/002-v1/design.md",
+    ".ai-delivery/features/002-v1/runtime/deployment.json",
+    "docs/dependencies.json",
+    "docs/deployment.json"
+  ]
+}

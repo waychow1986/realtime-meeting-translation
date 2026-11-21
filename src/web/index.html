@@ -7,19 +7,100 @@
     <link rel="stylesheet" href="/styles.css" />
     <script src="/app.js" defer></script>
   </head>
-  <body data-state="idle">
-    <header class="toolbar">
+  <body data-state="idle" data-source="microphone">
+    <header class="topbar">
       <h1>会议实时中文字幕</h1>
-      <div class="controls">
-        <span class="status-label">当前状态：<strong id="status" role="status" aria-live="polite">未开始</strong></span>
-        <button id="start-button" type="button">开始</button>
-        <button id="stop-button" type="button" disabled>停止</button>
+      <div class="controls" id="controls">
+        <fieldset id="input-source" class="choice segmented">
+          <legend>输入方式</legend>
+          <label><input type="radio" name="input-source" id="source-microphone" value="microphone" checked />麦克风</label>
+          <label><input type="radio" name="input-source" id="source-system" value="system" />系统声音</label>
+        </fieldset>
+        <div class="actions">
+          <button id="start-button" type="button" class="primary">开始</button>
+          <button id="stop-button" type="button" class="secondary" disabled>停止</button>
+        </div>
+        <div class="status-box">
+          <span id="status-indicator" class="status-indicator" aria-hidden="true">○</span>
+          <span class="status-caption">当前状态</span>
+          <strong id="status" role="status" aria-live="polite">未开始</strong>
+        </div>
+        <fieldset id="caption-size" class="choice segmented">
+          <legend>字号</legend>
+          <label><input type="radio" name="caption-size" value="s" />小</label>
+          <label><input type="radio" name="caption-size" value="m" checked />中</label>
+          <label><input type="radio" name="caption-size" value="l" />大</label>
+          <label><input type="radio" name="caption-size" value="xl" />特大</label>
+        </fieldset>
+        <div class="pip-control">
+          <button id="pip-button" type="button" aria-pressed="false">弹出字幕小窗</button>
+          <span id="pip-unsupported" class="pip-unsupported" role="note" hidden></span>
+        </div>
+        <button id="guide-open" type="button" class="guide-open" aria-label="使用引导" title="使用引导">
+          <span class="guide-icon" aria-hidden="true">?</span><span class="guide-label" aria-hidden="true">使用引导</span>
+        </button>
       </div>
     </header>
-    <p id="notice" class="notice" role="alert" hidden></p>
-    <main class="caption-area" aria-label="中文字幕">
-      <p class="hint">点击“开始”并允许使用麦克风，发言内容会自动识别并以中文字幕显示在下方。</p>
-      <ol id="captions" class="captions" aria-live="polite"></ol>
+    <p id="notice" class="notice" role="alert" data-kind="error" hidden></p>
+    <main class="workspace">
+      <section id="caption-panel" class="caption-panel" data-caption-size="m" aria-label="中文字幕">
+        <div id="caption-scroll" class="caption-scroll">
+          <p class="hint">选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。</p>
+          <ol id="captions" class="captions" aria-live="polite"></ol>
+        </div>
+        <button id="jump-latest" type="button" class="jump-latest" hidden>回到最新字幕 ↓</button>
+      </section>
+      <aside id="system-panel" class="system-panel" aria-labelledby="system-title" hidden>
+        <p id="system-unsupported" class="system-unsupported" role="note" hidden></p>
+        <details id="system-details" open>
+          <summary id="system-title">系统声音：操作步骤与支持的浏览器</summary>
+          <section id="system-help" class="system-help" aria-label="系统声音操作步骤">
+            <ol class="system-steps">
+              <li>先在其它标签页或软件中准备好要翻译的视频或会议。</li>
+              <li>点击“开始”，浏览器会弹出共享选择窗口。</li>
+              <li>看网页视频或网页版会议：选择“标签页”，选中正在播放的标签页，并保持<strong>“同时分享标签页中的音频”</strong>处于打开状态。</li>
+              <li>看桌面会议软件或本地播放器（Windows）：选择“整个屏幕”，并打开<strong>“同时分享系统音频”</strong>。</li>
+              <li>点击“分享”，状态变为“正在听”后即开始出字幕。</li>
+              <li>结束：点击本页“停止”，或点击浏览器提示条上的“停止共享”。</li>
+            </ol>
+            <ul class="system-notes">
+              <li>共享时浏览器附带的画面不会被显示、上传或保存，只使用声音。</li>
+              <li>你仍能照常听到原声。</li>
+              <li>背景音乐、音效或多人同时说话时，字幕可能不完整或不准确。</li>
+              <li>全屏观看视频时，可点击“弹出字幕小窗”查看字幕（需浏览器支持）。</li>
+            </ul>
+          </section>
+          <h2 class="system-matrix-title" id="support-matrix-title">哪些浏览器 / 系统支持、能采集到哪些声音</h2>
+          <div class="matrix-wrap">
+            <table id="support-matrix" class="support-matrix" aria-labelledby="support-matrix-title">
+              <thead>
+                <tr>
+                  <th scope="col">浏览器 / 系统</th>
+                  <th scope="col">支持程度</th>
+                  <th scope="col">选“标签页”</th>
+                  <th scope="col">选“窗口”</th>
+                  <th scope="col">选“整个屏幕”</th>
+                </tr>
+              </thead>
+              <tbody id="support-matrix-body"></tbody>
+            </table>
+          </div>
+        </details>
+      </aside>
     </main>
+    <dialog id="guide" class="guide" aria-labelledby="guide-title">
+      <h2 id="guide-title">使用引导</h2>
+      <ol class="guide-steps">
+        <li><strong>选择输入方式：</strong>“麦克风”识别您身边的发言；“系统声音”识别电脑正在播放的声音（如网页会议、在线视频）。</li>
+        <li><strong>点击“开始”：</strong>麦克风模式需在浏览器提示时允许使用麦克风；随时点击“停止”结束。</li>
+        <li><strong>系统声音：</strong>点击“开始”后，在浏览器弹出的共享窗口中选择要翻译的内容（如会议所在的标签页），并<strong>勾选共享音频</strong>（如“同时分享标签页中的音频”）后再点击“分享”。</li>
+        <li><strong>调整字号：</strong>在“字号”中选择“小 / 中 / 大 / 特大”，字幕立即按新字号显示。</li>
+        <li><strong>字幕小窗：</strong>可点击“弹出字幕小窗”让字幕悬浮在会议或视频窗口之上；浏览器不支持时该按钮不可用，并会显示原因。</li>
+      </ol>
+      <p class="guide-note">字幕只显示在当前页面，刷新或关闭页面后即清空。可随时点击顶栏的“？”（使用引导）按钮再次查看本说明。</p>
+      <div class="guide-actions">
+        <button id="guide-close" type="button" class="primary">知道了</button>
+      </div>
+    </dialog>
   </body>
 </html>

@@ -453,3 +453,59 @@ describe('CaptionPipeline interim translation (TD-006)', () => {
     expect(partials()).toHaveLength(2);
   });
 });
+
+/** G4 defect: the final translation used to restart from an empty buffer, so the caption shrank then grew again. */
+describe('CaptionPipeline finalization replaces the interim caption in place', () => {
+  function lengthHistory(view: FakeView, id: number): number[] {
+    const history: number[] = [];
+    const setText = view.setText.bind(view);
+    view.setText = (segmentId, text) => {
+      if (segmentId === id) history.push(text.length);
+      setText(segmentId, text);
+    };
+    return history;
+  }
+
+  const finalDeltas = ['我们', '将在', '下午', '三点', '讨论', '下个季度的', '市场', '预算', '和招聘', '计划。'];
+
+  it('never shortens the caption while the final translation streams in', async () => {
+    const { view, pipeline, partials, finals } = setup();
+    const epoch = pipeline.beginRun();
+    pipeline.handleRecognizing(epoch, 'We will discuss the market budget at three', 'en-US');
+    partials()[0]?.onDelta('我们将在下午三点讨论市场预算');
+    expect(view.visible()).toEqual(['我们将在下午三点讨论市场预算']);
+    const history = lengthHistory(view, 1);
+    pipeline.handleRecognized(epoch, 'We will discuss the market budget and hiring plan at three this afternoon.', 'en-US');
+    for (const delta of finalDeltas) finals()[0]?.onDelta(delta);
+    finals()[0]?.resolve({ ok: true });
+    await flush();
+
+    expect(view.visible()).toEqual([finalDeltas.join('')]);
+    expect(view.status.get(1)).toBe('final');
+    const interimLength = '我们将在下午三点讨论市场预算'.length;
+    for (const [i, length] of history.entries()) {
+      expect(length, `write #${i} shrank below the interim caption`).toBeGreaterThanOrEqual(interimLength);
+      if (i > 0) expect(length, `write #${i} shorter than the previous one`).toBeGreaterThanOrEqual(history[i - 1] ?? 0);
+    }
+  });
+
+  it('keeps the interim caption in place while a failed final translation is retried', async () => {
+    const { view, pipeline, partials, finals } = setup();
+    const epoch = pipeline.beginRun();
+    pipeline.handleRecognizing(epoch, 'We will discuss the budget', 'en-US');
+    partials()[0]?.onDelta('我们将讨论预算');
+    const history = lengthHistory(view, 1);
+    pipeline.handleRecognized(epoch, 'We will discuss the budget today.', 'en-US');
+    finals()[0]?.onDelta('我们');
+    finals()[0]?.resolve({ ok: false, reason: 'upstream_unavailable' });
+    await flush();
+    expect(view.visible()).toEqual(['我们将讨论预算']);
+    finals()[1]?.onDelta('我们');
+    expect(view.visible()).toEqual(['我们将讨论预算']);
+    finals()[1]?.onDelta('今天将讨论预算。');
+    finals()[1]?.resolve({ ok: true });
+    await flush();
+    expect(view.visible()).toEqual(['我们今天将讨论预算。']);
+    expect(history.every((length) => length >= '我们将讨论预算'.length)).toBe(true);
+  });
+});

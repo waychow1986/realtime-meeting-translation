@@ -1,0 +1,60 @@
+{
+ "media": [
+  {
+   "type": "gdm",
+   "t": 1795248017158,
+   "constraints": {
+    "video": {
+     "frameRate": {
+      "max": 1
+     },
+     "width": {
+      "max": 640
+     },
+     "height": {
+      "max": 360
+     }
+    },
+    "audio": {
+     "echoCancellation": false,
+     "noiseSuppression": false,
+     "autoGainControl": false,
+     "suppressLocalAudioPlayback": false
+    },
+    "systemAudio": "include",
+    "selfBrowserSurface": "exclude",
+    "surfaceSwitching": "include",
+    "monitorTypeSurfaces": "include",
+    "preferCurrentTab": false
+   },
+   "ok": 1795248017200,
+   "audio": 0,
+   "video": 1
+  }
+ ],
+ "tracks": [
+  {
+   "call": "gdm",
+   "kind": "video",
+   "label": "screen:401:0",
+   "start": 1795248017200,
+   "end": 1795248017201,
+   "settings": {
+    "aspectRatio": 1.7777777777777777,
+    "cursor": "always",
+    "deviceId": "screen:401:0",
+    "displaySurface": "monitor",
+    "frameRate": 1,
+    "height": 360,
+    "logicalSurface": true,
+    "resizeMode": "crop-and-scale",
+    "width": 640
+   },
+   "endedBy": "app",
+   "readyState": "ended"
+  }
+ ],
+ "recorder": [],
+ "rtc": [],
+ "videoDraws": 0
+}

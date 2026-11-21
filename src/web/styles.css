@@ -1,86 +1,513 @@
 :root {
   color-scheme: light;
-  font-family: system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  --accent: #1f6feb;
-  --danger: #c62828;
+  font-family: system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif;
+  --page-bg: #f6f7f9;
+  --text: #1f2328;
+  --muted: #57606a;
+  --border: #d0d7de;
+  --accent: #0969da;
+  --caption-bg: #0d1117;
+  --caption-final: #ffffff;
+  --caption-interim: #b6c2cf;
+  --caption-size: 32px;
+  --state-color: #57606a;
 }
 
 * {
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background: #f6f7f9;
-  color: #1b1f24;
+[hidden] {
+  display: none !important;
 }
 
-.toolbar {
+html,
+body {
+  margin: 0;
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  height: 100vh;
+  height: 100dvh;
+  min-width: 0;
+  background: var(--page-bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+/* Explicit rows: a hidden notice must not shift the caption area into an auto-sized row. */
+body > .topbar {
+  grid-row: 1;
+}
+
+body > .notice {
+  grid-row: 2;
+}
+
+body > .workspace {
+  grid-row: 3;
+}
+
+/* ---------- control bar ---------- */
+/* Every control in the bar shares one height, corner radius and spacing (segmented groups, buttons, status chip). */
+
+.topbar {
+  --control-h: 36px;
+  --control-radius: 8px;
+  --control-gap: 12px;
+  --control-font: 15px;
+  --control-pad: 16px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 20px;
-  background: #fff;
-  border-bottom: 1px solid #dde1e6;
+  gap: 8px 20px;
+  min-width: 0;
+  padding: 10px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
 }
 
-.toolbar h1 {
+.topbar h1 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 20px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .controls {
   display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: 8px var(--control-gap);
+  min-width: 0;
 }
 
-button {
-  font: inherit;
-  padding: 6px 20px;
-  border-radius: 6px;
-  border: 1px solid var(--accent);
-  background: var(--accent);
-  color: #fff;
+.choice {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.choice legend {
+  float: left;
+  padding: 0;
+  margin-right: 8px;
+  font-size: 14px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Segmented control: the real radio inputs stay (keyboard, accessible names) but are not painted. */
+.segmented label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--control-h);
+  padding: 0 var(--control-pad);
+  margin-left: -1px;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  background: #ffffff;
+  color: var(--text);
+  font-size: var(--control-font);
   cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
 }
 
-button:disabled {
-  opacity: 0.45;
+.segmented label:first-of-type {
+  margin-left: 0;
+  border-radius: var(--control-radius) 0 0 var(--control-radius);
+}
+
+.segmented label:last-of-type {
+  border-radius: 0 var(--control-radius) var(--control-radius) 0;
+}
+
+.segmented input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  appearance: none;
+  cursor: inherit;
+}
+
+.segmented label:hover {
+  background: #f3f4f6;
+}
+
+.segmented label:has(input:checked) {
+  z-index: 1;
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.segmented label:has(input:disabled) {
+  color: #8c959f;
+  background: #f6f8fa;
   cursor: not-allowed;
 }
 
-#stop-button {
-  background: #fff;
+.segmented label:has(input:checked:disabled) {
+  border-color: #8c959f;
+  background: #8c959f;
+  color: #ffffff;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--control-h, 36px);
+  font: inherit;
+  font-size: var(--control-font, 16px);
+  padding: 0 var(--control-pad, 18px);
+  border-radius: var(--control-radius, 8px);
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: var(--text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+button.primary {
+  border-color: #1a7f37;
+  background: #1f883d;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+button.secondary {
+  border-color: #cf222e;
+  background: #ffffff;
+  color: #a40e26;
+  font-weight: 600;
+}
+
+button:disabled,
+button.primary:disabled,
+button.secondary:disabled {
+  border-color: #d0d7de;
+  background: #eaeef2;
+  color: #8c959f;
+  cursor: not-allowed;
+  font-weight: 400;
+}
+
+button:focus-visible,
+.segmented label:has(input:focus-visible) {
+  z-index: 2;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.guide-open {
   color: var(--accent);
 }
 
-body[data-state='running'] #status {
-  color: #2e7d32;
+.guide-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
 }
+
+.pip-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  min-width: 0;
+}
+
+.pip-unsupported {
+  min-width: 0;
+  color: #82071e;
+  font-size: 14px;
+}
+
+/* ---------- status (text + colour + icon, distinct per state) ---------- */
+
+.status-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: var(--control-h);
+  padding: 0 14px 0 10px;
+  border: 2px solid var(--state-color);
+  border-radius: var(--control-radius);
+  background: #ffffff;
+  color: var(--state-color);
+  font-size: var(--control-font);
+  white-space: nowrap;
+}
+
+.status-caption {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+#status {
+  color: var(--state-color);
+}
+
+.status-indicator {
+  display: inline-block;
+  width: 1.2em;
+  text-align: center;
+  color: var(--state-color);
+}
+
+body[data-state='idle'] {
+  --state-color: #57606a;
+}
+
+body[data-state='starting'] {
+  --state-color: #9a6700;
+}
+
+body[data-state='running'] {
+  --state-color: #1a7f37;
+}
+
+body[data-state='stopped'] {
+  --state-color: #424a53;
+}
+
+body[data-state='error'] {
+  --state-color: #cf222e;
+}
+
+body[data-state='running'] .status-indicator {
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-state='running'] .status-indicator {
+    animation: none;
+  }
+}
+
+/* ---------- notice ---------- */
 
 .notice {
-  margin: 12px 20px 0;
+  margin: 10px 20px 0;
   padding: 10px 14px;
   border-radius: 6px;
-  background: #fdecea;
-  color: var(--danger);
+  font-size: 15px;
+  border: 1px solid #ff818266;
+  background: #ffebe9;
+  color: #a40e26;
 }
 
-.caption-area {
-  flex: 1;
+.notice[data-kind='info'] {
+  border-color: #54aeff66;
+  background: #ddf4ff;
+  color: #0a3069;
+}
+
+/* ---------- workspace and captions ---------- */
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  gap: 16px;
+  min-width: 0;
+  min-height: 0;
+  padding: 12px 20px 16px;
+}
+
+/* Wide layout: captions keep the left column, the system-audio instructions get a scrolling right column. */
+body[data-source='system'] .workspace {
+  grid-template-columns: minmax(0, 1fr) 360px;
+}
+
+/* Folded instructions (while listening): a compact bar above the captions, which then take the full width. */
+body[data-source='system'] .workspace:has(#system-details:not([open])) {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+/* ---------- system audio instructions ---------- */
+
+.system-panel {
+  min-width: 0;
+  min-height: 0;
   overflow-y: auto;
-  padding: 16px 20px 40px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.system-panel:has(#system-details:not([open])) {
+  order: -1;
+  overflow: visible;
+  padding: 8px 14px;
+}
+
+.system-panel summary {
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.system-unsupported {
+  margin: 0 0 10px;
+  padding: 8px 10px;
+  border: 1px solid #ff818266;
+  border-radius: 6px;
+  background: #ffebe9;
+  color: #82071e;
+  font-size: 15px;
+}
+
+.system-steps,
+.system-notes {
+  margin: 8px 0;
+  padding-left: 1.4em;
+}
+
+.system-steps li + li,
+.system-notes li + li {
+  margin-top: 4px;
+}
+
+.system-notes {
+  color: var(--muted);
+}
+
+.system-matrix-title {
+  margin: 12px 0 6px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.matrix-wrap {
+  min-width: 0;
+}
+
+.support-matrix {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.support-matrix th,
+.support-matrix td {
+  padding: 4px 5px;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.support-matrix thead th {
+  background: #f6f8fa;
+  font-weight: 600;
+}
+
+.support-matrix tbody th {
+  font-weight: 500;
+}
+
+.support-matrix tr[data-current='true'] {
+  background: #ddf4ff;
+}
+
+.support-matrix .level-full {
+  color: #1a7f37;
+  font-weight: 600;
+}
+
+.support-matrix .level-partial {
+  color: #9a6700;
+  font-weight: 600;
+}
+
+.support-matrix .level-none {
+  color: #cf222e;
+}
+
+.caption-panel {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  border-radius: 10px;
+  background: var(--caption-bg);
+  overflow: hidden;
+}
+
+/* Absolutely positioned so caption content never grows the page: only this element scrolls. */
+.caption-scroll {
+  position: absolute;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 16px 24px 24px;
+  overscroll-behavior: contain;
+}
+
+[data-caption-size='s'] {
+  --caption-size: 24px;
+}
+
+[data-caption-size='m'] {
+  --caption-size: 32px;
+}
+
+[data-caption-size='l'] {
+  --caption-size: 40px;
+}
+
+[data-caption-size='xl'] {
+  --caption-size: 52px;
 }
 
 .hint {
-  color: #5c6670;
-  margin-top: 0;
+  margin: 0 0 8px;
+  color: #9da7b3;
+  font-size: 15px;
+}
+
+.caption-scroll:has(.caption:not(:empty)) .hint {
+  display: none;
 }
 
 .captions {
@@ -90,10 +517,20 @@ body[data-state='running'] #status {
 }
 
 .caption {
-  font-size: 1.6rem;
-  line-height: 1.6;
-  padding: 6px 0;
-  border-bottom: 1px dashed #e3e6ea;
+  min-width: 0;
+  margin: 0;
+  padding: 4px 0 4px 16px;
+  border-left: 4px solid transparent;
+  color: var(--caption-final);
+  font-size: var(--caption-size);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.caption + .caption {
+  margin-top: 6px;
 }
 
 .caption:empty {
@@ -102,9 +539,173 @@ body[data-state='running'] #status {
 
 .caption[data-status='interim'],
 .caption[data-status='finalizing'] {
-  color: #4a5560;
+  color: var(--caption-interim);
+  border-left: 4px dashed var(--caption-interim);
+}
+
+.caption[data-status='interim']::after,
+.caption[data-status='finalizing']::after {
+  content: '…';
 }
 
 .caption[data-status='interrupted'] {
-  color: #8a949e;
+  color: var(--caption-interim);
+  font-style: italic;
+}
+
+.jump-latest {
+  position: absolute;
+  right: 20px;
+  bottom: 16px;
+  border-color: #388bfd;
+  background: #1f6feb;
+  color: #ffffff;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 40%);
+}
+
+/* ---------- floating caption window (Document PiP document, TD-104) ---------- */
+
+body.pip {
+  grid-template-rows: auto minmax(0, 1fr);
+  background: var(--caption-bg);
+  color: var(--caption-final);
+}
+
+body.pip .pip-bar {
+  grid-row: 1;
+  justify-self: start;
+  margin: 6px 10px 0;
+  font-size: 14px;
+}
+
+body.pip .pip-scroll {
+  grid-row: 2;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 6px 14px 10px;
+}
+
+/* ---------- first-run guide ---------- */
+
+.guide {
+  width: min(600px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  padding: 20px 24px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.guide::backdrop {
+  background: rgb(13 17 23 / 55%);
+}
+
+.guide h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.guide-steps {
+  margin: 0;
+  padding-left: 1.4em;
+}
+
+.guide-steps li + li {
+  margin-top: 6px;
+}
+
+.guide-note {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.guide-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* ---------- narrow windows ---------- */
+
+@media (max-width: 1099.98px) {
+  body {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .topbar {
+    padding: 10px 12px;
+  }
+
+  .workspace,
+  body[data-source='system'] .workspace {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    padding: 10px 12px 12px;
+  }
+
+  .caption-panel {
+    min-height: 55vh;
+  }
+
+  /* Instructions (and the unsupported notice) above the captions, so they are read before clicking "开始". */
+  .system-panel {
+    order: -1;
+    overflow-y: visible;
+  }
+
+  .caption-scroll {
+    padding: 12px 16px 20px;
+  }
+}
+
+/* About 480 px wide (next to a video window): the control bar flows as one list and fits in two rows. */
+@media (max-width: 640px) {
+  .topbar {
+    --control-h: 34px;
+    --control-font: 14px;
+    --control-pad: 10px;
+    gap: 8px 6px;
+    padding: 8px 10px;
+  }
+
+  .topbar h1 {
+    font-size: 16px;
+  }
+
+  .controls {
+    display: contents;
+  }
+
+  .actions {
+    gap: 6px;
+  }
+
+  /* Group labels stay available to screen readers; the options themselves are self-explanatory. */
+  .choice legend,
+  .status-caption {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .guide-open {
+    width: var(--control-h);
+    padding: 0;
+  }
+
+  .guide-label {
+    display: none;
+  }
 }

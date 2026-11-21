@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S5",
+  "result": "done",
+  "summary": "按人的回答（采用推荐）把 AC-12“字幕小窗悬浮在全屏视频 / 会议软件之上”的验收证据方式记为决定 DD-101，写进技术方案：自动化验收以 Document Picture-in-Picture 打开、字幕同步、关闭后主页面继续、不支持时按钮不可用为证据，悬浮可见性由业务负责人发布后在 Windows Chrome / Edge 上试用确认；架构、接口、依赖声明与部署声明不变，没有待决事项。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/002-v1/design.md"
+  ]
+}

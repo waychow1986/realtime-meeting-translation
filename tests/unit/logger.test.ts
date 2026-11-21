@@ -46,6 +46,18 @@ describe('whitelist logger', () => {
     expect(line).not.toHaveProperty('errorCode');
   });
 
+  it('keeps inputSource only when it is one of the two input modes', () => {
+    const sink = new MemoryLogSink();
+    const log = createLogger({ level: 'info', destination: sink });
+    log.info('translation_completed', 'translation completed', { inputSource: 'system' });
+    log.info('translation_completed', 'translation completed', { inputSource: 'microphone' });
+    log.info('translation_completed', 'translation completed', { inputSource: 'Good morning everyone' as never });
+    const [system, microphone, other] = sink.records();
+    expect(system).toHaveProperty('inputSource', 'system');
+    expect(microphone).toHaveProperty('inputSource', 'microphone');
+    expect(other).not.toHaveProperty('inputSource');
+  });
+
   it('drops non-primitive values even for allowed keys', () => {
     const sink = new MemoryLogSink();
     const log = createLogger({ level: 'info', destination: sink });

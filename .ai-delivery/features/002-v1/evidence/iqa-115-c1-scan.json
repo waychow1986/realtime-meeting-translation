@@ -1,0 +1,38 @@
+[
+ {
+  "tag": "SYS-MAIN",
+  "counts": {
+   "secretValue": 0,
+   "connStringKey": 0,
+   "keyHeader": 0,
+   "keyPattern": 0,
+   "longLivedJwt": 0,
+   "jwtNoExp": 0,
+   "sentImage": 0,
+   "sentVideo": 0
+  },
+  "scannedBytes": 2190936,
+  "scannedItems": 1351,
+  "where": {},
+  "wsFrames": 575,
+  "requests": 42
+ },
+ {
+  "tag": "IQA-122",
+  "counts": {
+   "secretValue": 0,
+   "connStringKey": 0,
+   "keyHeader": 0,
+   "keyPattern": 0,
+   "longLivedJwt": 0,
+   "jwtNoExp": 0,
+   "sentImage": 0,
+   "sentVideo": 0
+  },
+  "scannedBytes": 2146715,
+  "scannedItems": 1469,
+  "where": {},
+  "wsFrames": 594,
+  "requests": 50
+ }
+]

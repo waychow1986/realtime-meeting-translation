@@ -1,0 +1,112 @@
+{
+ "media": [
+  {
+   "type": "gum",
+   "t": 1795248024094,
+   "constraints": {
+    "audio": {
+     "echoCancellation": true,
+     "noiseSuppression": true,
+     "autoGainControl": true
+    },
+    "video": false
+   },
+   "content": "loop",
+   "ok": 1795248024167,
+   "audio": 1,
+   "video": 0
+  },
+  {
+   "type": "gdm",
+   "t": 1795248025044,
+   "constraints": {
+    "video": {
+     "frameRate": {
+      "max": 1
+     },
+     "width": {
+      "max": 640
+     },
+     "height": {
+      "max": 360
+     }
+    },
+    "audio": {
+     "echoCancellation": false,
+     "noiseSuppression": false,
+     "autoGainControl": false,
+     "suppressLocalAudioPlayback": false
+    },
+    "systemAudio": "include",
+    "selfBrowserSurface": "exclude",
+    "surfaceSwitching": "include",
+    "monitorTypeSurfaces": "include",
+    "preferCurrentTab": false
+   },
+   "ok": 1795248026105,
+   "audio": 1,
+   "video": 1
+  }
+ ],
+ "tracks": [
+  {
+   "call": "gum",
+   "kind": "audio",
+   "label": "MediaStreamAudioDestinationNode",
+   "start": 1795248024167,
+   "end": 1795248024694,
+   "settings": {
+    "channelCount": 2,
+    "deviceId": "WebAudio-94c94068-c031-496c-937c-16b4dae36926",
+    "latency": 0.01,
+    "sampleRate": 44100,
+    "sampleSize": 16
+   },
+   "endedBy": "app",
+   "readyState": "ended"
+  },
+  {
+   "call": "gdm",
+   "kind": "audio",
+   "label": "Tab audio",
+   "start": 1795248026105,
+   "end": null,
+   "settings": {
+    "autoGainControl": false,
+    "channelCount": 2,
+    "deviceId": "web-contents-media-stream://12:8",
+    "echoCancellation": false,
+    "latency": 0.01,
+    "noiseSuppression": false,
+    "restrictOwnAudio": false,
+    "sampleRate": 44100,
+    "sampleSize": 16,
+    "suppressLocalAudioPlayback": false,
+    "voiceIsolation": false
+   },
+   "readyState": "live"
+  },
+  {
+   "call": "gdm",
+   "kind": "video",
+   "label": "web-contents-media-stream://852BC0DE609CE348209096439730F093",
+   "start": 1795248026105,
+   "end": null,
+   "settings": {
+    "aspectRatio": 1.7777777777777777,
+    "cursor": "motion",
+    "deviceId": "web-contents-media-stream://12:8",
+    "displaySurface": "browser",
+    "frameRate": 1,
+    "height": 360,
+    "logicalSurface": true,
+    "resizeMode": "crop-and-scale",
+    "width": 640
+   },
+   "readyState": "live"
+  }
+ ],
+ "recorder": [],
+ "rtc": [],
+ "videoDraws": 0
+}

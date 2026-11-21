@@ -1,0 +1,1427 @@
+[
+ {
+  "vp": "1366×768",
+  "states": [
+   {
+    "want": "未开始",
+    "got": "未开始",
+    "waited": true,
+    "sig": "rgb(87, 96, 106)|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|#rgb(87, 96, 106)|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 739,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1366,
+     "clientW": 1366,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 0,
+    "shot": "iqa-121-1366x768-未开始.png",
+    "eng": []
+   },
+   {
+    "want": "正在听",
+    "got": "正在听",
+    "waited": true,
+    "sig": "rgb(26, 127, 55)|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|#rgb(26, 127, 55)|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 739,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1366,
+     "clientW": 1366,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 1,
+    "shot": "iqa-121-1366x768-正在听.png",
+    "eng": []
+   },
+   {
+    "want": "已停止",
+    "got": "已停止",
+    "waited": true,
+    "sig": "rgb(66, 74, 83)|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|#rgb(66, 74, 83)|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 739,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1366,
+     "clientW": 1366,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 1,
+    "shot": "iqa-121-1366x768-已停止.png",
+    "eng": []
+   },
+   {
+    "want": "出错",
+    "got": "出错",
+    "waited": true,
+    "sig": "rgb(207, 34, 46)|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|#rgb(207, 34, 46)|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 724,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1366,
+     "clientW": 1366,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 1,
+    "shot": "iqa-121-1366x768-出错.png",
+    "eng": []
+   }
+  ]
+ },
+ {
+  "vp": "1440×900",
+  "states": [
+   {
+    "want": "未开始",
+    "got": "未开始",
+    "waited": true,
+    "sig": "rgb(87, 96, 106)|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|#rgb(87, 96, 106)|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 739,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1440,
+     "clientW": 1440,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 0,
+    "shot": "iqa-121-1440x900-未开始.png",
+    "eng": []
+   },
+   {
+    "want": "正在听",
+    "got": "正在听",
+    "waited": true,
+    "sig": "rgb(26, 127, 55)|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|#rgb(26, 127, 55)|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 739,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1440,
+     "clientW": 1440,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 1,
+    "shot": "iqa-121-1440x900-正在听.png",
+    "eng": []
+   },
+   {
+    "want": "已停止",
+    "got": "已停止",
+    "waited": true,
+    "sig": "rgb(66, 74, 83)|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|#rgb(66, 74, 83)|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 739,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1440,
+     "clientW": 1440,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 1,
+    "shot": "iqa-121-1440x900-已停止.png",
+    "eng": []
+   },
+   {
+    "want": "出错",
+    "got": "出错",
+    "waited": true,
+    "sig": "rgb(207, 34, 46)|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|#rgb(207, 34, 46)|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 724,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1440,
+     "clientW": 1440,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 1,
+    "shot": "iqa-121-1440x900-出错.png",
+    "eng": []
+   }
+  ]
+ },
+ {
+  "vp": "1600×900",
+  "states": [
+   {
+    "want": "未开始",
+    "got": "未开始",
+    "waited": true,
+    "sig": "rgb(87, 96, 106)|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|#rgb(87, 96, 106)|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 739,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1600,
+     "clientW": 1600,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 0,
+    "shot": "iqa-121-1600x900-未开始.png",
+    "eng": []
+   },
+   {
+    "want": "正在听",
+    "got": "正在听",
+    "waited": true,
+    "sig": "rgb(26, 127, 55)|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|#rgb(26, 127, 55)|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 739,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1600,
+     "clientW": 1600,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 1,
+    "shot": "iqa-121-1600x900-正在听.png",
+    "eng": []
+   },
+   {
+    "want": "已停止",
+    "got": "已停止",
+    "waited": true,
+    "sig": "rgb(66, 74, 83)|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|#rgb(66, 74, 83)|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 739,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1600,
+     "clientW": 1600,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 1,
+    "shot": "iqa-121-1600x900-已停止.png",
+    "eng": []
+   },
+   {
+    "want": "出错",
+    "got": "出错",
+    "waited": true,
+    "sig": "rgb(207, 34, 46)|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|#rgb(207, 34, 46)|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 724,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1600,
+     "clientW": 1600,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 1,
+    "shot": "iqa-121-1600x900-出错.png",
+    "eng": []
+   }
+  ]
+ },
+ {
+  "vp": "1920×1080",
+  "states": [
+   {
+    "want": "未开始",
+    "got": "未开始",
+    "waited": true,
+    "sig": "rgb(87, 96, 106)|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|#rgb(87, 96, 106)|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 739,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1920,
+     "clientW": 1920,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 0,
+    "shot": "iqa-121-1920x1080-未开始.png",
+    "eng": []
+   },
+   {
+    "want": "正在听",
+    "got": "正在听",
+    "waited": true,
+    "sig": "rgb(26, 127, 55)|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|#rgb(26, 127, 55)|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 739,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1920,
+     "clientW": 1920,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 1,
+    "shot": "iqa-121-1920x1080-正在听.png",
+    "eng": []
+   },
+   {
+    "want": "已停止",
+    "got": "已停止",
+    "waited": true,
+    "sig": "rgb(66, 74, 83)|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|#rgb(66, 74, 83)|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 739,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1920,
+     "clientW": 1920,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 1,
+    "shot": "iqa-121-1920x1080-已停止.png",
+    "eng": []
+   },
+   {
+    "want": "出错",
+    "got": "出错",
+    "waited": true,
+    "sig": "rgb(207, 34, 46)|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|#rgb(207, 34, 46)|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 200,
+        "t": 10,
+        "r": 436,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 448,
+        "t": 10,
+        "r": 512,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 520,
+        "t": 10,
+        "r": 584,
+        "b": 46
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 694,
+        "t": 17.5,
+        "r": 724,
+        "b": 38.5
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 1920,
+     "clientW": 1920,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 1,
+    "shot": "iqa-121-1920x1080-出错.png",
+    "eng": []
+   }
+  ]
+ },
+ {
+  "vp": "480×800",
+  "states": [
+   {
+    "want": "未开始",
+    "got": "未开始",
+    "waited": true,
+    "sig": "rgb(87, 96, 106)|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|#rgb(87, 96, 106)|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|rgb(87, 96, 106)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 144,
+        "t": 8,
+        "r": 285,
+        "b": 42
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 291,
+        "t": 8,
+        "r": 341,
+        "b": 42
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 347,
+        "t": 8,
+        "r": 397,
+        "b": 42
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 44.796875,
+        "t": 57.203125,
+        "r": 86.796875,
+        "b": 76.796875
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 480,
+     "clientW": 480,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 0,
+    "shot": "iqa-121-480x800-未开始.png",
+    "eng": []
+   },
+   {
+    "want": "正在听",
+    "got": "正在听",
+    "waited": true,
+    "sig": "rgb(26, 127, 55)|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|#rgb(26, 127, 55)|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|rgb(26, 127, 55)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 144,
+        "t": 8,
+        "r": 285,
+        "b": 42
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 291,
+        "t": 8,
+        "r": 341,
+        "b": 42
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 347,
+        "t": 8,
+        "r": 397,
+        "b": 42
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 44.796875,
+        "t": 57.203125,
+        "r": 86.796875,
+        "b": 76.796875
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 480,
+     "clientW": 480,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 1,
+    "shot": "iqa-121-480x800-正在听.png",
+    "eng": []
+   },
+   {
+    "want": "已停止",
+    "got": "已停止",
+    "waited": true,
+    "sig": "rgb(66, 74, 83)|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|#rgb(66, 74, 83)|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|rgb(66, 74, 83)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 144,
+        "t": 8,
+        "r": 285,
+        "b": 42
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 291,
+        "t": 8,
+        "r": 341,
+        "b": 42
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 347,
+        "t": 8,
+        "r": 397,
+        "b": 42
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 44.796875,
+        "t": 57.203125,
+        "r": 86.796875,
+        "b": 76.796875
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 480,
+     "clientW": 480,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 1,
+    "shot": "iqa-121-480x800-已停止.png",
+    "eng": []
+   },
+   {
+    "want": "出错",
+    "got": "出错",
+    "waited": true,
+    "sig": "rgb(207, 34, 46)|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|#rgb(207, 34, 46)|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|rgb(207, 34, 46)|none|rgba(0, 0, 0, 0)|",
+    "L": {
+     "ctl": {
+      "input": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 144,
+        "t": 8,
+        "r": 285,
+        "b": 42
+       },
+       "hit": true,
+       "inView": true
+      },
+      "start": {
+       "found": true,
+       "visible": true,
+       "enabled": true,
+       "rect": {
+        "l": 291,
+        "t": 8,
+        "r": 341,
+        "b": 42
+       },
+       "hit": true,
+       "inView": true
+      },
+      "stop": {
+       "found": true,
+       "visible": true,
+       "enabled": false,
+       "rect": {
+        "l": 347,
+        "t": 8,
+        "r": 397,
+        "b": 42
+       },
+       "hit": true,
+       "inView": true
+      },
+      "status": {
+       "found": true,
+       "visible": true,
+       "enabled": null,
+       "rect": {
+        "l": 44.796875,
+        "t": 57.203125,
+        "r": 72.796875,
+        "b": 76.796875
+       },
+       "hit": true,
+       "inView": true
+      }
+     },
+     "overlaps": [],
+     "scrollW": 465,
+     "clientW": 465,
+     "scrollY": 0
+    },
+    "capOverflow": [],
+    "nCaps": 1,
+    "shot": "iqa-121-480x800-出错.png",
+    "eng": []
+   }
+  ]
+ }
+]

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S2",
+  "result": "done",
+  "summary": "按完整档计划本交付：先写规格、再出技术方案，之后分三批编码，每批后做代码审查。第 1 批是界面产品化并回归麦克风模式，第 2 批是系统声音采集与配套的中文引导和错误提示，第 3 批是悬浮字幕小窗；另有 3 项待负责人决定的事项。",
+  "asks": [],
+  "outputs": [],
+  "plan": {
+    "schemaVersion": 1,
+    "steps": [
+      { "id": "S4", "capability": "spec", "zone": "design", "dependsOn": [] },
+      { "id": "S5", "capability": "solution", "zone": "design", "dependsOn": ["S4"] },
+      { "id": "S6", "capability": "code", "zone": "build", "dependsOn": ["S5"], "batch": 1 },
+      { "id": "S7", "capability": "review", "zone": "build", "dependsOn": ["S6"], "batch": 1 },
+      { "id": "S8", "capability": "code", "zone": "build", "dependsOn": ["S7"], "batch": 2 },
+      { "id": "S9", "capability": "review", "zone": "build", "dependsOn": ["S8"], "batch": 2 },
+      { "id": "S10", "capability": "code", "zone": "build", "dependsOn": ["S9"], "batch": 3 },
+      { "id": "S11", "capability": "review", "zone": "build", "dependsOn": ["S10"], "batch": 3 }
+    ],
+    "omitted": [
+      { "capability": "plan", "reason": "第 1 版已留下技术基线（001-v1/design.md）、部署声明（docs/deployment.json）和依赖声明（docs/dependencies.json），本交付沿用现有依赖实例，不新增服务。三个批次按验收标准划分，不取决于技术方案的细节，因此技术方案之后不再安排细化计划。如果技术方案发现批次划分需要调整，可以通过退回重新计划。" }
+    ],
+    "batches": [
+      { "n": 1, "criteria": ["AC-11", "AC-09"] },
+      { "n": 2, "criteria": ["AC-01", "AC-02", "AC-03", "AC-04", "AC-05", "AC-06", "AC-07", "AC-08", "AC-10"] },
+      { "n": 3, "criteria": ["AC-12"] }
+    ],
+    "factors": [
+      { "name": "change-size", "lean": "medium", "basis": "新增一种音源（浏览器屏幕/标签页共享取声），整套界面按正式产品重新设计（AC-11），并新增悬浮字幕小窗（AC-12）。服务端令牌与翻译接口预计不变，改动集中在前端（src/web 约 900 行）和端到端测试。" },
+      { "name": "modules", "lean": "medium", "basis": "涉及前端采集与识别（recognition.ts）、页面状态与视图（main.ts、captionView.ts、index.html、styles.css），以及第 1 版的 e2e 回归测试与新增的系统声音 e2e 测试；服务端、IaC 和依赖声明预计不改。" },
+      { "name": "new-or-first", "lean": "light", "basis": "这是已有项目的第 2 个交付，同一团队在第 1 版已建立技术基线、部署声明，并在真实依赖上通过了独立测试；不是新项目，也不是接管后的首个交付。" },
+      { "name": "risk", "lean": "heavy", "basis": "没有数据迁移。风险集中在四处：一是共享整个屏幕时浏览器会同时交出画面，必须保证不显示、不上传、不保存（宪章“安全与隐私”，A-02、AC-10）；二是 Windows 和 macOS 上各浏览器的取声能力不同，而 Q-01 已承诺具体组合，测试环境只有 Linux 无头 Chromium，验证存在缺口；三是 AC-09 要求第 1 版麦克风模式的验收标准全部不退化；四是 Document Picture-in-Picture 等较新的浏览器能力只在部分浏览器上可用。" }
+    ],
+    "tier": "full",
+    "budget": { "revisions": 4, "sessions": 16, "hours": 7 },
+    "items": [
+      {
+        "category": "business",
+        "question": "Q-01 承诺的组合（Windows 上 Chrome / Edge 共享整屏声音和标签页声音、macOS 上 Chrome / Edge 共享标签页声音）由谁、用什么方式验收？平台的独立测试环境只有 Linux 上的无头 Chromium（见 001-v1 evidence/browser-info.json），无法在 Windows / macOS 桌面上操作系统共享弹窗。A-07 要求所列的“支持”组合都在测试环境实际验证，因此需要定下验收方式，否则到验收时这部分没有证据。",
+        "recommended": "分两层验收。第一层：在真实测试环境的现有依赖上，用自动化 Chromium 以“共享标签页声音”的方式播放已知英语测试音频，独立验证 AC-01～AC-05、AC-07、AC-10，以及 AC-12 中能自动化的部分。第二层：Windows / macOS 的承诺组合由业务方指定人员按 tasks-qa 的手动步骤，在真实桌面上验收并留存录屏；页面上的支持说明以这次手动验收的结果为准。",
+        "alternatives": [
+          "只把自动化环境能验证的组合（Chromium 标签页声音）作为验收承诺，Windows 整屏声音等其它组合只在页面上说明，不出验收证据。",
+          "要求平台提供 Windows / macOS 的真实桌面测试机，承诺的组合全部做自动化或远程验证（需确认有没有这样的环境，以及对工期和预算的影响）。"
+        ]
+      },
+      {
+        "category": "business",
+        "question": "电影、视频中的背景音乐和音效、会议中多人同时讲话，会明显影响语音识别。这类内容的翻译质量按什么口径验收？AC-04 只要求“已知外语测试音频”的意思与参考译文一致（第 1 版用的是干净的合成英语语音）。",
+        "recommended": "AC-04 仍用清晰语音测试音频验收；对带背景音乐、音效或多人重叠讲话的内容按“尽力而为”处理，不作验收承诺，并在页面的系统声音说明中用中文提示。",
+        "alternatives": [
+          "增加一段带背景音乐的英语测试音频，要求字幕意思与参考译文基本一致，作为验收依据。"
+        ]
+      },
+      {
+        "category": "technical",
+        "question": "A-02（共享的画面不显示、不上传、不保存）目前只是假设，AC-10 只覆盖“服务端日志不出现共享的画面内容”。是否在规格和测试计划里把它作为可验证的检查项？",
+        "recommended": "作为检查项：取得共享流后立即停止并丢弃视频轨道，只把音频轨道交给识别；独立测试检查浏览器网络请求中只有音频识别和文本翻译流量，没有画面数据；停止或浏览器“停止共享”后，所有共享轨道都已结束。",
+        "alternatives": [
+          "只在技术方案中说明做法，不在测试计划中单独检查。"
+        ]
+      }
+    ],
+    "reason": "项目已有技术基线和部署声明，按规定可以不做技术方案。但本交付引入了新的浏览器取声方式（getDisplayMedia，按浏览器和系统区分能力）、正式产品级的界面重设计，以及新的悬浮小窗能力，还涉及隐私（共享画面）和 Q-01 中按系统承诺的支持组合，因此仍安排规格（S4）和技术方案（S5），选完整档。编码分三批，每批之后都有代码审查。第 1 批先做界面产品化（AC-11），并在新界面上回归第 1 版麦克风模式的全部验收标准（AC-09），给后续两批提供稳定的界面骨架。第 2 批在此基础上加入“麦克风/系统声音”选择、系统声音的采集与流式识别翻译、停止和浏览器“停止共享”的处理、中文操作说明与支持矩阵、授权被拒或没有音频时的提示，以及凭据和日志隐私要求（AC-01～AC-08、AC-10）。这些在功能上不可分割：没有引导和错误提示，系统声音模式会出现静默无字幕。第 3 批加入悬浮字幕小窗（AC-12），它依赖前两批的字幕状态和界面。第 2、3 批同样要重跑麦克风模式的回归测试，保证 AC-09 不退化。预算比原估算多 1 小时，因为增加了界面重设计和小窗两项用户可见能力，以及 Windows / macOS 支持组合的手动验收；会话数和修订次数保持不变。"
+  }
+}

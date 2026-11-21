@@ -1,4 +1,4 @@
-import type { TranslationErrorCode, TranslationLine, TranslationRequest } from '../shared/contracts.js';
+import type { InputSource, TranslationErrorCode, TranslationLine, TranslationRequest } from '../shared/contracts.js';
 
 export type TranslateFailureReason =
   | TranslationErrorCode
@@ -114,3 +114,8 @@ export const requestTranslation: TranslateFn = async (request, options) => {
   }
   return options.signal.aborted ? aborted() : { ok: false, reason: 'network' };
 };
+
+/** Tags every request with the input source of the run that produced it (TD-112). */
+export function withInputSource(source: () => InputSource, translate: TranslateFn = requestTranslation): TranslateFn {
+  return (request, options) => translate({ ...request, inputSource: source() }, options);
+}

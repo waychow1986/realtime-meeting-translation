@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S31",
+  "result": "needs-answer",
+  "summary": "候选构建 integrationTests[0]（npm run test:integration）失败在 Agent Pod 中无法复现：在候选提交 be7c22d 上连续运行 15 次（其中 11 次清空 TTS 素材缓存，模拟全新镜像）全部通过（3 个文件、8 项，真实 dev 语音与大模型实例）；S30 只改了前端（captionPipeline、index.html、main.ts、styles.css）与单元/e2e 测试，没有改服务端代码和集成测试，上一次 G3 构建使用同样的服务端代码也已通过。因此判断这是一次偶发失败，可能来自上游依赖的暂时性错误（语音识别 WebSocket 被取消、TTS/STS/大模型 429 或 5xx），也可能是识别分句或模型输出的波动。Pod 中拿不到候选构建日志（sessions/NR-DLV-20261121-42AD37E84BF9-0029-build-be7c22d1cb74/0/candidate-build.log），所以没有确认根因。没有证据可以支持任何代码修改，因此本步骤没有改代码，也没有改动或放宽任何测试。",
+  "asks": [
+    {
+      "kind": "decide",
+      "category": "technical",
+      "question": "integrationTests[0] 的失败在 Agent Pod 中运行 15 次都无法复现，候选构建日志 Agent 也读不到。下一步怎么处理？",
+      "recommended": "用同一候选提交 be7c22d 重新执行候选构建。如果再次失败，请把日志中第一处失败的测试名和断言（或上游错误码，例如 canceled 的 errorCode、HTTP 状态码）提供给缺陷修复步骤，再据此针对性修复。",
+      "alternatives": [
+        "现在就从 candidate-build.log 中提供第一处失败的测试名和断言摘录（不含凭据），由缺陷修复步骤据此定位根因并修复。",
+        "接受“上游依赖暂时性错误”这一假设，授权在集成测试辅助代码中只对上游的暂时性错误做有限次数重试（例如语音识别会话因连接或限流被取消、HTTP 429/5xx），所有断言保持不变。"
+      ]
+    }
+  ],
+  "outputs": []
+}

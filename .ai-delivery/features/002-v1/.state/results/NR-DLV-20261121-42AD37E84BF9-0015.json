@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S22",
+  "result": "done",
+  "summary": "按 G2 意见修订技术方案：新增 TD-116，为 A-03“仍听到原声”设计三层验证（单元断言选项；端到端以共享音轨 getSettings().suppressLocalAudioPlayback 为 false 作为判定依据，素材页 audio 状态作佐证），已原型实测并做反证；修正原型复核中发现的素材标签页标题含中文时无法自动选中的问题（改为 ASCII）；与规格对齐 PQ-005（IQA-107 为 AC-05 等效证据、IQA-124 删除）、IQA-111、IQA-122/DD-101 及快速验证指南。架构、接口、依赖声明、部署声明与错误日志规则不变，没有待人决定的新事项。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/002-v1/design.md"
+  ]
+}

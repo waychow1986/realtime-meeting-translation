@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S6",
+  "result": "done",
+  "summary": "按 G2 退回意见重新计划：先重做规格（S21，按 DD-101 和 G2 事项 I1 的决定修订 SC-112、IQA-122、IQA-107、IQA-111），再补充技术方案（S22，A-03 的端到端断言），之后维持完整档和三批编码（每批之后都有代码审查）；预算按 34 个会话、14 小时重估，并写明依据；没有待负责人决定的新事项。",
+  "asks": [],
+  "outputs": [],
+  "plan": {
+    "schemaVersion": 1,
+    "steps": [
+      { "id": "S21", "capability": "spec", "zone": "design", "dependsOn": [] },
+      { "id": "S22", "capability": "solution", "zone": "design", "dependsOn": ["S21"] },
+      { "id": "S23", "capability": "code", "zone": "build", "dependsOn": [], "batch": 1 },
+      { "id": "S24", "capability": "review", "zone": "build", "dependsOn": ["S23"], "batch": 1 },
+      { "id": "S25", "capability": "code", "zone": "build", "dependsOn": ["S24"], "batch": 2 },
+      { "id": "S26", "capability": "review", "zone": "build", "dependsOn": ["S25"], "batch": 2 },
+      { "id": "S27", "capability": "code", "zone": "build", "dependsOn": ["S26"], "batch": 3 },
+      { "id": "S28", "capability": "review", "zone": "build", "dependsOn": ["S27"], "batch": 3 }
+    ],
+    "omitted": [
+      { "capability": "plan", "reason": "本次就是退回后的重新计划，已按 G2 意见重估预算；S21、S22 只修订验收判定和端到端断言，不改变模块边界、批次划分和验收标准分配，因此方案之后不再安排细化计划。如果 S21、S22 的修订改变了批次内容，可以通过退回再重新计划。" }
+    ],
+    "batches": [
+      { "n": 1, "criteria": ["AC-11", "AC-09"] },
+      { "n": 2, "criteria": ["AC-01", "AC-02", "AC-03", "AC-04", "AC-05", "AC-06", "AC-07", "AC-08", "AC-10"] },
+      { "n": 3, "criteria": ["AC-12"] }
+    ],
+    "factors": [
+      { "name": "change-size", "lean": "heavy", "basis": "前端页面结构、样式和装配（index.html、styles.css、main.ts、messages.ts）整体重做；新增 7 个前端模块（audioSource、displayAudio、support、supportMatrix、pip、preferences、guide）；captionView 增加镜像视图；端到端测试整体改为在 xvfb-run 中运行有界面的 Chromium，新增约 19 组用例，另加素材播放页和 XTest 按键辅助脚本。服务端只有两处小改动（Permissions-Policy 和 inputSource 字段）。" },
+      { "name": "modules", "lean": "medium", "basis": "改动集中在 src/web 和 tests/e2e；src/shared/contracts.ts、src/server/http/app.ts、src/server/logger.ts 各有小改动。recognition.ts、captionPipeline.ts 的逻辑不改；依赖声明、部署声明和 IaC 不改。" },
+      { "name": "new-or-first", "lean": "light", "basis": "已有项目的第 2 个交付，沿用第 1 版技术基线（TypeScript + Fastify + Speech SDK + Vitest/Playwright）和已绑定的依赖实例，第 1 版已在真实依赖上通过独立测试。" },
+      { "name": "risk", "lean": "heavy", "basis": "没有数据迁移，也不新增凭据。风险集中在：共享画面不显示、不上传、不保存（TD-103，IQA-117）；麦克风模式在新界面上不退化（AC-09）；系统声音的端到端验证依赖 headed Chromium + Xvfb 和按标题自动选择共享来源（TD-108、TD-109），在 QA Pod 上也要可复现；Document PiP 等较新的浏览器能力。另外，部分验收证据采用已决定的等效方式（DD-101、G2 事项 I1），需要在规格和测试计划中写清楚，不能伪造。" }
+    ],
+    "tier": "full",
+    "budget": { "revisions": 4, "sessions": 34, "hours": 14 },
+    "items": [],
+    "reason": "G2 判定规格与已决定的 DD-101 冲突（阻断），并给出了几处对齐意见，因此退回重做规格和技术方案，再进入实施区。S21（规格）：①按 DD-101 修订 SC-112、IQA-122，去掉“小窗悬浮在全屏视频之上可见”的验收判定，改为可证明的行为：小窗以 Document PiP 打开、与主页面显示同一份字幕并同步、关闭后主页面继续显示、不支持时按钮不可用并有中文原因。增加一条“不纳入验收的发布后试用”说明，FR-136 的产品行为保留。②按 G2 事项 I1 的决定（采用推荐）修订 IQA-107：以关闭被共享标签页触发轨道 ended 路径作为 AC-05 的证据，真实点击浏览器“停止共享”列入发布后试用说明。③IQA-111 的操作改为“共享不含声音的内容（如未勾选共享音频，或在验收环境中共享不能带声音的整个屏幕）”，与 TD-109 对齐。S22（技术方案）：依赖 S21；同步 IQA-107、IQA-111、IQA-122 的端到端用例描述；补充 A-03 的断言：素材页在共享前后记录 <audio> 的 muted、volume、paused 状态（或读取 suppressLocalAudioPlayback 设置值），对比结果作为 IQA-102 的开发者阶段证据。之后平台重新执行 G2，再进入测试计划和实施区。实施区三批的内容和验收标准分配与上一版计划相同。第 1 批（S23 编码、S24 审查，AC-11、AC-09）：新版页面骨架、五种状态、字号、偏好、首次引导、响应式布局，端到端测试切换为 headed Chromium + Xvfb，第 1 版麦克风用例全部保留。第 2 批（S25 编码、S26 审查，AC-01～AC-08、AC-10）：输入方式选择、系统声音采集与下混、共享结束检测、能力检测与中文说明、错误提示、inputSource 与日志、素材页（含 A-03 断言）。第 3 批（S27 编码、S28 审查，AC-12）：Document PiP 字幕小窗与镜像视图；按 DD-101，只用可证明的行为验证，并重跑麦克风回归。预算重估为 34 个会话、14 小时，依据如下。会话：到本步骤为止已用 12 个（S1、G1、S2×2、S4×2、S5×2、S6×3、G2）；剩余已排定步骤需要 13 个：S21、S22、重跑 G2、测试计划、3 次编码、3 次审查、G3、G4、G5；按 4 次修订、每次修订平均 2 个会话（重做加复审或重跑关口）预留 8 个，另留 1 个余量，合计 34 个。工时：设计区到目前约 0.75 小时；S21、S22 和重跑 G2 约 0.75 小时；测试计划约 0.5 小时；每批编码约 2 小时（含 headed + Xvfb 在真实 dev 实例上跑全部 e2e），3 批共 6 小时；每次审查约 0.75 小时（含重跑 e2e），共 2.25 小时；G3、G5 各约 0.25 小时，G4 独立测试约 1.5 小时；以上合计约 12 小时，再为 4 次修订预留约 2 小时，合计 14 小时。修订次数保持 4 次。G2 事项 I1 已由人决定，DD-101 已有决定，当前没有新的需要业务负责人或技术负责人决定的事项。"
+  }
+}

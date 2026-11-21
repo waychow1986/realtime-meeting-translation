@@ -1,0 +1,65 @@
+{
+ "hosts": [
+  "cand-42ad37e84bf9.eastus2.cloudapp.azure.com",
+  "eastus2.stt.speech.microsoft.com"
+ ],
+ "azAll": [
+  "eastus2.stt.speech.microsoft.com"
+ ],
+ "tokenHit": [
+  "eastus2",
+  "gpt-5.1"
+ ],
+ "depHostHit": [
+  "eastus2.stt.speech.microsoft.com"
+ ],
+ "mock": [],
+ "fixedLang": [],
+ "lidSrc": [
+  "网络"
+ ],
+ "rsSrc": [],
+ "llmHit": true,
+ "declared": 2,
+ "notOwned": [],
+ "health": {
+  "/api/health": {
+   "status": 404,
+   "bytes": 0
+  },
+  "/healthz": {
+   "status": 200,
+   "bytes": 15
+  },
+  "/health": {
+   "status": 404,
+   "bytes": 0
+  },
+  "/api/config": {
+   "status": 404,
+   "bytes": 0
+  },
+  "/api/diagnostics": {
+   "status": 404,
+   "bytes": 0
+  },
+  "/api/status": {
+   "status": 404,
+   "bytes": 0
+  },
+  "/api/version": {
+   "status": 404,
+   "bytes": 0
+  }
+ },
+ "depNames": [
+  "speech",
+  "chat"
+ ],
+ "depHosts": [
+  "eastus2.tts.speech.microsoft.com",
+  "rtmt-speech-79be66.cognitiveservices.azure.com",
+  "eastus2.stt.speech.microsoft.com",
+  "rtmt-llm-5f1a6d-3lpq.openai.azure.com"
+ ]
+}

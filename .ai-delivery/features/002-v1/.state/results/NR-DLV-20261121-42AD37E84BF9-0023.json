@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S28",
+  "result": "done",
+  "summary": "批次 3（AC-12 悬浮字幕小窗）已实现：控制区新增“弹出字幕小窗”，用 Document Picture-in-Picture 打开小窗，显示状态与字幕；MirroredCaptionView 让唯一的字幕管线先写主页面、再写小窗，两处一致；字号同步；关闭小窗不影响主页面，再次弹出会复制当前全部字幕；小窗中没有音视频元素；不支持时按钮不可用，并在旁边用中文说明原因。自测结果：lint、typecheck、build 通过；单元测试 145 项（13 个文件）通过；集成测试 8 项（真实 dev 实例）通过；全量端到端测试 19 项中 18 项首轮通过，其中新增的 pip.spec 覆盖 IQA-122 的麦克风模式与系统声音模式，IQA-121 布局与 IQA-119 字号也包含新按钮。余下 1 项是 Firefox 的 IQA-109/123：发现 Playwright 自带的 Firefox 159 在安全上下文（http://localhost）中已提供 documentPictureInPicture，与 T-A5 的前提不同；改为在页面脚本运行前移除该 API 来模拟不支持的浏览器后，单独重跑通过。如实说明：按 DD-101，小窗能否悬浮在全屏视频或会议软件之上不做自动化判定，需发布后人工试用确认；Playwright Firefox 中麦克风识别停在“正在启动…”（第 1 版既有限制：Speech SDK 的 blob AudioWorklet 被 CSP script-src 'self' 拦截），可能导致 QA 的 IQA-109 与 IQA-123 c3（Firefox 麦克风出字幕）失败，见 asks。部署相关文件未改动。",
+  "asks": [
+    {
+      "kind": "decide",
+      "category": "technical",
+      "question": "Playwright 自带的 Firefox 159 在安全上下文中已支持 Document Picture-in-Picture，应用会按功能检测在其中启用小窗按钮。QA 计划的 T-A5 与 IQA-123 c1 假定该 Firefox 不支持小窗；如果 QA 访问候选的方式属于安全上下文（https 或 localhost），c1 会判定失败。应如何处理？",
+      "recommended": "保留按功能检测的实现（支持就可用，符合 FR-139 只对不支持的浏览器禁用的本意），由测试计划所有者修订 T-A5 / IQA-123，改用确实不支持的浏览器或非安全上下文作为“不支持”的证据。",
+      "alternatives": [
+        "在 Firefox 中按浏览器识别强制禁用小窗，保持与 T-A5 一致（会使 Firefox 用户失去本可用的功能）",
+        "接受 IQA-123 c1 在安全上下文中不成立，作为已知偏差记录"
+      ]
+    },
+    {
+      "kind": "decide",
+      "category": "technical",
+      "question": "Playwright Firefox 中麦克风识别停在“正在启动…”：Speech SDK 用 blob: URL 加载 AudioWorklet，被 CSP script-src 'self' 拦截。这是第 1 版既有限制，但 QA 的 IQA-123 c3（以及 IQA-109）要求 Firefox 麦克风模式能出字幕。是否在后续修改交付中处理？",
+      "recommended": "另开一次后续修改交付：评估在 CSP 中只为 worklet 放行 blob:（例如 script-src 'self' blob:）的安全影响后再修复；本批不扩大范围。",
+      "alternatives": [
+        "在本交付内追加批次，立即放宽 CSP 并补充 Firefox 麦克风端到端测试",
+        "维持现状，由测试计划所有者把 Firefox 麦克风出字幕从 IQA-109/123 中移出，作为已知限制记录"
+      ]
+    }
+  ],
+  "outputs": [
+    "src/web/pip.ts",
+    "src/web/mirroredCaptionView.ts",
+    "src/web/captionView.ts",
+    "src/web/main.ts",
+    "src/web/messages.ts",
+    "src/web/index.html",
+    "src/web/styles.css",
+    "tests/unit/mirroredCaptionView.test.ts",
+    "tests/e2e/pip.spec.ts",
+    "tests/e2e/fixtures.ts",
+    "tests/e2e/system.spec.ts",
+    "tests/e2e/ui.ts",
+    "README.md"
+  ]
+}

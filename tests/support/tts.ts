@@ -9,7 +9,7 @@ import { loadConfig } from '../../src/server/config.js';
 import { createSpeechTokenService, type SpeechTokenService } from '../../src/server/speech/tokenService.js';
 import { hostToHttpsBase, requireEnv } from './env.js';
 
-export type SentenceSetName = 'single' | 'multi' | 'meeting' | 'long';
+export type SentenceSetName = 'single' | 'multi' | 'meeting' | 'long' | 'interference';
 
 /** Reference translation and meaning checks for one sentence (regex sources; every key point must match). */
 export interface SentenceAnnotation {

@@ -3,7 +3,8 @@ import { createWriteStream } from 'node:fs';
 import { mkdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { test as base, chromium, expect, type Browser, type BrowserContext, type Page } from '@playwright/test';
-import type { SentenceSetName } from '../support/tts.js';
+import { ensureSpeechWav, pcmOf, wavFromPcm, type SentenceSetName } from '../support/tts.js';
+import { openPlayer, playerTitle, routePlayer } from '../support/player.js';
 import { fakeMicrophoneArgs } from './audio.js';
 
 const BASE_PORT = 18_180;
@@ -30,22 +31,42 @@ export interface Harness {
   frames: FrameRecord[];
   /** Opens another page in the same context with the same instrumentation. */
   newPage(): Promise<Page>;
+  /**
+   * Opens the material player tab (title {@link playerTitle} of this worker, which the share picker auto-selects)
+   * playing nothing yet; the app page is brought back to the front afterwards. `leadInMs` of silence is
+   * prepended so playback can already run before the share starts (material time zero = playingAt + leadInMs).
+   */
+  openPlayer(set: SentenceSetName, leadInMs?: number): Promise<Page>;
 }
 
 interface Options {
   audioSet: SentenceSetName;
   grantMicrophone: boolean;
+  /** Pre-mark the first-run guide as seen so it does not cover the page (the guide test turns this off). */
+  guideSeen: boolean;
+  /**
+   * Tab title the share picker auto-selects (`--auto-select-tab-capture-source-by-title`); default is this
+   * worker's player title. A title no tab has leaves the picker open (used to cancel it with Escape).
+   */
+  shareTabTitle: string | undefined;
+  /** Extra Chromium flags, e.g. auto-selecting the entire screen instead of a tab. */
+  extraBrowserArgs: string[];
 }
 
 /**
- * Records every MediaStreamTrack obtained via getUserMedia (so tests can check that stop really ends capture),
+ * Records every MediaStreamTrack obtained via getUserMedia or getDisplayMedia (with the call counts and the
+ * getDisplayMedia options) so tests can check which source was captured and that stop really ends capture,
  * the time the first capture started (the fake microphone plays the WAV from its start at that moment) and a
  * timeline of every caption change: { at, index (order of appearance), status, text }.
  */
 // Kept as browser source text: the test tsconfig has no DOM lib.
-const INSTRUMENTATION = `(() => {
-  const record = { gumCalls: 0, tracks: [], captureStartedAt: undefined, timeline: [] };
+export const INSTRUMENTATION = `(() => {
+  const record = {
+    gumCalls: 0, tracks: [], displayCalls: 0, displayOptions: [], displayTracks: [],
+    captureStartedAt: undefined, timeline: [],
+  };
   Object.defineProperty(window, '__rtmt', { value: record });
+  Object.defineProperty(window, '__rtmtDisplayTracks', { value: record.displayTracks });
   const indexes = new WeakMap();
   let nextIndex = 0;
   const snapshot = () => {
@@ -60,7 +81,27 @@ const INSTRUMENTATION = `(() => {
       state.last = key;
       record.timeline.push({ at: Date.now(), index: state.index, status: entry.status, text: entry.text });
     }
+    pipSample();
   };
+  // Caption window (Document PiP): on every change of either list, both lists are serialized side by side.
+  record.pip = { opened: 0, samples: [] };
+  const serialize = (list) =>
+    [...list.querySelectorAll('li.caption')].map((li) => [li.dataset.segmentId || '', li.dataset.status || '', li.textContent || '']);
+  const pipSample = () => {
+    const pipWindow = window.documentPictureInPicture && window.documentPictureInPicture.window;
+    const pipList = pipWindow && pipWindow.document.getElementById('pip-captions');
+    const list = document.getElementById('captions');
+    if (!pipList || !list) return;
+    record.pip.samples.push({ at: Date.now(), main: serialize(list), pip: serialize(pipList) });
+  };
+  if (window.documentPictureInPicture) {
+    window.documentPictureInPicture.addEventListener('enter', (event) => {
+      record.pip.opened += 1;
+      new MutationObserver(pipSample).observe(event.window.document.documentElement, {
+        subtree: true, childList: true, characterData: true, attributes: true,
+      });
+    });
+  }
   const observe = () => {
     const list = document.getElementById('captions');
     if (!list) return;
@@ -69,6 +110,17 @@ const INSTRUMENTATION = `(() => {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', observe);
   else observe();
   const devices = navigator.mediaDevices;
+  if (devices && devices.getDisplayMedia) {
+    const originalDisplay = devices.getDisplayMedia.bind(devices);
+    devices.getDisplayMedia = async (options) => {
+      record.displayCalls += 1;
+      record.displayOptions.push(JSON.parse(JSON.stringify(options ?? null)));
+      const stream = await originalDisplay(options);
+      if (record.captureStartedAt === undefined) record.captureStartedAt = Date.now();
+      record.displayTracks.push(...stream.getTracks());
+      return stream;
+    };
+  }
   if (!devices || !devices.getUserMedia) return;
   const original = devices.getUserMedia.bind(devices);
   devices.getUserMedia = async (constraints) => {
@@ -79,6 +131,8 @@ const INSTRUMENTATION = `(() => {
     return stream;
   };
 })();`;
+
+export const SEEN_GUIDE = `try { if (location.protocol.startsWith('http')) localStorage.setItem('rtmt.guideSeen', '1'); } catch {}`;
 
 export interface CaptionEvent {
   at: number;
@@ -105,6 +159,9 @@ async function waitForServer(baseURL: string, child: ChildProcess): Promise<void
 export const test = base.extend<Options & { harness: Harness }, { server: ServerHandle }>({
   audioSet: ['multi', { option: true }],
   grantMicrophone: [true, { option: true }],
+  guideSeen: [true, { option: true }],
+  shareTabTitle: [undefined, { option: true }],
+  extraBrowserArgs: [[], { option: true }],
 
   server: [
     // eslint-disable-next-line no-empty-pattern -- Playwright requires a destructuring pattern here
@@ -133,15 +190,27 @@ export const test = base.extend<Options & { harness: Harness }, { server: Server
     { scope: 'worker' },
   ],
 
-  harness: async ({ server, audioSet, grantMicrophone }, use) => {
-    // Full Chromium (new headless) behaves like desktop Chrome; the headless shell rejects fake audio capture.
-    const browser = await chromium.launch({ channel: 'chromium', args: fakeMicrophoneArgs(audioSet) });
+  harness: async ({ server, audioSet, grantMicrophone, guideSeen, shareTabTitle, extraBrowserArgs }, use, testInfo) => {
+    // Headed full Chromium inside xvfb-run (TD-108): behaves like desktop Chrome, incl. fake audio capture and the
+    // real share picker, which auto-selects the player tab by title (never --use-fake-ui-for-media-stream).
+    const browser = await chromium.launch({
+      channel: 'chromium',
+      headless: false,
+      args: [
+        ...fakeMicrophoneArgs(audioSet),
+        '--lang=zh-CN',
+        '--autoplay-policy=no-user-gesture-required',
+        `--auto-select-tab-capture-source-by-title=${shareTabTitle ?? playerTitle(testInfo.workerIndex)}`,
+        ...extraBrowserArgs,
+      ],
+    });
     const context = await browser.newContext({
       baseURL: server.baseURL,
       locale: 'zh-CN',
       permissions: grantMicrophone ? ['microphone'] : [],
     });
     await context.addInitScript({ content: INSTRUMENTATION });
+    if (guideSeen) await context.addInitScript({ content: SEEN_GUIDE });
     const frames: FrameRecord[] = [];
     const observe = (page: Page) => {
       page.on('websocket', (ws) => {
@@ -155,15 +224,26 @@ export const test = base.extend<Options & { harness: Harness }, { server: Server
     };
     context.on('page', observe);
     const page = await context.newPage();
-    await use({ browser, context, page, frames, newPage: () => context.newPage() });
+    const openPlayerTab = async (set: SentenceSetName, leadInMs = 0) => {
+      await routePlayer(context, playerTitle(testInfo.workerIndex), async () => {
+        const pcm = pcmOf(await readFile(await ensureSpeechWav(set)));
+        // 16 kHz mono 16-bit: 32 bytes of silence per millisecond.
+        return wavFromPcm(Buffer.concat([Buffer.alloc(Math.round(leadInMs) * 32), pcm]));
+      });
+      const player = await openPlayer(context);
+      await page.bringToFront();
+      return player;
+    };
+    await use({ browser, context, page, frames, newPage: () => context.newPage(), openPlayer: openPlayerTab });
     await browser.close();
   },
 });
 
 export { expect };
 
-export const RUNNING = /翻译中/;
+export const RUNNING = /正在听/;
 export const NOT_RUNNING = /未开始|已停止/;
+export const ERROR = /出错/;
 
 export function startButton(page: Page) {
   return page.getByRole('button', { name: '开始' });
@@ -193,6 +273,33 @@ export async function trackStates(page: Page): Promise<{ gumCalls: number; state
   return page.evaluate<{ gumCalls: number; states: string[] }>(
     '({ gumCalls: window.__rtmt.gumCalls, states: window.__rtmt.tracks.map((track) => track.readyState) })',
   );
+}
+
+export interface DisplayTrackInfo {
+  kind: string;
+  label: string;
+  readyState: string;
+  suppressLocalAudioPlayback: boolean | null;
+}
+
+/** getDisplayMedia call count and every track it returned (audio and video alike). */
+export async function displayTracks(page: Page): Promise<{ displayCalls: number; gumCalls: number; tracks: DisplayTrackInfo[] }> {
+  return page.evaluate(`({
+    displayCalls: window.__rtmt.displayCalls,
+    gumCalls: window.__rtmt.gumCalls,
+    tracks: window.__rtmt.displayTracks.map((track) => ({
+      kind: track.kind,
+      label: track.label,
+      readyState: track.readyState,
+      suppressLocalAudioPlayback:
+        track.kind === 'audio' ? (track.getSettings().suppressLocalAudioPlayback ?? null) : null,
+    })),
+  })`);
+}
+
+/** Selects the input source by its visible radio label (麦克风 / 系统声音). */
+export async function selectSource(page: Page, name: '麦克风' | '系统声音'): Promise<void> {
+  await page.getByRole('radio', { name }).check();
 }
 
 export async function captionTimeline(page: Page): Promise<CaptionEvent[]> {

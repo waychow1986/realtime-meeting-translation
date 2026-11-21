@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S30",
+  "result": "done",
+  "summary": "修复 G4 退回的三处体验缺陷。①根因：定稿翻译从空缓冲开始流式显示，每个片段都直接覆盖临时字幕，重试时还会清空字幕，所以字幕先变短再变长。现改为定稿文本不短于当前显示内容时才原位替换，成功后显示完整定稿，重试期间保留句末显示的内容。②根因：说明栏只在窄屏（宽度小于 1100 像素）正在听时收起，宽屏一直固定占 360 像素右栏。现改为各宽度开始后都自动收起为字幕区上方的一行，字幕区占满宽度，可随时展开；未开始、已停止、出错（含共享失败）时展开。③输入方式和字号改为分段按钮：保留原生单选控件用于键盘与读屏，但不再绘制圆点。顶栏控件统一高度和圆角；约 480 像素宽时顶栏只占 2 行，“使用引导”改为“?”图标按钮。无障碍名称不变。先写的复现测试（2 个单元测试和 tests/e2e/topbar.spec.ts 的 2 个 e2e 测试）在旧代码上失败，修复后通过。在 Agent Pod 中对真实 dev 依赖实例运行：单元测试 147/147 通过，e2e 21/21 通过，lint 与类型检查通过。测试计划目录未改动；design.md 的布局与定稿规则已按退回意见修订。",
+  "asks": [],
+  "outputs": [
+    "src/web/captionPipeline.ts",
+    "src/web/main.ts",
+    "src/web/index.html",
+    "src/web/styles.css",
+    "tests/unit/captionPipeline.test.ts",
+    "tests/e2e/topbar.spec.ts",
+    ".ai-delivery/features/002-v1/design.md"
+  ]
+}

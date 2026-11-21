@@ -1,0 +1,49 @@
+{
+ "source": "QA_SERVICE_LOGS_DIR（只读元数据统计，不含日志正文）",
+ "status": {
+  "status": "ok",
+  "readAt": "2026-11-21T08:05:49.212967530Z",
+  "reason": null,
+  "logsReadAt": "2026-11-21T08:05:49.212967530Z",
+  "lines": 632,
+  "droppedOldest": 0,
+  "pending": false,
+  "refreshSeconds": 30,
+  "gaps": []
+ },
+ "timeRange": [
+  "2026-11-21T07:58:34.253906289Z",
+  "2026-11-21T08:05:44.584101568Z"
+ ],
+ "lines": 632,
+ "events": {
+  "server_started": 1,
+  "request_completed": 382,
+  "translation_completed": 215,
+  "unhandled_error": 34
+ },
+ "translationCompleted": {
+  "partial:reasoningTokens=0": 142,
+  "partial:errorCode=client_aborted(无 token 字段)": 33,
+  "final:reasoningTokens=0": 31,
+  "final:errorCode=client_aborted(无 token 字段)": 9
+ },
+ "models": {
+  "gpt-5.1-2025-11-13": 173
+ },
+ "requestCompleted": {
+  "/healthz 200": 88,
+  "None 404": 10,
+  "/ 200": 29,
+  "/styles.css 200": 29,
+  "/app.js 200": 28,
+  "/api/speech-token 200": 24,
+  "/api/translations 200": 173,
+  "/styles.css 304": 1
+ },
+ "unhandledErrorCorrelation": {
+  "unhandled_error(internal_error,None) + translation_completed(client_aborted,partial)": 29,
+  "unhandled_error(internal_error,None) + translation_completed(client_aborted,final)": 5
+ },
+ "note": "unhandled_error 全部与 translation_completed errorCode=client_aborted 同一 reqId（客户端中止被取代的翻译请求）；/api/translations 返回给客户端的 request_completed 全为 200。"
+}

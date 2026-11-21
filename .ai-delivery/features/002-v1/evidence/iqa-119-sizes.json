@@ -1,0 +1,46 @@
+[
+ {
+  "size": "小",
+  "fontSize": 24,
+  "lineHeight": 36,
+  "pipFontSize": 16,
+  "pipBefore": 16,
+  "mainBefore": 32,
+  "ms": 14,
+  "lastVisible": true,
+  "status": "正在听"
+ },
+ {
+  "size": "中",
+  "fontSize": 32,
+  "lineHeight": 48,
+  "pipFontSize": 16,
+  "pipBefore": 16,
+  "mainBefore": 24,
+  "ms": 11,
+  "lastVisible": true,
+  "status": "正在听"
+ },
+ {
+  "size": "大",
+  "fontSize": 40,
+  "lineHeight": 60,
+  "pipFontSize": 16,
+  "pipBefore": 16,
+  "mainBefore": 32,
+  "ms": 9,
+  "lastVisible": true,
+  "status": "正在听"
+ },
+ {
+  "size": "特大",
+  "fontSize": 52,
+  "lineHeight": 78,
+  "pipFontSize": 16,
+  "pipBefore": 16,
+  "mainBefore": 40,
+  "ms": 10,
+  "lastVisible": true,
+  "status": "正在听"
+ }
+]

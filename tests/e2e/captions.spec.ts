@@ -33,7 +33,11 @@ function windows<T>(items: T[], size: number): T[][] {
 }
 
 async function assertNoLanguageControls(page: import('@playwright/test').Page): Promise<void> {
-  for (const role of ['combobox', 'listbox', 'radio'] as const) await expect(page.getByRole(role)).toHaveCount(0);
+  for (const role of ['combobox', 'listbox'] as const) await expect(page.getByRole(role)).toHaveCount(0);
+  // The only radio groups are input source and caption size (FR-101, FR-132); none selects a language.
+  await expect(
+    page.locator('input[type="radio"]:not([name="input-source"]):not([name="caption-size"])'),
+  ).toHaveCount(0);
   await expect(page.locator('select, input[type="password"]')).toHaveCount(0);
   const controlTexts = await page.locator('button, a, label, [role="button"]').allInnerTexts();
   for (const text of controlTexts) expect(text).not.toMatch(LANGUAGE_WORDS);

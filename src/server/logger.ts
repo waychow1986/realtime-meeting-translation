@@ -1,5 +1,5 @@
 import { pino, type DestinationStream, type Logger as PinoLogger } from 'pino';
-import { LANGUAGE_CODE_PATTERN } from '../shared/contracts.js';
+import { INPUT_SOURCES, LANGUAGE_CODE_PATTERN, type InputSource } from '../shared/contracts.js';
 
 export type LogEvent =
   | 'server_started'
@@ -44,6 +44,7 @@ export interface LogFields {
   errorCode?: LoggedErrorCode;
   authMode?: string;
   sourceLanguage?: string;
+  inputSource?: InputSource;
   /** Upstream model version string (metadata, evidence for the deployed model). */
   model?: string;
   /** Error class name only, never the message or stack. */
@@ -80,6 +81,7 @@ const VALIDATORS: Record<keyof LogFields, Validator> = {
   errorCode: oneOf(ERROR_CODES),
   authMode: oneOf(['credential', 'platform-identity']),
   sourceLanguage: matches(LANGUAGE_CODE_PATTERN),
+  inputSource: oneOf(INPUT_SOURCES),
   model: matches(/^[A-Za-z0-9._:-]{1,64}$/),
   errorClass: matches(/^[A-Za-z][A-Za-z0-9_]{0,63}$/),
   configKeys: matches(/^[A-Z0-9_]+(,[A-Z0-9_]+)*$/),

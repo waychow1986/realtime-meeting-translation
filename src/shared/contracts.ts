@@ -6,10 +6,15 @@ export const MAX_REQUEST_BODY_BYTES = 8 * 1024;
 
 export type TranslationKind = 'partial' | 'final';
 
+/** Audio source of the page that produced the text; metadata only (TD-112). */
+export const INPUT_SOURCES = ['microphone', 'system'] as const;
+export type InputSource = (typeof INPUT_SOURCES)[number];
+
 export interface TranslationRequest {
   kind: TranslationKind;
   text: string;
   sourceLanguage?: string;
+  inputSource?: InputSource;
 }
 
 export type TranslationErrorCode =
