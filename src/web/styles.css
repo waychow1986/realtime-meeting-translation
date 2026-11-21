@@ -188,6 +188,20 @@ button.link {
   text-decoration: underline;
 }
 
+.pip-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  min-width: 0;
+}
+
+.pip-unsupported {
+  min-width: 0;
+  color: #82071e;
+  font-size: 14px;
+}
+
 /* ---------- status (text + colour + icon, distinct per state) ---------- */
 
 .status-box {
@@ -485,6 +499,29 @@ body[data-source='system'] .workspace {
   color: #ffffff;
   font-size: 15px;
   box-shadow: 0 2px 8px rgb(0 0 0 / 40%);
+}
+
+/* ---------- floating caption window (Document PiP document, TD-104) ---------- */
+
+body.pip {
+  grid-template-rows: auto minmax(0, 1fr);
+  background: var(--caption-bg);
+  color: var(--caption-final);
+}
+
+body.pip .pip-bar {
+  grid-row: 1;
+  justify-self: start;
+  margin: 6px 10px 0;
+  font-size: 14px;
+}
+
+body.pip .pip-scroll {
+  grid-row: 2;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 6px 14px 10px;
 }
 
 /* ---------- first-run guide ---------- */

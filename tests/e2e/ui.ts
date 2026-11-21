@@ -27,7 +27,7 @@ export interface LayoutProbe {
 
 /** The four FR-127 items first, then the remaining controls that must not overlap them. */
 export const FR127_CONTROLS = ['#input-source', '#start-button', '#stop-button', '.status-box'];
-const OTHER_CONTROLS = ['h1', '#caption-size', '#guide-open'];
+const OTHER_CONTROLS = ['h1', '#caption-size', '#pip-button', '#guide-open'];
 
 // Browser-side source text: the test tsconfig has no DOM lib.
 const LAYOUT_PROBE = `(() => {

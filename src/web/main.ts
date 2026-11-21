@@ -5,6 +5,8 @@ import type { InputSource } from '../shared/contracts.js';
 import { acquireMicrophone, type AcquiredAudio } from './audioSource.js';
 import { ShareError, requestDisplayAudio, type AudioContextLike, type DisplayAudioDeps } from './displayAudio.js';
 import { MESSAGES, STATE_LABELS, shareNoAudioMessage, type AppState } from './messages.js';
+import { MirroredCaptionView } from './mirroredCaptionView.js';
+import { CaptionWindow } from './pip.js';
 import { createPreferences, isCaptionSize, type CaptionSize } from './preferences.js';
 import {
   MicrophoneError,
@@ -86,6 +88,17 @@ function init(): void {
 
   const blockedBySupport = (): boolean => selectedSource === 'system' && support.systemAudio === 'unsupported';
 
+  const captionView = new DomCaptionView(captions, captionScroll, jumpLatest);
+  const mirroredView = new MirroredCaptionView(captionView);
+  const captionWindow = new CaptionWindow(
+    {
+      button: requireElement('pip-button', HTMLButtonElement),
+      unsupported: requireElement('pip-unsupported', HTMLElement),
+      captions,
+    },
+    mirroredView,
+  );
+
   const setState = (next: AppState): void => {
     const previous = state;
     state = next;
@@ -96,6 +109,7 @@ function init(): void {
     startButton.disabled = !controls.startEnabled || blockedBySupport();
     stopButton.disabled = !controls.stopEnabled;
     for (const radio of sourceRadios) radio.disabled = !controls.sourceEnabled;
+    captionWindow.setState(next);
     // Narrow layout: the instructions fold away while listening so captions get the room, and come back afterwards.
     if (next === 'running' && !wideLayout.matches) systemDetails.open = false;
     else if (previous === 'running' && next !== 'running') systemDetails.open = true;
@@ -107,11 +121,10 @@ function init(): void {
     notice.hidden = text === null;
   };
 
-  const captionView = new DomCaptionView(captions, captionScroll, jumpLatest);
-
   const applyCaptionSize = (size: CaptionSize): void => {
     const follow = isNearBottom(captionScroll);
     captionPanel.dataset.captionSize = size;
+    captionWindow.setCaptionSize(size);
     for (const radio of sizeRadios) radio.checked = radio.value === size;
     if (follow) captionView.scrollToEnd();
   };
@@ -148,7 +161,7 @@ function init(): void {
   };
 
   const pipeline = new CaptionPipeline({
-    view: captionView,
+    view: mirroredView,
     translate: withInputSource(() => run?.source ?? selectedSource, requestTranslation),
     onTranslationUnavailable: () => stopRun('error'),
   });

@@ -449,7 +449,7 @@ test.describe('系统声音：共享内容没有声音', () => {
   });
 });
 
-test('IQA-109 不支持的浏览器（Firefox）：选系统声音即说明不支持且不能开始，麦克风照常可用', async ({ server }) => {
+test('IQA-109/123 不支持的浏览器（Firefox）：选系统声音即说明不支持且不能开始，麦克风照常可用；字幕小窗按钮不可用并说明原因', async ({ server }) => {
   const browser = await firefox.launch({
     headless: false,
     firefoxUserPrefs: { 'media.navigator.streams.fake': true, 'media.navigator.permission.disabled': true },
@@ -458,8 +458,18 @@ test('IQA-109 不支持的浏览器（Firefox）：选系统声音即说明不�
     const context = await browser.newContext({ baseURL: server.baseURL, locale: 'zh-CN' });
     await context.addInitScript({ content: INSTRUMENTATION });
     await context.addInitScript({ content: SEEN_GUIDE });
+    // IQA-123: Playwright's Firefox (159) exposes Document Picture-in-Picture in secure contexts such as
+    // http://localhost, so the API is removed before the page runs to exercise the unsupported path.
+    await context.addInitScript({
+      content: `for (const target of [window, Window.prototype]) { try { delete target.documentPictureInPicture; } catch {} }`,
+    });
     const page = await context.newPage();
     await page.goto('/');
+    expect(await page.evaluate<boolean>(`'documentPictureInPicture' in window`)).toBe(false);
+    await expect(page.locator('#pip-button')).toBeDisabled();
+    await expect(page.locator('#pip-button')).toHaveText('弹出字幕小窗');
+    await expect(page.locator('#pip-unsupported')).toBeVisible();
+    await expect(page.locator('#pip-unsupported')).toContainText('当前浏览器不支持悬浮字幕小窗');
     await expect(page.locator('#source-system')).toBeEnabled();
     await selectSource(page, '系统声音');
     await expect(page.locator('#system-unsupported')).toBeVisible();

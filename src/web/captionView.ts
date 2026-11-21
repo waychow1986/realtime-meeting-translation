@@ -13,7 +13,13 @@ export class DomCaptionView implements CaptionView {
     private readonly list: HTMLOListElement,
     private readonly scroller: HTMLElement,
     private readonly jumpButton?: HTMLButtonElement,
+    /** The caption window has no "jump to latest" button: it always shows the newest caption (TD-104). */
+    private readonly alwaysFollow = false,
   ) {
+    // Items already in the list (cloned from the main page into the caption window) are tracked by segment id.
+    for (const item of list.querySelectorAll<HTMLLIElement>('li.caption[data-segment-id]')) {
+      this.nodes.set(Number(item.dataset.segmentId), item);
+    }
     scroller.addEventListener('scroll', () => {
       if (this.jumpButton && isNearBottom(scroller)) this.jumpButton.hidden = true;
     });
@@ -21,7 +27,7 @@ export class DomCaptionView implements CaptionView {
   }
 
   append(id: number): void {
-    const item = document.createElement('li');
+    const item = this.list.ownerDocument.createElement('li');
     item.className = 'caption';
     item.dataset.status = 'interim';
     item.dataset.segmentId = String(id);
@@ -58,7 +64,7 @@ export class DomCaptionView implements CaptionView {
   }
 
   private update(change: () => void): void {
-    const follow = isNearBottom(this.scroller);
+    const follow = this.alwaysFollow || isNearBottom(this.scroller);
     change();
     if (follow) this.scrollToEnd();
     else if (this.jumpButton) this.jumpButton.hidden = false;

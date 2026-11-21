@@ -26,6 +26,9 @@ export const MESSAGES = {
   systemUnsupported:
     '当前浏览器不支持采集系统声音。请使用 Windows 或 macOS 上最新版的 Chrome 或 Edge 打开本页面；也可以改选“麦克风”。',
   pipUnsupported: '当前浏览器不支持悬浮字幕小窗。请使用 Windows 或 macOS 上最新版的 Chrome 或 Edge。',
+  pipOpen: '弹出字幕小窗',
+  pipClose: '关闭字幕小窗',
+  pipTitle: '中文字幕小窗',
 } as const;
 
 const SHARE_NO_AUDIO_PREFIX = '所选的共享内容没有包含声音，无法翻译。';

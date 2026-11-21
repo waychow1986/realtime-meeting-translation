@@ -81,7 +81,27 @@ export const INSTRUMENTATION = `(() => {
       state.last = key;
       record.timeline.push({ at: Date.now(), index: state.index, status: entry.status, text: entry.text });
     }
+    pipSample();
   };
+  // Caption window (Document PiP): on every change of either list, both lists are serialized side by side.
+  record.pip = { opened: 0, samples: [] };
+  const serialize = (list) =>
+    [...list.querySelectorAll('li.caption')].map((li) => [li.dataset.segmentId || '', li.dataset.status || '', li.textContent || '']);
+  const pipSample = () => {
+    const pipWindow = window.documentPictureInPicture && window.documentPictureInPicture.window;
+    const pipList = pipWindow && pipWindow.document.getElementById('pip-captions');
+    const list = document.getElementById('captions');
+    if (!pipList || !list) return;
+    record.pip.samples.push({ at: Date.now(), main: serialize(list), pip: serialize(pipList) });
+  };
+  if (window.documentPictureInPicture) {
+    window.documentPictureInPicture.addEventListener('enter', (event) => {
+      record.pip.opened += 1;
+      new MutationObserver(pipSample).observe(event.window.document.documentElement, {
+        subtree: true, childList: true, characterData: true, attributes: true,
+      });
+    });
+  }
   const observe = () => {
     const list = document.getElementById('captions');
     if (!list) return;
