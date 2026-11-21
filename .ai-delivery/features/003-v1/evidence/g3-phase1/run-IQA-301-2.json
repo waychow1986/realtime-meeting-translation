@@ -3,14 +3,4382 @@
  "scen": "IQA-301",
  "input": "system",
  "pipWanted": false,
- "ok": false,
- "failKind": "gap",
- "failMsg": "找不到输入选择控件（系统声音）",
- "console": [],
- "wallStart": 1795280164495,
- "step": "start",
- "visibleText": "会议实时中文字幕\n输入方式\n麦克风\n系统声音\n开始\n停止\n○\n当前状态\n未开始\n字号\n小\n中\n大\n特大\n弹出字幕小窗\n?\n使用引导\n\n选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。\n\n使用引导\n选择输入方式：“麦克风”识别您身边的发言；“系统声音”识别电脑正在播放的声音（如网页会议、在线视频）。\n点击“开始”：麦克风模式需在浏览器提示时允许使用麦克风；随时点击“停止”结束。\n系统声音：点击“开始”后，在浏览器弹出的共享窗口中选择要翻译的内容（如会议所在的标签页），并勾选共享音频（如“同时分享标签页中的音频”）后再点击“分享”。\n调整字号：在“字号”中选择“小 / 中 / 大 / 特大”，字幕立即按新字号显示。\n字幕小窗：可点击“弹出字幕小窗”让字幕悬浮在会议或视频窗口之上；浏览器不支持时该按钮不可用，并会显示原因。\n\n字幕只显示在当前页面，刷新或关闭页面后即清空。可随时点击顶栏的“？”（使用引导）按钮再次查看本说明。\n\n知道了",
- "inputControl": null,
- "wallEnd": 1795280176258,
- "req": []
+ "ok": true,
+ "failKind": null,
+ "failMsg": "",
+ "console": [
+  "[warning] The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)",
+  "[error] Creating a worker from 'data:text/javascript;base64,IWZ1bmN0aW9uKGUpe3ZhciB0PXt9O2Z1bmN0aW9uIG4ocil7aWYodFtyXSlyZXR1cm4gdFtyXS5leHBvcnRzO3ZhciBvPXRbcl09e2k6cixsOiExLGV4cG9ydHM6e319O3JldHVybiBlW3JdLmNhbGwoby5leHBvcnRzLG8sby5leHBvcnRzLG4pLG8ubD0hMCxvLmV4cG9ydHN9bi5tPWUsbi5jPXQsbi5kPWZ1bmN0aW9uKGUsdCxyKXtuLm8oZSx0KXx8T2JqZWN0LmRlZmluZVByb3BlcnR5KGUsdCx7ZW51bWVyYWJsZTohMCxnZXQ6cn0pfSxuLnI9ZnVuY3Rpb24o…"
+ ],
+ "wallStart": 1795283335912,
+ "step": "final-snapshot",
+ "guide": {
+  "closed": [
+   "按钮“知道了”"
+  ],
+  "remaining": 0
+ },
+ "visibleText": "会议实时中文字幕\n输入方式\n麦克风\n系统声音\n开始\n停止\n○\n当前状态\n未开始\n字号\n小\n中\n大\n特大\n弹出字幕小窗\n?\n使用引导\n\n选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。",
+ "inputControl": "radio",
+ "tl": {
+  "t0": 2738.5,
+  "s": [
+   {
+    "start": 0,
+    "end": 4.847981859410431
+   },
+   {
+    "start": 6.447981859410431,
+    "end": 11.295963718820861
+   },
+   {
+    "start": 12.895963718820862,
+    "end": 17.5759410430839
+   },
+   {
+    "start": 19.175941043083903,
+    "end": 23.999931972789117
+   },
+   {
+    "start": 25.59993197278912,
+    "end": 29.41591836734694
+   }
+  ],
+  "total": 29.41591836734694
+ },
+ "stopReason": "settled",
+ "measure": {
+  "sigMain": "OL#captions.captions@5",
+  "sigPip": "generic",
+  "main": {
+   "entries": [
+    {
+     "text": "大家好，感谢各位参加今天的会议。",
+     "cls": "caption",
+     "color": "rgb(255, 255, 255)",
+     "bg": {
+      "r": 13,
+      "g": 17,
+      "b": 23
+     },
+     "opacity": 1,
+     "fontStyle": "normal",
+     "fontWeight": "400",
+     "fontSize": 32,
+     "textDecoration": "none",
+     "animation": "none,none",
+     "border": "solid 4px rgba(0, 0, 0, 0) none none none solid",
+     "boxBg": "rgba(0, 0, 0, 0)",
+     "before": "none",
+     "after": "none",
+     "fontFamily": "system-ui, -apple-system, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", sans-serif"
+    },
+    {
+     "text": "本季度销售额比去年增长了20%。",
+     "cls": "caption",
+     "color": "rgb(255, 255, 255)",
+     "bg": {
+      "r": 13,
+      "g": 17,
+      "b": 23
+     },
+     "opacity": 1,
+     "fontStyle": "normal",
+     "fontWeight": "400",
+     "fontSize": 32,
+     "textDecoration": "none",
+     "animation": "none,none",
+     "border": "solid 4px rgba(0, 0, 0, 0) none none none solid",
+     "boxBg": "rgba(0, 0, 0, 0)",
+     "before": "none",
+     "after": "none",
+     "fontFamily": "system-ui, -apple-system, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", sans-serif"
+    },
+    {
+     "text": "我们计划在下周一推出新产品。",
+     "cls": "caption",
+     "color": "rgb(255, 255, 255)",
+     "bg": {
+      "r": 13,
+      "g": 17,
+      "b": 23
+     },
+     "opacity": 1,
+     "fontStyle": "normal",
+     "fontWeight": "400",
+     "fontSize": 32,
+     "textDecoration": "none",
+     "animation": "none,none",
+     "border": "solid 4px rgba(0, 0, 0, 0) none none none solid",
+     "boxBg": "rgba(0, 0, 0, 0)",
+     "before": "none",
+     "after": "none",
+     "fontFamily": "system-ui, -apple-system, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", sans-serif"
+    },
+    {
+     "text": "为了提高客户满意度，我们将改进服务质量。",
+     "cls": "caption",
+     "color": "rgb(255, 255, 255)",
+     "bg": {
+      "r": 13,
+      "g": 17,
+      "b": 23
+     },
+     "opacity": 1,
+     "fontStyle": "normal",
+     "fontWeight": "400",
+     "fontSize": 32,
+     "textDecoration": "none",
+     "animation": "none,none",
+     "border": "solid 4px rgba(0, 0, 0, 0) none none none solid",
+     "boxBg": "rgba(0, 0, 0, 0)",
+     "before": "none",
+     "after": "none",
+     "fontFamily": "system-ui, -apple-system, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", sans-serif"
+    },
+    {
+     "text": "如果有任何问题，请随时提出来。",
+     "cls": "caption",
+     "color": "rgb(255, 255, 255)",
+     "bg": {
+      "r": 13,
+      "g": 17,
+      "b": 23
+     },
+     "opacity": 1,
+     "fontStyle": "normal",
+     "fontWeight": "400",
+     "fontSize": 32,
+     "textDecoration": "none",
+     "animation": "none,none",
+     "border": "solid 4px rgba(0, 0, 0, 0) none none none solid",
+     "boxBg": "rgba(0, 0, 0, 0)",
+     "before": "none",
+     "after": "none",
+     "fontFamily": "system-ui, -apple-system, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", sans-serif"
+    }
+   ]
+  },
+  "pip": null
+ },
+ "tStop": 40465.199999999255,
+ "snaps": [
+  {
+   "k": "main",
+   "t": 94.79999999888241,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 2,
+       "t": "字号",
+       "c": ""
+      },
+      {
+       "id": 3,
+       "t": "小",
+       "c": ""
+      },
+      {
+       "id": 4,
+       "t": "中",
+       "c": ""
+      },
+      {
+       "id": 5,
+       "t": "大",
+       "c": ""
+      },
+      {
+       "id": 6,
+       "t": "特大",
+       "c": ""
+      }
+     ]
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。",
+       "c": "caption-scroll"
+      },
+      {
+       "id": 9,
+       "t": "回到最新字幕 ↓",
+       "c": "jump-latest"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 10,
+       "t": "选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。",
+       "c": "hint"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 10,
+       "t": "选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。",
+       "c": "hint"
+      },
+      {
+       "id": 14,
+       "t": "当前浏览器不支持采集系统声音。请使用 Windows 或 macOS 上最新版的 Chrome 或 Edge 打开本页面；也可以改选“麦克风”。",
+       "c": "system-unsupported"
+      },
+      {
+       "id": 15,
+       "t": "先在其它标签页或软件中准备好要翻译的视频或会议。",
+       "c": ""
+      },
+      {
+       "id": 16,
+       "t": "点击“开始”，浏览器会弹出共享选择窗口。",
+       "c": ""
+      },
+      {
+       "id": 17,
+       "t": "点击“分享”，状态变为“正在听”后即开始出字幕。",
+       "c": ""
+      },
+      {
+       "id": 18,
+       "t": "结束：点击本页“停止”，或点击浏览器提示条上的“停止共享”。",
+       "c": ""
+      },
+      {
+       "id": 19,
+       "t": "共享时浏览器附带的画面不会被显示、上传或保存，只使用声音。",
+       "c": ""
+      },
+      {
+       "id": 20,
+       "t": "你仍能照常听到原声。",
+       "c": ""
+      },
+      {
+       "id": 21,
+       "t": "背景音乐、音效或多人同时说话时，字幕可能不完整或不准确。",
+       "c": ""
+      },
+      {
+       "id": 22,
+       "t": "全屏观看视频时，可点击“弹出字幕小窗”查看字幕（需浏览器支持）。",
+       "c": ""
+      },
+      {
+       "id": 23,
+       "t": "字幕只显示在当前页面，刷新或关闭页面后即清空。可随时点击顶栏的“？”（使用引导）按钮再次查看本说明。",
+       "c": "guide-note"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": false
+   }
+  },
+  {
+   "k": "main",
+   "t": 2086.4000000003725,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": []
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": []
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": []
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": false
+   }
+  },
+  {
+   "k": "main",
+   "t": 2120.7999999988824,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": []
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": []
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": []
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": false
+   }
+  },
+  {
+   "k": "main",
+   "t": 2232.5,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": []
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": []
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": []
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 6740.5999999996275,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": []
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": []
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": []
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 7666.799999998882,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 8227.900000000373,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 10638.799999998882,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 11154.400000000373,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 这次",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 这次",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "这次",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "这次",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 11712.5,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 这次季度的销售额",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 这次季度的销售额",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "这次季度的销售额",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "这次季度的销售额",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 12298,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度的销售额比去年",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度的销售额比去年",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度的销售额比去年",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度的销售额比去年",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 13764,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增加了20%",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增加了20%",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增加了20%",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增加了20%",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 14846.799999998882,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 17039.900000000373,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 17632.099999999627,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 下周",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 下周",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "下周",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "下周",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 18464.799999998882,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 下周星期一",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 下周星期一",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "下周星期一",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "下周星期一",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 18830.099999999627,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 下周星期一新的",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 下周星期一新的",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "下周星期一新的",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "下周星期一新的",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 19563.5,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 下周一新的产品将会",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 下周一新的产品将会",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "下周一新的产品将会",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "下周一新的产品将会",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 20198.699999999255,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 下周一将要推出新产品的",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 下周一将要推出新产品的",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "下周一将要推出新产品的",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "下周一将要推出新产品的",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 20929.199999999255,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 23347.299999998882,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "27": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 23927.199999999255,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 只有客户",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 只有客户",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "只有客户",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "27": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "只有客户",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 24524,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 提高客户满意度",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 提高客户满意度",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "提高客户满意度",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "27": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "提高客户满意度",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 25126.5,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "27": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 25713.699999999255,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度而提供服务",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度而提供服务",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度而提供服务",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "27": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度而提供服务",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 26538.799999998882,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 提高服务质量以提升客户满意度",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 提高服务质量以提升客户满意度",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "提高服务质量以提升客户满意度",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "27": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "提高服务质量以提升客户满意度",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 27285.900000000373,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "27": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 29757.900000000373,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "27": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "28": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 30392.699999999255,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。 问题",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。 问题",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      },
+      {
+       "id": 28,
+       "t": "问题",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "27": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "28": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      },
+      {
+       "id": 28,
+       "t": "问题",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 31334,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。 如果有问题的话",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。 如果有问题的话",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      },
+      {
+       "id": 28,
+       "t": "如果有问题的话",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "27": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "28": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      },
+      {
+       "id": 28,
+       "t": "如果有问题的话",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 31820.900000000373,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。 如果有问题的话随时提问",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。 如果有问题的话随时提问",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      },
+      {
+       "id": 28,
+       "t": "如果有问题的话随时提问",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "27": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "28": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      },
+      {
+       "id": 28,
+       "t": "如果有问题的话随时提问",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 32237.299999998882,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。 如果有问题，随时都可以提出来",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。 如果有问题，随时都可以提出来",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      },
+      {
+       "id": 28,
+       "t": "如果有问题，随时都可以提出来",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "27": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "28": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      },
+      {
+       "id": 28,
+       "t": "如果有问题，随时都可以提出来",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 32771.09999999963,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。 如果有任何问题，请随时提出来。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。 如果有任何问题，请随时提出来。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      },
+      {
+       "id": 28,
+       "t": "如果有任何问题，请随时提出来。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "27": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "28": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      },
+      {
+       "id": 28,
+       "t": "如果有任何问题，请随时提出来。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 40500.199999999255,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。 如果有任何问题，请随时提出来。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%。 我们计划在下周一推出新产品。 为了提高客户满意度，我们将改进服务质量。 如果有任何问题，请随时提出来。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      },
+      {
+       "id": 28,
+       "t": "如果有任何问题，请随时提出来。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "27": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "28": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "大家好，感谢各位参加今天的会议。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "本季度销售额比去年增长了20%。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "我们计划在下周一推出新产品。",
+       "c": "caption"
+      },
+      {
+       "id": 27,
+       "t": "为了提高客户满意度，我们将改进服务质量。",
+       "c": "caption"
+      },
+      {
+       "id": 28,
+       "t": "如果有任何问题，请随时提出来。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": false
+   }
+  }
+ ],
+ "req": [
+  {
+   "id": 1,
+   "t": 6739.199999999255,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"안녕하세요\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "안녕하세요",
+   "sentence": -1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 7577.299999998882,
+   "tEnd": 7667,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"你好\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 2,
+   "t": 7665.799999998882,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"안녕하세요 오늘 회의에 참석해 주셔서 감사합니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "안녕하세요 오늘 회의에 참석해 주셔서 감사합니다",
+   "sentence": 0,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": null,
+   "tResp": null,
+   "tEnd": 7755.799999998882,
+   "done": false,
+   "aborted": true,
+   "err": "AbortError",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 3,
+   "t": 7755.199999999255,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"final\",\"text\":\"안녕하세요. 오늘 회의에 참석해 주셔서 감사합니다.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "안녕하세요. 오늘 회의에 참석해 주셔서 감사합니다.",
+   "sentence": 0,
+   "retrans": false,
+   "marker": true,
+   "action": "pass",
+   "status": 200,
+   "tResp": 7994.699999999255,
+   "tEnd": 8228.099999999627,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"大家\"}\n{\"type\":\"delta\",\"text\":\"好\"}\n{\"type\":\"delta\",\"text\":\"，\"}\n{\"type\":\"delta\",\"text\":\"感谢\"}\n{\"type\":\"delta\",\"text\":\"各\"}\n{\"type\":\"delta\",\"text\":\"位\"}\n{\"type\":\"delta\",\"text\":\"参加\"}\n{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 4,
+   "t": 10637.699999999255,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번",
+   "sentence": -1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 11023.5,
+   "tEnd": 11154.799999998882,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"这\"}\n{\"type\":\"delta\",\"text\":\"次\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 5,
+   "t": 11153.5,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 11575.299999998882,
+   "tEnd": 11711.099999999627,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"这\"}\n{\"type\":\"delta\",\"text\":\"次\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 6,
+   "t": 11711.799999998882,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은 지난해\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은 지난해",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 12174.199999999255,
+   "tEnd": 12296.5,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"本\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 7,
+   "t": 12297.099999999627,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은 지난해보다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은 지난해보다",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 13033.799999998882,
+   "tEnd": 13208.799999998882,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"本\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 8,
+   "t": 13207.699999999255,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은 지난해보다 20% 증가\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은 지난해보다 20% 증가",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 13618.599999999627,
+   "tEnd": 13764.199999999255,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"本\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n{\"type\":\"delta\",\"text\":\"增加\"}\n{\"type\":\"delta\",\"text\":\"了\"}\n{\"type\":\"delta\",\"text\":\"20\"}\n{\"type\":\"delta\",\"text\":\"%\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 9,
+   "t": 13763.099999999627,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은 지난해보다 20% 증가했습니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은 지난해보다 20% 증가했습니다",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": null,
+   "tResp": null,
+   "tEnd": 14155.599999999627,
+   "done": false,
+   "aborted": true,
+   "err": "AbortError",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 10,
+   "t": 14155.199999999255,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"final\",\"text\":\"이번 분기 매출은 지난해보다 20% 증가했습니다.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은 지난해보다 20% 증가했습니다.",
+   "sentence": 1,
+   "retrans": false,
+   "marker": true,
+   "action": "pass",
+   "status": 200,
+   "tResp": 14604.099999999627,
+   "tEnd": 14847.099999999627,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"本\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n{\"type\":\"delta\",\"text\":\"增长\"}\n{\"type\":\"delta\",\"text\":\"了\"}\n{\"type\":\"delta\",\"text\":\"20\"}\n{\"type\":\"delta\",\"text\":\"%。\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 11,
+   "t": 17039,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"다음 주\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "다음 주",
+   "sentence": -1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 17442.199999999255,
+   "tEnd": 17632.400000000373,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"下\"}\n{\"type\":\"delta\",\"text\":\"周\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 12,
+   "t": 17631.199999999255,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"다음 주 월요일\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "다음 주 월요일",
+   "sentence": 2,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 18377.400000000373,
+   "tEnd": 18465,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"下\"}\n{\"type\":\"delta\",\"text\":\"周\"}\n{\"type\":\"delta\",\"text\":\"星期\"}\n{\"type\":\"delta\",\"text\":\"一\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 13,
+   "t": 18463.799999998882,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"다음 주 월요일에 새로운\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "다음 주 월요일에 새로운",
+   "sentence": 2,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 18731,
+   "tEnd": 18830.299999998882,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"下\"}\n{\"type\":\"delta\",\"text\":\"周\"}\n{\"type\":\"delta\",\"text\":\"星期\"}\n{\"type\":\"delta\",\"text\":\"一\"}\n{\"type\":\"delta\",\"text\":\"新的\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 14,
+   "t": 18963.699999999255,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"다음 주 월요일에 새로운 제품을\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "다음 주 월요일에 새로운 제품을",
+   "sentence": 2,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 19360.5,
+   "tEnd": 19563.799999998882,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"下\"}\n{\"type\":\"delta\",\"text\":\"周\"}\n{\"type\":\"delta\",\"text\":\"一\"}\n{\"type\":\"delta\",\"text\":\"新的\"}\n{\"type\":\"delta\",\"text\":\"产品\"}\n{\"type\":\"delta\",\"text\":\"将\"}\n{\"type\":\"delta\",\"text\":\"会\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 15,
+   "t": 19562.5,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"다음 주 월요일에 새로운 제품을 출시할\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "다음 주 월요일에 새로운 제품을 출시할",
+   "sentence": 2,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 20015,
+   "tEnd": 20199,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"下\"}\n{\"type\":\"delta\",\"text\":\"周\"}\n{\"type\":\"delta\",\"text\":\"一\"}\n{\"type\":\"delta\",\"text\":\"将\"}\n{\"type\":\"delta\",\"text\":\"要\"}\n{\"type\":\"delta\",\"text\":\"推出\"}\n{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"产品\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 16,
+   "t": 20197.900000000373,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"다음 주 월요일에 새로운 제품을 출시할 예정입니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "다음 주 월요일에 새로운 제품을 출시할 예정입니다",
+   "sentence": 2,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 20433.5,
+   "tEnd": 20500.199999999255,
+   "done": false,
+   "aborted": true,
+   "err": "AbortError",
+   "respText": "{\"type\":\"delta\",\"text\":\"我们\"}\n{\"type\":\"delta\",\"text\":\"计划\"}\n{\"type\":\"delta\",\"text\":\"在\"}\n{\"type\":\"delta\",\"text\":\"下\"}\n{\"type\":\"delta\",\"text\":\"周\"}\n{\"type\":\"delta\",\"text\":\"一\"}\n{\"type\":\"delta\",\"text\":\"推出\"}\n{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"产品\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 17,
+   "t": 20499.799999998882,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"final\",\"text\":\"다음 주 월요일에 새로운 제품을 출시할 예정입니다.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "다음 주 월요일에 새로운 제품을 출시할 예정입니다.",
+   "sentence": 2,
+   "retrans": false,
+   "marker": true,
+   "action": "pass",
+   "status": 200,
+   "tResp": 20729.299999998882,
+   "tEnd": 20928.099999999627,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"我们\"}\n{\"type\":\"delta\",\"text\":\"计划\"}\n{\"type\":\"delta\",\"text\":\"在\"}\n{\"type\":\"delta\",\"text\":\"下\"}\n{\"type\":\"delta\",\"text\":\"周\"}\n{\"type\":\"delta\",\"text\":\"一\"}\n{\"type\":\"delta\",\"text\":\"推出\"}\n{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"产品\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 18,
+   "t": 23346.400000000373,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"고객만\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "고객만",
+   "sentence": 3,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 23789.599999999627,
+   "tEnd": 23927.5,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"只有\"}\n{\"type\":\"delta\",\"text\":\"客户\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 19,
+   "t": 23926.400000000373,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"고객만족도를 높이기\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "고객만족도를 높이기",
+   "sentence": 3,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 24496,
+   "tEnd": 24522.400000000373,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"提高\"}\n{\"type\":\"delta\",\"text\":\"客户\"}\n{\"type\":\"delta\",\"text\":\"满意\"}\n{\"type\":\"delta\",\"text\":\"度\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 20,
+   "t": 24523,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"고객만족도를 높이기 위해\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "고객만족도를 높이기 위해",
+   "sentence": 3,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 25083.199999999255,
+   "tEnd": 25125.099999999627,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"为了\"}\n{\"type\":\"delta\",\"text\":\"提高\"}\n{\"type\":\"delta\",\"text\":\"客户\"}\n{\"type\":\"delta\",\"text\":\"满意\"}\n{\"type\":\"delta\",\"text\":\"度\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 21,
+   "t": 25125.599999999627,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"고객만족도를 높이기 위해 서비스\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "고객만족도를 높이기 위해 서비스",
+   "sentence": 3,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 25565.400000000373,
+   "tEnd": 25713.900000000373,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"为了\"}\n{\"type\":\"delta\",\"text\":\"提高\"}\n{\"type\":\"delta\",\"text\":\"客户\"}\n{\"type\":\"delta\",\"text\":\"满意\"}\n{\"type\":\"delta\",\"text\":\"度\"}\n{\"type\":\"delta\",\"text\":\"而\"}\n{\"type\":\"delta\",\"text\":\"提供\"}\n{\"type\":\"delta\",\"text\":\"服务\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 22,
+   "t": 25712.699999999255,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"고객만족도를 높이기 위해 서비스 품질을\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "고객만족도를 높이기 위해 서비스 품질을",
+   "sentence": 3,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 26499.799999998882,
+   "tEnd": 26539.099999999627,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"提高\"}\n{\"type\":\"delta\",\"text\":\"服务\"}\n{\"type\":\"delta\",\"text\":\"质量\"}\n{\"type\":\"delta\",\"text\":\"以\"}\n{\"type\":\"delta\",\"text\":\"提升\"}\n{\"type\":\"delta\",\"text\":\"客户\"}\n{\"type\":\"delta\",\"text\":\"满意\"}\n{\"type\":\"delta\",\"text\":\"度\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 23,
+   "t": 26537.799999998882,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"고객만족도를 높이기 위해 서비스 품질을 개선하겠습니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "고객만족도를 높이기 위해 서비스 품질을 개선하겠습니다",
+   "sentence": 3,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": null,
+   "tResp": null,
+   "tEnd": 26860.400000000373,
+   "done": false,
+   "aborted": true,
+   "err": "AbortError",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 24,
+   "t": 26860,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"final\",\"text\":\"고객만족도를 높이기 위해 서비스 품질을 개선하겠습니다.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "고객만족도를 높이기 위해 서비스 품질을 개선하겠습니다.",
+   "sentence": 3,
+   "retrans": false,
+   "marker": true,
+   "action": "pass",
+   "status": 200,
+   "tResp": 27133.900000000373,
+   "tEnd": 27284.799999998882,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"为了\"}\n{\"type\":\"delta\",\"text\":\"提高\"}\n{\"type\":\"delta\",\"text\":\"客户\"}\n{\"type\":\"delta\",\"text\":\"满意\"}\n{\"type\":\"delta\",\"text\":\"度\"}\n{\"type\":\"delta\",\"text\":\"，我们\"}\n{\"type\":\"delta\",\"text\":\"将\"}\n{\"type\":\"delta\",\"text\":\"改\"}\n{\"type\":\"delta\",\"text\":\"进\"}\n{\"type\":\"delta\",\"text\":\"服务\"}\n{\"type\":\"delta\",\"text\":\"质量\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 25,
+   "t": 29757,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"질문이\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "질문이",
+   "sentence": 4,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 30349.299999998882,
+   "tEnd": 30393,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"问题\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 26,
+   "t": 30391.799999998882,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"질문이 있으시면\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "질문이 있으시면",
+   "sentence": 4,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 31154.599999999627,
+   "tEnd": 31334.400000000373,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"如果\"}\n{\"type\":\"delta\",\"text\":\"有\"}\n{\"type\":\"delta\",\"text\":\"问题\"}\n{\"type\":\"delta\",\"text\":\"的话\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 27,
+   "t": 31332,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"질문이 있으시면 언제든지\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "질문이 있으시면 언제든지",
+   "sentence": 4,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 31605.299999998882,
+   "tEnd": 31821,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"如果\"}\n{\"type\":\"delta\",\"text\":\"有\"}\n{\"type\":\"delta\",\"text\":\"问题\"}\n{\"type\":\"delta\",\"text\":\"的话\"}\n{\"type\":\"delta\",\"text\":\"随\"}\n{\"type\":\"delta\",\"text\":\"时\"}\n{\"type\":\"delta\",\"text\":\"提\"}\n{\"type\":\"delta\",\"text\":\"问\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 28,
+   "t": 31832.5,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"질문이 있으시면 언제든지 말씀해주세요\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "질문이 있으시면 언제든지 말씀해주세요",
+   "sentence": 4,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 32052.099999999627,
+   "tEnd": 32237.5,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"如果\"}\n{\"type\":\"delta\",\"text\":\"有\"}\n{\"type\":\"delta\",\"text\":\"问题\"}\n{\"type\":\"delta\",\"text\":\"，\"}\n{\"type\":\"delta\",\"text\":\"随\"}\n{\"type\":\"delta\",\"text\":\"时\"}\n{\"type\":\"delta\",\"text\":\"都\"}\n{\"type\":\"delta\",\"text\":\"可以\"}\n{\"type\":\"delta\",\"text\":\"提\"}\n{\"type\":\"delta\",\"text\":\"出来\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 29,
+   "t": 32287.799999998882,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"final\",\"text\":\"질문이 있으시면 언제든지 말씀해주세요.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "질문이 있으시면 언제든지 말씀해주세요.",
+   "sentence": 4,
+   "retrans": false,
+   "marker": true,
+   "action": "pass",
+   "status": 200,
+   "tResp": 32547.099999999627,
+   "tEnd": 32769.5,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"如果\"}\n{\"type\":\"delta\",\"text\":\"有\"}\n{\"type\":\"delta\",\"text\":\"任何\"}\n{\"type\":\"delta\",\"text\":\"问题\"}\n{\"type\":\"delta\",\"text\":\"，请\"}\n{\"type\":\"delta\",\"text\":\"随\"}\n{\"type\":\"delta\",\"text\":\"时\"}\n{\"type\":\"delta\",\"text\":\"提\"}\n{\"type\":\"delta\",\"text\":\"出来\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  }
+ ],
+ "media": [
+  {
+   "api": "getDisplayMedia",
+   "t": 2116.7999999988824,
+   "armed": true
+  }
+ ],
+ "tEndObs": 50505.79999999888,
+ "listeningAfterStop": false,
+ "wallEnd": 1795283386519
 }

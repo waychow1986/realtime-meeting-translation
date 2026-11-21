@@ -3,14 +3,1107 @@
  "scen": "IQA-311",
  "input": "system",
  "pipWanted": false,
- "ok": false,
- "failKind": "gap",
- "failMsg": "找不到输入选择控件（系统声音）",
- "console": [],
- "wallStart": 1795280152901,
- "step": "start",
- "visibleText": "会议实时中文字幕\n输入方式\n麦克风\n系统声音\n开始\n停止\n○\n当前状态\n未开始\n字号\n小\n中\n大\n特大\n弹出字幕小窗\n?\n使用引导\n\n选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。\n\n使用引导\n选择输入方式：“麦克风”识别您身边的发言；“系统声音”识别电脑正在播放的声音（如网页会议、在线视频）。\n点击“开始”：麦克风模式需在浏览器提示时允许使用麦克风；随时点击“停止”结束。\n系统声音：点击“开始”后，在浏览器弹出的共享窗口中选择要翻译的内容（如会议所在的标签页），并勾选共享音频（如“同时分享标签页中的音频”）后再点击“分享”。\n调整字号：在“字号”中选择“小 / 中 / 大 / 特大”，字幕立即按新字号显示。\n字幕小窗：可点击“弹出字幕小窗”让字幕悬浮在会议或视频窗口之上；浏览器不支持时该按钮不可用，并会显示原因。\n\n字幕只显示在当前页面，刷新或关闭页面后即清空。可随时点击顶栏的“？”（使用引导）按钮再次查看本说明。\n\n知道了",
- "inputControl": null,
- "wallEnd": 1795280164786,
- "req": []
+ "ok": true,
+ "failKind": null,
+ "failMsg": "",
+ "console": [
+  "[warning] The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
+ ],
+ "wallStart": 1795283300792,
+ "step": "final-snapshot",
+ "guide": {
+  "closed": [
+   "按钮“知道了”"
+  ],
+  "remaining": 0
+ },
+ "visibleText": "会议实时中文字幕\n输入方式\n麦克风\n系统声音\n开始\n停止\n○\n当前状态\n未开始\n字号\n小\n中\n大\n特大\n弹出字幕小窗\n?\n使用引导\n\n选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。",
+ "inputControl": "radio",
+ "tl": {
+  "t0": 2701.9000000003725,
+  "s": [
+   {
+    "start": 0,
+    "end": 4.847981859410431
+   },
+   {
+    "start": 6.447981859410431,
+    "end": 11.295963718820861
+   },
+   {
+    "start": 12.895963718820862,
+    "end": 17.5759410430839
+   },
+   {
+    "start": 19.1759410430839,
+    "end": 23.999931972789113
+   },
+   {
+    "start": 25.599931972789115,
+    "end": 29.415918367346936
+   }
+  ],
+  "total": 29.415918367346936
+ },
+ "stopReason": "settled",
+ "measure": {
+  "sigMain": "SECTION#caption-panel.caption-panel@3",
+  "sigPip": "generic",
+  "main": {
+   "entries": [
+    {
+     "text": "这次",
+     "cls": "caption-scroll",
+     "color": "rgb(31, 35, 40)",
+     "bg": {
+      "r": 13,
+      "g": 17,
+      "b": 23
+     },
+     "opacity": 1,
+     "fontStyle": "normal",
+     "fontWeight": "400",
+     "fontSize": 15,
+     "textDecoration": "none",
+     "animation": "none,none",
+     "border": "none 0px rgb(31, 35, 40) none",
+     "boxBg": "rgba(0, 0, 0, 0)",
+     "before": "none",
+     "after": "none",
+     "fontFamily": "system-ui, -apple-system, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", sans-serif"
+    },
+    {
+     "text": "回到最新字幕 ↓",
+     "cls": "jump-latest",
+     "color": "rgb(255, 255, 255)",
+     "bg": {
+      "r": 31,
+      "g": 111,
+      "b": 235
+     },
+     "opacity": 1,
+     "fontStyle": "normal",
+     "fontWeight": "400",
+     "fontSize": 15,
+     "textDecoration": "none",
+     "animation": "none,none",
+     "border": "solid 1px rgb(56, 139, 253) solid",
+     "boxBg": "rgb(31, 111, 235)",
+     "before": "none",
+     "after": "none",
+     "fontFamily": "system-ui, -apple-system, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", sans-serif"
+    }
+   ]
+  },
+  "pip": null
+ },
+ "tStop": 40426.59999999963,
+ "stopErr": "locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /停止/ }).first()\n    - locator resolved to <button disabled type=\"button\" id=\"stop-button\" class=\"secondary\">停止</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n      - waiting 100ms\n    10 × waiting for element to be visible, enabled and stable\n       - element is not enabled\n     - retrying click action\n       - waiting 500ms\n",
+ "snaps": [
+  {
+   "k": "main",
+   "t": 68,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 2,
+       "t": "字号",
+       "c": ""
+      },
+      {
+       "id": 3,
+       "t": "小",
+       "c": ""
+      },
+      {
+       "id": 4,
+       "t": "中",
+       "c": ""
+      },
+      {
+       "id": 5,
+       "t": "大",
+       "c": ""
+      },
+      {
+       "id": 6,
+       "t": "特大",
+       "c": ""
+      }
+     ]
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。",
+       "c": "caption-scroll"
+      },
+      {
+       "id": 9,
+       "t": "回到最新字幕 ↓",
+       "c": "jump-latest"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 10,
+       "t": "选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。",
+       "c": "hint"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 10,
+       "t": "选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。",
+       "c": "hint"
+      },
+      {
+       "id": 14,
+       "t": "当前浏览器不支持采集系统声音。请使用 Windows 或 macOS 上最新版的 Chrome 或 Edge 打开本页面；也可以改选“麦克风”。",
+       "c": "system-unsupported"
+      },
+      {
+       "id": 15,
+       "t": "先在其它标签页或软件中准备好要翻译的视频或会议。",
+       "c": ""
+      },
+      {
+       "id": 16,
+       "t": "点击“开始”，浏览器会弹出共享选择窗口。",
+       "c": ""
+      },
+      {
+       "id": 17,
+       "t": "点击“分享”，状态变为“正在听”后即开始出字幕。",
+       "c": ""
+      },
+      {
+       "id": 18,
+       "t": "结束：点击本页“停止”，或点击浏览器提示条上的“停止共享”。",
+       "c": ""
+      },
+      {
+       "id": 19,
+       "t": "共享时浏览器附带的画面不会被显示、上传或保存，只使用声音。",
+       "c": ""
+      },
+      {
+       "id": 20,
+       "t": "你仍能照常听到原声。",
+       "c": ""
+      },
+      {
+       "id": 21,
+       "t": "背景音乐、音效或多人同时说话时，字幕可能不完整或不准确。",
+       "c": ""
+      },
+      {
+       "id": 22,
+       "t": "全屏观看视频时，可点击“弹出字幕小窗”查看字幕（需浏览器支持）。",
+       "c": ""
+      },
+      {
+       "id": 23,
+       "t": "字幕只显示在当前页面，刷新或关闭页面后即清空。可随时点击顶栏的“？”（使用引导）按钮再次查看本说明。",
+       "c": "guide-note"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": false
+   }
+  },
+  {
+   "k": "main",
+   "t": 2055.7999999988824,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": []
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": []
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": []
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": false
+   }
+  },
+  {
+   "k": "main",
+   "t": 2089.5,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": []
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": []
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": []
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": false
+   }
+  },
+  {
+   "k": "main",
+   "t": 2191.0999999996275,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": []
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": []
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": []
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 6711.199999999255,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": []
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": []
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": []
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 7135.299999998882,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 8722.299999998882,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": []
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": []
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": []
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 10516.900000000373,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": []
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": []
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": []
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 10982.699999999255,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "这次",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "这次",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 25,
+       "t": "这次",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 25,
+       "t": "这次",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 14128.799999998882,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "这次",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "这次",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 25,
+       "t": "这次",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 26,
+       "t": "翻译已中断，请稍后重新开始。",
+       "c": "notice"
+      },
+      {
+       "id": 25,
+       "t": "这次",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": true,
+    "listening": false
+   }
+  }
+ ],
+ "req": [
+  {
+   "id": 1,
+   "t": 6709.5999999996275,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"안녕하세요\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "안녕하세요",
+   "sentence": -1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 6986.799999998882,
+   "tEnd": 7135.5999999996275,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"你好\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 2,
+   "t": 7209,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"안녕하세요 오늘 회의에 참석해 주셔서 감사합니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "안녕하세요 오늘 회의에 참석해 주셔서 감사합니다",
+   "sentence": 0,
+   "retrans": false,
+   "marker": false,
+   "action": "reject",
+   "status": null,
+   "tResp": null,
+   "tEnd": 7209.0999999996275,
+   "done": false,
+   "aborted": false,
+   "err": "TypeError(injected)",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 3,
+   "t": 7709.4000000003725,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"안녕하세요 오늘 회의에 참석해 주셔서 감사합니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "안녕하세요 오늘 회의에 참석해 주셔서 감사합니다",
+   "sentence": 0,
+   "retrans": false,
+   "marker": false,
+   "action": "reject",
+   "status": null,
+   "tResp": null,
+   "tEnd": 7709.5,
+   "done": false,
+   "aborted": false,
+   "err": "TypeError(injected)",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 4,
+   "t": 7720.5999999996275,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"final\",\"text\":\"안녕하세요. 오늘 회의에 참석해 주셔서 감사합니다.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "안녕하세요. 오늘 회의에 참석해 주셔서 감사합니다.",
+   "sentence": 0,
+   "retrans": false,
+   "marker": true,
+   "action": "reject",
+   "status": null,
+   "tResp": null,
+   "tEnd": 7720.699999999255,
+   "done": false,
+   "aborted": false,
+   "err": "TypeError(injected)",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 5,
+   "t": 8721.5,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"final\",\"text\":\"안녕하세요. 오늘 회의에 참석해 주셔서 감사합니다.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "안녕하세요. 오늘 회의에 참석해 주셔서 감사합니다.",
+   "sentence": 0,
+   "retrans": false,
+   "marker": true,
+   "action": "reject",
+   "status": null,
+   "tResp": null,
+   "tEnd": 8721.5,
+   "done": false,
+   "aborted": false,
+   "err": "TypeError(injected)",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 6,
+   "t": 10516,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번",
+   "sentence": -1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 10851.799999998882,
+   "tEnd": 10982.900000000373,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"这\"}\n{\"type\":\"delta\",\"text\":\"次\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 7,
+   "t": 11016.5,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "reject",
+   "status": null,
+   "tResp": null,
+   "tEnd": 11016.5,
+   "done": false,
+   "aborted": false,
+   "err": "TypeError(injected)",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 8,
+   "t": 11517,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "reject",
+   "status": null,
+   "tResp": null,
+   "tEnd": 11517.099999999627,
+   "done": false,
+   "aborted": false,
+   "err": "TypeError(injected)",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 9,
+   "t": 12017.400000000373,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은 지난해보다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은 지난해보다",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "reject",
+   "status": null,
+   "tResp": null,
+   "tEnd": 12017.400000000373,
+   "done": false,
+   "aborted": false,
+   "err": "TypeError(injected)",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 10,
+   "t": 12516.799999998882,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은 지난해보다 20\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은 지난해보다 20",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "reject",
+   "status": null,
+   "tResp": null,
+   "tEnd": 12516.799999998882,
+   "done": false,
+   "aborted": false,
+   "err": "TypeError(injected)",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 11,
+   "t": 13017,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은 지난해보다 20\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은 지난해보다 20",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "reject",
+   "status": null,
+   "tResp": null,
+   "tEnd": 13017,
+   "done": false,
+   "aborted": false,
+   "err": "TypeError(injected)",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 12,
+   "t": 13517.299999998882,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은 지난해보다 20% 증가했습니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은 지난해보다 20% 증가했습니다",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "reject",
+   "status": null,
+   "tResp": null,
+   "tEnd": 13517.299999998882,
+   "done": false,
+   "aborted": false,
+   "err": "TypeError(injected)",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 13,
+   "t": 14016.5,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은 지난해보다 20% 증가했습니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은 지난해보다 20% 증가했습니다",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "reject",
+   "status": null,
+   "tResp": null,
+   "tEnd": 14016.5,
+   "done": false,
+   "aborted": false,
+   "err": "TypeError(injected)",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 14,
+   "t": 14122.299999998882,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"final\",\"text\":\"이번 분기 매출은 지난해보다 20% 증가했습니다.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은 지난해보다 20% 증가했습니다.",
+   "sentence": 1,
+   "retrans": false,
+   "marker": true,
+   "action": "reject",
+   "status": null,
+   "tResp": null,
+   "tEnd": 14122.299999998882,
+   "done": false,
+   "aborted": false,
+   "err": "TypeError(injected)",
+   "respText": "",
+   "outText": ""
+  }
+ ],
+ "media": [
+  {
+   "api": "getDisplayMedia",
+   "t": 2086,
+   "armed": true
+  }
+ ],
+ "tEndObs": 55431.90000000037,
+ "listeningAfterStop": false,
+ "wallEnd": 1795283356303
 }

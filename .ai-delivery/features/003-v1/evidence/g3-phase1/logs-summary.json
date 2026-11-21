@@ -3,7 +3,7 @@
  "reason": null,
  "status": {
   "status": "ok",
-  "logsReadAt": "2026-11-21T16:56:48.945213621Z",
+  "logsReadAt": "2026-11-21T17:50:59.084186817Z",
   "gaps": [],
   "droppedOldest": 0
  },
@@ -12,17 +12,34 @@
    "phase": "before",
    "way": "cancel",
    "win": [
-    "2026-11-21T16:54:44.595Z",
-    "2026-11-21T16:54:50.253Z"
+    "2026-11-21T17:45:55.736Z",
+    "2026-11-21T17:46:02.194Z"
    ],
    "stat": {
-    "lines": 3,
+    "lines": 4,
     "errors": 0,
     "errorServices": [],
-    "clientAborted": 0,
-    "clientAbortedInfo": 0,
-    "abortedLevels": [],
-    "abortedKeys": [],
+    "clientAborted": 1,
+    "clientAbortedInfo": 1,
+    "abortedLevels": [
+     "info"
+    ],
+    "abortedKeys": [
+     [
+      "deltaCount",
+      "durationMs",
+      "errorCode",
+      "event",
+      "inputSource",
+      "kind",
+      "level",
+      "msg",
+      "reqId",
+      "sourceLanguage",
+      "textLength",
+      "time"
+     ]
+    ],
     "contentHits": 0,
     "redacted": 0,
     "secretHits": 0,
@@ -33,17 +50,34 @@
    "phase": "before",
    "way": "disconnect",
    "win": [
-    "2026-11-21T16:54:55.258Z",
-    "2026-11-21T16:55:01.043Z"
+    "2026-11-21T17:46:07.198Z",
+    "2026-11-21T17:46:13.712Z"
    ],
    "stat": {
-    "lines": 3,
+    "lines": 5,
     "errors": 0,
     "errorServices": [],
-    "clientAborted": 0,
-    "clientAbortedInfo": 0,
-    "abortedLevels": [],
-    "abortedKeys": [],
+    "clientAborted": 1,
+    "clientAbortedInfo": 1,
+    "abortedLevels": [
+     "info"
+    ],
+    "abortedKeys": [
+     [
+      "deltaCount",
+      "durationMs",
+      "errorCode",
+      "event",
+      "inputSource",
+      "kind",
+      "level",
+      "msg",
+      "reqId",
+      "sourceLanguage",
+      "textLength",
+      "time"
+     ]
+    ],
     "contentHits": 0,
     "redacted": 0,
     "secretHits": 0,
@@ -54,17 +88,34 @@
    "phase": "after",
    "way": "cancel",
    "win": [
-    "2026-11-21T16:55:06.048Z",
-    "2026-11-21T16:55:11.584Z"
+    "2026-11-21T17:46:18.718Z",
+    "2026-11-21T17:46:25.648Z"
    ],
    "stat": {
-    "lines": 3,
+    "lines": 4,
     "errors": 0,
     "errorServices": [],
-    "clientAborted": 0,
-    "clientAbortedInfo": 0,
-    "abortedLevels": [],
-    "abortedKeys": [],
+    "clientAborted": 1,
+    "clientAbortedInfo": 1,
+    "abortedLevels": [
+     "info"
+    ],
+    "abortedKeys": [
+     [
+      "deltaCount",
+      "durationMs",
+      "errorCode",
+      "event",
+      "inputSource",
+      "kind",
+      "level",
+      "msg",
+      "reqId",
+      "sourceLanguage",
+      "textLength",
+      "time"
+     ]
+    ],
     "contentHits": 0,
     "redacted": 0,
     "secretHits": 0,
@@ -75,17 +126,34 @@
    "phase": "after",
    "way": "disconnect",
    "win": [
-    "2026-11-21T16:55:16.584Z",
-    "2026-11-21T16:55:22.383Z"
+    "2026-11-21T17:46:30.649Z",
+    "2026-11-21T17:46:37.815Z"
    ],
    "stat": {
-    "lines": 3,
+    "lines": 4,
     "errors": 0,
     "errorServices": [],
-    "clientAborted": 0,
-    "clientAbortedInfo": 0,
-    "abortedLevels": [],
-    "abortedKeys": [],
+    "clientAborted": 1,
+    "clientAbortedInfo": 1,
+    "abortedLevels": [
+     "info"
+    ],
+    "abortedKeys": [
+     [
+      "deltaCount",
+      "durationMs",
+      "errorCode",
+      "event",
+      "inputSource",
+      "kind",
+      "level",
+      "msg",
+      "reqId",
+      "sourceLanguage",
+      "textLength",
+      "time"
+     ]
+    ],
     "contentHits": 0,
     "redacted": 0,
     "secretHits": 0,
@@ -96,7 +164,7 @@
  "browserRuns": {
   "reason": null,
   "count": 0,
-  "lines": 63,
-  "aborted": 0
+  "lines": 794,
+  "aborted": 46
  }
 }

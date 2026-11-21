@@ -3,14 +3,2770 @@
  "scen": "IQA-306",
  "input": "system",
  "pipWanted": false,
- "ok": false,
- "failKind": "gap",
- "failMsg": "找不到输入选择控件（系统声音）",
- "console": [],
- "wallStart": 1795280141068,
- "step": "start",
- "visibleText": "会议实时中文字幕\n输入方式\n麦克风\n系统声音\n开始\n停止\n○\n当前状态\n未开始\n字号\n小\n中\n大\n特大\n弹出字幕小窗\n?\n使用引导\n\n选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。\n\n使用引导\n选择输入方式：“麦克风”识别您身边的发言；“系统声音”识别电脑正在播放的声音（如网页会议、在线视频）。\n点击“开始”：麦克风模式需在浏览器提示时允许使用麦克风；随时点击“停止”结束。\n系统声音：点击“开始”后，在浏览器弹出的共享窗口中选择要翻译的内容（如会议所在的标签页），并勾选共享音频（如“同时分享标签页中的音频”）后再点击“分享”。\n调整字号：在“字号”中选择“小 / 中 / 大 / 特大”，字幕立即按新字号显示。\n字幕小窗：可点击“弹出字幕小窗”让字幕悬浮在会议或视频窗口之上；浏览器不支持时该按钮不可用，并会显示原因。\n\n字幕只显示在当前页面，刷新或关闭页面后即清空。可随时点击顶栏的“？”（使用引导）按钮再次查看本说明。\n\n知道了",
- "inputControl": null,
- "wallEnd": 1795280152881,
- "req": []
+ "ok": true,
+ "failKind": null,
+ "failMsg": "",
+ "console": [
+  "[warning] The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
+ ],
+ "wallStart": 1795283255732,
+ "step": "final-snapshot",
+ "guide": {
+  "closed": [
+   "按钮“知道了”"
+  ],
+  "remaining": 0
+ },
+ "visibleText": "会议实时中文字幕\n输入方式\n麦克风\n系统声音\n开始\n停止\n○\n当前状态\n未开始\n字号\n小\n中\n大\n特大\n弹出字幕小窗\n?\n使用引导\n\n选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。",
+ "inputControl": "radio",
+ "tl": {
+  "t0": 2766.9000000003725,
+  "s": [
+   {
+    "start": 0,
+    "end": 3.0719954648526078
+   },
+   {
+    "start": 4.671995464852608,
+    "end": 16.239977324263037
+   },
+   {
+    "start": 17.839977324263035,
+    "end": 19.975963718820857
+   }
+  ],
+  "total": 19.975963718820857
+ },
+ "stopReason": "settled",
+ "measure": {
+  "sigMain": "OL#captions.captions@5",
+  "sigPip": "generic",
+  "main": {
+   "entries": [
+    {
+     "text": "你好，很高兴见到你。",
+     "cls": "caption",
+     "color": "rgb(255, 255, 255)",
+     "bg": {
+      "r": 13,
+      "g": 17,
+      "b": 23
+     },
+     "opacity": 1,
+     "fontStyle": "normal",
+     "fontWeight": "400",
+     "fontSize": 32,
+     "textDecoration": "none",
+     "animation": "none,none",
+     "border": "solid 4px rgba(0, 0, 0, 0) none none none solid",
+     "boxBg": "rgba(0, 0, 0, 0)",
+     "before": "none",
+     "after": "none",
+     "fontFamily": "system-ui, -apple-system, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", sans-serif"
+    },
+    {
+     "text": "今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。",
+     "cls": "caption",
+     "color": "rgb(255, 255, 255)",
+     "bg": {
+      "r": 13,
+      "g": 17,
+      "b": 23
+     },
+     "opacity": 1,
+     "fontStyle": "normal",
+     "fontWeight": "400",
+     "fontSize": 32,
+     "textDecoration": "none",
+     "animation": "none,none",
+     "border": "solid 4px rgba(0, 0, 0, 0) none none none solid",
+     "boxBg": "rgba(0, 0, 0, 0)",
+     "before": "none",
+     "after": "none",
+     "fontFamily": "system-ui, -apple-system, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", sans-serif"
+    },
+    {
+     "text": "谢谢。",
+     "cls": "caption",
+     "color": "rgb(255, 255, 255)",
+     "bg": {
+      "r": 13,
+      "g": 17,
+      "b": 23
+     },
+     "opacity": 1,
+     "fontStyle": "normal",
+     "fontWeight": "400",
+     "fontSize": 32,
+     "textDecoration": "none",
+     "animation": "none,none",
+     "border": "solid 4px rgba(0, 0, 0, 0) none none none solid",
+     "boxBg": "rgba(0, 0, 0, 0)",
+     "before": "none",
+     "after": "none",
+     "fontFamily": "system-ui, -apple-system, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", sans-serif"
+    }
+   ]
+  },
+  "pip": null
+ },
+ "tStop": 30940.300000000745,
+ "snaps": [
+  {
+   "k": "main",
+   "t": 124.30000000074506,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 2,
+       "t": "字号",
+       "c": ""
+      },
+      {
+       "id": 3,
+       "t": "小",
+       "c": ""
+      },
+      {
+       "id": 4,
+       "t": "中",
+       "c": ""
+      },
+      {
+       "id": 5,
+       "t": "大",
+       "c": ""
+      },
+      {
+       "id": 6,
+       "t": "特大",
+       "c": ""
+      }
+     ]
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。",
+       "c": "caption-scroll"
+      },
+      {
+       "id": 9,
+       "t": "回到最新字幕 ↓",
+       "c": "jump-latest"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 10,
+       "t": "选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。",
+       "c": "hint"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 10,
+       "t": "选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。",
+       "c": "hint"
+      },
+      {
+       "id": 14,
+       "t": "当前浏览器不支持采集系统声音。请使用 Windows 或 macOS 上最新版的 Chrome 或 Edge 打开本页面；也可以改选“麦克风”。",
+       "c": "system-unsupported"
+      },
+      {
+       "id": 15,
+       "t": "先在其它标签页或软件中准备好要翻译的视频或会议。",
+       "c": ""
+      },
+      {
+       "id": 16,
+       "t": "点击“开始”，浏览器会弹出共享选择窗口。",
+       "c": ""
+      },
+      {
+       "id": 17,
+       "t": "点击“分享”，状态变为“正在听”后即开始出字幕。",
+       "c": ""
+      },
+      {
+       "id": 18,
+       "t": "结束：点击本页“停止”，或点击浏览器提示条上的“停止共享”。",
+       "c": ""
+      },
+      {
+       "id": 19,
+       "t": "共享时浏览器附带的画面不会被显示、上传或保存，只使用声音。",
+       "c": ""
+      },
+      {
+       "id": 20,
+       "t": "你仍能照常听到原声。",
+       "c": ""
+      },
+      {
+       "id": 21,
+       "t": "背景音乐、音效或多人同时说话时，字幕可能不完整或不准确。",
+       "c": ""
+      },
+      {
+       "id": 22,
+       "t": "全屏观看视频时，可点击“弹出字幕小窗”查看字幕（需浏览器支持）。",
+       "c": ""
+      },
+      {
+       "id": 23,
+       "t": "字幕只显示在当前页面，刷新或关闭页面后即清空。可随时点击顶栏的“？”（使用引导）按钮再次查看本说明。",
+       "c": "guide-note"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": false
+   }
+  },
+  {
+   "k": "main",
+   "t": 2117.300000000745,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": []
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": []
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": []
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": false
+   }
+  },
+  {
+   "k": "main",
+   "t": 2151,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": []
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": []
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": []
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": false
+   }
+  },
+  {
+   "k": "main",
+   "t": 2254.0999999996275,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": []
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": []
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": []
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 6901.4000000003725,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": []
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": []
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": []
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": []
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 7733.700000001118,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 8864.800000000745,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 9221.900000000373,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 9976.400000000373,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午三",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午三",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午三",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午三",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 10533.900000000373,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午三点在总部大…",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午三点在总部大…",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午三点在总部大…",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午三点在总部大…",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 13564.099999999627,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室明年",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室明年",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室明年",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室明年",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 14035.400000000373,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室举行明年业务战略和预算计划",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室举行明年业务战略和预算计划",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室举行明年业务战略和预算计划",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室举行明年业务战略和预算计划",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 14617.300000000745,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室讨论明年业务战略和预算计划以及新业务",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室讨论明年业务战略和预算计划以及新业务",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室讨论明年业务战略和预算计划以及新业务",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室讨论明年业务战略和预算计划以及新业务",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 15143.5,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室召开明年业务战略和预算计划以及新员工招聘",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室召开明年业务战略和预算计划以及新员工招聘",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室召开明年业务战略和预算计划以及新员工招聘",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室召开明年业务战略和预算计划以及新员工招聘",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 15655.099999999627,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午3点在总公司大会议室举行明年业务战略和预算计划以及新员工招聘及",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午3点在总公司大会议室举行明年业务战略和预算计划以及新员工招聘及",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总公司大会议室举行明年业务战略和预算计划以及新员工招聘及",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总公司大会议室举行明年业务战略和预算计划以及新员工招聘及",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 16233.300000000745,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午三点在总公司大会议室对明年业务战略和预算计划以及新员工招聘和海外",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午三点在总公司大会议室对明年业务战略和预算计划以及新员工招聘和海外",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午三点在总公司大会议室对明年业务战略和预算计划以及新员工招聘和海外",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午三点在总公司大会议室对明年业务战略和预算计划以及新员工招聘和海外",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 16878.200000001118,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室进行明年业务战略和预算计划以及新员工招聘和海外市场进军",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室进行明年业务战略和预算计划以及新员工招聘和海外市场进军",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室进行明年业务战略和预算计划以及新员工招聘和海外市场进军",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室进行明年业务战略和预算计划以及新员工招聘和海外市场进军",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 17577,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室，关于明年业务战略和预算计划以及新员工招聘及进军海外市场方案",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室，关于明年业务战略和预算计划以及新员工招聘及进军海外市场方案",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室，关于明年业务战略和预算计划以及新员工招聘及进军海外市场方案",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室，关于明年业务战略和预算计划以及新员工招聘及进军海外市场方案",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 18288.400000000373,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室对明年的业务战略和预算计划以及新员工招聘和进军海外市场方案进行详细",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室对明年的业务战略和预算计划以及新员工招聘和进军海外市场方案进行详细",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室对明年的业务战略和预算计划以及新员工招聘和进军海外市场方案进行详细",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室对明年的业务战略和预算计划以及新员工招聘和进军海外市场方案进行详细",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 19025.599999999627,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室，计划详细讨论明年的业务战略和预算计划，以及新员工招聘和进军海外市场的方案",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午3点在总部大会议室，计划详细讨论明年的业务战略和预算计划，以及新员工招聘和进军海外市场的方案",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室，计划详细讨论明年的业务战略和预算计划，以及新员工招聘和进军海外市场的方案",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点在总部大会议室，计划详细讨论明年的业务战略和预算计划，以及新员工招聘和进军海外市场的方案",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 19717.599999999627,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 22053.900000000373,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 22487.700000001118,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。 谢谢",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。 谢谢",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "谢谢",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "谢谢",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 24163.700000001118,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。 谢谢。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。 谢谢。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "谢谢。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "谢谢。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": true
+   }
+  },
+  {
+   "k": "main",
+   "t": 30980.700000001118,
+   "d": {
+    "1": {
+     "sig": "FIELDSET#caption-size.choice.segmented@4",
+     "d": 4,
+     "kids": []
+    },
+    "7": {
+     "sig": "SECTION#caption-panel.caption-panel@3",
+     "d": 3,
+     "kids": [
+      {
+       "id": 8,
+       "t": "你好，很高兴见到你。 今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。 谢谢。",
+       "c": "caption-scroll"
+      }
+     ]
+    },
+    "8": {
+     "sig": "DIV#caption-scroll.caption-scroll@4",
+     "d": 4,
+     "kids": [
+      {
+       "id": 11,
+       "t": "你好，很高兴见到你。 今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。 谢谢。",
+       "c": "captions"
+      }
+     ]
+    },
+    "11": {
+     "sig": "OL#captions.captions@5",
+     "d": 5,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "谢谢。",
+       "c": "caption"
+      }
+     ]
+    },
+    "12": {
+     "sig": "SPAN#.status-caption@5",
+     "d": 5,
+     "kids": []
+    },
+    "13": {
+     "sig": "STRONG#status.@5",
+     "d": 5,
+     "kids": []
+    },
+    "24": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "25": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "26": {
+     "sig": "LI#.caption@6",
+     "d": 6,
+     "kids": []
+    },
+    "generic": {
+     "sig": "generic",
+     "d": 0,
+     "kids": [
+      {
+       "id": 24,
+       "t": "你好，很高兴见到你。",
+       "c": "caption"
+      },
+      {
+       "id": 25,
+       "t": "今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，以及新员工招聘和海外市场拓展方案。",
+       "c": "caption"
+      },
+      {
+       "id": 26,
+       "t": "谢谢。",
+       "c": "caption"
+      }
+     ]
+    }
+   },
+   "f": {
+    "hangul": false,
+    "kana": false,
+    "interrupted": false,
+    "listening": false
+   }
+  }
+ ],
+ "req": [
+  {
+   "id": 1,
+   "t": 6900,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"안녕하세요\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "안녕하세요",
+   "sentence": -1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 7154.4000000003725,
+   "tEnd": 7238.0999999996275,
+   "done": false,
+   "aborted": true,
+   "err": "AbortError",
+   "respText": "{\"type\":\"delta\",\"text\":\"你好\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 2,
+   "t": 7237.5,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"final\",\"text\":\"안녕하세요, 반갑습니다.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "안녕하세요, 반갑습니다.",
+   "sentence": 0,
+   "retrans": false,
+   "marker": true,
+   "action": "pass",
+   "status": 200,
+   "tResp": 7554.5,
+   "tEnd": 7733.800000000745,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"你好\"}\n{\"type\":\"delta\",\"text\":\"，很\"}\n{\"type\":\"delta\",\"text\":\"高\"}\n{\"type\":\"delta\",\"text\":\"兴\"}\n{\"type\":\"delta\",\"text\":\"见\"}\n{\"type\":\"delta\",\"text\":\"到\"}\n{\"type\":\"delta\",\"text\":\"你\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 3,
+   "t": 8863.900000000373,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘",
+   "sentence": -1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 9132.700000001118,
+   "tEnd": 9222.200000001118,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 4,
+   "t": 9364.599999999627,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 오후 세\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘 오후 세",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 9793.5,
+   "tEnd": 9977.400000000373,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"下午\"}\n{\"type\":\"delta\",\"text\":\"三\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 5,
+   "t": 9975.400000000373,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 오후 3시에 본사대\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘 오후 3시에 본사대",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 10401.099999999627,
+   "tEnd": 10532.400000000373,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"下午\"}\n{\"type\":\"delta\",\"text\":\"三\"}\n{\"type\":\"delta\",\"text\":\"点\"}\n{\"type\":\"delta\",\"text\":\"在\"}\n{\"type\":\"delta\",\"text\":\"总部\"}\n{\"type\":\"delta\",\"text\":\"大\"}\n{\"type\":\"delta\",\"text\":\"…\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 6,
+   "t": 10533,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 오후 3시에 본사대회의\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘 오후 3시에 본사대회의",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "corrupt",
+   "status": 200,
+   "tResp": 10849.099999999627,
+   "tEnd": 11017.300000000745,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"下午\"}\n{\"type\":\"delta\",\"text\":\"三\"}\n{\"type\":\"delta\",\"text\":\"点\"}\n{\"type\":\"delta\",\"text\":\"在\"}\n{\"type\":\"delta\",\"text\":\"总部\"}\n{\"type\":\"delta\",\"text\":\"大会\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"done\"}\n",
+   "outText": "{\"type\":\"delta\",\"text\":\"한한\"}\n{\"type\":\"delta\",\"text\":\"한한\"}\n{\"type\":\"delta\",\"text\":\"한\"}\n{\"type\":\"delta\",\"text\":\"한\"}\n{\"type\":\"delta\",\"text\":\"한\"}\n{\"type\":\"delta\",\"text\":\"한한\"}\n{\"type\":\"delta\",\"text\":\"한한\"}\n{\"type\":\"delta\",\"text\":\"한\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "id": 7,
+   "t": 11033.599999999627,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 오후 3시에 본사대회의실에서 내년\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘 오후 3시에 본사대회의실에서 내년",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 11388,
+   "tEnd": 13564.400000000373,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"下午\"}\n{\"type\":\"delta\",\"text\":\"3\"}\n{\"type\":\"delta\",\"text\":\"点\"}\n{\"type\":\"delta\",\"text\":\"在\"}\n{\"type\":\"delta\",\"text\":\"总部\"}\n{\"type\":\"delta\",\"text\":\"大会\"}\n{\"type\":\"delta\",\"text\":\"议\"}\n{\"type\":\"delta\",\"text\":\"室\"}\n{\"type\":\"delta\",\"text\":\"明\"}\n{\"type\":\"delta\",\"text\":\"年\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 8,
+   "t": 13563.300000000745,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 오후 3시에 본사대회의실에서 내년도 사업전략과 예산계획\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘 오후 3시에 본사대회의실에서 내년도 사업전략과 예산계획",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 13833.400000000373,
+   "tEnd": 14035.599999999627,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"下午\"}\n{\"type\":\"delta\",\"text\":\"3\"}\n{\"type\":\"delta\",\"text\":\"点\"}\n{\"type\":\"delta\",\"text\":\"在\"}\n{\"type\":\"delta\",\"text\":\"总部\"}\n{\"type\":\"delta\",\"text\":\"大\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"delta\",\"text\":\"室\"}\n{\"type\":\"delta\",\"text\":\"举行\"}\n{\"type\":\"delta\",\"text\":\"明\"}\n{\"type\":\"delta\",\"text\":\"年\"}\n{\"type\":\"delta\",\"text\":\"业务\"}\n{\"type\":\"delta\",\"text\":\"战略\"}\n{\"type\":\"delta\",\"text\":\"和\"}\n{\"type\":\"delta\",\"text\":\"预算\"}\n{\"type\":\"delta\",\"text\":\"计划\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 9,
+   "t": 14063.099999999627,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 오후 3시에 본사대회의실에서 내년도 사업전략과 예산계획 그리고 신규\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘 오후 3시에 본사대회의실에서 내년도 사업전략과 예산계획 그리고 신규",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 14338.300000000745,
+   "tEnd": 14617.599999999627,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"下午\"}\n{\"type\":\"delta\",\"text\":\"3\"}\n{\"type\":\"delta\",\"text\":\"点\"}\n{\"type\":\"delta\",\"text\":\"在\"}\n{\"type\":\"delta\",\"text\":\"总部\"}\n{\"type\":\"delta\",\"text\":\"大\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"delta\",\"text\":\"室\"}\n{\"type\":\"delta\",\"text\":\"讨论\"}\n{\"type\":\"delta\",\"text\":\"明\"}\n{\"type\":\"delta\",\"text\":\"年\"}\n{\"type\":\"delta\",\"text\":\"业务\"}\n{\"type\":\"delta\",\"text\":\"战略\"}\n{\"type\":\"delta\",\"text\":\"和\"}\n{\"type\":\"delta\",\"text\":\"预算\"}\n{\"type\":\"delta\",\"text\":\"计划\"}\n{\"type\":\"delta\",\"text\":\"以及\"}\n{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"业务\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 10,
+   "t": 14616.5,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 14912.400000000373,
+   "tEnd": 15143.800000000745,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"下午\"}\n{\"type\":\"delta\",\"text\":\"3\"}\n{\"type\":\"delta\",\"text\":\"点\"}\n{\"type\":\"delta\",\"text\":\"在\"}\n{\"type\":\"delta\",\"text\":\"总部\"}\n{\"type\":\"delta\",\"text\":\"大\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"delta\",\"text\":\"室\"}\n{\"type\":\"delta\",\"text\":\"召开\"}\n{\"type\":\"delta\",\"text\":\"明\"}\n{\"type\":\"delta\",\"text\":\"年\"}\n{\"type\":\"delta\",\"text\":\"业务\"}\n{\"type\":\"delta\",\"text\":\"战略\"}\n{\"type\":\"delta\",\"text\":\"和\"}\n{\"type\":\"delta\",\"text\":\"预算\"}\n{\"type\":\"delta\",\"text\":\"计划\"}\n{\"type\":\"delta\",\"text\":\"以及\"}\n{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"员工\"}\n{\"type\":\"delta\",\"text\":\"招聘\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 11,
+   "t": 15142.599999999627,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용 및\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용 및",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 15479.099999999627,
+   "tEnd": 15655.300000000745,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"下午\"}\n{\"type\":\"delta\",\"text\":\"3\"}\n{\"type\":\"delta\",\"text\":\"点\"}\n{\"type\":\"delta\",\"text\":\"在\"}\n{\"type\":\"delta\",\"text\":\"总\"}\n{\"type\":\"delta\",\"text\":\"公司\"}\n{\"type\":\"delta\",\"text\":\"大\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"delta\",\"text\":\"室\"}\n{\"type\":\"delta\",\"text\":\"举行\"}\n{\"type\":\"delta\",\"text\":\"明\"}\n{\"type\":\"delta\",\"text\":\"年\"}\n{\"type\":\"delta\",\"text\":\"业务\"}\n{\"type\":\"delta\",\"text\":\"战略\"}\n{\"type\":\"delta\",\"text\":\"和\"}\n{\"type\":\"delta\",\"text\":\"预算\"}\n{\"type\":\"delta\",\"text\":\"计划\"}\n{\"type\":\"delta\",\"text\":\"以及\"}\n{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"员工\"}\n{\"type\":\"delta\",\"text\":\"招聘\"}\n{\"type\":\"delta\",\"text\":\"及\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 12,
+   "t": 15654.200000001118,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용 및 해외\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용 및 해외",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 15937.200000001118,
+   "tEnd": 16233.599999999627,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"下午\"}\n{\"type\":\"delta\",\"text\":\"三\"}\n{\"type\":\"delta\",\"text\":\"点\"}\n{\"type\":\"delta\",\"text\":\"在\"}\n{\"type\":\"delta\",\"text\":\"总\"}\n{\"type\":\"delta\",\"text\":\"公司\"}\n{\"type\":\"delta\",\"text\":\"大\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"delta\",\"text\":\"室\"}\n{\"type\":\"delta\",\"text\":\"对\"}\n{\"type\":\"delta\",\"text\":\"明\"}\n{\"type\":\"delta\",\"text\":\"年\"}\n{\"type\":\"delta\",\"text\":\"业务\"}\n{\"type\":\"delta\",\"text\":\"战略\"}\n{\"type\":\"delta\",\"text\":\"和\"}\n{\"type\":\"delta\",\"text\":\"预算\"}\n{\"type\":\"delta\",\"text\":\"计划\"}\n{\"type\":\"delta\",\"text\":\"以及\"}\n{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"员工\"}\n{\"type\":\"delta\",\"text\":\"招聘\"}\n{\"type\":\"delta\",\"text\":\"和\"}\n{\"type\":\"delta\",\"text\":\"海外\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 13,
+   "t": 16232.300000000745,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용 및 해외 시장 진출\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용 및 해외 시장 진출",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 16694.900000000373,
+   "tEnd": 16878.599999999627,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"下午\"}\n{\"type\":\"delta\",\"text\":\"3\"}\n{\"type\":\"delta\",\"text\":\"点\"}\n{\"type\":\"delta\",\"text\":\"在\"}\n{\"type\":\"delta\",\"text\":\"总部\"}\n{\"type\":\"delta\",\"text\":\"大\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"delta\",\"text\":\"室\"}\n{\"type\":\"delta\",\"text\":\"进行\"}\n{\"type\":\"delta\",\"text\":\"明\"}\n{\"type\":\"delta\",\"text\":\"年\"}\n{\"type\":\"delta\",\"text\":\"业务\"}\n{\"type\":\"delta\",\"text\":\"战略\"}\n{\"type\":\"delta\",\"text\":\"和\"}\n{\"type\":\"delta\",\"text\":\"预算\"}\n{\"type\":\"delta\",\"text\":\"计划\"}\n{\"type\":\"delta\",\"text\":\"以及\"}\n{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"员工\"}\n{\"type\":\"delta\",\"text\":\"招聘\"}\n{\"type\":\"delta\",\"text\":\"和\"}\n{\"type\":\"delta\",\"text\":\"海外\"}\n{\"type\":\"delta\",\"text\":\"市场\"}\n{\"type\":\"delta\",\"text\":\"进\"}\n{\"type\":\"delta\",\"text\":\"军\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 14,
+   "t": 16877.200000001118,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용 및 해외 시장 진출 방안에 대해\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용 및 해외 시장 진출 방안에 대해",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 17141.800000000745,
+   "tEnd": 17575.5,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"下午\"}\n{\"type\":\"delta\",\"text\":\"3\"}\n{\"type\":\"delta\",\"text\":\"点\"}\n{\"type\":\"delta\",\"text\":\"在\"}\n{\"type\":\"delta\",\"text\":\"总部\"}\n{\"type\":\"delta\",\"text\":\"大\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"delta\",\"text\":\"室\"}\n{\"type\":\"delta\",\"text\":\"，\"}\n{\"type\":\"delta\",\"text\":\"关于\"}\n{\"type\":\"delta\",\"text\":\"明\"}\n{\"type\":\"delta\",\"text\":\"年\"}\n{\"type\":\"delta\",\"text\":\"业务\"}\n{\"type\":\"delta\",\"text\":\"战略\"}\n{\"type\":\"delta\",\"text\":\"和\"}\n{\"type\":\"delta\",\"text\":\"预算\"}\n{\"type\":\"delta\",\"text\":\"计划\"}\n{\"type\":\"delta\",\"text\":\"以及\"}\n{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"员工\"}\n{\"type\":\"delta\",\"text\":\"招聘\"}\n{\"type\":\"delta\",\"text\":\"及\"}\n{\"type\":\"delta\",\"text\":\"进\"}\n{\"type\":\"delta\",\"text\":\"军\"}\n{\"type\":\"delta\",\"text\":\"海外\"}\n{\"type\":\"delta\",\"text\":\"市场\"}\n{\"type\":\"delta\",\"text\":\"方案\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 15,
+   "t": 17576.200000001118,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용 및 해외 시장 진출 방안에 대해 자세히\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용 및 해외 시장 진출 방안에 대해 자세히",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 17869.300000000745,
+   "tEnd": 18288.700000001118,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"下午\"}\n{\"type\":\"delta\",\"text\":\"3\"}\n{\"type\":\"delta\",\"text\":\"点\"}\n{\"type\":\"delta\",\"text\":\"在\"}\n{\"type\":\"delta\",\"text\":\"总部\"}\n{\"type\":\"delta\",\"text\":\"大\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"delta\",\"text\":\"室\"}\n{\"type\":\"delta\",\"text\":\"对\"}\n{\"type\":\"delta\",\"text\":\"明\"}\n{\"type\":\"delta\",\"text\":\"年的\"}\n{\"type\":\"delta\",\"text\":\"业务\"}\n{\"type\":\"delta\",\"text\":\"战略\"}\n{\"type\":\"delta\",\"text\":\"和\"}\n{\"type\":\"delta\",\"text\":\"预算\"}\n{\"type\":\"delta\",\"text\":\"计划\"}\n{\"type\":\"delta\",\"text\":\"以及\"}\n{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"员工\"}\n{\"type\":\"delta\",\"text\":\"招聘\"}\n{\"type\":\"delta\",\"text\":\"和\"}\n{\"type\":\"delta\",\"text\":\"进\"}\n{\"type\":\"delta\",\"text\":\"军\"}\n{\"type\":\"delta\",\"text\":\"海外\"}\n{\"type\":\"delta\",\"text\":\"市场\"}\n{\"type\":\"delta\",\"text\":\"方案\"}\n{\"type\":\"delta\",\"text\":\"进行\"}\n{\"type\":\"delta\",\"text\":\"详细\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 16,
+   "t": 18287.5,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용 및 해외 시장 진출 방안에 대해 자세히 논의할 예정\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용 및 해외 시장 진출 방안에 대해 자세히 논의할 예정",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 18790.5,
+   "tEnd": 19024.099999999627,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"下午\"}\n{\"type\":\"delta\",\"text\":\"3\"}\n{\"type\":\"delta\",\"text\":\"点\"}\n{\"type\":\"delta\",\"text\":\"在\"}\n{\"type\":\"delta\",\"text\":\"总部\"}\n{\"type\":\"delta\",\"text\":\"大\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"delta\",\"text\":\"室\"}\n{\"type\":\"delta\",\"text\":\"，\"}\n{\"type\":\"delta\",\"text\":\"计划\"}\n{\"type\":\"delta\",\"text\":\"详细\"}\n{\"type\":\"delta\",\"text\":\"讨论\"}\n{\"type\":\"delta\",\"text\":\"明\"}\n{\"type\":\"delta\",\"text\":\"年的\"}\n{\"type\":\"delta\",\"text\":\"业务\"}\n{\"type\":\"delta\",\"text\":\"战略\"}\n{\"type\":\"delta\",\"text\":\"和\"}\n{\"type\":\"delta\",\"text\":\"预算\"}\n{\"type\":\"delta\",\"text\":\"计划\"}\n{\"type\":\"delta\",\"text\":\"，以及\"}\n{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"员工\"}\n{\"type\":\"delta\",\"text\":\"招聘\"}\n{\"type\":\"delta\",\"text\":\"和\"}\n{\"type\":\"delta\",\"text\":\"进\"}\n{\"type\":\"delta\",\"text\":\"军\"}\n{\"type\":\"delta\",\"text\":\"海外\"}\n{\"type\":\"delta\",\"text\":\"市场\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"delta\",\"text\":\"方案\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 17,
+   "t": 19024.700000001118,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용 및 해외 시장 진출 방안에 대해 자세히 논의할 예정입니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획 그리고 신규 인력 채용 및 해외 시장 진출 방안에 대해 자세히 논의할 예정입니다",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": null,
+   "tResp": null,
+   "tEnd": 19093.300000000745,
+   "done": false,
+   "aborted": true,
+   "err": "AbortError",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 18,
+   "t": 19092.800000000745,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"final\",\"text\":\"오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획, 그리고 신규 인력 채용 및 해외 시장 진출 방안에 대해 자세히 논의할 예정입니다.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "오늘 오후 3시에 본사대회의실에서 내년도 사업 전략과 예산 계획, 그리고 신규 인력 채용 및 해외 시장 진출 방안에 대해 자세히 논의할 예정입니다.",
+   "sentence": 1,
+   "retrans": false,
+   "marker": true,
+   "action": "pass",
+   "status": 200,
+   "tResp": 19500.300000000745,
+   "tEnd": 19717.800000000745,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"下午\"}\n{\"type\":\"delta\",\"text\":\"3\"}\n{\"type\":\"delta\",\"text\":\"点\"}\n{\"type\":\"delta\",\"text\":\"将在\"}\n{\"type\":\"delta\",\"text\":\"总部\"}\n{\"type\":\"delta\",\"text\":\"大\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"delta\",\"text\":\"室\"}\n{\"type\":\"delta\",\"text\":\"详细\"}\n{\"type\":\"delta\",\"text\":\"讨论\"}\n{\"type\":\"delta\",\"text\":\"明\"}\n{\"type\":\"delta\",\"text\":\"年\"}\n{\"type\":\"delta\",\"text\":\"业务\"}\n{\"type\":\"delta\",\"text\":\"战略\"}\n{\"type\":\"delta\",\"text\":\"和\"}\n{\"type\":\"delta\",\"text\":\"预算\"}\n{\"type\":\"delta\",\"text\":\"计划\"}\n{\"type\":\"delta\",\"text\":\"，以及\"}\n{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"员工\"}\n{\"type\":\"delta\",\"text\":\"招聘\"}\n{\"type\":\"delta\",\"text\":\"和\"}\n{\"type\":\"delta\",\"text\":\"海外\"}\n{\"type\":\"delta\",\"text\":\"市场\"}\n{\"type\":\"delta\",\"text\":\"拓\"}\n{\"type\":\"delta\",\"text\":\"展\"}\n{\"type\":\"delta\",\"text\":\"方案\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 19,
+   "t": 22052.599999999627,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"감사합니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "감사합니다",
+   "sentence": 2,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 22374.900000000373,
+   "tEnd": 22487.900000000373,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"谢谢\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 20,
+   "t": 22660.300000000745,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"final\",\"text\":\"감사합니다.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "감사합니다.",
+   "sentence": 2,
+   "retrans": false,
+   "marker": true,
+   "action": "pass",
+   "status": 200,
+   "tResp": 24029.200000001118,
+   "tEnd": 24162.700000001118,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"谢谢\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  }
+ ],
+ "media": [
+  {
+   "api": "getDisplayMedia",
+   "t": 2146.800000000745,
+   "armed": true
+  }
+ ],
+ "tEndObs": 40991.800000000745,
+ "listeningAfterStop": false,
+ "wallEnd": 1795283296831
 }

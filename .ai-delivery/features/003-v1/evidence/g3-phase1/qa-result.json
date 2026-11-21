@@ -1,41 +1,9 @@
 {
- "passed": false,
- "testedCommitSha": "39de8ff923cfddf3cfc8e21d88ae960e6fa4062b",
- "summary": "执行 11 个验收场景，通过 0 个；产品缺陷 4 项，脚本未能完成验证 26 项，环境或平台问题 0 项。语音合成：edge-tts；请求体模板来源：fallback。IQA-310（AC-9）按 G2 决定为测试缺口，不在脚本中执行；IQA-313（AC-13）为执行会话中对 design.md 的文档检查，不在脚本中执行。",
- "defects": [
-  "IQA-308 主动取消：时间窗内 client_aborted 信息级记录恰 1 条：client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true",
-  "IQA-308 断开连接：时间窗内 client_aborted 信息级记录恰 1 条：client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true",
-  "IQA-309 主动取消：时间窗内 client_aborted 信息级记录恰 1 条：client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true",
-  "IQA-309 断开连接：时间窗内 client_aborted 信息级记录恰 1 条：client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true"
- ],
- "testGaps": [
-  "IQA-301 [运行1] G-1 页面可用：找不到输入选择控件（系统声音）",
-  "IQA-301 [运行2] G-1 页面可用：找不到输入选择控件（系统声音）",
-  "IQA-301 [运行3] G-1 页面可用：找不到输入选择控件（系统声音）",
-  "IQA-302 [运行1] G-1 页面可用：找不到输入选择控件（系统声音）",
-  "IQA-302 [运行2] G-1 页面可用：找不到输入选择控件（系统声音）",
-  "IQA-302 [运行3] G-1 页面可用：找不到输入选择控件（系统声音）",
-  "IQA-303 G-1 页面可用：找不到输入选择控件（系统声音）",
-  "IQA-304 G-1 页面可用：脚本执行异常：locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /开始/ }).first()\n    - locator resolved to <button type=\"button\" class=\"primary\" id=\"start-button\">开始</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n     …",
-  "IQA-305 G-1 页面可用：找不到输入选择控件（系统声音）",
-  "IQA-306 [系统声音] G-1 页面可用：找不到输入选择控件（系统声音）",
-  "IQA-306 [麦克风] G-1 页面可用：脚本执行异常：locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /开始/ }).first()\n    - locator resolved to <button type=\"button\" class=\"primary\" id=\"start-button\">开始</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n     …",
-  "IQA-307 [IQA-301 运行1] 运行完成：找不到输入选择控件（系统声音）",
-  "IQA-307 [IQA-303] 运行完成：找不到输入选择控件（系统声音）",
-  "IQA-307 [IQA-305] 运行完成：找不到输入选择控件（系统声音）",
-  "IQA-308 主动取消：中止时尚未收到任何响应正文片段：发送后 152ms 中止，已收正文 27 字节，响应状态 400",
-  "IQA-308 主动取消：服务未退出：随后的正常请求成功：正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）",
-  "IQA-308 断开连接：中止时尚未收到任何响应正文片段：发送后 47ms 中止，已收正文 27 字节，响应状态 400",
-  "IQA-308 断开连接：服务未退出：随后的正常请求成功：正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）",
-  "IQA-309 主动取消：中止时已收到含汉字的片段且响应未结束：发送后 31ms 中止，已收正文 0 字节，含汉字=false，响应已结束=true，状态 400",
-  "IQA-309 主动取消：服务未退出：随后的正常请求成功：正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）",
-  "IQA-309 断开连接：中止时已收到含汉字的片段且响应未结束：发送后 48ms 中止，已收正文 27 字节，含汉字=false，响应已结束=true，状态 400",
-  "IQA-309 断开连接：服务未退出：随后的正常请求成功：正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）",
-  "IQA-311 [系统声音+英语+小窗] G-1 页面可用：找不到输入选择控件（系统声音）",
-  "IQA-311 [麦克风+英语] G-1 页面可用：脚本执行异常：locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /开始/ }).first()\n    - locator resolved to <button type=\"button\" class=\"primary\" id=\"start-button\">开始</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n     …",
-  "IQA-311 [请求失败] G-1 页面可用：找不到输入选择控件（系统声音）",
-  "IQA-312 G-1 页面可用：找不到输入选择控件（系统声音）"
- ],
+ "passed": true,
+ "testedCommitSha": "fdb198863a44c5e85eccbc4e418eff72d4745953",
+ "summary": "执行 11 个验收场景，通过 11 个；产品缺陷 0 项，脚本未能完成验证 0 项，环境或平台问题 0 项。语音合成：edge-tts；请求体模板来源：browser。IQA-310（AC-9）按 G2 决定为测试缺口，不在脚本中执行；IQA-313（AC-13）独立测试无法判定（独立测试按规则读不到技术方案），不在脚本中执行，由技术负责人在 G3 按测试缺口确认。",
+ "defects": [],
+ "testGaps": [],
  "evidence": [
   "harness.log",
   "setup.log",
@@ -61,14 +29,14 @@
  "bugfixResults": [
   {
    "bugfixId": "IR-001",
-   "verdict": "failed",
-   "evidence": "IQA-308/309：IQA-308 未通过，IQA-309 未通过；见 abort-cases.json、logs-summary.json"
+   "verdict": "verified",
+   "evidence": "IQA-308/309：IQA-308 通过，IQA-309 通过；见 abort-cases.json、logs-summary.json"
   }
  ],
  "scenarios": [
   {
    "id": "IQA-301",
-   "passed": false,
+   "passed": true,
    "externalServices": [
     "speech",
     "chat-model"
@@ -76,25 +44,85 @@
    "checkpoints": [
     {
      "step": "[运行1] G-1 页面可用",
-     "passed": false,
-     "observation": "找不到输入选择控件（系统声音）"
+     "passed": true,
+     "observation": "输入控件=radio；媒体调用=getDisplayMedia；出现“正在听”"
+    },
+    {
+     "step": "[运行1] G-2 识别原文与非中文从不出现",
+     "passed": true,
+     "observation": "主页面 34 次变化、小窗 31 次变化均无谚文/假名/识别原文"
+    },
+    {
+     "step": "[运行1] 定稿条目数",
+     "passed": true,
+     "observation": "定稿 5 条（期望 5）：「大家好，感谢各位参加今天的会议。」 「本季度销售额比去年增长了20%。」 「我们计划在下周一推出新产品。」 「为了提高客户满意度，我们将改善服务质量。」 「如果有问题，随时跟我们说。」"
+    },
+    {
+     "step": "[运行1] 定稿字幕均为中文",
+     "passed": true,
+     "observation": "5 条均判为中文"
+    },
+    {
+     "step": "[运行1] 中文提示条数为 0（PQ-301）",
+     "passed": true,
+     "observation": "意外的提示 0 条"
     },
     {
      "step": "[运行2] G-1 页面可用",
-     "passed": false,
-     "observation": "找不到输入选择控件（系统声音）"
+     "passed": true,
+     "observation": "输入控件=radio；媒体调用=getDisplayMedia；出现“正在听”"
+    },
+    {
+     "step": "[运行2] G-2 识别原文与非中文从不出现",
+     "passed": true,
+     "observation": "主页面 34 次变化、小窗 0 次变化均无谚文/假名/识别原文"
+    },
+    {
+     "step": "[运行2] 定稿条目数",
+     "passed": true,
+     "observation": "定稿 5 条（期望 5）：「大家好，感谢各位参加今天的会议。」 「本季度销售额比去年增长了20%。」 「我们计划在下周一推出新产品。」 「为了提高客户满意度，我们将改进服务质量。」 「如果有任何问题，请随时提出来。」"
+    },
+    {
+     "step": "[运行2] 定稿字幕均为中文",
+     "passed": true,
+     "observation": "5 条均判为中文"
+    },
+    {
+     "step": "[运行2] 中文提示条数为 0（PQ-301）",
+     "passed": true,
+     "observation": "意外的提示 0 条"
     },
     {
      "step": "[运行3] G-1 页面可用",
-     "passed": false,
-     "observation": "找不到输入选择控件（系统声音）"
+     "passed": true,
+     "observation": "输入控件=radio；媒体调用=getDisplayMedia；出现“正在听”"
+    },
+    {
+     "step": "[运行3] G-2 识别原文与非中文从不出现",
+     "passed": true,
+     "observation": "主页面 36 次变化、小窗 0 次变化均无谚文/假名/识别原文"
+    },
+    {
+     "step": "[运行3] 定稿条目数",
+     "passed": true,
+     "observation": "定稿 5 条（期望 5）：「大家好，感谢各位参加今天的会议。」 「本季度销售额比去年增长了20%。」 「我们计划下周一推出新产品。」 「为了提高顾客满意度，我们将改善服务质量。」 「如果有问题，随时跟我说。」"
+    },
+    {
+     "step": "[运行3] 定稿字幕均为中文",
+     "passed": true,
+     "observation": "5 条均判为中文"
+    },
+    {
+     "step": "[运行3] 中文提示条数为 0（PQ-301）",
+     "passed": true,
+     "observation": "意外的提示 0 条"
     }
    ],
-   "evidence": "run-IQA-301-1.json, IQA-301-1-nocontrol.png, run-IQA-301-2.json, IQA-301-2-nocontrol.png, run-IQA-301-3.json, IQA-301-3-nocontrol.png"
+   "evidence": "run-IQA-301-1.json, IQA-301-1-end.png, IQA-301-1-pip.png, run-IQA-301-2.json, IQA-301-2-end.png, run-IQA-301-3.json, IQA-301-3-end.png"
   },
   {
    "id": "IQA-302",
-   "passed": false,
+   "passed": true,
    "externalServices": [
     "speech",
     "chat-model"
@@ -102,25 +130,85 @@
    "checkpoints": [
     {
      "step": "[运行1] G-1 页面可用",
-     "passed": false,
-     "observation": "找不到输入选择控件（系统声音）"
+     "passed": true,
+     "observation": "输入控件=radio；媒体调用=getDisplayMedia；出现“正在听”"
+    },
+    {
+     "step": "[运行1] G-2 识别原文与非中文从不出现",
+     "passed": true,
+     "observation": "主页面 34 次变化、小窗 0 次变化均无谚文/假名/识别原文"
+    },
+    {
+     "step": "[运行1] 定稿条目数",
+     "passed": true,
+     "observation": "定稿 5 条（期望 5）：「大家好。非常感谢各位今天前来参加。」 「本期的销售额比去年增加了20%。」 「我们预计在下周一推出新产品。」 「为了提高客户满意度，我们将改善服务。」 「如果有问题，请随时告诉我。」"
+    },
+    {
+     "step": "[运行1] 定稿字幕均为中文",
+     "passed": true,
+     "observation": "5 条均判为中文"
+    },
+    {
+     "step": "[运行1] 中文提示条数为 0（PQ-301）",
+     "passed": true,
+     "observation": "意外的提示 0 条"
     },
     {
      "step": "[运行2] G-1 页面可用",
-     "passed": false,
-     "observation": "找不到输入选择控件（系统声音）"
+     "passed": true,
+     "observation": "输入控件=radio；媒体调用=getDisplayMedia；出现“正在听”"
+    },
+    {
+     "step": "[运行2] G-2 识别原文与非中文从不出现",
+     "passed": true,
+     "observation": "主页面 37 次变化、小窗 0 次变化均无谚文/假名/识别原文"
+    },
+    {
+     "step": "[运行2] 定稿条目数",
+     "passed": true,
+     "observation": "定稿 5 条（期望 5）：「大家好。非常感谢各位今天前来参加。」 「本期的销售额比去年增长了20%。」 「我们计划在下周一发布新产品。」 「为了提高客户的满意度，我们将改进服务。」 「如果有任何问题，欢迎随时提出来。」"
+    },
+    {
+     "step": "[运行2] 定稿字幕均为中文",
+     "passed": true,
+     "observation": "5 条均判为中文"
+    },
+    {
+     "step": "[运行2] 中文提示条数为 0（PQ-301）",
+     "passed": true,
+     "observation": "意外的提示 0 条"
     },
     {
      "step": "[运行3] G-1 页面可用",
-     "passed": false,
-     "observation": "找不到输入选择控件（系统声音）"
+     "passed": true,
+     "observation": "输入控件=radio；媒体调用=getDisplayMedia；出现“正在听”"
+    },
+    {
+     "step": "[运行3] G-2 识别原文与非中文从不出现",
+     "passed": true,
+     "observation": "主页面 38 次变化、小窗 0 次变化均无谚文/假名/识别原文"
+    },
+    {
+     "step": "[运行3] 定稿条目数",
+     "passed": true,
+     "observation": "定稿 5 条（期望 5）：「大家好。非常感谢各位今天前来参加。」 「本期的销售额比去年增加了20%。」 「我们计划在下周一推出新产品。」 「为了提高客户满意度，我们将改进服务。」 「如果有任何问题，欢迎随时提出来。」"
+    },
+    {
+     "step": "[运行3] 定稿字幕均为中文",
+     "passed": true,
+     "observation": "5 条均判为中文"
+    },
+    {
+     "step": "[运行3] 中文提示条数为 0（PQ-301）",
+     "passed": true,
+     "observation": "意外的提示 0 条"
     }
    ],
-   "evidence": "run-IQA-302-1.json, IQA-302-1-nocontrol.png, run-IQA-302-2.json, IQA-302-2-nocontrol.png, run-IQA-302-3.json, IQA-302-3-nocontrol.png"
+   "evidence": "run-IQA-302-1.json, IQA-302-1-end.png, run-IQA-302-2.json, IQA-302-2-end.png, run-IQA-302-3.json, IQA-302-3-end.png"
   },
   {
    "id": "IQA-303",
-   "passed": false,
+   "passed": true,
    "externalServices": [
     "speech",
     "chat-model"
@@ -128,15 +216,50 @@
    "checkpoints": [
     {
      "step": "G-1 页面可用",
-     "passed": false,
-     "observation": "找不到输入选择控件（系统声音）"
+     "passed": true,
+     "observation": "输入控件=radio；媒体调用=getDisplayMedia；出现“正在听”"
+    },
+    {
+     "step": "G-2 识别原文与非中文从不出现",
+     "passed": true,
+     "observation": "主页面 39 次变化、小窗 36 次变化均无谚文/假名/识别原文"
+    },
+    {
+     "step": "受控注入生效（改写的非中文响应被页面完整读取）",
+     "passed": true,
+     "observation": "第 3 句改写请求 1 个，完整读取 1 个"
+    },
+    {
+     "step": "第 3 句恰好 1 次重新翻译",
+     "passed": true,
+     "observation": "重新翻译请求 1 次"
+    },
+    {
+     "step": "重新翻译期间不留空白、不缩短",
+     "passed": true,
+     "observation": "从首次中文临时译文到定稿（22783ms）共 6 次变化均非空，未缩短"
+    },
+    {
+     "step": "定稿条目数",
+     "passed": true,
+     "observation": "定稿 5 条（期望 5）：「大家好，感谢各位出席今天的会议。」 「本季度销售额比去年增加了20%。」 「我们计划在下周一推出新产品。」 「为了提高客户满意度，我们将改善服务质量。」 「如果有问题，请随时提出来。」"
+    },
+    {
+     "step": "定稿字幕均为中文",
+     "passed": true,
+     "observation": "5 条均判为中文"
+    },
+    {
+     "step": "中文提示条数为 0（PQ-301）",
+     "passed": true,
+     "observation": "意外的提示 0 条"
     }
    ],
-   "evidence": "run-IQA-303.json, IQA-303-nocontrol.png"
+   "evidence": "run-IQA-303.json, IQA-303-end.png, IQA-303-pip.png"
   },
   {
    "id": "IQA-304",
-   "passed": false,
+   "passed": true,
    "externalServices": [
     "speech",
     "chat-model"
@@ -144,15 +267,50 @@
    "checkpoints": [
     {
      "step": "G-1 页面可用",
-     "passed": false,
-     "observation": "脚本执行异常：locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /开始/ }).first()\n    - locator resolved to <button type=\"button\" class=\"primary\" id=\"start-button\">开始</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n     …"
+     "passed": true,
+     "observation": "输入控件=radio；媒体调用=getUserMedia；出现“正在听”"
+    },
+    {
+     "step": "G-2 识别原文与非中文从不出现",
+     "passed": true,
+     "observation": "主页面 31 次变化、小窗 0 次变化均无谚文/假名/识别原文"
+    },
+    {
+     "step": "受控注入生效（改写的非中文响应被页面完整读取）",
+     "passed": true,
+     "observation": "第 3 句改写请求 1 个，完整读取 1 个"
+    },
+    {
+     "step": "第 3 句恰好 1 次重新翻译",
+     "passed": true,
+     "observation": "重新翻译请求 1 次"
+    },
+    {
+     "step": "重新翻译期间不留空白、不缩短",
+     "passed": true,
+     "observation": "从首次中文临时译文到定稿（22659ms）共 3 次变化均非空，未缩短"
+    },
+    {
+     "step": "定稿条目数",
+     "passed": true,
+     "observation": "定稿 5 条（期望 5）：「大家好，感谢各位参加今天的会议。」 「本季度销售额比去年增加了20%。」 「我们计划在下周一推出新产品。」 「为了提高客户满意度，我们将改进服务质量。」 「如果有问题的话请随时告诉我。」"
+    },
+    {
+     "step": "定稿字幕均为中文",
+     "passed": true,
+     "observation": "5 条均判为中文"
+    },
+    {
+     "step": "中文提示条数为 0（PQ-301）",
+     "passed": true,
+     "observation": "意外的提示 0 条"
     }
    ],
-   "evidence": "run-IQA-304.json"
+   "evidence": "run-IQA-304.json, IQA-304-end.png"
   },
   {
    "id": "IQA-305",
-   "passed": false,
+   "passed": true,
    "externalServices": [
     "speech",
     "chat-model"
@@ -160,15 +318,60 @@
    "checkpoints": [
     {
      "step": "G-1 页面可用",
-     "passed": false,
-     "observation": "找不到输入选择控件（系统声音）"
+     "passed": true,
+     "observation": "输入控件=radio；媒体调用=getDisplayMedia；出现“正在听”"
+    },
+    {
+     "step": "G-2 识别原文与非中文从不出现",
+     "passed": true,
+     "observation": "主页面 37 次变化、小窗 34 次变化均无谚文/假名/识别原文"
+    },
+    {
+     "step": "受控注入生效",
+     "passed": true,
+     "observation": "第1句改写并读取 2 个，第2句改写并读取 2 个，第3句改写并读取 2 个"
+    },
+    {
+     "step": "第 1～3 句各 1 次重新翻译且定稿为中文提示",
+     "passed": true,
+     "observation": "第1句：重新翻译 1 次，定稿「（此句未能翻译成中文）」；第2句：重新翻译 1 次，定稿「（此句未能翻译成中文）」；第3句：重新翻译 1 次，定稿「（此句未能翻译成中文）」"
+    },
+    {
+     "step": "第 4、5 句为中文定稿，定稿共 5 条",
+     "passed": true,
+     "observation": "定稿 5 条；第4句「为了提高客户满意度，我们将改善服务质量。」第5句「如果有问题，请随时告诉我。」"
+    },
+    {
+     "step": "翻译继续：未出现“翻译已中断”，播放结束时仍“正在听”",
+     "passed": true,
+     "observation": "翻译已中断=false；停止前正在听=true"
+    },
+    {
+     "step": "主页面：提示与正常定稿样式可区分",
+     "passed": true,
+     "observation": "不同的样式：color, border"
+    },
+    {
+     "step": "主页面：提示不刺眼（非红色、无动画、字号不大于正常、对比度≥4.5:1）",
+     "passed": true,
+     "observation": "颜色 rgb(201, 180, 143)，字号 24px，对比度 9.38:1"
+    },
+    {
+     "step": "主页面与小窗逐条一致（1.5 秒同步容差）",
+     "passed": true,
+     "observation": "6 个检查时刻一致"
+    },
+    {
+     "step": "小窗：提示与正常定稿样式可区分",
+     "passed": true,
+     "observation": "不同的样式：color, border"
     }
    ],
-   "evidence": "run-IQA-305.json, IQA-305-nocontrol.png"
+   "evidence": "run-IQA-305.json, IQA-305-end.png, IQA-305-pip.png"
   },
   {
    "id": "IQA-306",
-   "passed": false,
+   "passed": true,
    "externalServices": [
     "speech",
     "chat-model"
@@ -176,46 +379,146 @@
    "checkpoints": [
     {
      "step": "[系统声音] G-1 页面可用",
-     "passed": false,
-     "observation": "找不到输入选择控件（系统声音）"
+     "passed": true,
+     "observation": "输入控件=radio；媒体调用=getDisplayMedia；出现“正在听”"
+    },
+    {
+     "step": "[系统声音] G-2 识别原文与非中文从不出现",
+     "passed": true,
+     "observation": "主页面 25 次变化、小窗 0 次变化均无谚文/假名/识别原文"
+    },
+    {
+     "step": "[系统声音] 受控注入生效（恰 1 个临时请求被改写并读取）",
+     "passed": true,
+     "observation": "改写 1 个，完整读取 1 个"
+    },
+    {
+     "step": "[系统声音] 改写后继续显示此前的中文临时译文（不为空）",
+     "passed": true,
+     "observation": "改写响应读取期间及之后条目始终为非空中文"
+    },
+    {
+     "step": "[系统声音] 不重新翻译、不提示",
+     "passed": true,
+     "observation": "第 2 句重新翻译 0 次；出现提示=false"
+    },
+    {
+     "step": "[系统声音] 定稿条目数",
+     "passed": true,
+     "observation": "定稿 3 条（期望 3）：「你好，很高兴见到你。」 「今天下午3点将在总部大会议室详细讨论明年业务战略和预算计划，…」 「谢谢。」"
+    },
+    {
+     "step": "[系统声音] 定稿字幕均为中文",
+     "passed": true,
+     "observation": "3 条均判为中文"
+    },
+    {
+     "step": "[系统声音] 中文提示条数为 0（PQ-301）",
+     "passed": true,
+     "observation": "意外的提示 0 条"
     },
     {
      "step": "[麦克风] G-1 页面可用",
-     "passed": false,
-     "observation": "脚本执行异常：locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /开始/ }).first()\n    - locator resolved to <button type=\"button\" class=\"primary\" id=\"start-button\">开始</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n     …"
+     "passed": true,
+     "observation": "输入控件=radio；媒体调用=getUserMedia；出现“正在听”"
+    },
+    {
+     "step": "[麦克风] G-2 识别原文与非中文从不出现",
+     "passed": true,
+     "observation": "主页面 18 次变化、小窗 0 次变化均无谚文/假名/识别原文"
+    },
+    {
+     "step": "[麦克风] 受控注入生效（恰 1 个临时请求被改写并读取）",
+     "passed": true,
+     "observation": "改写 1 个，完整读取 1 个"
+    },
+    {
+     "step": "[麦克风] 改写后继续显示此前的中文临时译文（不为空）",
+     "passed": true,
+     "observation": "改写响应读取期间及之后条目始终为非空中文"
+    },
+    {
+     "step": "[麦克风] 不重新翻译、不提示",
+     "passed": true,
+     "observation": "第 2 句重新翻译 0 次；出现提示=false"
+    },
+    {
+     "step": "[麦克风] 定稿条目数",
+     "passed": true,
+     "observation": "定稿 3 条（期望 3）：「大家好，很高兴见到你们。」 「今天下午3点将在总部大会议室详细讨论明年的业务战略和预算计划…」 「谢谢。」"
+    },
+    {
+     "step": "[麦克风] 定稿字幕均为中文",
+     "passed": true,
+     "observation": "3 条均判为中文"
+    },
+    {
+     "step": "[麦克风] 中文提示条数为 0（PQ-301）",
+     "passed": true,
+     "observation": "意外的提示 0 条"
     }
    ],
-   "evidence": "run-IQA-306-system.json, IQA-306-system-nocontrol.png, run-IQA-306-mic.json"
+   "evidence": "run-IQA-306-system.json, IQA-306-system-end.png, run-IQA-306-mic.json, IQA-306-mic-end.png"
   },
   {
    "id": "IQA-307",
-   "passed": false,
+   "passed": true,
    "externalServices": [
     "speech",
     "chat-model"
    ],
    "checkpoints": [
     {
-     "step": "[IQA-301 运行1] 运行完成",
-     "passed": false,
-     "observation": "找不到输入选择控件（系统声音）"
+     "step": "[IQA-301 运行1] 小窗打开并有字幕条目",
+     "passed": true,
+     "observation": "小窗打开=true（documentPictureInPicture），小窗变化 31 次，最终条目 5 条"
     },
     {
-     "step": "[IQA-303] 运行完成",
-     "passed": false,
-     "observation": "找不到输入选择控件（系统声音）"
+     "step": "[IQA-301 运行1] 主页面与小窗逐条一致",
+     "passed": true,
+     "observation": "6 个检查时刻一致"
     },
     {
-     "step": "[IQA-305] 运行完成",
-     "passed": false,
-     "observation": "找不到输入选择控件（系统声音）"
+     "step": "[IQA-301 运行1] 小窗不出现谚文、假名、注入内容或识别原文",
+     "passed": true,
+     "observation": "无"
+    },
+    {
+     "step": "[IQA-303] 小窗打开并有字幕条目",
+     "passed": true,
+     "observation": "小窗打开=true（documentPictureInPicture），小窗变化 36 次，最终条目 5 条"
+    },
+    {
+     "step": "[IQA-303] 主页面与小窗逐条一致",
+     "passed": true,
+     "observation": "6 个检查时刻一致"
+    },
+    {
+     "step": "[IQA-303] 小窗不出现谚文、假名、注入内容或识别原文",
+     "passed": true,
+     "observation": "无"
+    },
+    {
+     "step": "[IQA-305] 小窗打开并有字幕条目",
+     "passed": true,
+     "observation": "小窗打开=true（documentPictureInPicture），小窗变化 34 次，最终条目 5 条"
+    },
+    {
+     "step": "[IQA-305] 主页面与小窗逐条一致",
+     "passed": true,
+     "observation": "6 个检查时刻一致"
+    },
+    {
+     "step": "[IQA-305] 小窗不出现谚文、假名、注入内容或识别原文",
+     "passed": true,
+     "observation": "无"
     }
    ],
-   "evidence": "run-IQA-301-1.json, IQA-301-1-nocontrol.png, run-IQA-303.json, IQA-303-nocontrol.png, run-IQA-305.json, IQA-305-nocontrol.png"
+   "evidence": "run-IQA-301-1.json, IQA-301-1-end.png, IQA-301-1-pip.png, run-IQA-303.json, IQA-303-end.png, IQA-303-pip.png, run-IQA-305.json, IQA-305-end.png, IQA-305-pip.png"
   },
   {
    "id": "IQA-308",
-   "passed": false,
+   "passed": true,
    "externalServices": [
     "speech",
     "chat-model"
@@ -223,18 +526,18 @@
    "checkpoints": [
     {
      "step": "主动取消：中止时尚未收到任何响应正文片段",
-     "passed": false,
-     "observation": "发送后 152ms 中止，已收正文 27 字节，响应状态 400"
+     "passed": true,
+     "observation": "发送后 151ms 中止，已收正文 0 字节，响应状态 未收到"
     },
     {
      "step": "主动取消：时间窗内 error/fatal 级日志 0 条",
      "passed": true,
-     "observation": "时间窗 3 行日志，error/fatal 0 条"
+     "observation": "时间窗 4 行日志，error/fatal 0 条"
     },
     {
      "step": "主动取消：时间窗内 client_aborted 信息级记录恰 1 条",
-     "passed": false,
-     "observation": "client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true"
+     "passed": true,
+     "observation": "client_aborted 1 条（级别 info）；字段 [\"deltaCount\",\"durationMs\",\"errorCode\",\"event\",\"inputSource\",\"kind\",\"level\",\"msg\",\"reqId\",\"sourceLanguage\",\"textLength\",\"time\"]；内容/凭据字段 无；各次字段集一致=true"
     },
     {
      "step": "主动取消：日志不含内容、脱敏标记或凭据",
@@ -243,23 +546,23 @@
     },
     {
      "step": "主动取消：服务未退出：随后的正常请求成功",
-     "passed": false,
-     "observation": "正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）"
+     "passed": true,
+     "observation": "正常请求状态 200，含汉字=true，含谚文=false"
     },
     {
      "step": "断开连接：中止时尚未收到任何响应正文片段",
-     "passed": false,
-     "observation": "发送后 47ms 中止，已收正文 27 字节，响应状态 400"
+     "passed": true,
+     "observation": "发送后 152ms 中止，已收正文 0 字节，响应状态 未收到"
     },
     {
      "step": "断开连接：时间窗内 error/fatal 级日志 0 条",
      "passed": true,
-     "observation": "时间窗 3 行日志，error/fatal 0 条"
+     "observation": "时间窗 5 行日志，error/fatal 0 条"
     },
     {
      "step": "断开连接：时间窗内 client_aborted 信息级记录恰 1 条",
-     "passed": false,
-     "observation": "client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true"
+     "passed": true,
+     "observation": "client_aborted 1 条（级别 info）；字段 [\"deltaCount\",\"durationMs\",\"errorCode\",\"event\",\"inputSource\",\"kind\",\"level\",\"msg\",\"reqId\",\"sourceLanguage\",\"textLength\",\"time\"]；内容/凭据字段 无；各次字段集一致=true"
     },
     {
      "step": "断开连接：日志不含内容、脱敏标记或凭据",
@@ -268,15 +571,15 @@
     },
     {
      "step": "断开连接：服务未退出：随后的正常请求成功",
-     "passed": false,
-     "observation": "正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）"
+     "passed": true,
+     "observation": "正常请求状态 200，含汉字=true，含谚文=false"
     }
    ],
    "evidence": "abort-cases.json, logs-summary.json"
   },
   {
    "id": "IQA-309",
-   "passed": false,
+   "passed": true,
    "externalServices": [
     "speech",
     "chat-model"
@@ -284,18 +587,18 @@
    "checkpoints": [
     {
      "step": "主动取消：中止时已收到含汉字的片段且响应未结束",
-     "passed": false,
-     "observation": "发送后 31ms 中止，已收正文 0 字节，含汉字=false，响应已结束=true，状态 400"
+     "passed": true,
+     "observation": "发送后 493ms 中止，已收正文 33 字节，含汉字=true，响应已结束=false，状态 200"
     },
     {
      "step": "主动取消：时间窗内 error/fatal 级日志 0 条",
      "passed": true,
-     "observation": "时间窗 3 行日志，error/fatal 0 条"
+     "observation": "时间窗 4 行日志，error/fatal 0 条"
     },
     {
      "step": "主动取消：时间窗内 client_aborted 信息级记录恰 1 条",
-     "passed": false,
-     "observation": "client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true"
+     "passed": true,
+     "observation": "client_aborted 1 条（级别 info）；字段 [\"deltaCount\",\"durationMs\",\"errorCode\",\"event\",\"inputSource\",\"kind\",\"level\",\"msg\",\"reqId\",\"sourceLanguage\",\"textLength\",\"time\"]；内容/凭据字段 无；各次字段集一致=true"
     },
     {
      "step": "主动取消：日志不含内容、脱敏标记或凭据",
@@ -304,23 +607,23 @@
     },
     {
      "step": "主动取消：服务未退出：随后的正常请求成功",
-     "passed": false,
-     "observation": "正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）"
+     "passed": true,
+     "observation": "正常请求状态 200，含汉字=true，含谚文=false"
     },
     {
      "step": "断开连接：中止时已收到含汉字的片段且响应未结束",
-     "passed": false,
-     "observation": "发送后 48ms 中止，已收正文 27 字节，含汉字=false，响应已结束=true，状态 400"
+     "passed": true,
+     "observation": "发送后 891ms 中止，已收正文 33 字节，含汉字=true，响应已结束=false，状态 200"
     },
     {
      "step": "断开连接：时间窗内 error/fatal 级日志 0 条",
      "passed": true,
-     "observation": "时间窗 3 行日志，error/fatal 0 条"
+     "observation": "时间窗 4 行日志，error/fatal 0 条"
     },
     {
      "step": "断开连接：时间窗内 client_aborted 信息级记录恰 1 条",
-     "passed": false,
-     "observation": "client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true"
+     "passed": true,
+     "observation": "client_aborted 1 条（级别 info）；字段 [\"deltaCount\",\"durationMs\",\"errorCode\",\"event\",\"inputSource\",\"kind\",\"level\",\"msg\",\"reqId\",\"sourceLanguage\",\"textLength\",\"time\"]；内容/凭据字段 无；各次字段集一致=true"
     },
     {
      "step": "断开连接：日志不含内容、脱敏标记或凭据",
@@ -329,20 +632,20 @@
     },
     {
      "step": "断开连接：服务未退出：随后的正常请求成功",
-     "passed": false,
-     "observation": "正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）"
+     "passed": true,
+     "observation": "正常请求状态 200，含汉字=true，含谚文=false"
     },
     {
      "step": "真实浏览器中止：浏览器运行期间 error/fatal 日志 0 条",
      "passed": true,
-     "observation": "浏览器运行期间 63 行日志，error/fatal 0 条，client_aborted 0 条"
+     "observation": "浏览器运行期间 794 行日志，error/fatal 0 条，client_aborted 46 条"
     }
    ],
    "evidence": "abort-cases.json, logs-summary.json"
   },
   {
    "id": "IQA-311",
-   "passed": false,
+   "passed": true,
    "externalServices": [
     "speech",
     "chat-model"
@@ -350,25 +653,120 @@
    "checkpoints": [
     {
      "step": "[系统声音+英语+小窗] G-1 页面可用",
-     "passed": false,
-     "observation": "找不到输入选择控件（系统声音）"
+     "passed": true,
+     "observation": "输入控件=radio；媒体调用=getDisplayMedia；出现“正在听”"
+    },
+    {
+     "step": "[系统声音+英语+小窗] G-2 识别原文与非中文从不出现",
+     "passed": true,
+     "observation": "主页面 24 次变化、小窗 21 次变化均无谚文/假名/识别原文"
+    },
+    {
+     "step": "[系统声音+英语+小窗] 临时字幕在句末之前出现（至少 3 句）",
+     "passed": true,
+     "observation": "句末前出现：第1句=false，第2句=true，第3句=true，第4句=true"
+    },
+    {
+     "step": "[系统声音+英语+小窗] 定稿条目数",
+     "passed": true,
+     "observation": "定稿 4 条（期望 4）：「各位早上好，欢迎参加会议。」 「我们本季度的销售额增长了20%。」 「新产品将于下周一发布。」 「如果你有任何问题，请告诉我。」"
+    },
+    {
+     "step": "[系统声音+英语+小窗] 定稿字幕均为中文",
+     "passed": true,
+     "observation": "4 条均判为中文"
+    },
+    {
+     "step": "[系统声音+英语+小窗] 中文提示条数为 0（PQ-301）",
+     "passed": true,
+     "observation": "意外的提示 0 条"
+    },
+    {
+     "step": "[系统声音+英语+小窗] 译文与原意一致（含中文关键词）",
+     "passed": true,
+     "observation": "各句均含关键词"
+    },
+    {
+     "step": "[系统声音+英语+小窗] 主页面与小窗逐条一致（1.5 秒同步容差）",
+     "passed": true,
+     "observation": "5 个检查时刻一致"
+    },
+    {
+     "step": "[系统声音+英语+小窗] 停止后离开“正在听”，此后 10 秒字幕不变",
+     "passed": true,
+     "observation": "离开正在听=true；观察结束时正在听=false；停止后字幕变化=false"
     },
     {
      "step": "[麦克风+英语] G-1 页面可用",
-     "passed": false,
-     "observation": "脚本执行异常：locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /开始/ }).first()\n    - locator resolved to <button type=\"button\" class=\"primary\" id=\"start-button\">开始</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n     …"
+     "passed": true,
+     "observation": "输入控件=radio；媒体调用=getUserMedia；出现“正在听”"
+    },
+    {
+     "step": "[麦克风+英语] G-2 识别原文与非中文从不出现",
+     "passed": true,
+     "observation": "主页面 21 次变化、小窗 0 次变化均无谚文/假名/识别原文"
+    },
+    {
+     "step": "[麦克风+英语] 临时字幕在句末之前出现（至少 3 句）",
+     "passed": true,
+     "observation": "句末前出现：第1句=false，第2句=true，第3句=true，第4句=true"
+    },
+    {
+     "step": "[麦克风+英语] 定稿条目数",
+     "passed": true,
+     "observation": "定稿 4 条（期望 4）：「大家早上好。欢迎参加会议。」 「我们本季度的销售额增长了20%。」 「新产品将于下周一发布。」 「如果你有任何问题，请告诉我。」"
+    },
+    {
+     "step": "[麦克风+英语] 定稿字幕均为中文",
+     "passed": true,
+     "observation": "4 条均判为中文"
+    },
+    {
+     "step": "[麦克风+英语] 中文提示条数为 0（PQ-301）",
+     "passed": true,
+     "observation": "意外的提示 0 条"
+    },
+    {
+     "step": "[麦克风+英语] 译文与原意一致（含中文关键词）",
+     "passed": true,
+     "observation": "各句均含关键词"
+    },
+    {
+     "step": "[麦克风+英语] 停止后离开“正在听”，此后 10 秒字幕不变",
+     "passed": true,
+     "observation": "离开正在听=true；观察结束时正在听=false；停止后字幕变化=false"
     },
     {
      "step": "[请求失败] G-1 页面可用",
-     "passed": false,
-     "observation": "找不到输入选择控件（系统声音）"
+     "passed": true,
+     "observation": "输入控件=radio；媒体调用=getDisplayMedia；出现“正在听”"
+    },
+    {
+     "step": "[请求失败] G-2 识别原文与非中文从不出现",
+     "passed": true,
+     "observation": "主页面 10 次变化、小窗 0 次变化均无谚文/假名/识别原文"
+    },
+    {
+     "step": "[请求失败] 受控网络错误生效",
+     "passed": true,
+     "observation": "被拒请求 12 个"
+    },
+    {
+     "step": "[请求失败] 页面提示“翻译已中断”",
+     "passed": true,
+     "observation": "出现“翻译已中断”=true"
+    },
+    {
+     "step": "[请求失败] 请求失败的句子不显示“（此句未能翻译成中文）”",
+     "passed": true,
+     "observation": "出现提示=false"
     }
    ],
-   "evidence": "run-IQA-311-en-system.json, IQA-311-en-system-nocontrol.png, run-IQA-311-en-mic.json, run-IQA-311-reject.json, IQA-311-reject-nocontrol.png"
+   "evidence": "run-IQA-311-en-system.json, IQA-311-en-system-end.png, IQA-311-en-system-pip.png, run-IQA-311-en-mic.json, IQA-311-en-mic-end.png, run-IQA-311-reject.json, IQA-311-reject-end.png"
   },
   {
    "id": "IQA-312",
-   "passed": false,
+   "passed": true,
    "externalServices": [
     "speech",
     "chat-model"
@@ -376,11 +774,31 @@
    "checkpoints": [
     {
      "step": "G-1 页面可用",
-     "passed": false,
-     "observation": "找不到输入选择控件（系统声音）"
+     "passed": true,
+     "observation": "输入控件=radio；媒体调用=getDisplayMedia；出现“正在听”"
+    },
+    {
+     "step": "G-2 识别原文与非中文从不出现",
+     "passed": true,
+     "observation": "主页面 15 次变化、小窗 0 次变化均无谚文/假名/识别原文"
+    },
+    {
+     "step": "停止发生在重新翻译进行中",
+     "passed": true,
+     "observation": "停止原因=retrans-pending；第 2 句改写并读取 1 个；重新翻译 1 次"
+    },
+    {
+     "step": "停止时第 2 句显示中文临时译文（不为空）",
+     "passed": true,
+     "observation": "停止时「本季度销售额比去年增长了20%」"
+    },
+    {
+     "step": "停止后 30 秒内条目不再变化（无定稿、无提示、无非中文）",
+     "passed": true,
+     "observation": "停止后变化 0 次；提示=false"
     }
    ],
-   "evidence": "run-IQA-312.json, IQA-312-nocontrol.png"
+   "evidence": "run-IQA-312.json, IQA-312-end.png"
   }
  ]
 }

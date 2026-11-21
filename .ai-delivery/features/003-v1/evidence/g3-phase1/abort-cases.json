@@ -1,12 +1,13 @@
 {
  "template": {
   "url": "https://cand-9919ba0e9588.eastus2.cloudapp.azure.com/api/translations",
-  "from": "fallback",
+  "from": "browser",
   "key": "text",
   "fields": [
+   "kind",
    "text",
    "sourceLanguage",
-   "targetLanguage"
+   "inputSource"
   ]
  },
  "cases": [
@@ -16,25 +17,25 @@
    "abort": {
     "way": "cancel",
     "phase": "before",
-    "tSend": 1795280086095,
-    "bytesAtAbort": 27,
+    "tSend": 1795283157236,
+    "bytesAtAbort": 0,
     "hanAtAbort": false,
-    "endedAtAbort": true,
-    "received": "{\"error\":\"invalid_request\"}",
-    "status": 400,
-    "tAbort": 1795280086247
+    "endedAtAbort": false,
+    "received": "",
+    "tAbort": 1795283157387,
+    "err": "AbortError"
    },
    "normal": {
-    "tSend": 1795280087248,
-    "status": 400,
-    "han": false,
+    "tSend": 1795283158390,
+    "status": 200,
+    "han": true,
     "hangul": false,
-    "received": "{\"error\":\"invalid_request\"}",
-    "tEnd": 1795280087253
+    "received": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"天气\"}\n{\"type\":\"delta\",\"text\":\"真的\"}\n{\"type\":\"delta\",\"text\":\"很好\"}\n{\"type\":\"delta\",\"text\":\"呢\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
+    "tEnd": 1795283159194
    },
    "win": [
-    1795280084595,
-    1795280090253
+    1795283155736,
+    1795283162194
    ]
   },
   {
@@ -43,26 +44,25 @@
    "abort": {
     "way": "disconnect",
     "phase": "before",
-    "tSend": 1795280096758,
-    "bytesAtAbort": 27,
+    "tSend": 1795283168698,
+    "bytesAtAbort": 0,
     "hanAtAbort": false,
-    "endedAtAbort": true,
-    "received": "{\"error\":\"invalid_request\"}",
-    "status": 400,
-    "tAbort": 1795280096805,
-    "why": "response-ended"
+    "endedAtAbort": false,
+    "received": "",
+    "tAbort": 1795283168850,
+    "why": "timer-150ms"
    },
    "normal": {
-    "tSend": 1795280098006,
-    "status": 400,
-    "han": false,
+    "tSend": 1795283170052,
+    "status": 200,
+    "han": true,
     "hangul": false,
-    "received": "{\"error\":\"invalid_request\"}",
-    "tEnd": 1795280098043
+    "received": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"天气\"}\n{\"type\":\"delta\",\"text\":\"真的\"}\n{\"type\":\"delta\",\"text\":\"很好\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
+    "tEnd": 1795283170712
    },
    "win": [
-    1795280095258,
-    1795280101043
+    1795283167198,
+    1795283173712
    ]
   },
   {
@@ -71,25 +71,26 @@
    "abort": {
     "way": "cancel",
     "phase": "after",
-    "tSend": 1795280107548,
-    "bytesAtAbort": 0,
-    "hanAtAbort": false,
-    "endedAtAbort": true,
-    "received": "{\"error\":\"invalid_request\"}",
-    "status": 400,
-    "tAbort": 1795280107579
+    "tSend": 1795283180218,
+    "bytesAtAbort": 33,
+    "hanAtAbort": true,
+    "endedAtAbort": false,
+    "received": "{\"type\":\"delta\",\"text\":\"今天\"}\n",
+    "status": 200,
+    "tAbort": 1795283180711,
+    "err": "AbortError"
    },
    "normal": {
-    "tSend": 1795280108580,
-    "status": 400,
-    "han": false,
+    "tSend": 1795283181713,
+    "status": 200,
+    "han": true,
     "hangul": false,
-    "received": "{\"error\":\"invalid_request\"}",
-    "tEnd": 1795280108584
+    "received": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"天气\"}\n{\"type\":\"delta\",\"text\":\"真的\"}\n{\"type\":\"delta\",\"text\":\"很好\"}\n{\"type\":\"delta\",\"text\":\"呢\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
+    "tEnd": 1795283182648
    },
    "win": [
-    1795280106048,
-    1795280111584
+    1795283178718,
+    1795283185648
    ]
   },
   {
@@ -98,26 +99,26 @@
    "abort": {
     "way": "disconnect",
     "phase": "after",
-    "tSend": 1795280118084,
-    "bytesAtAbort": 27,
-    "hanAtAbort": false,
-    "endedAtAbort": true,
-    "received": "{\"error\":\"invalid_request\"}",
-    "status": 400,
-    "tAbort": 1795280118132,
-    "why": "response-ended"
+    "tSend": 1795283192149,
+    "bytesAtAbort": 33,
+    "hanAtAbort": true,
+    "endedAtAbort": false,
+    "received": "{\"type\":\"delta\",\"text\":\"今天\"}\n",
+    "status": 200,
+    "tAbort": 1795283193040,
+    "why": "first-han-fragment"
    },
    "normal": {
-    "tSend": 1795280119334,
-    "status": 400,
-    "han": false,
+    "tSend": 1795283194242,
+    "status": 200,
+    "han": true,
     "hangul": false,
-    "received": "{\"error\":\"invalid_request\"}",
-    "tEnd": 1795280119383
+    "received": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"天气\"}\n{\"type\":\"delta\",\"text\":\"真的\"}\n{\"type\":\"delta\",\"text\":\"很好\"}\n{\"type\":\"delta\",\"text\":\"呢\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
+    "tEnd": 1795283194815
    },
    "win": [
-    1795280116584,
-    1795280122383
+    1795283190649,
+    1795283197815
    ]
   }
  ]

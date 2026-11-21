@@ -1,0 +1,386 @@
+{
+ "passed": false,
+ "testedCommitSha": "39de8ff923cfddf3cfc8e21d88ae960e6fa4062b",
+ "summary": "执行 11 个验收场景，通过 0 个；产品缺陷 4 项，脚本未能完成验证 26 项，环境或平台问题 0 项。语音合成：edge-tts；请求体模板来源：fallback。IQA-310（AC-9）按 G2 决定为测试缺口，不在脚本中执行；IQA-313（AC-13）为执行会话中对 design.md 的文档检查，不在脚本中执行。",
+ "defects": [
+  "IQA-308 主动取消：时间窗内 client_aborted 信息级记录恰 1 条：client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true",
+  "IQA-308 断开连接：时间窗内 client_aborted 信息级记录恰 1 条：client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true",
+  "IQA-309 主动取消：时间窗内 client_aborted 信息级记录恰 1 条：client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true",
+  "IQA-309 断开连接：时间窗内 client_aborted 信息级记录恰 1 条：client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true"
+ ],
+ "testGaps": [
+  "IQA-301 [运行1] G-1 页面可用：找不到输入选择控件（系统声音）",
+  "IQA-301 [运行2] G-1 页面可用：找不到输入选择控件（系统声音）",
+  "IQA-301 [运行3] G-1 页面可用：找不到输入选择控件（系统声音）",
+  "IQA-302 [运行1] G-1 页面可用：找不到输入选择控件（系统声音）",
+  "IQA-302 [运行2] G-1 页面可用：找不到输入选择控件（系统声音）",
+  "IQA-302 [运行3] G-1 页面可用：找不到输入选择控件（系统声音）",
+  "IQA-303 G-1 页面可用：找不到输入选择控件（系统声音）",
+  "IQA-304 G-1 页面可用：脚本执行异常：locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /开始/ }).first()\n    - locator resolved to <button type=\"button\" class=\"primary\" id=\"start-button\">开始</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n     …",
+  "IQA-305 G-1 页面可用：找不到输入选择控件（系统声音）",
+  "IQA-306 [系统声音] G-1 页面可用：找不到输入选择控件（系统声音）",
+  "IQA-306 [麦克风] G-1 页面可用：脚本执行异常：locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /开始/ }).first()\n    - locator resolved to <button type=\"button\" class=\"primary\" id=\"start-button\">开始</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n     …",
+  "IQA-307 [IQA-301 运行1] 运行完成：找不到输入选择控件（系统声音）",
+  "IQA-307 [IQA-303] 运行完成：找不到输入选择控件（系统声音）",
+  "IQA-307 [IQA-305] 运行完成：找不到输入选择控件（系统声音）",
+  "IQA-308 主动取消：中止时尚未收到任何响应正文片段：发送后 152ms 中止，已收正文 27 字节，响应状态 400",
+  "IQA-308 主动取消：服务未退出：随后的正常请求成功：正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）",
+  "IQA-308 断开连接：中止时尚未收到任何响应正文片段：发送后 47ms 中止，已收正文 27 字节，响应状态 400",
+  "IQA-308 断开连接：服务未退出：随后的正常请求成功：正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）",
+  "IQA-309 主动取消：中止时已收到含汉字的片段且响应未结束：发送后 31ms 中止，已收正文 0 字节，含汉字=false，响应已结束=true，状态 400",
+  "IQA-309 主动取消：服务未退出：随后的正常请求成功：正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）",
+  "IQA-309 断开连接：中止时已收到含汉字的片段且响应未结束：发送后 48ms 中止，已收正文 27 字节，含汉字=false，响应已结束=true，状态 400",
+  "IQA-309 断开连接：服务未退出：随后的正常请求成功：正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）",
+  "IQA-311 [系统声音+英语+小窗] G-1 页面可用：找不到输入选择控件（系统声音）",
+  "IQA-311 [麦克风+英语] G-1 页面可用：脚本执行异常：locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /开始/ }).first()\n    - locator resolved to <button type=\"button\" class=\"primary\" id=\"start-button\">开始</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n     …",
+  "IQA-311 [请求失败] G-1 页面可用：找不到输入选择控件（系统声音）",
+  "IQA-312 G-1 页面可用：找不到输入选择控件（系统声音）"
+ ],
+ "evidence": [
+  "harness.log",
+  "setup.log",
+  "targets.json",
+  "abort-cases.json",
+  "logs-summary.json",
+  "run-IQA-301-1.json",
+  "run-IQA-301-2.json",
+  "run-IQA-301-3.json",
+  "run-IQA-302-1.json",
+  "run-IQA-302-2.json",
+  "run-IQA-302-3.json",
+  "run-IQA-303.json",
+  "run-IQA-304.json",
+  "run-IQA-305.json",
+  "run-IQA-306-mic.json",
+  "run-IQA-306-system.json",
+  "run-IQA-311-en-mic.json",
+  "run-IQA-311-en-system.json",
+  "run-IQA-311-reject.json",
+  "run-IQA-312.json"
+ ],
+ "bugfixResults": [
+  {
+   "bugfixId": "IR-001",
+   "verdict": "failed",
+   "evidence": "IQA-308/309：IQA-308 未通过，IQA-309 未通过；见 abort-cases.json、logs-summary.json"
+  }
+ ],
+ "scenarios": [
+  {
+   "id": "IQA-301",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat-model"
+   ],
+   "checkpoints": [
+    {
+     "step": "[运行1] G-1 页面可用",
+     "passed": false,
+     "observation": "找不到输入选择控件（系统声音）"
+    },
+    {
+     "step": "[运行2] G-1 页面可用",
+     "passed": false,
+     "observation": "找不到输入选择控件（系统声音）"
+    },
+    {
+     "step": "[运行3] G-1 页面可用",
+     "passed": false,
+     "observation": "找不到输入选择控件（系统声音）"
+    }
+   ],
+   "evidence": "run-IQA-301-1.json, IQA-301-1-nocontrol.png, run-IQA-301-2.json, IQA-301-2-nocontrol.png, run-IQA-301-3.json, IQA-301-3-nocontrol.png"
+  },
+  {
+   "id": "IQA-302",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat-model"
+   ],
+   "checkpoints": [
+    {
+     "step": "[运行1] G-1 页面可用",
+     "passed": false,
+     "observation": "找不到输入选择控件（系统声音）"
+    },
+    {
+     "step": "[运行2] G-1 页面可用",
+     "passed": false,
+     "observation": "找不到输入选择控件（系统声音）"
+    },
+    {
+     "step": "[运行3] G-1 页面可用",
+     "passed": false,
+     "observation": "找不到输入选择控件（系统声音）"
+    }
+   ],
+   "evidence": "run-IQA-302-1.json, IQA-302-1-nocontrol.png, run-IQA-302-2.json, IQA-302-2-nocontrol.png, run-IQA-302-3.json, IQA-302-3-nocontrol.png"
+  },
+  {
+   "id": "IQA-303",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat-model"
+   ],
+   "checkpoints": [
+    {
+     "step": "G-1 页面可用",
+     "passed": false,
+     "observation": "找不到输入选择控件（系统声音）"
+    }
+   ],
+   "evidence": "run-IQA-303.json, IQA-303-nocontrol.png"
+  },
+  {
+   "id": "IQA-304",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat-model"
+   ],
+   "checkpoints": [
+    {
+     "step": "G-1 页面可用",
+     "passed": false,
+     "observation": "脚本执行异常：locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /开始/ }).first()\n    - locator resolved to <button type=\"button\" class=\"primary\" id=\"start-button\">开始</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n     …"
+    }
+   ],
+   "evidence": "run-IQA-304.json"
+  },
+  {
+   "id": "IQA-305",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat-model"
+   ],
+   "checkpoints": [
+    {
+     "step": "G-1 页面可用",
+     "passed": false,
+     "observation": "找不到输入选择控件（系统声音）"
+    }
+   ],
+   "evidence": "run-IQA-305.json, IQA-305-nocontrol.png"
+  },
+  {
+   "id": "IQA-306",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat-model"
+   ],
+   "checkpoints": [
+    {
+     "step": "[系统声音] G-1 页面可用",
+     "passed": false,
+     "observation": "找不到输入选择控件（系统声音）"
+    },
+    {
+     "step": "[麦克风] G-1 页面可用",
+     "passed": false,
+     "observation": "脚本执行异常：locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /开始/ }).first()\n    - locator resolved to <button type=\"button\" class=\"primary\" id=\"start-button\">开始</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n     …"
+    }
+   ],
+   "evidence": "run-IQA-306-system.json, IQA-306-system-nocontrol.png, run-IQA-306-mic.json"
+  },
+  {
+   "id": "IQA-307",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat-model"
+   ],
+   "checkpoints": [
+    {
+     "step": "[IQA-301 运行1] 运行完成",
+     "passed": false,
+     "observation": "找不到输入选择控件（系统声音）"
+    },
+    {
+     "step": "[IQA-303] 运行完成",
+     "passed": false,
+     "observation": "找不到输入选择控件（系统声音）"
+    },
+    {
+     "step": "[IQA-305] 运行完成",
+     "passed": false,
+     "observation": "找不到输入选择控件（系统声音）"
+    }
+   ],
+   "evidence": "run-IQA-301-1.json, IQA-301-1-nocontrol.png, run-IQA-303.json, IQA-303-nocontrol.png, run-IQA-305.json, IQA-305-nocontrol.png"
+  },
+  {
+   "id": "IQA-308",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat-model"
+   ],
+   "checkpoints": [
+    {
+     "step": "主动取消：中止时尚未收到任何响应正文片段",
+     "passed": false,
+     "observation": "发送后 152ms 中止，已收正文 27 字节，响应状态 400"
+    },
+    {
+     "step": "主动取消：时间窗内 error/fatal 级日志 0 条",
+     "passed": true,
+     "observation": "时间窗 3 行日志，error/fatal 0 条"
+    },
+    {
+     "step": "主动取消：时间窗内 client_aborted 信息级记录恰 1 条",
+     "passed": false,
+     "observation": "client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true"
+    },
+    {
+     "step": "主动取消：日志不含内容、脱敏标记或凭据",
+     "passed": true,
+     "observation": "检索 13 个原文/译文片段命中 0 行；“***”命中 0 行；凭据值命中 0 行"
+    },
+    {
+     "step": "主动取消：服务未退出：随后的正常请求成功",
+     "passed": false,
+     "observation": "正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）"
+    },
+    {
+     "step": "断开连接：中止时尚未收到任何响应正文片段",
+     "passed": false,
+     "observation": "发送后 47ms 中止，已收正文 27 字节，响应状态 400"
+    },
+    {
+     "step": "断开连接：时间窗内 error/fatal 级日志 0 条",
+     "passed": true,
+     "observation": "时间窗 3 行日志，error/fatal 0 条"
+    },
+    {
+     "step": "断开连接：时间窗内 client_aborted 信息级记录恰 1 条",
+     "passed": false,
+     "observation": "client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true"
+    },
+    {
+     "step": "断开连接：日志不含内容、脱敏标记或凭据",
+     "passed": true,
+     "observation": "检索 13 个原文/译文片段命中 0 行；“***”命中 0 行；凭据值命中 0 行"
+    },
+    {
+     "step": "断开连接：服务未退出：随后的正常请求成功",
+     "passed": false,
+     "observation": "正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）"
+    }
+   ],
+   "evidence": "abort-cases.json, logs-summary.json"
+  },
+  {
+   "id": "IQA-309",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat-model"
+   ],
+   "checkpoints": [
+    {
+     "step": "主动取消：中止时已收到含汉字的片段且响应未结束",
+     "passed": false,
+     "observation": "发送后 31ms 中止，已收正文 0 字节，含汉字=false，响应已结束=true，状态 400"
+    },
+    {
+     "step": "主动取消：时间窗内 error/fatal 级日志 0 条",
+     "passed": true,
+     "observation": "时间窗 3 行日志，error/fatal 0 条"
+    },
+    {
+     "step": "主动取消：时间窗内 client_aborted 信息级记录恰 1 条",
+     "passed": false,
+     "observation": "client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true"
+    },
+    {
+     "step": "主动取消：日志不含内容、脱敏标记或凭据",
+     "passed": true,
+     "observation": "检索 13 个原文/译文片段命中 0 行；“***”命中 0 行；凭据值命中 0 行"
+    },
+    {
+     "step": "主动取消：服务未退出：随后的正常请求成功",
+     "passed": false,
+     "observation": "正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）"
+    },
+    {
+     "step": "断开连接：中止时已收到含汉字的片段且响应未结束",
+     "passed": false,
+     "observation": "发送后 48ms 中止，已收正文 27 字节，含汉字=false，响应已结束=true，状态 400"
+    },
+    {
+     "step": "断开连接：时间窗内 error/fatal 级日志 0 条",
+     "passed": true,
+     "observation": "时间窗 3 行日志，error/fatal 0 条"
+    },
+    {
+     "step": "断开连接：时间窗内 client_aborted 信息级记录恰 1 条",
+     "passed": false,
+     "observation": "client_aborted 0 条（级别 无）；字段 []；内容/凭据字段 无；各次字段集一致=true"
+    },
+    {
+     "step": "断开连接：日志不含内容、脱敏标记或凭据",
+     "passed": true,
+     "observation": "检索 13 个原文/译文片段命中 0 行；“***”命中 0 行；凭据值命中 0 行"
+    },
+    {
+     "step": "断开连接：服务未退出：随后的正常请求成功",
+     "passed": false,
+     "observation": "正常请求状态 400，含汉字=false，含谚文=false（请求体为退回格式）"
+    },
+    {
+     "step": "真实浏览器中止：浏览器运行期间 error/fatal 日志 0 条",
+     "passed": true,
+     "observation": "浏览器运行期间 63 行日志，error/fatal 0 条，client_aborted 0 条"
+    }
+   ],
+   "evidence": "abort-cases.json, logs-summary.json"
+  },
+  {
+   "id": "IQA-311",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat-model"
+   ],
+   "checkpoints": [
+    {
+     "step": "[系统声音+英语+小窗] G-1 页面可用",
+     "passed": false,
+     "observation": "找不到输入选择控件（系统声音）"
+    },
+    {
+     "step": "[麦克风+英语] G-1 页面可用",
+     "passed": false,
+     "observation": "脚本执行异常：locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /开始/ }).first()\n    - locator resolved to <button type=\"button\" class=\"primary\" id=\"start-button\">开始</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n     …"
+    },
+    {
+     "step": "[请求失败] G-1 页面可用",
+     "passed": false,
+     "observation": "找不到输入选择控件（系统声音）"
+    }
+   ],
+   "evidence": "run-IQA-311-en-system.json, IQA-311-en-system-nocontrol.png, run-IQA-311-en-mic.json, run-IQA-311-reject.json, IQA-311-reject-nocontrol.png"
+  },
+  {
+   "id": "IQA-312",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat-model"
+   ],
+   "checkpoints": [
+    {
+     "step": "G-1 页面可用",
+     "passed": false,
+     "observation": "找不到输入选择控件（系统声音）"
+    }
+   ],
+   "evidence": "run-IQA-312.json, IQA-312-nocontrol.png"
+  }
+ ]
+}
