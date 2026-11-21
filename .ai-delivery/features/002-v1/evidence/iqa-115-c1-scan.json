@@ -11,11 +11,11 @@
    "sentImage": 0,
    "sentVideo": 0
   },
-  "scannedBytes": 2205850,
-  "scannedItems": 1340,
+  "scannedBytes": 2201297,
+  "scannedItems": 1280,
   "where": {},
-  "wsFrames": 584,
-  "requests": 42
+  "wsFrames": 581,
+  "requests": 38
  },
  {
   "tag": "IQA-122",
@@ -29,10 +29,10 @@
    "sentImage": 0,
    "sentVideo": 0
   },
-  "scannedBytes": 2314654,
-  "scannedItems": 1674,
+  "scannedBytes": 2186209,
+  "scannedItems": 1725,
   "where": {},
-  "wsFrames": 648,
-  "requests": 59
+  "wsFrames": 603,
+  "requests": 63
  }
 ]

@@ -1,280 +1,5 @@
 [
  {
-  "tag": "SYS-MAIN",
-  "hosts": [
-   "cand-42ad37e84bf9.eastus2.cloudapp.azure.com",
-   "eastus2.stt.speech.microsoft.com"
-  ],
-  "ws": [
-   "wss://eastus2.stt.speech.microsoft.com/speech/universal/v2"
-  ],
-  "requests": [
-   {
-    "m": "GET",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/",
-    "type": "document",
-    "s": 200
-   },
-   {
-    "m": "GET",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/styles.css",
-    "type": "stylesheet",
-    "s": 200
-   },
-   {
-    "m": "GET",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/app.js",
-    "type": "script",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/speech-token",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch"
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch"
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch"
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch"
-   }
-  ],
-  "console": [
-   {
-    "t": 1795240913384,
-    "type": "warning",
-    "text": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
-   },
-   {
-    "t": 1795240964746,
-    "type": "error",
-    "text": "Creating a worker from 'data:text/javascript;base64,IWZ1bmN0aW9uKGUpe3ZhciB0PXt9O2Z1bmN0aW9uIG4ocil7aWYodFtyXSlyZXR1cm4gdFtyXS5leHBvcnRzO3ZhciBvPXRbcl09e2k6cixsOiExLGV4cG9ydHM6e319O3JldHVybiBlW3JdLmNhbGwoby5leHBvcnRzLG8sby5leHBvcnRzLG4pLG8ubD0hMCxvLmV4cG9ydHN9bi5tPWUsbi5jPXQsbi5kPWZ1bmN0aW9uKGUsdCxy"
-   }
-  ],
-  "downloads": 0,
-  "wsSent": 518,
-  "wsRecv": 66
- },
- {
   "tag": "MIC-MAIN",
   "hosts": [
    "cand-42ad37e84bf9.eastus2.cloudapp.azure.com",
@@ -509,30 +234,6 @@
    {
     "m": "POST",
     "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
     "type": "fetch"
    },
    {
@@ -558,19 +259,272 @@
   ],
   "console": [
    {
-    "t": 1795240911912,
+    "t": 1795242162213,
     "type": "warning",
     "text": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
    },
    {
-    "t": 1795240965162,
+    "t": 1795242215463,
     "type": "error",
     "text": "Creating a worker from 'data:text/javascript;base64,IWZ1bmN0aW9uKGUpe3ZhciB0PXt9O2Z1bmN0aW9uIG4ocil7aWYodFtyXSlyZXR1cm4gdFtyXS5leHBvcnRzO3ZhciBvPXRbcl09e2k6cixsOiExLGV4cG9ydHM6e319O3JldHVybiBlW3JdLmNhbGwoby5leHBvcnRzLG8sby5leHBvcnRzLG4pLG8ubD0hMCxvLmV4cG9ydHN9bi5tPWUsbi5jPXQsbi5kPWZ1bmN0aW9uKGUsdCxy"
    }
   ],
   "downloads": 0,
   "wsSent": 536,
-  "wsRecv": 65
+  "wsRecv": 62
+ },
+ {
+  "tag": "SYS-MAIN",
+  "hosts": [
+   "cand-42ad37e84bf9.eastus2.cloudapp.azure.com",
+   "eastus2.stt.speech.microsoft.com"
+  ],
+  "ws": [
+   "wss://eastus2.stt.speech.microsoft.com/speech/universal/v2"
+  ],
+  "requests": [
+   {
+    "m": "GET",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/",
+    "type": "document",
+    "s": 200
+   },
+   {
+    "m": "GET",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/styles.css",
+    "type": "stylesheet",
+    "s": 200
+   },
+   {
+    "m": "GET",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/app.js",
+    "type": "script",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/speech-token",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch"
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch"
+   }
+  ],
+  "console": [
+   {
+    "t": 1795242163706,
+    "type": "warning",
+    "text": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
+   },
+   {
+    "t": 1795242215079,
+    "type": "error",
+    "text": "Creating a worker from 'data:text/javascript;base64,IWZ1bmN0aW9uKGUpe3ZhciB0PXt9O2Z1bmN0aW9uIG4ocil7aWYodFtyXSlyZXR1cm4gdFtyXS5leHBvcnRzO3ZhciBvPXRbcl09e2k6cixsOiExLGV4cG9ydHM6e319O3JldHVybiBlW3JdLmNhbGwoby5leHBvcnRzLG8sby5leHBvcnRzLG4pLG8ubD0hMCxvLmV4cG9ydHN9bi5tPWUsbi5jPXQsbi5kPWZ1bmN0aW9uKGUsdCxy"
+   }
+  ],
+  "downloads": 0,
+  "wsSent": 518,
+  "wsRecv": 63
  },
  {
   "tag": "IQA-122",
@@ -860,15 +814,39 @@
     "s": 200
    },
    {
-    "m": "GET",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/styles.css",
-    "type": "stylesheet"
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
    },
    {
     "m": "POST",
     "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
     "type": "fetch",
     "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "GET",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/styles.css",
+    "type": "stylesheet"
    },
    {
     "m": "POST",
@@ -896,12 +874,14 @@
    {
     "m": "POST",
     "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch"
+    "type": "fetch",
+    "s": 200
    },
    {
     "m": "POST",
     "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch"
+    "type": "fetch",
+    "s": 200
    },
    {
     "m": "POST",
@@ -931,24 +911,24 @@
   ],
   "console": [
    {
-    "t": 1795240950178,
+    "t": 1795242200275,
     "type": "warning",
     "text": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
    },
    {
-    "t": 1795240989810,
+    "t": 1795242239728,
     "type": "error",
     "text": "Creating a worker from 'data:text/javascript;base64,IWZ1bmN0aW9uKGUpe3ZhciB0PXt9O2Z1bmN0aW9uIG4ocil7aWYodFtyXSlyZXR1cm4gdFtyXS5leHBvcnRzO3ZhciBvPXRbcl09e2k6cixsOiExLGV4cG9ydHM6e319O3JldHVybiBlW3JdLmNhbGwoby5leHBvcnRzLG8sby5leHBvcnRzLG4pLG8ubD0hMCxvLmV4cG9ydHN9bi5tPWUsbi5jPXQsbi5kPWZ1bmN0aW9uKGUsdCxy"
    },
    {
-    "t": 1795240990247,
+    "t": 1795242240161,
     "type": "warning",
     "text": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
    }
   ],
   "downloads": 0,
-  "wsSent": 540,
-  "wsRecv": 108
+  "wsSent": 500,
+  "wsRecv": 103
  },
  {
   "tag": "IQA-106",
@@ -1030,7 +1010,7 @@
    },
    {
     "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/speech-token",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
     "type": "fetch",
     "s": 200
    },
@@ -1039,6 +1019,23 @@
     "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
     "type": "fetch",
     "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/speech-token",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch"
    },
    {
     "m": "POST",
@@ -1064,29 +1061,29 @@
   ],
   "console": [
    {
-    "t": 1795240968992,
+    "t": 1795242219408,
     "type": "warning",
     "text": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
    },
    {
-    "t": 1795241010632,
+    "t": 1795242260830,
     "type": "warning",
     "text": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
    },
    {
-    "t": 1795241017685,
-    "type": "warning",
-    "text": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
-   },
-   {
-    "t": 1795241023643,
+    "t": 1795242266777,
     "type": "error",
     "text": "Creating a worker from 'data:text/javascript;base64,IWZ1bmN0aW9uKGUpe3ZhciB0PXt9O2Z1bmN0aW9uIG4ocil7aWYodFtyXSlyZXR1cm4gdFtyXS5leHBvcnRzO3ZhciBvPXRbcl09e2k6cixsOiExLGV4cG9ydHM6e319O3JldHVybiBlW3JdLmNhbGwoby5leHBvcnRzLG8sby5leHBvcnRzLG4pLG8ubD0hMCxvLmV4cG9ydHN9bi5tPWUsbi5jPXQsbi5kPWZ1bmN0aW9uKGUsdCxy"
+   },
+   {
+    "t": 1795242268185,
+    "type": "warning",
+    "text": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
    }
   ],
   "downloads": 0,
-  "wsSent": 233,
-  "wsRecv": 38
+  "wsSent": 237,
+  "wsRecv": 40
  },
  {
   "tag": "MIC-LOOP",
@@ -1221,25 +1218,20 @@
    },
    {
     "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch"
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch"
-   },
-   {
-    "m": "POST",
     "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/speech-token",
     "type": "fetch",
     "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch",
+    "s": 200
+   },
+   {
+    "m": "POST",
+    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
+    "type": "fetch"
    },
    {
     "m": "POST",
@@ -1272,24 +1264,19 @@
   ],
   "console": [
    {
-    "t": 1795240968263,
+    "t": 1795242218529,
     "type": "warning",
     "text": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
    },
    {
-    "t": 1795240983977,
-    "type": "error",
-    "text": "Creating a worker from 'data:text/javascript;base64,IWZ1bmN0aW9uKGUpe3ZhciB0PXt9O2Z1bmN0aW9uIG4ocil7aWYodFtyXSlyZXR1cm4gdFtyXS5leHBvcnRzO3ZhciBvPXRbcl09e2k6cixsOiExLGV4cG9ydHM6e319O3JldHVybiBlW3JdLmNhbGwoby5leHBvcnRzLG8sby5leHBvcnRzLG4pLG8ubD0hMCxvLmV4cG9ydHN9bi5tPWUsbi5jPXQsbi5kPWZ1bmN0aW9uKGUsdCxy"
-   },
-   {
-    "t": 1795241004989,
+    "t": 1795242254956,
     "type": "warning",
     "text": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
    }
   ],
   "downloads": 0,
-  "wsSent": 218,
-  "wsRecv": 36
+  "wsSent": 224,
+  "wsRecv": 38
  },
  {
   "tag": "IQA-107",
@@ -1359,12 +1346,6 @@
    {
     "m": "POST",
     "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
     "type": "fetch"
    },
    {
@@ -1386,23 +1367,18 @@
   ],
   "console": [
    {
-    "t": 1795241027807,
+    "t": 1795242278607,
     "type": "warning",
     "text": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
    },
    {
-    "t": 1795241037058,
-    "type": "error",
-    "text": "Creating a worker from 'data:text/javascript;base64,IWZ1bmN0aW9uKGUpe3ZhciB0PXt9O2Z1bmN0aW9uIG4ocil7aWYodFtyXSlyZXR1cm4gdFtyXS5leHBvcnRzO3ZhciBvPXRbcl09e2k6cixsOiExLGV4cG9ydHM6e319O3JldHVybiBlW3JdLmNhbGwoby5leHBvcnRzLG8sby5leHBvcnRzLG4pLG8ubD0hMCxvLmV4cG9ydHN9bi5tPWUsbi5jPXQsbi5kPWZ1bmN0aW9uKGUsdCxy"
-   },
-   {
-    "t": 1795241074205,
+    "t": 1795242325013,
     "type": "warning",
     "text": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
    }
   ],
   "downloads": 0,
-  "wsSent": 158,
+  "wsSent": 156,
   "wsRecv": 27
  },
  {
@@ -1640,30 +1616,6 @@
    {
     "m": "POST",
     "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
-    "type": "fetch",
-    "s": 200
-   },
-   {
-    "m": "POST",
-    "u": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/api/translations",
     "type": "fetch"
    },
    {
@@ -1689,18 +1641,18 @@
   ],
   "console": [
    {
-    "t": 1795240911912,
+    "t": 1795242162213,
     "type": "warning",
     "text": "The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
    },
    {
-    "t": 1795240965162,
+    "t": 1795242215463,
     "type": "error",
     "text": "Creating a worker from 'data:text/javascript;base64,IWZ1bmN0aW9uKGUpe3ZhciB0PXt9O2Z1bmN0aW9uIG4ocil7aWYodFtyXSlyZXR1cm4gdFtyXS5leHBvcnRzO3ZhciBvPXRbcl09e2k6cixsOiExLGV4cG9ydHM6e319O3JldHVybiBlW3JdLmNhbGwoby5leHBvcnRzLG8sby5leHBvcnRzLG4pLG8ubD0hMCxvLmV4cG9ydHN9bi5tPWUsbi5jPXQsbi5kPWZ1bmN0aW9uKGUsdCxy"
    }
   ],
   "downloads": 0,
   "wsSent": 536,
-  "wsRecv": 65
+  "wsRecv": 62
  }
 ]

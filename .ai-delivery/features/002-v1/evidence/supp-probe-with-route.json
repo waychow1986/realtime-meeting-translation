@@ -1,0 +1,47 @@
+{
+ "chromiumPip": {
+  "liCountAtStart": 2,
+  "sizes": {
+   "中": {
+    "sheets": 0,
+    "bodyBg": "rgba(0, 0, 0, 0)",
+    "items": 8,
+    "last": {
+     "fs": "16px",
+     "lh": "normal",
+     "color": "rgb(0, 0, 0)",
+     "border": "none rgb(0, 0, 0)",
+     "cls": "caption"
+    },
+    "first": {
+     "fs": "16px",
+     "lh": "normal",
+     "color": "rgb(0, 0, 0)",
+     "border": "none rgb(0, 0, 0)",
+     "cls": "caption"
+    },
+    "main": "32px"
+   },
+   "特大": {
+    "sheets": 0,
+    "bodyBg": "rgba(0, 0, 0, 0)",
+    "items": 14,
+    "last": {
+     "fs": "16px",
+     "lh": "normal",
+     "color": "rgb(0, 0, 0)",
+     "border": "none rgb(0, 0, 0)",
+     "cls": "caption"
+    },
+    "first": {
+     "fs": "16px",
+     "lh": "normal",
+     "color": "rgb(0, 0, 0)",
+     "border": "none rgb(0, 0, 0)",
+     "cls": "caption"
+    },
+    "main": "52px"
+   }
+  }
+ }
+}

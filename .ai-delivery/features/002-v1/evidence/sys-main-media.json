@@ -3,7 +3,7 @@
   "media": [
    {
     "type": "gdm",
-    "t": 1795240912297,
+    "t": 1795242162630,
     "constraints": {
      "video": {
       "frameRate": {
@@ -28,7 +28,7 @@
      "monitorTypeSurfaces": "include",
      "preferCurrentTab": false
     },
-    "ok": 1795240913366,
+    "ok": 1795242163688,
     "audio": 1,
     "video": 1
    }
@@ -38,8 +38,8 @@
     "call": "gdm",
     "kind": "audio",
     "label": "Tab audio",
-    "start": 1795240913366,
-    "end": 1795240964743,
+    "start": 1795242163689,
+    "end": 1795242215076,
     "settings": {
      "autoGainControl": false,
      "channelCount": 2,
@@ -59,9 +59,9 @@
    {
     "call": "gdm",
     "kind": "video",
-    "label": "web-contents-media-stream://85382FFA8CFFCC62DBB1DE90568801EC",
-    "start": 1795240913366,
-    "end": 1795240964743,
+    "label": "web-contents-media-stream://C5B43416029541ECC882A2E613BB7972",
+    "start": 1795242163689,
+    "end": 1795242215076,
     "settings": {
      "aspectRatio": 1.7777777777777777,
      "cursor": "motion",
@@ -84,38 +84,38 @@
  "targetAudioEvents": [
   {
    "e": "play",
-   "t": 1795240913618,
+   "t": 1795242163951,
    "muted": false,
    "volume": 1,
    "ct": 0
   },
   {
    "e": "waiting",
-   "t": 1795240913618,
+   "t": 1795242163951,
    "muted": false,
    "volume": 1,
    "ct": 0
   },
   {
    "e": "playing",
-   "t": 1795240913626,
+   "t": 1795242163960,
    "muted": false,
    "volume": 1,
    "ct": 0
   },
   {
    "e": "pause",
-   "t": 1795240958443,
+   "t": 1795242208870,
    "muted": false,
    "volume": 1,
-   "ct": 44.76
+   "ct": 44.86
   },
   {
    "e": "ended",
-   "t": 1795240958443,
+   "t": 1795242208870,
    "muted": false,
    "volume": 1,
-   "ct": 44.76
+   "ct": 44.86
   }
  ],
  "env": {

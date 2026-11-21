@@ -1,0 +1,98 @@
+{
+ "chromiumPip": {
+  "liCountAtStart": 2,
+  "sizes": {
+   "小": {
+    "sheets": 1,
+    "bodyBg": "rgb(13, 17, 23)",
+    "items": 8,
+    "last": {
+     "fs": "24px",
+     "lh": "36px",
+     "color": "rgb(182, 194, 207)",
+     "border": "none none none dashed rgb(182, 194, 207)",
+     "cls": "caption"
+    },
+    "first": {
+     "fs": "24px",
+     "lh": "36px",
+     "color": "rgb(255, 255, 255)",
+     "border": "none none none solid rgb(255, 255, 255) rgb(255, 255, 255) rgb(255, 255, 255) rgba(0, 0, 0, 0)",
+     "cls": "caption"
+    },
+    "main": "24px"
+   },
+   "中": {
+    "sheets": 1,
+    "bodyBg": "rgb(13, 17, 23)",
+    "items": 14,
+    "last": {
+     "fs": "32px",
+     "lh": "48px",
+     "color": "rgb(255, 255, 255)",
+     "border": "none none none solid rgb(255, 255, 255) rgb(255, 255, 255) rgb(255, 255, 255) rgba(0, 0, 0, 0)",
+     "cls": "caption"
+    },
+    "first": {
+     "fs": "32px",
+     "lh": "48px",
+     "color": "rgb(255, 255, 255)",
+     "border": "none none none solid rgb(255, 255, 255) rgb(255, 255, 255) rgb(255, 255, 255) rgba(0, 0, 0, 0)",
+     "cls": "caption"
+    },
+    "main": "32px"
+   },
+   "大": {
+    "sheets": 1,
+    "bodyBg": "rgb(13, 17, 23)",
+    "items": 21,
+    "last": {
+     "fs": "40px",
+     "lh": "60px",
+     "color": "rgb(182, 194, 207)",
+     "border": "none none none dashed rgb(182, 194, 207)",
+     "cls": "caption"
+    },
+    "first": {
+     "fs": "40px",
+     "lh": "60px",
+     "color": "rgb(255, 255, 255)",
+     "border": "none none none solid rgb(255, 255, 255) rgb(255, 255, 255) rgb(255, 255, 255) rgba(0, 0, 0, 0)",
+     "cls": "caption"
+    },
+    "main": "40px"
+   },
+   "特大": {
+    "sheets": 1,
+    "bodyBg": "rgb(13, 17, 23)",
+    "items": 27,
+    "last": {
+     "fs": "52px",
+     "lh": "78px",
+     "color": "rgb(182, 194, 207)",
+     "border": "none none none dashed rgb(182, 194, 207)",
+     "cls": "caption"
+    },
+    "first": {
+     "fs": "52px",
+     "lh": "78px",
+     "color": "rgb(255, 255, 255)",
+     "border": "none none none solid rgb(255, 255, 255) rgb(255, 255, 255) rgb(255, 255, 255) rgba(0, 0, 0, 0)",
+     "cls": "caption"
+    },
+    "main": "52px"
+   }
+  }
+ },
+ "webkit": {
+  "hasDPiP": false,
+  "disabled": true,
+  "nearText": "弹出字幕小窗\n当前浏览器不支持悬浮字幕小窗。请使用 Windows 或 macOS 上最新版的 Chrome 或 Edge。",
+  "version": "27.2"
+ },
+ "firefox": {
+  "version": "159.0",
+  "audioCtx": "suspended",
+  "statusText": "正在启动…"
+ }
+}

@@ -1,13 +1,13 @@
 {
  "range": [
-  1795240908623,
-  1795241025183
+  1795242158874,
+  1795242275487
  ],
- "linesInRange": 543,
- "total": 588,
+ "linesInRange": 505,
+ "total": 546,
  "status": {
   "status": "ok",
-  "logsReadAt": "2026-11-21T06:04:34.859264626Z",
+  "logsReadAt": "2026-11-21T06:25:20.957364273Z",
   "droppedOldest": 0,
   "gaps": 0
  },

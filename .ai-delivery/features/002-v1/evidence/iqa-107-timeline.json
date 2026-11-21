@@ -1,12 +1,12 @@
 {
  "timeline": [
   {
-   "t": 1795241026513,
+   "t": 1795242277314,
    "mode": "region",
    "items": []
   },
   {
-   "t": 1795241033113,
+   "t": 1795242284313,
    "mode": "region",
    "items": [
     {
@@ -17,18 +17,7 @@
    ]
   },
   {
-   "t": 1795241034113,
-   "mode": "region",
-   "items": [
-    {
-     "text": "季度销售报告显示，我们在",
-     "mark": "interim",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ]
-  },
-  {
-   "t": 1795241034213,
+   "t": 1795242284913,
    "mode": "region",
    "items": [
     {
@@ -39,73 +28,57 @@
    ]
   },
   {
-   "t": 1795241034913,
+   "t": 1795242285913,
    "mode": "region",
    "items": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售了更多的产品，比",
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品",
      "mark": "interim",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ]
   },
   {
-   "t": 1795241035713,
+   "t": 1795242286013,
    "mode": "region",
    "items": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品远远多于我们的预期",
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品比…多得多",
      "mark": "interim",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ]
   },
   {
-   "t": 1795241036413,
+   "t": 1795242286713,
    "mode": "region",
    "items": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量比我们在一开始预期的要多得多",
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量远远超过了我们预期的在",
      "mark": "interim",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ]
   },
   {
-   "t": 1795241037113,
+   "t": 1795242287713,
    "mode": "region",
    "items": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量比我们在一开始预期的要多得多",
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量远远超过了我们预期的在",
      "mark": "final",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ]
   },
   {
-   "t": 1795241073213,
+   "t": 1795242324013,
    "mode": "region",
    "items": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量比我们在一开始预期的要多得多",
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量远远超过了我们预期的在",
      "mark": null,
      "sig": "rgb(182, 194, 207)|1|italic|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    }
-   ]
-  },
-  {
-   "t": 1795241079613,
-   "mode": "region",
-   "items": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量比我们在一开始预期的要多得多",
-     "mark": null,
-     "sig": "rgb(182, 194, 207)|1|italic|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "会议将在明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     }
    ]
   }
@@ -114,7 +87,7 @@
   "media": [
    {
     "type": "gdm",
-    "t": 1795241026741,
+    "t": 1795242277542,
     "constraints": {
      "video": {
       "frameRate": {
@@ -139,13 +112,13 @@
      "monitorTypeSurfaces": "include",
      "preferCurrentTab": false
     },
-    "ok": 1795241027787,
+    "ok": 1795242278587,
     "audio": 1,
     "video": 1
    },
    {
     "type": "gdm",
-    "t": 1795241073141,
+    "t": 1795242323941,
     "constraints": {
      "video": {
       "frameRate": {
@@ -170,7 +143,7 @@
      "monitorTypeSurfaces": "include",
      "preferCurrentTab": false
     },
-    "ok": 1795241074185,
+    "ok": 1795242324995,
     "audio": 1,
     "video": 1
    }
@@ -180,8 +153,8 @@
     "call": "gdm",
     "kind": "audio",
     "label": "Tab audio",
-    "start": 1795241027787,
-    "end": 1795241037054,
+    "start": 1795242278587,
+    "end": 1795242287868,
     "settings": {
      "autoGainControl": false,
      "channelCount": 2,
@@ -201,9 +174,9 @@
    {
     "call": "gdm",
     "kind": "video",
-    "label": "web-contents-media-stream://6F09D7D4D2B776FC2648557D91202E95",
-    "start": 1795241027787,
-    "end": 1795241037055,
+    "label": "web-contents-media-stream://10D1BDA42FC57E045CA14186FE4A4E42",
+    "start": 1795242278587,
+    "end": 1795242287868,
     "settings": {
      "aspectRatio": 1.7777777777777777,
      "cursor": "motion",
@@ -222,8 +195,8 @@
     "call": "gdm",
     "kind": "audio",
     "label": "Tab audio",
-    "start": 1795241074185,
-    "end": 1795241079871,
+    "start": 1795242324995,
+    "end": 1795242330371,
     "settings": {
      "autoGainControl": false,
      "channelCount": 2,
@@ -243,9 +216,9 @@
    {
     "call": "gdm",
     "kind": "video",
-    "label": "web-contents-media-stream://15B38F36034F3EA5B8FEF72CF83BB48F",
-    "start": 1795241074185,
-    "end": 1795241079872,
+    "label": "web-contents-media-stream://847D6BFFA8C0CDB592AD896F3062C631",
+    "start": 1795242324995,
+    "end": 1795242330372,
     "settings": {
      "aspectRatio": 1.7777777777777777,
      "cursor": "motion",
