@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseNdjson, requestTranslation } from '../../src/web/translateClient.js';
+import { parseNdjson, requestTranslation, withInputSource } from '../../src/web/translateClient.js';
 
 function streamOf(parts: string[]): ReadableStream<Uint8Array> {
   const enc = new TextEncoder();
@@ -57,6 +57,27 @@ describe('requestTranslation', () => {
     expect(seen?.url).toBe('/api/translations');
     expect(seen?.init?.method).toBe('POST');
     expect(JSON.parse(String(seen?.init?.body))).toEqual({ kind: 'final', text: 'Hello', sourceLanguage: 'en-US' });
+  });
+
+  it('adds the input source of the current run to the request body (TD-112)', async () => {
+    const bodies: unknown[] = [];
+    let source: 'microphone' | 'system' = 'system';
+    const translate = withInputSource(() => source);
+    const options = {
+      signal: new AbortController().signal,
+      onDelta: () => undefined,
+      fetch: async (_url: string, init?: RequestInit) => {
+        bodies.push(JSON.parse(String(init?.body)));
+        return new Response(streamOf(['{"type":"done"}\n']));
+      },
+    };
+    expect(await translate({ kind: 'partial', text: 'Hi' }, options)).toEqual({ ok: true });
+    source = 'microphone';
+    await translate({ kind: 'final', text: 'Hi', sourceLanguage: 'en-US' }, options);
+    expect(bodies).toEqual([
+      { kind: 'partial', text: 'Hi', inputSource: 'system' },
+      { kind: 'final', text: 'Hi', sourceLanguage: 'en-US', inputSource: 'microphone' },
+    ]);
   });
 
   it('returns the upstream error code from an error line', async () => {

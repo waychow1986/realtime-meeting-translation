@@ -61,6 +61,25 @@
       "sentences": [
         "Before we move on to the next topic, I would like to remind everyone that the updated budget proposal, which includes the new hiring plan, the marketing campaign for the spring season, and the revised schedule for the product launch, must be reviewed and approved by the end of next week."
       ]
+    },
+    "interference": {
+      "description": "2 句与 multi 内容不重合的英语，系统声音场景中由假麦克风同时播放，作为“麦克风/环境声”干扰源；关键要素用于断言字幕中零命中（AC-03）",
+      "sentences": [
+        "My grandmother keeps three cats and a parrot in her garden.",
+        "The train to London leaves from platform nine at midnight."
+      ],
+      "annotations": [
+        {
+          "reference": "我奶奶在她的花园里养了三只猫和一只鹦鹉。",
+          "keyPoints": ["奶奶|祖母|外婆", "猫", "鹦鹉", "花园"],
+          "anchor": "鹦鹉"
+        },
+        {
+          "reference": "去伦敦的火车在午夜从九号站台出发。",
+          "keyPoints": ["伦敦", "火车|列车", "站台|月台", "午夜|半夜|凌晨"],
+          "anchor": "伦敦"
+        }
+      ]
     }
   }
 }

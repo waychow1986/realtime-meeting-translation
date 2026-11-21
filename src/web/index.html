@@ -14,7 +14,7 @@
         <fieldset id="input-source" class="choice">
           <legend>输入方式</legend>
           <label><input type="radio" name="input-source" id="source-microphone" value="microphone" checked />麦克风</label>
-          <label title="系统声音模式即将提供"><input type="radio" name="input-source" id="source-system" value="system" data-unavailable="true" disabled />系统声音</label>
+          <label><input type="radio" name="input-source" id="source-system" value="system" />系统声音</label>
         </fieldset>
         <div class="actions">
           <button id="start-button" type="button" class="primary">开始</button>
@@ -44,6 +44,43 @@
         </div>
         <button id="jump-latest" type="button" class="jump-latest" hidden>回到最新字幕 ↓</button>
       </section>
+      <aside id="system-panel" class="system-panel" aria-labelledby="system-title" hidden>
+        <p id="system-unsupported" class="system-unsupported" role="note" hidden></p>
+        <details id="system-details" open>
+          <summary id="system-title">系统声音：操作步骤与支持的浏览器</summary>
+          <section id="system-help" class="system-help" aria-label="系统声音操作步骤">
+            <ol class="system-steps">
+              <li>先在其它标签页或软件中准备好要翻译的视频或会议。</li>
+              <li>点击“开始”，浏览器会弹出共享选择窗口。</li>
+              <li>看网页视频或网页版会议：选择“标签页”，选中正在播放的标签页，并保持<strong>“同时分享标签页中的音频”</strong>处于打开状态。</li>
+              <li>看桌面会议软件或本地播放器（Windows）：选择“整个屏幕”，并打开<strong>“同时分享系统音频”</strong>。</li>
+              <li>点击“分享”，状态变为“正在听”后即开始出字幕。</li>
+              <li>结束：点击本页“停止”，或点击浏览器提示条上的“停止共享”。</li>
+            </ol>
+            <ul class="system-notes">
+              <li>共享时浏览器附带的画面不会被显示、上传或保存，只使用声音。</li>
+              <li>你仍能照常听到原声。</li>
+              <li>背景音乐、音效或多人同时说话时，字幕可能不完整或不准确。</li>
+              <li>全屏观看视频时，可点击“弹出字幕小窗”查看字幕（需浏览器支持）。</li>
+            </ul>
+          </section>
+          <h2 class="system-matrix-title" id="support-matrix-title">哪些浏览器 / 系统支持、能采集到哪些声音</h2>
+          <div class="matrix-wrap">
+            <table id="support-matrix" class="support-matrix" aria-labelledby="support-matrix-title">
+              <thead>
+                <tr>
+                  <th scope="col">浏览器 / 系统</th>
+                  <th scope="col">支持程度</th>
+                  <th scope="col">选“标签页”</th>
+                  <th scope="col">选“窗口”</th>
+                  <th scope="col">选“整个屏幕”</th>
+                </tr>
+              </thead>
+              <tbody id="support-matrix-body"></tbody>
+            </table>
+          </div>
+        </details>
+      </aside>
     </main>
     <dialog id="guide" class="guide" aria-labelledby="guide-title">
       <h2 id="guide-title">使用引导</h2>

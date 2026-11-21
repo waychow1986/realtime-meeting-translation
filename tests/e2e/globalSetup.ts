@@ -8,6 +8,6 @@ export default async function globalSetup(): Promise<void> {
     throw new Error('dist/ is missing: run `npm run build` first (npm run test:e2e does this)');
   }
   await mkdir(AUDIO_DIR, { recursive: true });
-  const sets: SentenceSetName[] = ['single', 'multi', 'meeting'];
+  const sets: SentenceSetName[] = ['single', 'multi', 'meeting', 'long', 'interference'];
   for (const set of sets) await copyFile(await ensureSpeechWav(set), audioPath(set));
 }

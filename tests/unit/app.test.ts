@@ -102,7 +102,7 @@ describe('static assets', () => {
     expect(csp).toContain("script-src 'self'");
     expect(csp).toContain('connect-src \'self\' wss://eastus2.stt.speech.microsoft.com https://eastus2.stt.speech.microsoft.com');
     expect(csp).toContain("frame-ancestors 'none'");
-    expect(res.headers['permissions-policy']).toBe('microphone=(self)');
+    expect(res.headers['permissions-policy']).toBe('microphone=(self), display-capture=(self)');
     expect(res.headers['referrer-policy']).toBe('no-referrer');
     expect(res.headers['x-content-type-options']).toBe('nosniff');
     await app.close();
@@ -240,6 +240,17 @@ describe('POST /api/translations', () => {
     await app.close();
   });
 
+  it('accepts inputSource and logs it with translation_completed (TD-112)', async () => {
+    const { app, sink } = await harness();
+    const res = await post(app, { kind: 'partial', text: 'Hello world', sourceLanguage: 'en-US', inputSource: 'system' });
+    expect(res.statusCode).toBe(200);
+    expect(ndjson(res.body).at(-1)).toEqual({ type: 'done' });
+    const done = sink.records().find((r) => r.event === 'translation_completed');
+    expect(done).toMatchObject({ kind: 'partial', inputSource: 'system', sourceLanguage: 'en-US' });
+    expect(sink.raw()).not.toContain('Hello world');
+    await app.close();
+  });
+
   it('ends the stream with an error line and logs upstream_error on upstream failure', async () => {
     const { app, sink } = await harness({
       translator: {
@@ -271,6 +282,8 @@ describe('POST /api/translations', () => {
     [{ kind: 'final', text: 'x'.repeat(2001) }],
     [{ kind: 'final', text: 'x', sourceLanguage: 'English!' }],
     [{ kind: 'final', text: 'x', extra: 1 }],
+    [{ kind: 'final', text: 'x', inputSource: 'camera' }],
+    [{ kind: 'final', text: 'x', inputSource: 1 }],
   ])('rejects invalid bodies %#', async (payload) => {
     const { app } = await harness();
     const res = await post(app, payload);

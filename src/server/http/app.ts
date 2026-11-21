@@ -3,6 +3,7 @@ import { PassThrough } from 'node:stream';
 import fastifyStatic from '@fastify/static';
 import Fastify, { type FastifyError, type FastifyInstance, type FastifyReply, type FastifyRequest } from 'fastify';
 import {
+  INPUT_SOURCES,
   LANGUAGE_CODE_PATTERN_SOURCE,
   MAX_REQUEST_BODY_BYTES,
   MAX_TRANSLATION_TEXT_LENGTH,
@@ -45,6 +46,7 @@ const translationBodySchema = {
     kind: { type: 'string', enum: ['partial', 'final'] },
     text: { type: 'string', minLength: 1, maxLength: MAX_TRANSLATION_TEXT_LENGTH, pattern: '\\S' },
     sourceLanguage: { type: 'string', pattern: LANGUAGE_CODE_PATTERN_SOURCE },
+    inputSource: { type: 'string', enum: INPUT_SOURCES },
   },
 } as const;
 
@@ -65,7 +67,7 @@ export function securityHeaders(config: AppConfig): Record<string, string> {
       "base-uri 'none'",
       "form-action 'none'",
     ].join('; '),
-    'Permissions-Policy': 'microphone=(self)',
+    'Permissions-Policy': 'microphone=(self), display-capture=(self)',
     'Referrer-Policy': 'no-referrer',
     'X-Content-Type-Options': 'nosniff',
     'X-Frame-Options': 'DENY',
@@ -218,6 +220,7 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
         kind: body.kind,
         textLength: body.text.length,
         sourceLanguage: body.sourceLanguage,
+        inputSource: body.inputSource,
       };
 
       void (async () => {

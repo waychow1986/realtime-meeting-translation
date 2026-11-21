@@ -56,6 +56,38 @@ describe('streaming Chinese translation with the real model deployment (AC-03, A
     expect(scanner.hits).toEqual([]);
   });
 
+  it('translates system-audio requests and logs inputSource=system without text (TD-112)', async () => {
+    const before = real.sink.records().length;
+    const response = await real.app.inject({
+      method: 'POST',
+      url: '/api/translations',
+      headers: { ...real.sameOriginHeaders, 'content-type': 'application/json' },
+      payload: { kind: 'final', text: SOURCE, sourceLanguage: 'en-US', inputSource: 'system' },
+    });
+    expect(response.statusCode).toBe(200);
+    const lines = parseLines(response.payload);
+    expect(lines.at(-1)).toEqual({ type: 'done' });
+    const caption = lines.map((line) => (line.type === 'delta' ? line.text : '')).join('');
+    expect(caption).toMatch(CJK);
+    const completed = real.sink
+      .records()
+      .slice(before)
+      .find((r) => r.event === 'translation_completed');
+    expect(completed).toMatchObject({ kind: 'final', inputSource: 'system', sourceLanguage: 'en-US', reasoningTokens: 0 });
+    const raw = real.sink.raw();
+    expect(raw).not.toContain('budget');
+    expect(raw).not.toContain(caption);
+
+    const invalid = await real.app.inject({
+      method: 'POST',
+      url: '/api/translations',
+      headers: { ...real.sameOriginHeaders, 'content-type': 'application/json' },
+      payload: { kind: 'final', text: SOURCE, inputSource: 'screen' },
+    });
+    expect(invalid.statusCode).toBe(400);
+    expect(invalid.json()).toEqual({ error: 'invalid_request' });
+  });
+
   it('maps a missing model deployment to a safe error code without leaking upstream messages', async () => {
     const translator = createTranslator({
       baseUrl: real.config.chat.baseUrl,

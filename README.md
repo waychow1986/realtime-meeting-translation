@@ -8,7 +8,7 @@ AIDelivery Hub project: 会议中把外语发言实时翻译成中文字幕的 W
 | 路径 | 内容 |
 | --- | --- |
 | `src/server/` | Node.js 22 + Fastify 单服务：静态页面、`GET /healthz`、`POST /api/speech-token`（短时语音令牌）、`POST /api/translations`（NDJSON 流式翻译代理）、同源校验与限流、白名单日志 |
-| `src/web/` | 浏览器端：麦克风采集、Speech SDK 连续识别、字幕状态机（`captionPipeline.ts`）、中文界面（状态与按钮可用性 `uiState.ts`、界面偏好 `preferences.ts`、首次使用引导 `guide.ts`） |
+| `src/web/` | 浏览器端：输入采集（麦克风 / 系统声音，`audioSource.ts`、`displayAudio.ts`、平台识别 `support.ts`）、Speech SDK 连续识别、字幕状态机（`captionPipeline.ts`）、中文界面（状态与按钮可用性 `uiState.ts`、界面偏好 `preferences.ts`、首次使用引导 `guide.ts`） |
 | `src/shared/` | 前后端共用的接口约定 |
 | `tests/unit/` | 单元测试（Vitest） |
 | `tests/integration/` | 针对真实 `dev` 依赖实例的集成测试（语音令牌、流式识别、流式翻译） |
@@ -31,10 +31,11 @@ AIDelivery Hub project: 会议中把外语发言实时翻译成中文字幕的 W
 
 ## 界面（v1 产品化，设计依据见 `.ai-delivery/features/002-v1/design.md`）
 
-- 顶部控制区：输入方式（麦克风；“系统声音”暂不可选，后续批次提供）、“开始”/“停止”、当前状态、字幕字号、“使用引导”。宽度 ≥ 1100 px 时控制区占顶部一行左右，字幕区占据其余全部高度；更窄时控件自动换行、页面整体纵向滚动，始终无横向滚动。
+- 顶部控制区：输入方式（麦克风 / 系统声音，默认麦克风）、“开始”/“停止”、当前状态、字幕字号、“使用引导”。宽度 ≥ 1100 px 时控制区占顶部一行左右，字幕区占据其余全部高度；更窄时控件自动换行、页面整体纵向滚动，始终无横向滚动。
 - 五种状态，文字、图标与颜色两两不同：未开始 ○、正在启动… ◔、正在听 ●（脉动）、已停止 ■、出错 ⚠。启动中与正在听时只有“停止”可用、输入方式不可切换；其余状态只有“开始”可用。
 - 字幕区：深色背景，定稿字幕为白色；临时字幕为浅灰、左侧虚线并以“…”结尾，被中断的句子为斜体。字号 4 档：小 24 px / 中 32 px（默认）/ 大 40 px / 特大 52 px，行高 1.5，运行中切换不会中断。新字幕到达时如果正停留在底部则自动滚动；向上翻看时不会被拉回，并显示“回到最新字幕 ↓”。
 - 首次打开自动显示中文“使用引导”（Esc 或“知道了”关闭），之后不再自动出现，可随时点“使用引导”重新打开。
+- 系统声音：选“系统声音”后点“开始”，浏览器弹出共享窗口（`getDisplayMedia`，只取其中的音频轨道，视频轨道立即结束，不录制、不截图），翻译电脑正在播放的声音，原声照常播放（`suppressLocalAudioPlayback: false`）。选中时显示平台相关的操作说明与支持列表（`supportMatrix.ts`）：Windows 上的 Chrome / Edge 可共享整个屏幕并勾选“同时分享系统音频”或共享标签页；macOS 与 Linux 上的 Chrome / Edge 只能共享标签页并勾选“同时分享标签页中的音频”；Firefox、Safari 与移动端浏览器不支持（说明原因，“开始”不可用，麦克风照常可用）。取消共享、所选内容没有声音、被拒绝、共享中途结束（如关闭被共享的标签页）都会停止翻译并显示对应的中文说明（`messages.ts`）；停止时立即结束共享。翻译请求携带 `inputSource`（`microphone`/`system`），只用于日志统计。
 - 浏览器 `localStorage` 只保存两项界面偏好：`rtmt.guideSeen`（`1`）与 `rtmt.captionSize`（`s`/`m`/`l`/`xl`）；不保存任何字幕或发言内容，存储不可用时退回默认值。
 
 ## 开发者命令
@@ -52,13 +53,15 @@ npm run test:e2e                    # 构建后用 Playwright 运行端到端测
 
 端到端测试说明：`npm run test:e2e` 在 `xvfb-run`（虚拟屏幕 1920×1080）下以有界面（headed）Chromium 运行，`workers: 1` 串行执行（各用例共用依赖实例的并发与配额）；本机需安装 `xvfb`。服务端在本机端口 `18180+` 启动构建产物，服务端输出写入 `test-results/server-logs/`（用于检查日志不含客户内容）；浏览器使用完整版 Chromium（`channel: 'chromium'`，headless shell 不支持假音频采集），以 `--use-fake-device-for-media-stream --use-file-for-fake-audio-capture` 把 TTS 合成的英语 WAV 作为麦克风输入。测试素材见 `tests/fixtures/sentences.en.json`（`meeting` 组为 6 句会议发言，附参考译文、关键要素与唯一锚点，用于流式临时字幕、含义一致与多句不重不漏的测试）。TTS 按句合成后拼接（前导静音 1 秒、句间 2 秒、末尾 4 秒），WAV 与每句起止时间（`.json`）缓存在系统临时目录；TTS 鉴权与应用相同，按 `AIDH_DEP_SPEECH_AUTH_MODE` 签发短时令牌后以 `Authorization: Bearer` 调用。假麦克风会循环播放 WAV，因此“字幕条数恰好等于句数”的断言在末尾静音之后、循环重放第一句之前进行。
 
+系统声音验收在 `tests/e2e/system.spec.ts`（IQA-101～112、114～117）：每个 worker 用 Playwright 路由打开一个标题为 `RTMT-player-<worker 序号>` 的“播放器”标签页（`tests/support/player.ts`），播放 TTS 合成的 `multi` 组素材；Chromium 以 `--auto-select-tab-capture-source-by-title=…` 自动选中该标签页并共享其音频，同时假麦克风播放 `interference` 组（干扰句，用于验证只翻译所选来源）。取消共享用不存在的标题让共享窗口停留，再由 `tests/support/xkey.py`（Python 3 + `libX11`/`libXtst`，通过 XTest 发送 Esc）关闭；“共享内容没有声音”用 `--auto-select-desktop-capture-source=Entire screen`。默认设备模拟为 Windows Chrome，与 Linux 相关的断言用 `test.use({ userAgent })` 覆盖。IQA-109 需要 Playwright Firefox（`npx playwright install firefox`）；Playwright Firefox 中 Speech SDK 的 AudioWorklet（blob 脚本）被 CSP `script-src 'self'` 拦截，麦克风识别停在“正在启动…”，该用例只验证改回麦克风后可以发起采集（既有限制，v1 端到端测试只覆盖 Chromium）。
+
 界面验收在 `tests/e2e/ui.spec.ts`（IQA-118～121：五种状态、字幕样式与 4 档字号、首次引导、5 种窗口尺寸 × 4 种状态的布局；测量辅助见 `tests/e2e/ui.ts`），截图与测量 JSON 写入各用例的 `test-results/` 输出目录。用例默认通过初始化脚本标记“已看过引导”，`test.use({ guideSeen: false })` 可模拟首次打开。
 
 ## 日志
 
 日志为 JSON 行（pino），只输出白名单字段，取值逐项校验，不合格的字段直接丢弃；从不记录识别原文、译文、令牌或密钥。
 
-字段：`event`、`reqId`、`method`、`route`、`status`、`durationMs`、`kind`、`textLength`、`deltaCount`、`ttfbMs`、`reasoningTokens`、`upstream`、`upstreamStatus`、`errorCode`、`authMode`、`sourceLanguage`，以及下述例外字段。
+字段：`event`、`reqId`、`method`、`route`、`status`、`durationMs`、`kind`、`textLength`、`deltaCount`、`ttfbMs`、`reasoningTokens`、`upstream`、`upstreamStatus`、`errorCode`、`authMode`、`sourceLanguage`、`inputSource`（`microphone`/`system`），以及下述例外字段。
 
 **白名单例外（相对设计 TD-009 新增，理由如下）：**
 
