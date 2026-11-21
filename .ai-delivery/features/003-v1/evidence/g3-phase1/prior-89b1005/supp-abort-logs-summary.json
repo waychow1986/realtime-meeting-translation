@@ -1,0 +1,171 @@
+{
+ "logStatus": {
+  "status": "ok",
+  "logsReadAt": "2026-11-21T16:04:44.158956118Z",
+  "gaps": [],
+  "droppedOldest": 0
+ },
+ "cases": [
+  {
+   "phase": "before",
+   "mode": "cancel",
+   "window": [
+    "2026-11-21T16:03:13.751Z",
+    "2026-11-21T16:03:20.619Z"
+   ],
+   "client": {
+    "abortStatus": null,
+    "bytesAtAbort": 0,
+    "hanAtAbort": false,
+    "endedAtAbort": false,
+    "normalStatus": 200,
+    "normalHasHan": true,
+    "normalHasHangul": false
+   },
+   "logLines": 5,
+   "levels": {
+    "info": 5
+   },
+   "errorFatal": 0,
+   "clientAborted": 1,
+   "clientAbortedLevels": [
+    "info"
+   ],
+   "clientAbortedKinds": [
+    "final"
+   ],
+   "clientAbortedDeltaCount": [
+    0
+   ],
+   "clientAbortedFieldSets": [
+    "deltaCount,durationMs,errorCode,event,inputSource,kind,level,msg,reqId,sourceLanguage,textLength,time"
+   ],
+   "contentHits": 0,
+   "redactionMarkerHits": 0,
+   "secretHits": 0
+  },
+  {
+   "phase": "before",
+   "mode": "disconnect",
+   "window": [
+    "2026-11-21T16:03:24.123Z",
+    "2026-11-21T16:03:30.747Z"
+   ],
+   "client": {
+    "abortStatus": null,
+    "bytesAtAbort": 0,
+    "hanAtAbort": false,
+    "endedAtAbort": false,
+    "normalStatus": 200,
+    "normalHasHan": true,
+    "normalHasHangul": false
+   },
+   "logLines": 4,
+   "levels": {
+    "info": 4
+   },
+   "errorFatal": 0,
+   "clientAborted": 1,
+   "clientAbortedLevels": [
+    "info"
+   ],
+   "clientAbortedKinds": [
+    "final"
+   ],
+   "clientAbortedDeltaCount": [
+    0
+   ],
+   "clientAbortedFieldSets": [
+    "deltaCount,durationMs,errorCode,event,inputSource,kind,level,msg,reqId,sourceLanguage,textLength,time"
+   ],
+   "contentHits": 0,
+   "redactionMarkerHits": 0,
+   "secretHits": 0
+  },
+  {
+   "phase": "after",
+   "mode": "cancel",
+   "window": [
+    "2026-11-21T16:03:34.251Z",
+    "2026-11-21T16:03:41.584Z"
+   ],
+   "client": {
+    "abortStatus": 200,
+    "bytesAtAbort": 33,
+    "hanAtAbort": true,
+    "endedAtAbort": false,
+    "normalStatus": 200,
+    "normalHasHan": true,
+    "normalHasHangul": false
+   },
+   "logLines": 4,
+   "levels": {
+    "info": 4
+   },
+   "errorFatal": 0,
+   "clientAborted": 1,
+   "clientAbortedLevels": [
+    "info"
+   ],
+   "clientAbortedKinds": [
+    "final"
+   ],
+   "clientAbortedDeltaCount": [
+    1
+   ],
+   "clientAbortedFieldSets": [
+    "deltaCount,durationMs,errorCode,event,inputSource,kind,level,msg,reqId,sourceLanguage,textLength,time"
+   ],
+   "contentHits": 0,
+   "redactionMarkerHits": 0,
+   "secretHits": 0
+  },
+  {
+   "phase": "after",
+   "mode": "disconnect",
+   "window": [
+    "2026-11-21T16:03:45.085Z",
+    "2026-11-21T16:03:52.253Z"
+   ],
+   "client": {
+    "abortStatus": 200,
+    "bytesAtAbort": 33,
+    "hanAtAbort": true,
+    "endedAtAbort": false,
+    "normalStatus": 200,
+    "normalHasHan": true,
+    "normalHasHangul": false
+   },
+   "logLines": 4,
+   "levels": {
+    "info": 4
+   },
+   "errorFatal": 0,
+   "clientAborted": 1,
+   "clientAbortedLevels": [
+    "info"
+   ],
+   "clientAbortedKinds": [
+    "final"
+   ],
+   "clientAbortedDeltaCount": [
+    1
+   ],
+   "clientAbortedFieldSets": [
+    "deltaCount,durationMs,errorCode,event,inputSource,kind,level,msg,reqId,sourceLanguage,textLength,time"
+   ],
+   "contentHits": 0,
+   "redactionMarkerHits": 0,
+   "secretHits": 0
+  }
+ ],
+ "allClientAbortedFieldSets": [
+  "deltaCount,durationMs,errorCode,event,inputSource,kind,level,msg,reqId,sourceLanguage,textLength,time"
+ ],
+ "allLevels": {
+  "info": 265
+ },
+ "allLines": 265,
+ "allClientAborted": 9,
+ "allSecretHits": 0
+}

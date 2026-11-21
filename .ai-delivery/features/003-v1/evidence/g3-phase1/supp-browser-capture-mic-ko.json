@@ -1,76 +1,49 @@
 {
-  "translationRequests": [
-    {
-      "t": 1795276953938,
-      "body": {
-        "kind": "partial",
-        "text": "안녕하세요",
-        "sourceLanguage": "ko-KR",
-        "inputSource": "microphone"
-      }
-    },
-    {
-      "t": 1795276954020,
-      "body": {
-        "kind": "final",
-        "text": "안녕하세요.",
-        "sourceLanguage": "ko-KR",
-        "inputSource": "microphone"
-      }
-    },
-    {
-      "t": 1795276954240,
-      "body": {
-        "kind": "partial",
-        "text": "오늘 회의",
-        "sourceLanguage": "ko-KR",
-        "inputSource": "microphone"
-      }
-    },
-    {
-      "t": 1795276954741,
-      "body": {
-        "kind": "partial",
-        "text": "오늘 회의에 참석",
-        "sourceLanguage": "ko-KR",
-        "inputSource": "microphone"
-      }
-    },
-    {
-      "t": 1795276955390,
-      "body": {
-        "kind": "partial",
-        "text": "오늘 회의에 참석해 주셔서",
-        "sourceLanguage": "ko-KR",
-        "inputSource": "microphone"
-      }
-    },
-    {
-      "t": 1795276955968,
-      "body": {
-        "kind": "partial",
-        "text": "오늘 회의에 참석해 주셔서 감사합니다",
-        "sourceLanguage": "ko-KR",
-        "inputSource": "microphone"
-      }
-    }
-  ],
-  "sampleResponses": [
-    {
-      "resp": 200,
-      "ct": "application/x-ndjson; charset=utf-8",
-      "body": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"done\"}\n"
-    },
-    {
-      "resp": 200,
-      "ct": "application/x-ndjson; charset=utf-8",
-      "body": "{\"type\":\"delta\",\"text\":\"你好\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n"
-    },
-    {
-      "resp": 200,
-      "ct": "application/x-ndjson; charset=utf-8",
-      "body": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"参加\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"done\"}\n"
-    }
-  ],
-  "finalVisibleText": "会议实时中文字幕\n输入方式\n麦克风\n系统声音\n开始\n停止\n●\n当前状态\n正在听\n字号\n小\n中\n大\n特大\n弹出字幕小窗\n?\n使用引导\n你好。\n感谢各位参加今天的会议。\n今年销售额大幅增长。\n我们计划在下个月推出新产品。\n如果有问题，请随时提出来。"
+ "translationRequests": [
+  {
+   "body": "{\"kind\":\"partial\",\"text\":\"안녕하세요\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}"
+  },
+  {
+   "body": "{\"kind\":\"final\",\"text\":\"안녕하세요.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}"
+  },
+  {
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 회의\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}"
+  },
+  {
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 회의에 참석해\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}"
+  },
+  {
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 회의에 참석해 주셔서\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}"
+  },
+  {
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 회의에 참석해 주셔서 감사합니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}"
+  }
+ ],
+ "responses": [
+  {
+   "status": 200,
+   "contentType": "application/x-ndjson; charset=utf-8"
+  },
+  {
+   "status": 200,
+   "contentType": "application/x-ndjson; charset=utf-8"
+  },
+  {
+   "status": 200,
+   "contentType": "application/x-ndjson; charset=utf-8"
+  },
+  {
+   "status": 200,
+   "contentType": "application/x-ndjson; charset=utf-8"
+  },
+  {
+   "status": 200,
+   "contentType": "application/x-ndjson; charset=utf-8"
+  },
+  {
+   "status": 200,
+   "contentType": "application/x-ndjson; charset=utf-8"
+  }
+ ],
+ "pageText": "会议实时中文字幕\n输入方式\n麦克风\n系统声音\n开始\n停止\n●\n当前状态\n正在听\n字号\n小\n中\n大\n特大\n弹出字幕小窗\n?\n使用引导\n你好。\n感谢大家参加今天的会议。\n上半年销售额大幅增长。\n下半年预计会推出新产品。\n如果有问题的话请提出来。"
 }

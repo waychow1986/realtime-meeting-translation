@@ -1,7 +1,7 @@
 {
  "logStatus": {
   "status": "ok",
-  "logsReadAt": "2026-11-21T16:04:44.158956118Z",
+  "logsReadAt": "2026-11-21T16:31:40.804548205Z",
   "gaps": [],
   "droppedOldest": 0
  },
@@ -10,8 +10,8 @@
    "phase": "before",
    "mode": "cancel",
    "window": [
-    "2026-11-21T16:03:13.751Z",
-    "2026-11-21T16:03:20.619Z"
+    "2026-11-21T16:30:17.659Z",
+    "2026-11-21T16:30:24.489Z"
    ],
    "client": {
     "abortStatus": null,
@@ -22,9 +22,9 @@
     "normalHasHan": true,
     "normalHasHangul": false
    },
-   "logLines": 5,
+   "logLines": 4,
    "levels": {
-    "info": 5
+    "info": 4
    },
    "errorFatal": 0,
    "clientAborted": 1,
@@ -48,8 +48,8 @@
    "phase": "before",
    "mode": "disconnect",
    "window": [
-    "2026-11-21T16:03:24.123Z",
-    "2026-11-21T16:03:30.747Z"
+    "2026-11-21T16:30:27.993Z",
+    "2026-11-21T16:30:34.445Z"
    ],
    "client": {
     "abortStatus": null,
@@ -86,8 +86,8 @@
    "phase": "after",
    "mode": "cancel",
    "window": [
-    "2026-11-21T16:03:34.251Z",
-    "2026-11-21T16:03:41.584Z"
+    "2026-11-21T16:30:37.948Z",
+    "2026-11-21T16:30:45.262Z"
    ],
    "client": {
     "abortStatus": 200,
@@ -124,8 +124,8 @@
    "phase": "after",
    "mode": "disconnect",
    "window": [
-    "2026-11-21T16:03:45.085Z",
-    "2026-11-21T16:03:52.253Z"
+    "2026-11-21T16:30:48.763Z",
+    "2026-11-21T16:30:55.830Z"
    ],
    "client": {
     "abortStatus": 200,
@@ -149,7 +149,7 @@
     "final"
    ],
    "clientAbortedDeltaCount": [
-    1
+    2
    ],
    "clientAbortedFieldSets": [
     "deltaCount,durationMs,errorCode,event,inputSource,kind,level,msg,reqId,sourceLanguage,textLength,time"
@@ -163,9 +163,9 @@
   "deltaCount,durationMs,errorCode,event,inputSource,kind,level,msg,reqId,sourceLanguage,textLength,time"
  ],
  "allLevels": {
-  "info": 265
+  "info": 187
  },
- "allLines": 265,
+ "allLines": 187,
  "allClientAborted": 9,
  "allSecretHits": 0
 }

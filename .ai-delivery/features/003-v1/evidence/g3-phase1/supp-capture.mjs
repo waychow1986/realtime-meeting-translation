@@ -1,4 +1,4 @@
-import { chromium } from '/tmp/qa-run-CWDQ/node_modules/playwright/index.mjs';
+import { chromium } from '/tmp/qarun.5ttb/node_modules/playwright/index.mjs';
 import fs from 'fs';
 const url = process.env.AIDH_SERVICE_WEB_URL;
 const b64 = fs.readFileSync('/tmp/ko.mp3').toString('base64');
