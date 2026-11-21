@@ -1,10 +1,12 @@
-export type AppState = 'idle' | 'starting' | 'running' | 'stopped';
+export type AppState = 'idle' | 'starting' | 'running' | 'stopped' | 'error';
 
+/** Status names (FR-128, TD-110). Each state also has its own colour and icon in styles.css. */
 export const STATE_LABELS: Record<AppState, string> = {
   idle: '未开始',
   starting: '正在启动…',
-  running: '翻译中',
+  running: '正在听',
   stopped: '已停止',
+  error: '出错',
 };
 
 export const MESSAGES = {

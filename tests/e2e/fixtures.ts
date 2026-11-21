@@ -35,6 +35,8 @@ export interface Harness {
 interface Options {
   audioSet: SentenceSetName;
   grantMicrophone: boolean;
+  /** Pre-mark the first-run guide as seen so it does not cover the page (the guide test turns this off). */
+  guideSeen: boolean;
 }
 
 /**
@@ -80,6 +82,8 @@ const INSTRUMENTATION = `(() => {
   };
 })();`;
 
+const SEEN_GUIDE = `try { if (location.protocol.startsWith('http')) localStorage.setItem('rtmt.guideSeen', '1'); } catch {}`;
+
 export interface CaptionEvent {
   at: number;
   index: number;
@@ -105,6 +109,7 @@ async function waitForServer(baseURL: string, child: ChildProcess): Promise<void
 export const test = base.extend<Options & { harness: Harness }, { server: ServerHandle }>({
   audioSet: ['multi', { option: true }],
   grantMicrophone: [true, { option: true }],
+  guideSeen: [true, { option: true }],
 
   server: [
     // eslint-disable-next-line no-empty-pattern -- Playwright requires a destructuring pattern here
@@ -133,15 +138,20 @@ export const test = base.extend<Options & { harness: Harness }, { server: Server
     { scope: 'worker' },
   ],
 
-  harness: async ({ server, audioSet, grantMicrophone }, use) => {
-    // Full Chromium (new headless) behaves like desktop Chrome; the headless shell rejects fake audio capture.
-    const browser = await chromium.launch({ channel: 'chromium', args: fakeMicrophoneArgs(audioSet) });
+  harness: async ({ server, audioSet, grantMicrophone, guideSeen }, use) => {
+    // Headed full Chromium inside xvfb-run (TD-108): behaves like desktop Chrome, incl. fake audio capture.
+    const browser = await chromium.launch({
+      channel: 'chromium',
+      headless: false,
+      args: [...fakeMicrophoneArgs(audioSet), '--lang=zh-CN', '--autoplay-policy=no-user-gesture-required'],
+    });
     const context = await browser.newContext({
       baseURL: server.baseURL,
       locale: 'zh-CN',
       permissions: grantMicrophone ? ['microphone'] : [],
     });
     await context.addInitScript({ content: INSTRUMENTATION });
+    if (guideSeen) await context.addInitScript({ content: SEEN_GUIDE });
     const frames: FrameRecord[] = [];
     const observe = (page: Page) => {
       page.on('websocket', (ws) => {
@@ -162,8 +172,9 @@ export const test = base.extend<Options & { harness: Harness }, { server: Server
 
 export { expect };
 
-export const RUNNING = /翻译中/;
+export const RUNNING = /正在听/;
 export const NOT_RUNNING = /未开始|已停止/;
+export const ERROR = /出错/;
 
 export function startButton(page: Page) {
   return page.getByRole('button', { name: '开始' });

@@ -1,6 +1,8 @@
 import { CaptionPipeline } from './captionPipeline.js';
 import { DomCaptionView } from './captionView.js';
+import { initGuide } from './guide.js';
 import { MESSAGES, STATE_LABELS, type AppState } from './messages.js';
+import { createPreferences, isCaptionSize, type CaptionSize } from './preferences.js';
 import {
   MicrophoneError,
   createRecognitionSession,
@@ -9,6 +11,7 @@ import {
   type RecognitionSession,
 } from './recognition.js';
 import { requestTranslation } from './translateClient.js';
+import { STATE_ICONS, controlsFor, isNearBottom } from './uiState.js';
 
 const TOKEN_RETRY_MS = 30_000;
 
@@ -30,8 +33,15 @@ function init(): void {
   const startButton = requireElement('start-button', HTMLButtonElement);
   const stopButton = requireElement('stop-button', HTMLButtonElement);
   const statusLabel = requireElement('status', HTMLElement);
+  const statusIndicator = requireElement('status-indicator', HTMLElement);
   const notice = requireElement('notice', HTMLElement);
   const captions = requireElement('captions', HTMLOListElement);
+  const captionPanel = requireElement('caption-panel', HTMLElement);
+  const captionScroll = requireElement('caption-scroll', HTMLElement);
+  const jumpLatest = requireElement('jump-latest', HTMLButtonElement);
+  const sourceRadios = [...document.querySelectorAll<HTMLInputElement>('input[name="input-source"]')];
+  const sizeRadios = [...document.querySelectorAll<HTMLInputElement>('input[name="caption-size"]')];
+  const preferences = createPreferences(() => window.localStorage);
 
   let state: AppState = 'idle';
   let run: Run | null = null;
@@ -39,14 +49,34 @@ function init(): void {
   const setState = (next: AppState): void => {
     state = next;
     statusLabel.textContent = STATE_LABELS[next];
+    statusIndicator.textContent = STATE_ICONS[next];
     document.body.dataset.state = next;
-    startButton.disabled = next === 'starting' || next === 'running';
-    stopButton.disabled = !(next === 'starting' || next === 'running');
+    const controls = controlsFor(next);
+    startButton.disabled = !controls.startEnabled;
+    stopButton.disabled = !controls.stopEnabled;
+    for (const radio of sourceRadios) {
+      radio.disabled = !controls.sourceEnabled || radio.dataset.unavailable === 'true';
+    }
   };
 
-  const showNotice = (text: string | null): void => {
+  const showNotice = (text: string | null, kind: 'error' | 'info' = 'error'): void => {
     notice.textContent = text ?? '';
+    notice.dataset.kind = kind;
     notice.hidden = text === null;
+  };
+
+  const captionView = new DomCaptionView(captions, captionScroll, jumpLatest);
+
+  const applyCaptionSize = (size: CaptionSize): void => {
+    const follow = isNearBottom(captionScroll);
+    captionPanel.dataset.captionSize = size;
+    for (const radio of sizeRadios) radio.checked = radio.value === size;
+    if (follow) captionView.scrollToEnd();
+  };
+
+  const selectSource = (): void => {
+    const selected = sourceRadios.find((radio) => radio.checked)?.value;
+    document.body.dataset.source = selected === 'system' ? 'system' : 'microphone';
   };
 
   const stopRun = (reason: 'user' | 'error' | 'unload'): void => {
@@ -57,13 +87,13 @@ function init(): void {
     current.stream?.getTracks().forEach((track) => track.stop());
     current.tokenAbort.abort();
     if (current.refreshTimer !== undefined) clearTimeout(current.refreshTimer);
-    setState('stopped');
+    setState(reason === 'error' ? 'error' : 'stopped');
     if (reason === 'error') showNotice(MESSAGES.interrupted);
     void current.session?.dispose();
   };
 
   const pipeline = new CaptionPipeline({
-    view: new DomCaptionView(captions),
+    view: captionView,
     translate: requestTranslation,
     onTranslationUnavailable: () => stopRun('error'),
   });
@@ -84,8 +114,7 @@ function init(): void {
   };
 
   const start = async (): Promise<void> => {
-    if (state === 'starting' || state === 'running') return;
-    const previous = state;
+    if (!controlsFor(state).startEnabled) return;
     showNotice(null);
     setState('starting');
     const current: Run = { epoch: pipeline.beginRun(), tokenAbort: new AbortController() };
@@ -97,7 +126,7 @@ function init(): void {
       if (run !== current) return;
       run = null;
       pipeline.endRun();
-      setState(previous);
+      setState('error');
       const kind = error instanceof MicrophoneError ? error.kind : 'unavailable';
       showNotice(
         kind === 'denied'
@@ -142,8 +171,27 @@ function init(): void {
   startButton.addEventListener('click', () => void start());
   stopButton.addEventListener('click', () => stopRun('user'));
   window.addEventListener('pagehide', () => stopRun('unload'));
+  for (const radio of sourceRadios) radio.addEventListener('change', selectSource);
+  for (const radio of sizeRadios) {
+    radio.addEventListener('change', () => {
+      if (!radio.checked || !isCaptionSize(radio.value)) return;
+      applyCaptionSize(radio.value);
+      preferences.setCaptionSize(radio.value);
+    });
+  }
+  // Input source is not restored from storage: every load starts with the microphone (FR-102).
+  const microphone = sourceRadios.find((radio) => radio.value === 'microphone');
+  if (microphone) microphone.checked = true;
+  selectSource();
+  applyCaptionSize(preferences.captionSize());
   setState('idle');
   showNotice(null);
+  initGuide(
+    requireElement('guide', HTMLDialogElement),
+    requireElement('guide-open', HTMLButtonElement),
+    requireElement('guide-close', HTMLButtonElement),
+    preferences,
+  );
 }
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

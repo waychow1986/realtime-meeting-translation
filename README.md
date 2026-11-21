@@ -8,7 +8,7 @@ AIDelivery Hub project: 会议中把外语发言实时翻译成中文字幕的 W
 | 路径 | 内容 |
 | --- | --- |
 | `src/server/` | Node.js 22 + Fastify 单服务：静态页面、`GET /healthz`、`POST /api/speech-token`（短时语音令牌）、`POST /api/translations`（NDJSON 流式翻译代理）、同源校验与限流、白名单日志 |
-| `src/web/` | 浏览器端：麦克风采集、Speech SDK 连续识别、字幕状态机（`captionPipeline.ts`）、中文界面 |
+| `src/web/` | 浏览器端：麦克风采集、Speech SDK 连续识别、字幕状态机（`captionPipeline.ts`）、中文界面（状态与按钮可用性 `uiState.ts`、界面偏好 `preferences.ts`、首次使用引导 `guide.ts`） |
 | `src/shared/` | 前后端共用的接口约定 |
 | `tests/unit/` | 单元测试（Vitest） |
 | `tests/integration/` | 针对真实 `dev` 依赖实例的集成测试（语音令牌、流式识别、流式翻译） |
@@ -29,6 +29,14 @@ AIDelivery Hub project: 会议中把外语发言实时翻译成中文字幕的 W
 
 配置缺失或不合法时进程以 `event=config_invalid` 退出，日志只列出变量名，不输出取值。密钥只在服务端使用，浏览器只拿到短时语音令牌。
 
+## 界面（v1 产品化，设计依据见 `.ai-delivery/features/002-v1/design.md`）
+
+- 顶部控制区：输入方式（麦克风；“系统声音”暂不可选，后续批次提供）、“开始”/“停止”、当前状态、字幕字号、“使用引导”。宽度 ≥ 1100 px 时控制区占顶部一行左右，字幕区占据其余全部高度；更窄时控件自动换行、页面整体纵向滚动，始终无横向滚动。
+- 五种状态，文字、图标与颜色两两不同：未开始 ○、正在启动… ◔、正在听 ●（脉动）、已停止 ■、出错 ⚠。启动中与正在听时只有“停止”可用、输入方式不可切换；其余状态只有“开始”可用。
+- 字幕区：深色背景，定稿字幕为白色；临时字幕为浅灰、左侧虚线并以“…”结尾，被中断的句子为斜体。字号 4 档：小 24 px / 中 32 px（默认）/ 大 40 px / 特大 52 px，行高 1.5，运行中切换不会中断。新字幕到达时如果正停留在底部则自动滚动；向上翻看时不会被拉回，并显示“回到最新字幕 ↓”。
+- 首次打开自动显示中文“使用引导”（Esc 或“知道了”关闭），之后不再自动出现，可随时点“使用引导”重新打开。
+- 浏览器 `localStorage` 只保存两项界面偏好：`rtmt.guideSeen`（`1`）与 `rtmt.captionSize`（`s`/`m`/`l`/`xl`）；不保存任何字幕或发言内容，存储不可用时退回默认值。
+
 ## 开发者命令
 
 ```bash
@@ -42,7 +50,9 @@ npm run test:e2e                    # 构建后用 Playwright 运行端到端测
 
 本地运行：`npm run build && node dist/server/main.js`，访问 `http://localhost:8080`（localhost 为安全上下文，可使用麦克风）。
 
-端到端测试说明：每个 worker 在本机端口 `18180+` 启动构建产物，服务端输出写入 `test-results/server-logs/`（用于检查日志不含客户内容）；浏览器使用完整版 Chromium（`channel: 'chromium'`，headless shell 不支持假音频采集），以 `--use-fake-device-for-media-stream --use-file-for-fake-audio-capture` 把 TTS 合成的英语 WAV 作为麦克风输入。测试素材见 `tests/fixtures/sentences.en.json`（`meeting` 组为 6 句会议发言，附参考译文、关键要素与唯一锚点，用于流式临时字幕、含义一致与多句不重不漏的测试）。TTS 按句合成后拼接（前导静音 1 秒、句间 2 秒、末尾 4 秒），WAV 与每句起止时间（`.json`）缓存在系统临时目录；TTS 鉴权与应用相同，按 `AIDH_DEP_SPEECH_AUTH_MODE` 签发短时令牌后以 `Authorization: Bearer` 调用。假麦克风会循环播放 WAV，因此“字幕条数恰好等于句数”的断言在末尾静音之后、循环重放第一句之前进行。
+端到端测试说明：`npm run test:e2e` 在 `xvfb-run`（虚拟屏幕 1920×1080）下以有界面（headed）Chromium 运行，`workers: 1` 串行执行（各用例共用依赖实例的并发与配额）；本机需安装 `xvfb`。服务端在本机端口 `18180+` 启动构建产物，服务端输出写入 `test-results/server-logs/`（用于检查日志不含客户内容）；浏览器使用完整版 Chromium（`channel: 'chromium'`，headless shell 不支持假音频采集），以 `--use-fake-device-for-media-stream --use-file-for-fake-audio-capture` 把 TTS 合成的英语 WAV 作为麦克风输入。测试素材见 `tests/fixtures/sentences.en.json`（`meeting` 组为 6 句会议发言，附参考译文、关键要素与唯一锚点，用于流式临时字幕、含义一致与多句不重不漏的测试）。TTS 按句合成后拼接（前导静音 1 秒、句间 2 秒、末尾 4 秒），WAV 与每句起止时间（`.json`）缓存在系统临时目录；TTS 鉴权与应用相同，按 `AIDH_DEP_SPEECH_AUTH_MODE` 签发短时令牌后以 `Authorization: Bearer` 调用。假麦克风会循环播放 WAV，因此“字幕条数恰好等于句数”的断言在末尾静音之后、循环重放第一句之前进行。
+
+界面验收在 `tests/e2e/ui.spec.ts`（IQA-118～121：五种状态、字幕样式与 4 档字号、首次引导、5 种窗口尺寸 × 4 种状态的布局；测量辅助见 `tests/e2e/ui.ts`），截图与测量 JSON 写入各用例的 `test-results/` 输出目录。用例默认通过初始化脚本标记“已看过引导”，`test.use({ guideSeen: false })` 可模拟首次打开。
 
 ## 日志
 

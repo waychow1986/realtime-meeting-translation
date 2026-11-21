@@ -24,8 +24,13 @@ test('IQA-011 字幕只在当前页面可见，刷新后清空且不保留，页
   await page.waitForTimeout(8_000);
   expect((await captionTexts(page)).filter((text) => text.trim())).toEqual([]);
   expect((await trackStates(page)).gumCalls).toBe(0);
-  const storage = await page.evaluate(() => localStorage.length + sessionStorage.length);
-  expect(storage).toBe(0);
+  // Only interface preferences (rtmt.guideSeen / rtmt.captionSize, FR-144) may be stored; never caption content.
+  const storage = await page.evaluate(() => ({ local: { ...localStorage }, sessionLength: sessionStorage.length }));
+  expect(storage.sessionLength).toBe(0);
+  for (const [key, value] of Object.entries(storage.local)) {
+    expect(key).toMatch(/^rtmt\.(guideSeen|captionSize)$/);
+    expect(value).toMatch(/^(1|s|m|l|xl)$/);
+  }
 
   for (const target of [page, pageB]) {
     const entries = await target.locator('button, a, [role="button"], [role="link"]').allInnerTexts();

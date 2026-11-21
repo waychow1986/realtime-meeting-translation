@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S24",
+  "result": "done",
+  "summary": "批次 1（AC-11 产品化界面、AC-09 麦克风模式回归）已实现。新增 uiState.ts（五种状态图标与按钮/输入方式可用性、距底部 48 px 判定）、preferences.ts（localStorage 仅保存 rtmt.guideSeen 与 rtmt.captionSize，存储异常时退回默认）、guide.ts（首次自动打开中文引导，“知道了”或 Esc 关闭后不再自动出现，可重新打开）；重写 index.html 与 styles.css（顶部控制区、五种状态文字/图标/颜色两两不同、深色字幕区、临时与定稿样式区分、4 档字号 24/32/40/52 px、行高 1.5、窄窗口换行且无横向滚动）；captionView 在用户向上翻看时不再拉回并显示“回到最新字幕 ↓”；麦克风失败与启动失败进入“出错”状态。e2e 改为 xvfb-run 下有界面 Chromium、workers: 1；v1 用例按新界面调整定位（状态文字、ERROR 状态、存储白名单、单选组白名单），新增 tests/e2e/ui.spec.ts 覆盖 IQA-118～121（截图与测量写入 test-results）。自验证：lint、typecheck、build 通过；单元测试 112 项、集成测试 7 项、端到端 9 项（含 v1 全部 5 个用例与新增 4 个界面用例）全部通过。截图未经人工目视检查，界面符合度以自动测量断言为准。“系统声音”输入方式在本批保持不可选（data-unavailable），按计划在批次 2 启用；字幕小窗按钮属批次 3，引导中已提前说明小窗与不支持时的提示。字号偏好按 TD-113 持久化保存。",
+  "asks": [],
+  "outputs": [
+    "src/web/uiState.ts",
+    "src/web/preferences.ts",
+    "src/web/guide.ts",
+    "src/web/main.ts",
+    "src/web/messages.ts",
+    "src/web/captionView.ts",
+    "src/web/index.html",
+    "src/web/styles.css",
+    "tests/unit/uiState.test.ts",
+    "tests/unit/preferences.test.ts",
+    "tests/e2e/ui.ts",
+    "tests/e2e/ui.spec.ts",
+    "tests/e2e/fixtures.ts",
+    "tests/e2e/microphone.spec.ts",
+    "tests/e2e/isolation.spec.ts",
+    "tests/e2e/captions.spec.ts",
+    "package.json",
+    "playwright.config.ts",
+    "README.md"
+  ]
+}
