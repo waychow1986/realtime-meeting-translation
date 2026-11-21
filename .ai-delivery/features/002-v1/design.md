@@ -1,7 +1,8 @@
 # 企业实时翻译 · 系统声音实时翻译 技术方案
 
-> 依据：已确认的意图第 2 版（含 Q-01、Q-02 人工答案）、`spec.md`（FR-101～FR-145、IQA-101～IQA-123，含 PQ-001～PQ-004 人工答案）、项目宪章，以及第 1 版技术方案 `.ai-delivery/features/001-v1/design.md`（下称“第 1 版方案”）与仓库现有代码。
+> 依据：已确认的意图第 2 版（含 Q-01、Q-02 人工答案）、`spec.md`（FR-101～FR-145、IQA-101～IQA-123，含 PQ-001～PQ-005 人工答案与 DD-101）、项目宪章，以及第 1 版技术方案 `.ai-delivery/features/001-v1/design.md`（下称“第 1 版方案”）与仓库现有代码。
 > 本方案只决定“怎么做”，不改变已确认的产品行为。沿用第 1 版技术基线（TypeScript + Node.js 22 + Fastify 单服务、原生 DOM + esbuild、Speech SDK、pino 白名单日志、Vitest + Playwright），不引入新的运行时依赖、外部服务或依赖实例。
+> 本次修订（S22，G2 退回后）：① 按 G2 意见补充 A-03 / FR-109“使用者仍听到原声”的端到端断言及其原型实测（TD-116）；② 与按 PQ-005、DD-101 修订后的规格对齐：IQA-107（关闭被共享标签页）作为 AC-05“浏览器停止共享”的等效证据、IQA-124 已删除，IQA-111 为“共享不含声音的内容”，IQA-122 不判定“悬浮在全屏之上”，快速验证指南中对应步骤标为发布后试用；③ 修正原型复核中发现的问题：素材标签页标题含非 ASCII 字符时 `--auto-select-tab-capture-source-by-title` 不会自动选中，标题改为 ASCII（TD-108）。架构、接口、依赖声明、部署声明与错误日志规则不变。
 
 ## 技术上下文（Technical Context）
 
@@ -71,24 +72,25 @@
 | 决策 ID | 选择 | 理由 | 已考虑替代方案 | 来源 |
 |---|---|---|---|---|
 | TD-101 | 新增 `AudioSource` 抽象：`MicrophoneSource`（封装第 1 版 `openMicrophone`，不改行为）与 `DisplayAudioSource`；`start()` 只按开始时所选输入创建一个音源，运行中输入方式控件禁用 | 一次只持有一种音源（FR-103、FR-104、不变量 2）；下游代码不感知音源类型 | 同时打开两路再按选择静音一路（违反“不混合”与 least privilege） | AC-01；FR-101～FR-104 |
-| TD-102 | 系统声音用 `navigator.mediaDevices.getDisplayMedia(options)`，在点击“开始”的同步调用栈内、任何 `await` 之前调用（满足瞬时用户激活要求）。`options = { video: { frameRate: { max: 1 }, width: { max: 640 }, height: { max: 360 } }, audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, suppressLocalAudioPlayback: false }, systemAudio: 'include', selfBrowserSurface: 'exclude', surfaceSwitching: 'include', monitorTypeSurfaces: 'include', preferCurrentTab: false }` | 标准 Web API，无需插件或驱动（AC-08）；`systemAudio:'include'` 让 Windows 整屏共享出现“同时分享系统音频”选项（Q-01）；`suppressLocalAudioPlayback:false` 保证使用者仍听到原声（A-03、FR-109）；关闭回声消除/降噪/自动增益，避免对播放内容做语音通话处理而损伤识别；`selfBrowserSurface:'exclude'` 不让使用者误选本应用标签页（本页无声）；画面参数取最低以减少无用开销 | 浏览器扩展 `tabCapture`（需安装插件，违反 AC-08）；虚拟声卡（违反不做的事）；`getUserMedia` 选“立体声混音”设备（依赖系统驱动设置，多数机器不可用） | AC-02、AC-08；FR-105、FR-109、FR-110；Q-01 |
+| TD-102 | 系统声音用 `navigator.mediaDevices.getDisplayMedia(options)`，在点击“开始”的同步调用栈内、任何 `await` 之前调用（满足瞬时用户激活要求）。`options = { video: { frameRate: { max: 1 }, width: { max: 640 }, height: { max: 360 } }, audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, suppressLocalAudioPlayback: false }, systemAudio: 'include', selfBrowserSurface: 'exclude', surfaceSwitching: 'include', monitorTypeSurfaces: 'include', preferCurrentTab: false }` | 标准 Web API，无需插件或驱动（AC-08）；`systemAudio:'include'` 让 Windows 整屏共享出现“同时分享系统音频”选项（Q-01）；`suppressLocalAudioPlayback:false` 保证使用者仍听到原声（A-03、FR-109；浏览器对该约束的落实以所得音频轨 `getSettings()` 报告，端到端断言见 TD-116）；关闭回声消除/降噪/自动增益，避免对播放内容做语音通话处理而损伤识别；`selfBrowserSurface:'exclude'` 不让使用者误选本应用标签页（本页无声）；画面参数取最低以减少无用开销 | 浏览器扩展 `tabCapture`（需安装插件，违反 AC-08）；虚拟声卡（违反不做的事）；`getUserMedia` 选“立体声混音”设备（依赖系统驱动设置，多数机器不可用） | AC-02、AC-08；FR-105、FR-109、FR-110；Q-01 |
 | TD-103 | 共享得到的视频轨**保留但不消费**：不挂到 `<video>`、画布、`MediaRecorder`、`RTCPeerConnection` 或任何网络通道；停止时与音频轨一起 `stop()` | 保留视频轨可使浏览器原生共享会话（共享提示条、“停止共享”按钮、共享指示）的行为最标准，AC-05 的“浏览器停止共享”与 FR-116“共享指示随之消失”都依赖该会话；不消费即满足 A-02 / FR-108（不显示、不上传、不保存）。原型实测（见“可行性验证”）：停止视频轨后音频轨仍保持 `live` 且有信号，因此若后续发现保留视频轨有副作用，可改为取得后立即停止视频轨，属实现级回退，不改变行为 | 取得后立即停止视频轨（各浏览器对“只剩音频轨”时共享提示条的处理未逐一验证，作为回退） | AC-05、AC-10；A-02；FR-108、FR-116 |
 | TD-104 | 字幕小窗用 Document Picture-in-Picture：点击“弹出字幕小窗”→ `documentPictureInPicture.requestWindow({ width: 560, height: 260 })`；小窗文档引入同源 `/styles.css`，放入状态与字幕列表；新增 `MirroredCaptionView`（实现第 1 版 `CaptionView` 接口），把 `append/setText/setStatus/remove` 同步写入主页面与小窗两个 `DomCaptionView`；打开时以主页面列表克隆初始化小窗 | Document PiP 窗口由浏览器保持在其它窗口（含全屏视频、桌面会议软件）之上，且是本页同源文档，可直接写 DOM，无需消息通道；单一字幕管线 + 同步写两个视图，保证“同一份字幕、同时更新”（FR-137）；主页面卸载时浏览器自动关闭小窗（FR-138） | 视频 PiP（把字幕画到 canvas 再 `captureStream` 进 `<video>` 的画中画：字号/样式/换行受限、文字非 DOM，难以满足对比度与可测性）；`window.open` 弹窗（不能悬浮在其它应用之上）；BroadcastChannel 同步两个页面（多一套状态与时序） | AC-12；FR-136～FR-140；Q-02 |
 | TD-105 | 能力检测（不做浏览器版本白名单）：<br>**系统声音**：`navigator.mediaDevices?.getDisplayMedia` 存在，且 `navigator.userAgentData` 存在、`mobile === false`、`brands` 含 `Chromium` / `Google Chrome` / `Microsoft Edge` 之一 → 支持；否则不支持。平台取 `userAgentData.platform`（`Windows`/`macOS`/`Linux`/其它）用于突出对应的说明行与无声音时的针对性提示。<br>**字幕小窗**：`'documentPictureInPicture' in window` → 支持 | Firefox、Safari 虽有 `getDisplayMedia` 但不提供共享音频，只能按引擎识别；Chromium 系浏览器都提供标签页音频；`userAgentData` 只在 Chromium 系提供，Firefox/Safari 下天然判为不支持（FR-119）；小窗以特性检测最可靠（FR-139） | 解析 UA 字符串（易误判）；先调用一次 `getDisplayMedia` 再判断（会弹窗，违反“选择即说明”） | AC-06、AC-12；FR-118、FR-119、FR-139 |
 | TD-106 | 系统声音音频先经 Web Audio 下混为单声道再交给 Speech SDK：`AudioContext`（在点击处理函数中同步创建并 `resume()`）→ `createMediaStreamSource(displayStream)` → `GainNode{channelCount:1, channelCountMode:'explicit', channelInterpretation:'speakers'}` → `createMediaStreamDestination()`（`channelCount=1`）；**不连接 `ctx.destination`** | 共享音频通常为 48 kHz 立体声，显式按“扬声器”规则下混可避免只取左声道丢失偏右声道的人声；不连接输出，避免页面再播放一遍造成回声或音量变化（FR-109）；在用户点击时创建上下文，避免自动播放策略把上下文置为 `suspended` | 直接把共享流交给 SDK（下混方式取决于 SDK 内部实现，不可控）；在服务端转码（音频需经服务端，违反第 1 版 TD-002 的架构） | AC-02、AC-04；FR-109 |
 | TD-107 | 共享结束检测：对共享流的**每一条轨道**监听 `ended`，任一触发即 `stopRun('share-ended')` → 状态“已停止”+ 提示“共享已结束”；该处理先于 SDK 可能随后报告的 `canceled`/`sessionStopped`，后者因 `run` 已失效被忽略 | 浏览器“停止共享”、被共享标签页/窗口关闭都会使轨道 `ended`（原型实测关闭被共享标签页即触发）；FR-116 第 2、3 种情况需提示且归为“已停止”而非“出错” | 轮询轨道状态（延迟、耗电）；依赖 SDK 报错（会被误判为“出错”） | AC-05；FR-116；E-104 |
-| TD-108 | 端到端测试改为 **headed Chromium（Playwright `channel: 'chromium'`, `headless: false`）在 `xvfb-run` 虚拟显示中运行**；系统声音素材在测试打开的另一个标签页中播放，用 Chromium 启动参数 `--auto-select-tab-capture-source-by-title=<素材标签页标题>` 让共享弹窗自动选中该标签页（含音频）；麦克风干扰仍用 `--use-fake-device-for-media-stream --use-file-for-fake-audio-capture=<wav>`；**禁止使用 `--use-fake-ui-for-media-stream`** | 原型实测（Agent Pod 同镜像）：headless shell 调用 `getDisplayMedia` 返回 `NotSupportedError`；新 headless 能取得音频轨但信号恒为 0；headed + Xvfb 取得真实“Tab audio”且有信号，并可与假麦克风同时使用；`--use-fake-ui-for-media-stream` 会把共享替换成“假屏幕 + 假麦克风音频”（实测音轨标签为 `Fake audio`），会让“麦克风不混入”测试失去意义 | 继续 headless（系统声音无信号，无法取得真实证据）；用假设备替代共享（Mock，宪章不接受） | 宪章·测试与质量；IQA-102～IQA-117 |
-| TD-109 | 取消共享与无音频共享的自动化方式：**取消**——共享弹窗打开后用 X11 XTest 向虚拟显示发送 `Escape`（`python3 -I tests/support/xkey.py Escape`，经 `ctypes` 调用系统已有的 `libX11`/`libXtst`，不新增包），浏览器返回真实的 `NotAllowedError: Permission denied by user`；**无音频**——另起浏览器以 `--auto-select-desktop-capture-source=Entire screen` 共享整个屏幕，Linux 上返回 0 条音频轨（真实的“共享内容不含声音”）；**浏览器停止共享**——关闭被共享的素材标签页（与浏览器“停止共享”同样以轨道 `ended` 呈现，TD-107） | 均为浏览器真实行为而非替身，原型已逐一实测；浏览器自身提示条上的“停止共享”按钮属于浏览器界面，自动化无法点击，以同一事件路径覆盖 | 只做单元测试（不是端到端证据） | AC-05、AC-07；IQA-107、IQA-110、IQA-111 |
+| TD-108 | 端到端测试改为 **headed Chromium（Playwright `channel: 'chromium'`, `headless: false`）在 `xvfb-run` 虚拟显示中运行**；系统声音素材在测试打开的另一个标签页中播放，用 Chromium 启动参数 `--auto-select-tab-capture-source-by-title=<素材标签页标题>` 让共享弹窗自动选中该标签页（含音频），**素材标签页标题只用 ASCII 字母、数字与 `-`（`RTMT-player-{workerIndex}`）**；麦克风干扰仍用 `--use-fake-device-for-media-stream --use-file-for-fake-audio-capture=<wav>`；**禁止使用 `--use-fake-ui-for-media-stream`** | 原型实测（Agent Pod 同镜像）：headless shell 调用 `getDisplayMedia` 返回 `NotSupportedError`；新 headless 能取得音频轨但信号恒为 0；headed + Xvfb 取得真实“Tab audio”且有信号，并可与假麦克风同时使用；`--use-fake-ui-for-media-stream` 会把共享替换成“假屏幕 + 假麦克风音频”（实测音轨标签为 `Fake audio`），会让“麦克风不混入”测试失去意义；S22 复核实测：标题为 `RTMT 素材 0` 或 `RTMT 素材0`（含非 ASCII 字符）时不会自动选中、共享弹窗一直挂起，`RTMT-player-0` 可自动选中 | 继续 headless（系统声音无信号，无法取得真实证据）；用假设备替代共享（Mock，宪章不接受） | 宪章·测试与质量；IQA-102～IQA-117 |
+| TD-109 | 取消共享与无音频共享的自动化方式：**取消**——共享弹窗打开后用 X11 XTest 向虚拟显示发送 `Escape`（`python3 -I tests/support/xkey.py Escape`，经 `ctypes` 调用系统已有的 `libX11`/`libXtst`，不新增包），浏览器返回真实的 `NotAllowedError: Permission denied by user`；**无音频**——另起浏览器以 `--auto-select-desktop-capture-source=Entire screen` 共享整个屏幕，Linux 上返回 0 条音频轨（真实的“共享内容不含声音”）；**共享结束**——关闭被共享的素材标签页（与浏览器“停止共享”同样以轨道 `ended` 呈现，TD-107）。按人的决定 PQ-005（采用推荐 A），IQA-107 即 AC-05“浏览器停止共享”在 G4 的等效证据；真实点击浏览器提示条上的“停止共享”属于浏览器界面、自动化无法点击，由业务负责人发布后试用确认，测试不得为其伪造证据 | 均为浏览器真实行为而非替身，原型已逐一实测；IQA-111 规格操作为“共享不含声音的内容”，整屏共享（Linux 上 0 条音轨）即其中一种 | 只做单元测试（不是端到端证据）；用 XTest 点击浏览器共享提示条（PQ-005 未采用） | AC-05、AC-07；IQA-107、IQA-110、IQA-111；PQ-005 |
 | TD-110 | 状态模型扩为 `idle | starting | running | stopped | error`，中文为“未开始 / 正在启动… / 正在听 / 已停止 / 出错”；所有“不能产生字幕”的失败（麦克风被拒/无设备、共享取消/被拒/无声音/失败、令牌失败、识别或翻译中断）一律进入 `error` 并显示中文原因与恢复方法；“开始”在 `idle/stopped/error` 可用 | FR-128 规定的四种状态 + 过渡提示；第 1 版麦克风被拒时回到原状态，按 FR-126 允许改为“出错”，功能行为（提示、可恢复、无字幕）不变 | 保留第 1 版“回到原状态”（与 FR-128 不一致） | AC-07、AC-11；FR-121～FR-123、FR-126、FR-128 |
 | TD-111 | 共享被拒的两类提示：`NotAllowedError` 且从调用到失败 < 400 ms（未出现弹窗，通常是浏览器策略或操作系统屏幕录制权限阻止）→ “浏览器或系统阻止了共享”提示，含浏览器站点设置与 macOS“系统设置 → 隐私与安全性 → 屏幕与系统录音”的恢复说明；否则 → “未选择共享内容/共享授权被拒绝”提示。其它异常（`NotFoundError`/`NotReadableError`/`AbortError`/`InvalidStateError`/其它）→ “无法开始共享”通用提示 | Chrome 不记住对 `getDisplayMedia` 的拒绝，但策略或系统权限会使其立即失败；原型实测用户取消发生在弹窗出现之后（约 2 s）。两类提示都给出可操作的恢复方法（FR-121） | 只给一种提示（被策略阻止时使用者无从下手） | AC-07；FR-121 |
 | TD-112 | 翻译请求增加可选字段 `inputSource: 'microphone' | 'system'`（严格枚举），服务端写入 `translation_completed` 日志字段 `inputSource` | 为 AC-10 / IQA-114 提供“系统声音模式的翻译经同一部署完成”的服务侧证据，同时便于运维区分两种模式的用量；字段是枚举，不是客户内容；可选字段保持对旧页面兼容 | 不记录（无法从服务侧区分模式） | AC-10；FR-141 |
 | TD-113 | 界面偏好存 `localStorage`：`rtmt.guideSeen = '1'`（关闭引导时写入）、`rtmt.captionSize ∈ {s,m,l,xl}`；读写包在 `try/catch` 中，存储不可用时退化为“每次都显示引导、默认字号” | FR-133 “同一浏览器再次打开不自动显示”；FR-144 允许保留界面偏好 | Cookie（会随请求发往服务端，无必要） | AC-11；FR-133、FR-144 |
 | TD-114 | 字号 4 档用 CSS 变量 `--caption-size`：小 24 px、中 32 px（默认）、大 40 px、特大 52 px；`line-height: 1.5`；主页面与小窗共用同一 CSS，切换时同时改两处 `data-caption-size` 属性 | 满足“中 ≥ 28、特大 ≥ 48、行距 ≥ 1.4 倍、逐档增大”（PQ-003）；只改 CSS 变量不触碰字幕管线，不中断采集（FR-132） | 用 `zoom`/`transform` 缩放（影响布局与换行） | AC-11；FR-129、FR-132 |
+| TD-116 | A-03“仍听到原声”的验证分三层：①**单元**：`DISPLAY_OPTIONS.audio.suppressLocalAudioPlayback === false`，`displayAudio.ts` 的音频图不连接 `ctx.destination`，代码中不对任何媒体元素设置 `muted`/`volume`；②**端到端（判定依据）**：共享成功后与运行中（停止前）各读取一次所得音频轨 `getSettings().suppressLocalAudioPlayback`，必须**存在且为 `false`**；③**端到端（佐证）**：素材页 `<audio>` 在共享前、共享后约 2 s、停止前三个时刻记录 `muted`、`volume`、`paused`、`currentTime`，要求 `muted=false`、`volume` 与共享前相同、`paused=false`、`currentTime` 单调增加 | 浏览器对“抑制本地播放”的实现在标签页音频输出层，不改变 `<audio>` 元素属性；S22 原型实测：请求 `false` 时 `getSettings()` 报告 `false`，请求 `true` 时报告 `true`（反证该断言能失败），而两种情况下元素属性都不变。因此以 `getSettings()` 为判定依据、元素状态为“应用未暂停或静音素材”的佐证。Xvfb 中没有声卡，无法测量真实扬声器输出，“耳朵听得到”本身随发布后试用一并确认 | 只看元素属性（无法发现浏览器层的抑制）；录制系统音频输出（验收环境无音频设备） | A-03；FR-109；IQA-102 |
 | TD-115 | 不改服务端识别/翻译/令牌/限流逻辑与依赖声明的约束；限流阈值沿用（单页临时 ≤ 120 次/分，系统声音模式连续播放时同样由 TD-006 单飞节流约束） | 系统声音模式的调用模式与麦克风模式相同（只是内容来源不同），连续播放视频时临时翻译频率仍受单飞 + 500 ms 节流上限约束 | 为系统声音单独调阈值（无依据） | AC-10；第 1 版 TD-006、TD-010 |
 
 ## 可行性验证（原型实测）
 
-方案编写时在与 Agent Pod 相同的镜像中（Playwright 1.65 自带 Chromium，Linux，`xvfb-run`）用一次性原型（未入库）实测，结论直接决定 TD-103、TD-108、TD-109：
+方案编写时在与 Agent Pod 相同的镜像中（Playwright 1.65 自带 Chromium，Linux，`xvfb-run`）用一次性原型（未入库）实测，结论直接决定 TD-103、TD-108、TD-109、TD-116（标“S22”的行为本次修订时补测）：
 
 | 场景 | 结果 |
 | --- | --- |
@@ -102,6 +104,9 @@
 | `--auto-select-desktop-capture-source=Entire screen` | `displaySurface=monitor`，音频轨 0 条（无声音共享） |
 | 共享弹窗中按 Esc（XTest） | `NotAllowedError: Permission denied by user`，约 2 s 后返回 |
 | `documentPictureInPicture.requestWindow`（点击触发） | headless 与 headed 下均成功打开 |
+| （S22）素材标签页标题含非 ASCII 字符（`RTMT 素材 0`、`RTMT 素材0`） | 不会自动选中，`getDisplayMedia` 一直挂起；ASCII 标题 `RTMT-player-0` 正常 |
+| （S22）`audio.suppressLocalAudioPlayback:false` 共享标签页 | 音频轨 `getSettings().suppressLocalAudioPlayback === false`，`getSupportedConstraints()` 含该项；素材 `<audio>` `muted=false`、`volume=1`、`paused=false`，2 s 内 `currentTime` 增加约 2 s |
+| （S22，反证）同上改为 `true` | `getSettings()` 报告 `true`；素材 `<audio>` 元素属性同样不变——元素属性不能单独证明 A-03 |
 
 ## 领域与数据模型
 
@@ -415,28 +420,28 @@ running ──识别 canceled(Error)/sessionStopped、翻译不可用──▶ e
 |---|---|---|---|---|---|
 | 静态检查 | Coding、候选验证 | Agent Pod / 同镜像 Runner | 无 | `npm run lint`、`npm run typecheck` | 候选验证记录 |
 | 构建 | 同上 | 同上 | 无 | `npm run build` | 候选验证记录 |
-| 单元测试（developerTests） | 同上 | 同上 | 无外部调用（纯逻辑） | `npm test`：能力检测（各 `userAgentData`/特性组合）；共享错误分类（`NotAllowedError` 快/慢、其它异常）；无音频轨判定与释放；轨道 `ended` → `share-ended`；系统声音路径不调用 `getUserMedia`；`MirroredCaptionView` 两视图同序同文；状态机与按钮/输入方式可用性；偏好读写与存储不可用退化；`inputSource` 校验与日志白名单 | 候选验证记录 |
+| 单元测试（developerTests） | 同上 | 同上 | 无外部调用（纯逻辑） | `npm test`：能力检测（各 `userAgentData`/特性组合）；共享错误分类（`NotAllowedError` 快/慢、其它异常）；无音频轨判定与释放；轨道 `ended` → `share-ended`；系统声音路径不调用 `getUserMedia`；`DISPLAY_OPTIONS.audio.suppressLocalAudioPlayback === false` 且音频图不连接 `ctx.destination`（TD-116）；`MirroredCaptionView` 两视图同序同文；状态机与按钮/输入方式可用性；偏好读写与存储不可用退化；`inputSource` 校验与日志白名单 | 候选验证记录 |
 | 集成/契约测试 | 同上 | 同上 | `speech`、`chat-model` 的 `dev` 实例 | 第 1 版全部集成测试保持；新增：带 `inputSource:'system'` 的翻译请求成功且 `translation_completed` 日志含 `inputSource=system`、不含文本；非法 `inputSource` 返回 400 | 候选验证记录 |
 | 功能/端到端（functionalTests） | 同上 | 本地 `localhost` 服务 + **headed Chromium（Xvfb）**（TD-108）；Firefox（不支持场景） | `dev` 实例 | 见下表“端到端用例设计” | 候选验证记录 |
-| 独立测试（IQA-101～IQA-123） | 独立测试 | 候选部署 `cand-*`，QA Pod（与 Agent Pod 同工具，含 `xvfb-run` 与 Playwright Chromium/Firefox） | `test` 实例；TTS 合成素材 | — | QA 结果与证据；QA 脚本同样须以 headed + Xvfb 运行 Chromium 并按 TD-108、TD-109 取得共享、取消与无音频 |
+| 独立测试（IQA-101～IQA-123） | 独立测试 | 候选部署 `cand-*`，QA Pod（与 Agent Pod 同工具，含 `xvfb-run` 与 Playwright Chromium/Firefox） | `test` 实例；TTS 合成素材 | — | QA 结果与证据；QA 脚本同样须以 headed + Xvfb 运行 Chromium 并按 TD-108（ASCII 素材标题）、TD-109 取得共享、取消、无音频与共享结束，IQA-102 按 TD-116 取得 A-03 证据 |
 | 依赖探测 | 依赖与机密任务 | 平台隔离环境 | 单个依赖 | — | 沿用第 1 版探测脚本与约束 |
 
 ### 端到端用例设计（开发者版本，对应规格验收场景）
 
-公共夹具（`tests/e2e/fixtures.ts`）：每个 worker 启动本地服务；浏览器 `chromium.launch({ channel: 'chromium', headless: false, args: [...] })`，参数含 `--autoplay-policy=no-user-gesture-required`、`--lang=zh-CN`、`--auto-select-tab-capture-source-by-title=RTMT 素材 {workerIndex}`，需要麦克风输入的用例再加假麦克风参数；默认 `addInitScript` 写入 `rtmt.guideSeen='1'`（引导用例除外）；仪表脚本在第 1 版基础上增加 `getDisplayMedia` 调用计数、所得轨道与其 `label`，以及字幕小窗文档的字幕时间线。素材播放页（`tests/support/player.ts`）经 `context.route('http://rtmt-player.test/**')` 提供 HTML 与合成 WAV，标题为 `RTMT 素材 {workerIndex}`，`<audio>` 播放并在 `playing` 事件记录 `Date.now()` 作为素材时间零点。
+公共夹具（`tests/e2e/fixtures.ts`）：每个 worker 启动本地服务；浏览器 `chromium.launch({ channel: 'chromium', headless: false, args: [...] })`，参数含 `--autoplay-policy=no-user-gesture-required`、`--lang=zh-CN`、`--auto-select-tab-capture-source-by-title=RTMT-player-{workerIndex}`，需要麦克风输入的用例再加假麦克风参数；默认 `addInitScript` 写入 `rtmt.guideSeen='1'`（引导用例除外）；仪表脚本在第 1 版基础上增加 `getDisplayMedia` 调用计数、所得轨道与其 `label`、`readyState`，`window.__rtmtDisplayTracks` 保留所得轨道引用以便读取 `getSettings()`（TD-116），以及字幕小窗文档的字幕时间线。素材播放页（`tests/support/player.ts`）经 `context.route('http://rtmt-player.test/**')` 提供 HTML 与合成 WAV，标题为 `RTMT-player-{workerIndex}`（只用 ASCII，TD-108），`<audio>` 播放并在 `playing` 事件记录 `Date.now()` 作为素材时间零点；素材页提供 `window.__playerState()` 返回 `{ muted, volume, paused, currentTime }`（TD-116）。
 
 | 用例 | 覆盖 | 方法与判定 |
 | --- | --- | --- |
 | 输入选择 | IQA-101 | 默认 `#source-microphone` 选中；麦克风开始：`gumCalls=1`、`displayCalls=0`；系统声音开始：`displayCalls=1`、`gumCalls=0`；`running` 时两单选 `disabled`；刷新后回到麦克风 |
-| 系统声音出字幕 + 麦克风干扰 | IQA-102、IQA-117 | 素材页播放 multi 组，假麦克风播放 interference 组；所得音频轨 `label` 为 `Tab audio`；定稿字幕与 multi 参考译文逐句比对；与 interference 参考译文关键信息点命中 0；全部请求与 WebSocket 帧无 `image/*`/`video/*` 内容类型、页面与小窗中无 `video`/`canvas` 元素 |
+| 系统声音出字幕 + 麦克风干扰 | IQA-102、IQA-117 | 素材页播放 multi 组，假麦克风播放 interference 组；所得音频轨 `label` 为 `Tab audio`；定稿字幕与 multi 参考译文逐句比对；与 interference 参考译文关键信息点命中 0；**A-03（TD-116）**：共享成功后与停止前所得音频轨 `getSettings().suppressLocalAudioPlayback` 均存在且为 `false`，素材页 `__playerState()` 在共享前、共享后约 2 s、停止前三次取值满足 `muted=false`、`volume` 不变、`paused=false`、`currentTime` 递增；全部请求与 WebSocket 帧无 `image/*`/`video/*` 内容类型、页面与小窗中无 `video`/`canvas` 元素 |
 | 流式时序 | IQA-103 | 长句素材；首条字幕时间 < 该句结束时间，句末前至少再变化一次，句末后定稿；临时/定稿计算样式不同 |
 | 语言与含义、顺序 | IQA-104、IQA-105、IQA-114 | 无语言控件；定稿条数 = 句数、顺序一致；识别 WebSocket 消息中检出语言 `en-US`；服务端日志 `translation_completed` 含 `inputSource=system`、`sourceLanguage=en-US`、`reasoningTokens=0` |
 | 点击停止 | IQA-106 | 句中停止；所有共享轨道 `readyState=ended`；30 s 内字幕区无变化；改选麦克风开始出字幕；再选系统声音开始 `displayCalls` 增加 1 |
-| 共享结束 | IQA-107 | 关闭素材标签页（TD-109）→ `stopped` + `#notice` 含“共享已结束”；30 s 无变化；重新打开素材页并开始可再出字幕 |
+| 共享结束 | IQA-107（PQ-005：AC-05“浏览器停止共享”的等效证据） | 关闭素材标签页（TD-109）→ 所有共享轨道 `readyState=ended`、 `stopped` + `#notice` 含“共享已结束”；30 s 无变化；重新打开素材页并开始可再出字幕 |
 | 说明与支持列表 | IQA-108 | 选系统声音后 `#system-help`、`#support-matrix` 可见，行覆盖 Windows/macOS Chrome·Edge、Firefox、Safari；Linux 标签页一行写“只有该标签页的声音”，与 IQA-102 实测一致 |
 | 不支持的浏览器 | IQA-109、IQA-123 | Playwright Firefox：选系统声音即显示 `#system-unsupported`，开始禁用；改选麦克风开始可用（Firefox 假麦克风偏好 `media.navigator.streams.fake`）；`#pip-button` 禁用且 `#pip-unsupported` 可见 |
 | 取消共享 | IQA-110 | 素材标题不匹配的浏览器实例中点“开始”，等待 1.5 s 后 `python3 -I tests/support/xkey.py Escape`；状态“出错”+ `shareCancelled`；无字幕、无活动轨道；随后在匹配的实例中正常开始可出字幕 |
-| 共享无声音 | IQA-111 | 以 `--auto-select-desktop-capture-source=Entire screen` 启动；状态“出错”+ `shareNoAudio`；所得轨道均已 `ended` |
+| 共享无声音 | IQA-111 | 第一次：以 `--auto-select-desktop-capture-source=Entire screen` 启动（共享不含声音的内容，TD-109）；状态“出错”+ `shareNoAudio`；所得轨道均已 `ended`；未进入“正在听”、无字幕。第二次：在按标题自动选择素材标签页的浏览器中重新开始，进入“正在听”并出字幕 |
 | 无需安装 | IQA-112 | 干净上下文（无扩展），全流程无额外窗口/下载 |
 | 麦克风回归 | IQA-113 | 第 1 版全部 e2e 保留，状态断言 `翻译中`→`正在听`，麦克风被拒后状态断言改为“出错” |
 | 凭据扫描 | IQA-115 | 两种模式（含小窗文档）扫描页面源码、脚本、请求、WebSocket 帧，命中 0 |
@@ -445,7 +450,7 @@ running ──识别 canceled(Error)/sessionStopped、翻译不可用──▶ e
 | 字幕样式与字号 | IQA-119 | `getComputedStyle` 测字号、行距、颜色并计算对比度；字幕区面积最大；4 档逐档增大、中 ≥ 28、特大 ≥ 48；运行中切换字号，小窗同步、字幕持续更新 |
 | 首次引导 | IQA-120 | 不预写存储：首次出现 `dialog#guide[open]`；关闭后开始可点；重载不出现；`#guide-open` 可打开 |
 | 布局尺寸 | IQA-121 | 视口 1366×768、1440×900、1600×900、1920×1080、480×800 × 五种状态：`documentElement.scrollWidth ≤ clientWidth`、控制区四项在视口内且包围盒不重叠、字幕元素 `scrollWidth ≤ clientWidth` |
-| 字幕小窗 | IQA-122 | 运行中点 `#pip-button`；经 `documentPictureInPicture.window` 读取 `#pip-captions` 时间线，与主页面逐次一致；关闭小窗后主页面继续更新；再次弹出内容一致；麦克风模式同样可用 |
+| 字幕小窗 | IQA-122 | 运行中点 `#pip-button`；经 `documentPictureInPicture.window` 读取 `#pip-captions` 时间线，与主页面逐次一致；小窗文档为独立窗口（`documentPictureInPicture.window` 非空且 `!== window`）；关闭小窗后主页面继续更新；再次弹出内容一致；麦克风模式同样可用；不判定“悬浮在全屏之上”（DD-101） |
 
 执行与资源：Playwright `workers: 1`（同一虚拟显示上多个 headed 浏览器与自动选择参数互不干扰）；`npm run test:e2e` 为 `npm run build && xvfb-run -a --server-args="-screen 0 1920x1080x24" playwright test`。
 
@@ -473,8 +478,8 @@ npm run test:e2e                     # functionalTests：build + xvfb-run headed
 1. `npm run build && node dist/server/main.js`，用桌面 Chrome / Edge 打开 `http://localhost:8080`（localhost 为安全上下文）。
 2. 首次打开出现中文引导 → “知道了”。
 3. 选“系统声音”，右侧/下方出现操作步骤与支持列表；在另一个标签页播放英文视频；点“开始”→ 弹窗选中该标签页并打开共享音频 → “分享”；状态“正在听”，中文临时字幕持续更新、句末定稿。
-4. 点“弹出字幕小窗”，把视频切到全屏，小窗仍可见且与主页面一致；关闭小窗，主页面继续更新。
-5. 点浏览器提示条“停止共享”→ 状态“已停止”，提示“共享已结束”。
+4. 点“弹出字幕小窗”，小窗与主页面一致；关闭小窗，主页面继续更新。（把视频切到全屏后小窗仍可见——DD-101 发布后试用项，不是验收证据。）
+5. 关闭被共享的标签页 → 状态“已停止”，提示“共享已结束”（IQA-107）。（点浏览器提示条“停止共享”得到同样结果——PQ-005 发布后试用项，不是验收证据。）
 6. `curl -s -X POST -H 'Origin: http://localhost:8080' -H 'content-type: application/json' localhost:8080/api/translations -d '{"kind":"final","text":"Good morning.","inputSource":"system"}'` → `delta` 行后 `{"type":"done"}`；服务日志 `translation_completed` 含 `"inputSource":"system"`。
 
 ## 支持 Runbook
@@ -505,4 +510,6 @@ npm run test:e2e                     # functionalTests：build + xvfb-run headed
 
 1. **DD-101 · AC-12“悬浮在全屏视频 / 会议软件之上”的验收证据**（已决定，来源：人的回答，采用推荐）：自动化验收以可证明的行为为证据（小窗以 Document Picture-in-Picture 打开、与主页面同一份字幕同步、关闭后主页面继续、不支持的浏览器按钮不可用并说明）；“在全屏视频 / 会议软件之上可见”由业务负责人发布后在模拟运行环境用 Windows 上的 Chrome / Edge 亲自试用确认，有问题走后续修改交付。对方案的影响：仅测试与验收证据范围，架构、接口、依赖与部署声明不变。
 2. 沿用第 1 版尚在生效的决定：TD-001 技术基线；依赖认证方式（推荐 `platform-identity`）；不登录仅部署测试环境。本版不改变这些决定。
-3. 当前没有待人决定的技术或业务事项。
+3. **PQ-005 · AC-05“浏览器停止共享”的验收证据**（已决定，来源：人的回答，采用推荐 A，见规格）：G4 以 IQA-107（关闭被共享的标签页，同一轨道 `ended` 路径，TD-107、TD-109）为等效证据，原 IQA-124 已删除；真实点击浏览器“停止共享”由业务负责人发布后在 Windows 上 Chrome / Edge 试用确认。对方案的影响：仅测试与证据范围，代码路径不变。
+4. **G2 意见的落实（本次修订，非新决定）**：A-03 端到端断言（TD-116）；素材标签页标题改为 ASCII（TD-108，原型复核发现原写法不可执行）。均不改变产品行为、架构、接口与依赖。
+5. 当前没有待人决定的技术或业务事项。
