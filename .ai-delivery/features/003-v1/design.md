@@ -122,7 +122,7 @@
 | TD-308 | **重译请求**：`TranslationRequest` 新增可选 `retranslate?: boolean`；JSON schema `retranslate: { type: 'boolean' }`；`kind === 'partial'` 且 `retranslate === true` 时返回 400 `invalid_request`（临时译文不重译，FR-304）。`retranslate === true` 时系统提示末尾追加 `RETRANSLATE_NOTE`：“上一次的输出不是简体中文。这一次必须把 <source> 中的内容完整翻译成简体中文，只输出中文译文，不得包含原文语言的文字。”客户端只在 TD-306 的第二次内容翻译时设置 | 同一提示词对同一输入再次调用，照抄的概率仍高；明确告知“上次不是中文”能显著提高第二次成功的概率，从而减少提示句（PQ-301）；可选字段对旧页面兼容；严格校验保持 `additionalProperties: false` 的既有风格 | 重译时复用相同请求（成功率无改善）；把重译放在服务端自动进行（服务端需判定并缓冲，见 TD-306 替代方案） | AC-4、AC-5；FR-307 |
 | TD-309 | **中文提示条目**：`CaptionView` 接口新增 `setNotice(id: number, text: string): void`；`DomCaptionView.setNotice` 设置 `textContent = text` 与 `data-kind="notice"`；`MirroredCaptionView` 同步到小窗（同一任务内先主后小窗，与既有方法相同）。提示文字常量 `UNTRANSLATED_NOTICE = '（此句未能翻译成中文）'` 放在 `src/web/messages.ts`。样式（`src/web/styles.css`）：`.caption[data-kind='notice'] { color: var(--caption-notice); font-size: calc(var(--caption-size) * 0.75); border-left: 4px solid var(--caption-notice); font-style: normal; }`，`--caption-notice: #c9b48f`（与字幕区背景 `#0d1117` 对比度约 9.4:1，高于 FR-129 对临时字幕的 4.5:1，也高于定稿的 7:1）；不使用红色、闪烁、动画；字号随 4 档 `--caption-size` 变化且始终小于正常字幕。小窗打开时克隆主页面列表（既有机制）会复制 `data-kind` | FR-308 的可判定条件逐条满足：颜色、字号、左侧实线标记三项可见差异（正常定稿为白色、无标记；临时为灰蓝色虚线标记加省略号；中断为斜体），不依赖悬停；`data-status` 仍为 `final`，使“每句恰一条定稿条目”的既有计数（FR-310）与测试工具不变 | 用新的 `data-status` 值（会破坏既有测试与 DOM 契约中 `final` 的计数）；在状态区提示（Q-1 未采用） | AC-5、AC-6；FR-308、FR-310、FR-312；Q-1 |
 | TD-310 | **受控触发“翻译结果非中文”的方式**：端到端测试与独立测试在浏览器中用初始化脚本包装 `window.fetch`：只对匹配规则的 `/api/translations` 请求返回由测试构造的 NDJSON 流（`{"type":"delta","text":"<非中文内容>"}` 若干行 + `{"type":"done"}`，状态 200、`application/x-ndjson`，可设延迟）；其余请求调用原始 `fetch`，走真实服务。规则按“第 n 句的首次定稿请求 / 重译请求（请求体 `retranslate === true`）/ 第 n 个临时请求”匹配，并记录每句的请求次数。**生产代码中不加任何测试开关** | 意图与规格授权受控触发（AC-4、AC-5、AC-12）；只替换被测分支的一次响应，识别、页面、小窗仍真实运行；不使用 Playwright `route`：第 2 版独立测试补充评审实测 `context.route` 会使字幕小窗不载入 `/styles.css`（`002-v1/evidence/supplementary-review.md`），会破坏 AC-5/AC-6 的样式判定；浏览器内包装同样适用于修复前的版本（AC-4 要求修复前运行失败） | 服务端故障注入开关（生产代码含测试路径，且候选部署无法按测试打开，见“开放决策”）；Playwright `route.fulfill`（见左） | AC-4、AC-5、AC-6、AC-12；IQA-303～IQA-307、IQA-312 |
-| TD-311 | **AC-9 与真实模型证据的取得方式**：AC-9（未预期异常仍记 error）在服务端测试中以构造的翻译器依赖注入异常（`buildApp({ translator: throwingTranslator })`，真实 pino 日志写入内存），由 Coding 的开发者测试与候选验证（Runner 在不可变候选提交上执行，属平台证据）给出；独立测试对已部署候选无法注入服务端异常，处理方式见“开放决策 D-301”。根因收敛证据：集成测试对真实 `dev` 模型发送韩语、日语句子（含短句、感叹、片段，partial 与 final），记录首次非中文条数与重译后结果（只输出条数） | 生产代码不为测试增加可被外部触发的异常入口（宪章·最小权限）；构造依赖是 `buildApp` 已有的注入点（`AppDeps.translator`），不改变生产装配 | 生产代码加环境变量/请求头触发的故障注入（见 D-301） | AC-9、AC-13 |
+| TD-311 | **AC-9 与真实模型证据的取得方式**：AC-9（未预期异常仍记 error）在服务端测试中以构造的翻译器依赖注入异常（`buildApp({ translator: throwingTranslator })`，真实 pino 日志写入内存），由 Coding 的开发者测试与候选验证（Runner 在不可变候选提交上执行，属平台证据）给出；独立测试对已部署候选无法注入服务端异常，按已决定的 D-301 处理：IQA-310 在独立测试中按测试缺口记 `unverifiable`，证据以候选验证中运行的 `translationFailure.int.test.ts` 为准，G4 时由人确认。根因收敛证据：集成测试对真实 `dev` 模型发送韩语、日语句子（含短句、感叹、片段，partial 与 final），记录首次非中文条数与重译后结果（只输出条数） | 生产代码不为测试增加可被外部触发的异常入口（宪章·最小权限）；构造依赖是 `buildApp` 已有的注入点（`AppDeps.translator`），不改变生产装配 | 生产代码加环境变量/请求头/机密保护的故障注入（D-301 已决定不采用） | AC-9、AC-13 |
 | TD-312 | 日志：`LogFields` 新增 `retranslate?: boolean`（校验器：`typeof v === 'boolean'`），只写入 `translation_completed`（成功）与 `upstream_error` 记录，且只在请求带 `retranslate: true` 时出现；**不加入 `baseFields`**，因此 `client_aborted` 记录的字段集合不变（FR-315）。其余事件、字段、级别不变 | 运维可按 `retranslate=true` 统计重译次数（即“首次结果非中文”的频率），用于观察 TD-307 的效果，且不含任何内容 | 不记录（无法在运行环境观察非中文输出的频率）；在 `client_aborted` 中也记录（违反“不新增字段”） | AC-10、AC-13；FR-315、FR-318 |
 | TD-313 | 测试素材：新增 `tests/fixtures/sentences.ko.json`（`voice: ko-KR-SunHiNeural`）与 `tests/fixtures/sentences.ja.json`（`voice: ja-JP-NanamiNeural`），各含 `drama` 句组 6 句清晰的影视对白式句子（每句 ≥ 6 个词/音节组、无专名歧义、句间 2 s 停顿，沿用第 1 版合成规则），每句附中文关键要素（只用于诊断输出，不作为通过条件）；`tests/support/tts.ts` 改为按语言读取对应文件、SSML `xml:lang` 取文件中的 `locale` 字段，缓存键包含语言 | 同一 `speech` 资源的神经语音，无新依赖；“清晰素材上每句都应得到中文译文”（PQ-301）要求素材本身清晰、可稳定识别为一句一段 | 使用真实电影片段（版权与客户内容问题，且不可稳定复现） | AC-1、AC-2、AC-3 |
 
@@ -393,7 +393,7 @@ setErrorHandler(error, request, reply):
 | 单元测试（developerTests） | 同上 | 同上 | 无外部调用 | 见下“单元测试设计” | 候选验证记录 |
 | 集成/契约测试（integrationTests） | 同上 | 同上 | `chat-model`、`speech` 的 `dev` 实例 | 第 1、2 版全部集成测试保持；新增 `translationAbort`（AC-7、AC-8、AC-10，真实模型）、`translationFailure`（AC-9，注入异常）、`translationChinese`（TD-311） | 候选验证记录（AC-9 的平台证据） |
 | 功能/端到端（functionalTests） | 同上 | 本地 `localhost` 服务 + headed Chromium（Xvfb，第 2 版 TD-108） | `dev` 实例 | 第 1、2 版全部 e2e 保留（AC-11）；新增 `chinese-only.spec.ts`、`non-chinese.spec.ts`；AC-4 修复前失败运行摘要 `docs/verification/003-ac4-prefix-run.txt` | 候选验证记录 |
-| 独立测试（IQA-301～IQA-313） | 独立测试 | 候选部署 `cand-*`，QA Pod（headed Chromium + Xvfb） | `test` 实例；TTS 合成韩语、日语素材；服务日志 `QA_SERVICE_LOGS_DIR` | — | IQA-301/302 真实服务各 ≥ 3 次；IQA-303～307、312 以浏览器内 `fetch` 包装受控触发（TD-310，不要用 `context.route`）；IQA-308/309 直接向候选 HTTPS 地址发流式请求并中止，按服务日志判定；IQA-310 见 D-301；IQA-311 由候选验证的全量 e2e 结果与 QA 的回归场景共同给出；IQA-313 检查本方案“根因调查” |
+| 独立测试（IQA-301～IQA-313） | 独立测试 | 候选部署 `cand-*`，QA Pod（headed Chromium + Xvfb） | `test` 实例；TTS 合成韩语、日语素材；服务日志 `QA_SERVICE_LOGS_DIR` | — | IQA-301/302 真实服务各 ≥ 3 次；IQA-303～307、312 以浏览器内 `fetch` 包装受控触发（TD-310，不要用 `context.route`）；IQA-308/309 直接向候选 HTTPS 地址发流式请求并中止，按服务日志判定；IQA-310 按 D-301（已决定）不在候选上触发，结果写 `unverifiable` 并注明“技术负责人在 S5 决定，AC-9 证据为候选验证中的 `translationFailure.int.test.ts`”，G4 时由人确认；IQA-311 由候选验证的全量 e2e 结果与 QA 的回归场景共同给出；IQA-313 检查本方案“根因调查” |
 | 依赖探测 | 依赖与机密任务 | 平台隔离环境 | 单个依赖 | — | 沿用现有探测脚本与约束 |
 
 ### 单元测试设计（`npm test`）
@@ -413,7 +413,7 @@ setErrorHandler(error, request, reply):
 | 文件 | 覆盖 | 方法与判定 |
 | --- | --- | --- |
 | `translationAbort.int.test.ts`（新） | AC-7、AC-8、AC-10；IQA-308/309 的开发者版本 | 用真实配置 `buildApp`（真实翻译器与 `chat-model`），日志写入内存，监听随机端口。四个用例：首个片段前 × {`fetch` + `AbortController.abort()`、底层 socket `destroy()`}（请求发出后立即中止，断言客户端未收到任何字节）；首个片段后 × 同两种方式（读到第一行 `delta` 后中止）。每个用例等待该请求的 `client_aborted` 记录出现（≤ 10 s），然后断言：该时间窗内 error/fatal 记录 0 条；`client_aborted` 恰 1 条，键集合等于现有格式；日志全文检索请求原文、已收到的译文片段、`AIDH_DEP_CHAT_MODEL_KEY`/`AIDH_DEP_SPEECH_KEY`（存在时）命中 0；随后一次正常请求成功返回中文（`isChineseTranslation`） |
-| `translationFailure.int.test.ts`（新） | AC-9；IQA-310 的开发者版本 | `buildApp` 注入在首个片段前抛出 `Error` 的翻译器 → 客户端收到 `{"type":"error","code":"upstream_unavailable"}`，日志恰 1 条 `unhandled_error`（error）且不含原文；注入在写出 1 个片段后抛出的翻译器 → 同样 1 条 error |
+| `translationFailure.int.test.ts`（新） | AC-9 的正式证据（D-301）；IQA-310 的开发者版本 | `buildApp` 注入在首个片段前抛出 `Error` 的翻译器 → 客户端收到 `{"type":"error","code":"upstream_unavailable"}`，日志恰 1 条 `unhandled_error`（error）且不含原文；注入在写出 1 个片段后抛出的翻译器 → 同样 1 条 error |
 | `translationChinese.int.test.ts`（新） | TD-311、AC-13 证据 | 韩语、日语各约 20 句（影视对白式短句、感叹、片段，partial 与 final 两种 `kind`，并含 `sourceLanguage=zh-CN` 的错标样本）：final 首次结果非中文时以 `retranslate:true` 重发一次；断言重译后全部为中文；测试输出只打印“首次非中文条数 / 重译后非中文条数”，不打印内容 |
 | 既有 `translation.int.test.ts` | AC-11 | 保持；英语译文含义一致性断言在新提示词下仍须通过 |
 
@@ -482,9 +482,8 @@ npm run test:e2e                     # functionalTests：build + xvfb-run headed
 
 1. 沿用的已生效决定：技术基线（第 1 版 TD-001）；依赖认证方式（推荐 `platform-identity`）；不登录、仅部署测试环境；DD-101、PQ-005（验收证据范围）。本版不改变这些决定。
 2. 计划（S2）提出的两项技术选择，本方案的决定：① 受控触发不在生产代码中加测试开关——AC-4/AC-5/AC-12 用浏览器内 `fetch` 包装（TD-310，未采用计划推荐中的 Playwright 响应拦截，原因是第 2 版实测其会破坏小窗样式载入），AC-9 用构造依赖注入异常（TD-311）；② 中文判定放在客户端字幕状态机，服务端按根因修正提示词与语言标注、不新增日志内容（TD-304～TD-308；唯一新增的布尔字段 `retranslate` 见 TD-312）。
-3. **D-301 · IQA-310（AC-9）在独立测试中的证据方式（待人决定，技术类）**：已部署候选无法从外部触发“非客户端中止的未预期异常”，除非在生产代码中加入可被外部触发的故障注入入口。
-   - 推荐：生产代码不加入口；AC-9 以候选验证中执行的 `translationFailure.int.test.ts`（Runner 在不可变候选提交上运行，平台证据）为证据，独立测试将 IQA-310 按测试缺口处理（结果写 `unverifiable` 并注明本决定），其余场景照常验证。
-   - 备选 A：新增应用机密（例如 `FAULT_INJECTION_TOKEN`，只为 test 环境提供），服务端在该机密存在且请求头携带相同值时于翻译任务中抛出一次异常；独立测试即可在已部署候选上验证 IQA-310。代价：生产代码多一条受机密保护的故障路径、依赖声明新增应用机密、需要人在项目机密中提供该值，并需确认平台会把应用机密注入候选部署的容器。
-   - 备选 B：同备选 A，但用环境变量开关（候选部署无法按服务设置环境变量，实际不可行，不推荐）。
-   - 对方案的影响：选推荐时本方案无需修改；选备选 A 时补充 TD、依赖声明 `secrets` 与安全分析，Coding 第 1 批增加该入口。
-4. 当前没有待人决定的业务事项。
+3. **D-301 · IQA-310（AC-9）在独立测试中的证据方式（已决定，技术负责人于 S5 回答，按推荐）**：
+   - 决定：生产代码不加入任何故障注入入口（不新增机密、环境变量或请求头开关）。AC-9 以候选验证中运行的集成测试 `translationFailure.int.test.ts`（Runner 在不可变候选提交上执行，平台证据）为证据；独立测试把 IQA-310 按测试缺口处理，结果写 `unverifiable`，并注明“这是技术负责人在 S5 的决定，AC-9 证据见候选验证中的 `translationFailure.int.test.ts`”；其余场景照常验证。
+   - 落实：测试计划（S7）写明 IQA-310 的证据来源与上述处理；Coding 必须实现并在候选验证中通过 `translationFailure.int.test.ts`（见“集成测试设计”）；G4 时由人确认该证据。
+   - 对方案的影响：无需新增 TD、依赖声明 `secrets` 或部署声明改动；TD-311 与测试设计已按此表述。
+4. 当前没有待人决定的业务或技术事项。

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S5",
+  "result": "done",
+  "summary": "按技术负责人对 D-301 的回答（按推荐）修订技术方案：生产代码不加故障注入入口，AC-9 以候选验证中运行的 translationFailure.int.test.ts 为证据，独立测试将 IQA-310 记为 unverifiable 并注明该决定、由测试计划写明证据来源并在 G4 由人确认；方案其余内容、依赖声明与部署声明不变，已无待决事项。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/003-v1/design.md",
+    ".ai-delivery/features/003-v1/runtime/deployment.json",
+    "docs/dependencies.json",
+    "docs/deployment.json"
+  ]
+}
