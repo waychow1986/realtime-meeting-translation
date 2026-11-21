@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S25",
+  "result": "done",
+  "summary": "批次 1（S24：AC-11 产品化界面、AC-09 麦克风模式回归）代码审查通过，无阻断问题，记录 3 项观察项。",
+  "asks": [],
+  "outputs": [],
+  "review": {
+    "mode": "code-review",
+    "conclusion": "通过。本批改动与技术方案一致：状态模型扩为五种并把不能产生字幕的失败归为“出错”（TD-110），控件可用性集中在 uiState.controlsFor；界面偏好只写 rtmt.guideSeen / rtmt.captionSize，读写包在 try/catch 中，存储不可用时退回默认（TD-113、FR-144）；字号以 data-caption-size 切换，不触碰字幕管线（TD-114）；字幕仍只经 textContent 写入，无 HTML 注入；输入方式每次加载固定为麦克风，“系统声音”按计划在本批不可选。麦克风采集、识别、翻译与停止逻辑未改，只改失败后的状态呈现。v1 端到端用例的调整（状态文字“翻译中”→“正在听”、权限被拒后为“出错”、存储从“为空”改为“只允许两项界面偏好的白名单”、单选组白名单）均有方案依据（TD-110、FR-128、FR-144、FR-101/FR-132），且同时加强了断言（如被拒后断言无采集轨道），不属于为通过测试而放宽断言。test:e2e 改为 xvfb-run、workers: 1 属方案 TD-108 要求，未改动 CI、部署脚本或基础设施定义。未新增凭据或配置取值，CSP（script-src/style-src 'self'）不受影响，服务端日志未新增字段。",
+    "items": [],
+    "findings": [
+      {
+        "ownerStep": "S24",
+        "text": "观察项：src/web/index.html 中“使用引导”第 5 条已描述“弹出字幕小窗”按钮及不支持时的说明，但该按钮属批次 3，当前页面并不存在；批次 3 须落实该按钮与不支持提示（AC-12、FR-139），否则引导与页面不符。",
+        "blocking": false
+      },
+      {
+        "ownerStep": "S24",
+        "text": "观察项：tests/e2e/isolation.spec.ts 的存储白名单对键与取值分别匹配，未校验键值组合（例如 rtmt.captionSize='1' 也会通过）；不影响“不保存客户内容”的判定，可在后续批次按键分别断言取值。",
+        "blocking": false
+      },
+      {
+        "ownerStep": "S24",
+        "text": "观察项：S24 结果说明截图未经人工目视检查，IQA-118～121 的界面符合度只依据自动测量断言；建议在 G3/G4 的独立测试或发布后试用时由人目视确认视觉设计（AC-11“按产品标准的统一视觉设计”）。",
+        "blocking": false
+      }
+    ]
+  }
+}
