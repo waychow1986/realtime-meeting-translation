@@ -21,7 +21,6 @@ import { requestTranslation, withInputSource } from './translateClient.js';
 import { STATE_ICONS, controlsFor, isNearBottom } from './uiState.js';
 
 const TOKEN_RETRY_MS = 30_000;
-const WIDE_LAYOUT = '(min-width: 1100px)';
 
 type StopReason = 'user' | 'share-ended' | 'error' | 'unload';
 
@@ -74,7 +73,6 @@ function init(): void {
   const systemDetails = requireElement('system-details', HTMLDetailsElement);
   const preferences = createPreferences(() => window.localStorage);
   const support = detectSupport({ navigator, window });
-  const wideLayout = window.matchMedia(WIDE_LAYOUT);
 
   renderSupportMatrix(
     requireElement('support-matrix-body', HTMLTableSectionElement),
@@ -100,7 +98,6 @@ function init(): void {
   );
 
   const setState = (next: AppState): void => {
-    const previous = state;
     state = next;
     statusLabel.textContent = STATE_LABELS[next];
     statusIndicator.textContent = STATE_ICONS[next];
@@ -110,9 +107,10 @@ function init(): void {
     stopButton.disabled = !controls.stopEnabled;
     for (const radio of sourceRadios) radio.disabled = !controls.sourceEnabled;
     captionWindow.setState(next);
-    // Narrow layout: the instructions fold away while listening so captions get the room, and come back afterwards.
-    if (next === 'running' && !wideLayout.matches) systemDetails.open = false;
-    else if (previous === 'running' && next !== 'running') systemDetails.open = true;
+    // The instructions fold away while listening so the captions get the room (can be expanded at any time), and
+    // are expanded again whenever not listening: not started, stopped, error or a failed share.
+    if (next === 'running') systemDetails.open = false;
+    else if (next !== 'starting') systemDetails.open = true;
   };
 
   const showNotice = (text: string | null, kind: 'error' | 'info' = 'error'): void => {
@@ -252,9 +250,6 @@ function init(): void {
   stopButton.addEventListener('click', () => stopRun('user'));
   window.addEventListener('pagehide', () => stopRun('unload'));
   for (const radio of sourceRadios) radio.addEventListener('change', selectSource);
-  wideLayout.addEventListener('change', () => {
-    if (wideLayout.matches) systemDetails.open = true;
-  });
   for (const radio of sizeRadios) {
     radio.addEventListener('change', () => {
       if (!radio.checked || !isCaptionSize(radio.value)) return;

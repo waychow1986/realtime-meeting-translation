@@ -11,7 +11,7 @@
     <header class="topbar">
       <h1>会议实时中文字幕</h1>
       <div class="controls" id="controls">
-        <fieldset id="input-source" class="choice">
+        <fieldset id="input-source" class="choice segmented">
           <legend>输入方式</legend>
           <label><input type="radio" name="input-source" id="source-microphone" value="microphone" checked />麦克风</label>
           <label><input type="radio" name="input-source" id="source-system" value="system" />系统声音</label>
@@ -25,7 +25,7 @@
           <span class="status-caption">当前状态</span>
           <strong id="status" role="status" aria-live="polite">未开始</strong>
         </div>
-        <fieldset id="caption-size" class="choice">
+        <fieldset id="caption-size" class="choice segmented">
           <legend>字号</legend>
           <label><input type="radio" name="caption-size" value="s" />小</label>
           <label><input type="radio" name="caption-size" value="m" checked />中</label>
@@ -36,7 +36,9 @@
           <button id="pip-button" type="button" aria-pressed="false">弹出字幕小窗</button>
           <span id="pip-unsupported" class="pip-unsupported" role="note" hidden></span>
         </div>
-        <button id="guide-open" type="button" class="link">使用引导</button>
+        <button id="guide-open" type="button" class="guide-open" aria-label="使用引导" title="使用引导">
+          <span class="guide-icon" aria-hidden="true">?</span><span class="guide-label" aria-hidden="true">使用引导</span>
+        </button>
       </div>
     </header>
     <p id="notice" class="notice" role="alert" data-kind="error" hidden></p>
@@ -95,7 +97,7 @@
         <li><strong>调整字号：</strong>在“字号”中选择“小 / 中 / 大 / 特大”，字幕立即按新字号显示。</li>
         <li><strong>字幕小窗：</strong>可点击“弹出字幕小窗”让字幕悬浮在会议或视频窗口之上；浏览器不支持时该按钮不可用，并会显示原因。</li>
       </ol>
-      <p class="guide-note">字幕只显示在当前页面，刷新或关闭页面后即清空。可随时点击右上角“使用引导”再次查看本说明。</p>
+      <p class="guide-note">字幕只显示在当前页面，刷新或关闭页面后即清空。可随时点击顶栏的“？”（使用引导）按钮再次查看本说明。</p>
       <div class="guide-actions">
         <button id="guide-close" type="button" class="primary">知道了</button>
       </div>

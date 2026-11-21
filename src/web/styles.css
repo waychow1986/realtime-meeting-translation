@@ -53,8 +53,14 @@ body > .workspace {
 }
 
 /* ---------- control bar ---------- */
+/* Every control in the bar shares one height, corner radius and spacing (segmented groups, buttons, status chip). */
 
 .topbar {
+  --control-h: 36px;
+  --control-radius: 8px;
+  --control-gap: 12px;
+  --control-font: 15px;
+  --control-pad: 16px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -77,15 +83,13 @@ body > .workspace {
   flex: 1 1 auto;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px 16px;
+  gap: 8px var(--control-gap);
   min-width: 0;
 }
 
 .choice {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 4px;
   min-width: 0;
   margin: 0;
   padding: 0;
@@ -95,41 +99,73 @@ body > .workspace {
 .choice legend {
   float: left;
   padding: 0;
-  margin-right: 4px;
-  font-size: 15px;
+  margin-right: 8px;
+  font-size: 14px;
   color: var(--muted);
-}
-
-.choice label {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 5px 10px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: #ffffff;
-  font-size: 15px;
-  cursor: pointer;
   white-space: nowrap;
 }
 
-.choice input {
-  margin: 0;
-  accent-color: var(--accent);
+/* Segmented control: the real radio inputs stay (keyboard, accessible names) but are not painted. */
+.segmented label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--control-h);
+  padding: 0 var(--control-pad);
+  margin-left: -1px;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  background: #ffffff;
+  color: var(--text);
+  font-size: var(--control-font);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
 }
 
-.choice label:has(input:checked) {
+.segmented label:first-of-type {
+  margin-left: 0;
+  border-radius: var(--control-radius) 0 0 var(--control-radius);
+}
+
+.segmented label:last-of-type {
+  border-radius: 0 var(--control-radius) var(--control-radius) 0;
+}
+
+.segmented input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  appearance: none;
+  cursor: inherit;
+}
+
+.segmented label:hover {
+  background: #f3f4f6;
+}
+
+.segmented label:has(input:checked) {
+  z-index: 1;
   border-color: var(--accent);
-  background: #ddf4ff;
-  color: #0a3069;
+  background: var(--accent);
+  color: #ffffff;
   font-weight: 600;
 }
 
-.choice label:has(input:disabled) {
+.segmented label:has(input:disabled) {
   color: #8c959f;
   background: #f6f8fa;
-  border-style: dashed;
   cursor: not-allowed;
+}
+
+.segmented label:has(input:checked:disabled) {
+  border-color: #8c959f;
+  background: #8c959f;
+  color: #ffffff;
 }
 
 .actions {
@@ -138,10 +174,15 @@ body > .workspace {
 }
 
 button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--control-h, 36px);
   font: inherit;
-  font-size: 16px;
-  padding: 6px 18px;
-  border-radius: 6px;
+  font-size: var(--control-font, 16px);
+  padding: 0 var(--control-pad, 18px);
+  border-radius: var(--control-radius, 8px);
   border: 1px solid var(--border);
   background: #ffffff;
   color: var(--text);
@@ -174,18 +215,27 @@ button.secondary:disabled {
 }
 
 button:focus-visible,
-.choice label:has(input:focus-visible) {
+.segmented label:has(input:focus-visible) {
+  z-index: 2;
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-button.link {
-  border-color: transparent;
-  background: transparent;
+.guide-open {
   color: var(--accent);
-  padding: 6px 8px;
-  font-size: 15px;
-  text-decoration: underline;
+}
+
+.guide-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .pip-control {
@@ -208,12 +258,13 @@ button.link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 12px;
+  height: var(--control-h);
+  padding: 0 14px 0 10px;
   border: 2px solid var(--state-color);
-  border-radius: 999px;
+  border-radius: var(--control-radius);
   background: #ffffff;
   color: var(--state-color);
-  font-size: 16px;
+  font-size: var(--control-font);
   white-space: nowrap;
 }
 
@@ -304,6 +355,12 @@ body[data-source='system'] .workspace {
   grid-template-columns: minmax(0, 1fr) 360px;
 }
 
+/* Folded instructions (while listening): a compact bar above the captions, which then take the full width. */
+body[data-source='system'] .workspace:has(#system-details:not([open])) {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
 /* ---------- system audio instructions ---------- */
 
 .system-panel {
@@ -316,6 +373,12 @@ body[data-source='system'] .workspace {
   background: #ffffff;
   font-size: 14px;
   line-height: 1.55;
+}
+
+.system-panel:has(#system-details:not([open])) {
+  order: -1;
+  overflow: visible;
+  padding: 8px 14px;
 }
 
 .system-panel summary {
@@ -600,5 +663,49 @@ body.pip .pip-scroll {
 
   .caption-scroll {
     padding: 12px 16px 20px;
+  }
+}
+
+/* About 480 px wide (next to a video window): the control bar flows as one list and fits in two rows. */
+@media (max-width: 640px) {
+  .topbar {
+    --control-h: 34px;
+    --control-font: 14px;
+    --control-pad: 10px;
+    gap: 8px 6px;
+    padding: 8px 10px;
+  }
+
+  .topbar h1 {
+    font-size: 16px;
+  }
+
+  .controls {
+    display: contents;
+  }
+
+  .actions {
+    gap: 6px;
+  }
+
+  /* Group labels stay available to screen readers; the options themselves are self-explanatory. */
+  .choice legend,
+  .status-caption {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .guide-open {
+    width: var(--control-h);
+    padding: 0;
+  }
+
+  .guide-label {
+    display: none;
   }
 }

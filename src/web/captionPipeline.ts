@@ -19,6 +19,8 @@ interface CaptionSegment {
   sourceLanguage?: string;
   status: SegmentStatus;
   shownText: string;
+  /** Caption text shown when the sentence ended; the final translation replaces it in place, never shrinking it first. */
+  preFinalText?: string;
   /** Version of the last partial request sent / of the partial text currently shown (TD-006). */
   partialRev: number;
   shownRev: number;
@@ -147,6 +149,7 @@ export class CaptionPipeline {
     }
     seg.sourceText = finalText.slice(0, MAX_TRANSLATION_TEXT_LENGTH);
     seg.sourceLanguage = normalizeLanguage(language) ?? seg.sourceLanguage;
+    seg.preFinalText = seg.shownText;
     seg.status = 'finalizing';
     this.deps.view.setStatus(seg.id, 'finalizing');
     void this.finalize(seg);
@@ -191,6 +194,7 @@ export class CaptionPipeline {
   private release(seg: CaptionSegment): void {
     seg.sourceText = '';
     seg.partialSource = undefined;
+    seg.preFinalText = undefined;
     this.segments.delete(seg.id);
   }
 
@@ -265,11 +269,13 @@ export class CaptionPipeline {
       onDelta: (delta) => {
         if (controller.signal.aborted) return;
         buffer += delta;
-        this.show(seg, buffer);
+        // Replace in place: the streaming final text takes over only once it is at least as long as the caption shown.
+        if (buffer.length >= seg.shownText.length) this.show(seg, buffer);
       },
     });
     if (seg.inflight === controller) seg.inflight = undefined;
     if (outcome.ok && !buffer.trim()) return { ok: false, reason: 'upstream_unavailable' };
+    if (outcome.ok && this.isLive(seg)) this.show(seg, buffer);
     return outcome;
   }
 
@@ -279,7 +285,8 @@ export class CaptionPipeline {
     this.trackNetwork(outcome);
 
     if (!outcome.ok && RETRYABLE.has(outcome.reason)) {
-      this.show(seg, '');
+      // Keep the caption that was shown when the sentence ended while the retry runs.
+      this.show(seg, seg.preFinalText ?? '');
       const delay =
         outcome.reason === 'rate_limited' && outcome.retryAfterSeconds !== undefined
           ? Math.min(outcome.retryAfterSeconds * 1000, MAX_RETRY_AFTER_MS)
