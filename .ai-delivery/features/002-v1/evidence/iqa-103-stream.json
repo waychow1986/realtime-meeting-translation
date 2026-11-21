@@ -1,0 +1,82 @@
+{
+ "firstSentenceSeconds": 7.82,
+ "s1": {
+  "i": 1,
+  "start": 1795240914627,
+  "end": 1795240922447
+ },
+ "analysis": {
+  "firstT": 1795240918318,
+  "rel": {
+   "firstVsEnd": -4129,
+   "lastChangeVsEnd": 1871,
+   "finalVsEnd": 1171
+  },
+  "changesBefore": 4,
+  "lastChange": 1795240924318,
+  "finalT": 1795240923618,
+  "sigDiff": false,
+  "anyMark": true,
+  "violations": {
+   "multiInterim": 0,
+   "interimNotLast": 0,
+   "nonLastChanged": 0
+  },
+  "hist": [
+   {
+    "t": 1795240918318,
+    "text": "季度的",
+    "mark": "interim",
+    "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+   },
+   {
+    "t": 1795240919218,
+    "text": "季度销售报告显示我们的团队",
+    "mark": "interim",
+    "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+   },
+   {
+    "t": 1795240920118,
+    "text": "季度销售报告显示，我们在欧洲的团队",
+    "mark": "interim",
+    "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+   },
+   {
+    "t": 1795240921018,
+    "text": "季度销售报告显示，我们在欧洲市场的团队销售了更多",
+    "mark": "interim",
+    "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+   },
+   {
+    "t": 1795240921618,
+    "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品比我们多得多",
+    "mark": "interim",
+    "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+   },
+   {
+    "t": 1795240922518,
+    "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量远远超过了预期",
+    "mark": "interim",
+    "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+   },
+   {
+    "t": 1795240923218,
+    "text": "季度销售报告显示，我们在欧洲市场的团队销售了比我们一开始预期更多的产品",
+    "mark": "interim",
+    "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+   },
+   {
+    "t": 1795240923618,
+    "text": "季度销售报告显示，我们在欧洲市场的团队销售了比我们一开始预期更多的产品",
+    "mark": "final",
+    "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+   },
+   {
+    "t": 1795240924318,
+    "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期基础上多卖出了很多产品。",
+    "mark": "final",
+    "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+   }
+  ]
+ }
+}

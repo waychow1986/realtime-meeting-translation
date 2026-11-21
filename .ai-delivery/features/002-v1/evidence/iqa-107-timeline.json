@@ -1,0 +1,268 @@
+{
+ "timeline": [
+  {
+   "t": 1795241026513,
+   "mode": "region",
+   "items": []
+  },
+  {
+   "t": 1795241033113,
+   "mode": "region",
+   "items": [
+    {
+     "text": "季度",
+     "mark": "interim",
+     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+    }
+   ]
+  },
+  {
+   "t": 1795241034113,
+   "mode": "region",
+   "items": [
+    {
+     "text": "季度销售报告显示，我们在",
+     "mark": "interim",
+     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+    }
+   ]
+  },
+  {
+   "t": 1795241034213,
+   "mode": "region",
+   "items": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售了更多",
+     "mark": "interim",
+     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+    }
+   ]
+  },
+  {
+   "t": 1795241034913,
+   "mode": "region",
+   "items": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售了更多的产品，比",
+     "mark": "interim",
+     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+    }
+   ]
+  },
+  {
+   "t": 1795241035713,
+   "mode": "region",
+   "items": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品远远多于我们的预期",
+     "mark": "interim",
+     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+    }
+   ]
+  },
+  {
+   "t": 1795241036413,
+   "mode": "region",
+   "items": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量比我们在一开始预期的要多得多",
+     "mark": "interim",
+     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+    }
+   ]
+  },
+  {
+   "t": 1795241037113,
+   "mode": "region",
+   "items": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量比我们在一开始预期的要多得多",
+     "mark": "final",
+     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+    }
+   ]
+  },
+  {
+   "t": 1795241073213,
+   "mode": "region",
+   "items": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量比我们在一开始预期的要多得多",
+     "mark": null,
+     "sig": "rgb(182, 194, 207)|1|italic|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    }
+   ]
+  },
+  {
+   "t": 1795241079613,
+   "mode": "region",
+   "items": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量比我们在一开始预期的要多得多",
+     "mark": null,
+     "sig": "rgb(182, 194, 207)|1|italic|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "会议将在明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    }
+   ]
+  }
+ ],
+ "media": {
+  "media": [
+   {
+    "type": "gdm",
+    "t": 1795241026741,
+    "constraints": {
+     "video": {
+      "frameRate": {
+       "max": 1
+      },
+      "width": {
+       "max": 640
+      },
+      "height": {
+       "max": 360
+      }
+     },
+     "audio": {
+      "echoCancellation": false,
+      "noiseSuppression": false,
+      "autoGainControl": false,
+      "suppressLocalAudioPlayback": false
+     },
+     "systemAudio": "include",
+     "selfBrowserSurface": "exclude",
+     "surfaceSwitching": "include",
+     "monitorTypeSurfaces": "include",
+     "preferCurrentTab": false
+    },
+    "ok": 1795241027787,
+    "audio": 1,
+    "video": 1
+   },
+   {
+    "type": "gdm",
+    "t": 1795241073141,
+    "constraints": {
+     "video": {
+      "frameRate": {
+       "max": 1
+      },
+      "width": {
+       "max": 640
+      },
+      "height": {
+       "max": 360
+      }
+     },
+     "audio": {
+      "echoCancellation": false,
+      "noiseSuppression": false,
+      "autoGainControl": false,
+      "suppressLocalAudioPlayback": false
+     },
+     "systemAudio": "include",
+     "selfBrowserSurface": "exclude",
+     "surfaceSwitching": "include",
+     "monitorTypeSurfaces": "include",
+     "preferCurrentTab": false
+    },
+    "ok": 1795241074185,
+    "audio": 1,
+    "video": 1
+   }
+  ],
+  "tracks": [
+   {
+    "call": "gdm",
+    "kind": "audio",
+    "label": "Tab audio",
+    "start": 1795241027787,
+    "end": 1795241037054,
+    "settings": {
+     "autoGainControl": false,
+     "channelCount": 2,
+     "deviceId": "web-contents-media-stream://23:8",
+     "echoCancellation": false,
+     "latency": 0.01,
+     "noiseSuppression": false,
+     "restrictOwnAudio": false,
+     "sampleRate": 44100,
+     "sampleSize": 16,
+     "suppressLocalAudioPlayback": false,
+     "voiceIsolation": false
+    },
+    "endedBy": "source",
+    "readyState": "ended"
+   },
+   {
+    "call": "gdm",
+    "kind": "video",
+    "label": "web-contents-media-stream://6F09D7D4D2B776FC2648557D91202E95",
+    "start": 1795241027787,
+    "end": 1795241037055,
+    "settings": {
+     "aspectRatio": 1.7777777777777777,
+     "cursor": "motion",
+     "deviceId": "web-contents-media-stream://23:8",
+     "displaySurface": "browser",
+     "frameRate": 1,
+     "height": 360,
+     "logicalSurface": true,
+     "resizeMode": "crop-and-scale",
+     "width": 640
+    },
+    "endedBy": "app",
+    "readyState": "ended"
+   },
+   {
+    "call": "gdm",
+    "kind": "audio",
+    "label": "Tab audio",
+    "start": 1795241074185,
+    "end": 1795241079871,
+    "settings": {
+     "autoGainControl": false,
+     "channelCount": 2,
+     "deviceId": "web-contents-media-stream://25:8",
+     "echoCancellation": false,
+     "latency": 0.01,
+     "noiseSuppression": false,
+     "restrictOwnAudio": false,
+     "sampleRate": 44100,
+     "sampleSize": 16,
+     "suppressLocalAudioPlayback": false,
+     "voiceIsolation": false
+    },
+    "endedBy": "app",
+    "readyState": "ended"
+   },
+   {
+    "call": "gdm",
+    "kind": "video",
+    "label": "web-contents-media-stream://15B38F36034F3EA5B8FEF72CF83BB48F",
+    "start": 1795241074185,
+    "end": 1795241079872,
+    "settings": {
+     "aspectRatio": 1.7777777777777777,
+     "cursor": "motion",
+     "deviceId": "web-contents-media-stream://25:8",
+     "displaySurface": "browser",
+     "frameRate": 1,
+     "height": 360,
+     "logicalSurface": true,
+     "resizeMode": "crop-and-scale",
+     "width": 640
+    },
+    "endedBy": "app",
+    "readyState": "ended"
+   }
+  ],
+  "recorder": [],
+  "rtc": [],
+  "videoDraws": 0
+ }
+}

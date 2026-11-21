@@ -1,0 +1,23 @@
+{
+ "range": [
+  1795240908623,
+  1795241025183
+ ],
+ "linesInRange": 543,
+ "total": 588,
+ "status": {
+  "status": "ok",
+  "logsReadAt": "2026-11-21T06:04:34.859264626Z",
+  "droppedOldest": 0,
+  "gaps": 0
+ },
+ "counts": {
+  "source": 0,
+  "translation": 0,
+  "image": 0,
+  "secret": 0
+ },
+ "services": [
+  "web"
+ ]
+}

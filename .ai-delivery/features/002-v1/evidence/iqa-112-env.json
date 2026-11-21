@@ -1,0 +1,19 @@
+{
+ "env": {
+  "plugins": [
+   "PDF Viewer",
+   "Chrome PDF Viewer",
+   "Chromium PDF Viewer",
+   "Microsoft Edge PDF Viewer",
+   "WebKit built-in PDF"
+  ],
+  "devices": [
+   "audioinput:QA synthetic microphone"
+  ],
+  "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/159.0.0.0 Safari/537.36"
+ },
+ "navs": [
+  "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/"
+ ],
+ "downloads": 0
+}

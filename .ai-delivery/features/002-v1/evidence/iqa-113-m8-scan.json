@@ -1,0 +1,20 @@
+[
+ {
+  "tag": "MIC-MAIN",
+  "counts": {
+   "secretValue": 0,
+   "connStringKey": 0,
+   "keyHeader": 0,
+   "keyPattern": 0,
+   "longLivedJwt": 0,
+   "jwtNoExp": 0,
+   "sentImage": 0,
+   "sentVideo": 0
+  },
+  "scannedBytes": 2270602,
+  "scannedItems": 1424,
+  "where": {},
+  "wsFrames": 601,
+  "requests": 46
+ }
+]

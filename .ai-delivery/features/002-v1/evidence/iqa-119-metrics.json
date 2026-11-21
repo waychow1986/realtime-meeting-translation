@@ -1,0 +1,51 @@
+{
+ "caps": [
+  {
+   "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上销",
+   "mark": "final",
+   "fontSize": 32,
+   "lineHeight": 48,
+   "contrast": 18.924630543800298,
+   "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px",
+   "overflowX": false,
+   "ellipsis": false
+  },
+  {
+   "text": "会议将于明天上午10点开始。",
+   "mark": "final",
+   "fontSize": 32,
+   "lineHeight": 48,
+   "contrast": 18.924630543800298,
+   "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px",
+   "overflowX": false,
+   "ellipsis": false
+  },
+  {
+   "text": "请不要",
+   "mark": "interim",
+   "fontSize": 32,
+   "lineHeight": 48,
+   "contrast": 10.459670442611904,
+   "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px",
+   "overflowX": false,
+   "ellipsis": false
+  }
+ ],
+ "maxOther": 20,
+ "maxOtherText": "会议实时中文字幕",
+ "regionArea": 648478.90625,
+ "maxBlockArea": 533806.875,
+ "maxBlockDesc": "DETAILS.",
+ "scrollWidth": 1366,
+ "clientWidth": 1366,
+ "region": {
+  "x": 20,
+  "y": 69.390625,
+  "width": 950,
+  "height": 682.609375,
+  "top": 69.390625,
+  "right": 970,
+  "bottom": 752,
+  "left": 20
+ }
+}

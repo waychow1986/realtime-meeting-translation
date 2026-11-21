@@ -1,0 +1,38 @@
+{
+ "media": [
+  {
+   "type": "gdm",
+   "t": 1795240930961,
+   "constraints": {
+    "video": {
+     "frameRate": {
+      "max": 1
+     },
+     "width": {
+      "max": 640
+     },
+     "height": {
+      "max": 360
+     }
+    },
+    "audio": {
+     "echoCancellation": false,
+     "noiseSuppression": false,
+     "autoGainControl": false,
+     "suppressLocalAudioPlayback": false
+    },
+    "systemAudio": "include",
+    "selfBrowserSurface": "exclude",
+    "surfaceSwitching": "include",
+    "monitorTypeSurfaces": "include",
+    "preferCurrentTab": false
+   },
+   "error": "NotAllowedError: Permission denied by user",
+   "errT": 1795240934033
+  }
+ ],
+ "tracks": [],
+ "recorder": [],
+ "rtc": [],
+ "videoDraws": 0
+}
