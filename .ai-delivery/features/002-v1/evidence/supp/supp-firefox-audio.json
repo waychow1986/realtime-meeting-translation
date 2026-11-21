@@ -1,1 +1,10 @@
-{"probeAudioContext":{"state":"suspended","sinks":["audioinput","videoinput"]},"statusAfter10s":"正在启动…"}
+{
+ "audioContextState": "suspended",
+ "deviceKinds": [
+  "audioinput",
+  "videoinput"
+ ],
+ "version": "159.0",
+ "devSnd": false,
+ "time": "2026-11-21T08:04:56.426Z"
+}

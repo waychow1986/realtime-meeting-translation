@@ -4,7 +4,7 @@
   {
    "main": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
@@ -21,7 +21,7 @@
    ],
    "pip": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
@@ -41,7 +41,7 @@
   {
    "main": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
@@ -51,14 +51,14 @@
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "请不要将这份文件与任何人分享",
+     "text": "请不要分享这份文件",
      "mark": "interim",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ],
    "pip": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
@@ -68,7 +68,7 @@
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "请不要将这份文件与任何人分享",
+     "text": "请不要分享这份文件",
      "mark": "interim",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     }
@@ -78,7 +78,7 @@
   {
    "main": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
@@ -88,130 +88,14 @@
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "请不要将这份文件分享给外部的任何人",
-     "mark": "final",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ],
-   "pip": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "请不要将这份文件分享给外部的任何人",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    }
-   ],
-   "pipStatus": "正在听"
-  },
-  {
-   "main": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    }
-   ],
-   "pip": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    }
-   ],
-   "pipStatus": "正在听"
-  },
-  {
-   "main": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    }
-   ],
-   "pip": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    }
-   ],
-   "pipStatus": "正在听"
-  },
-  {
-   "main": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "我们团队卖出了25",
+     "text": "请不要将此文件分享给外部任何人",
      "mark": "interim",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ],
    "pip": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
@@ -221,12 +105,7 @@
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "我们团队卖出了25",
+     "text": "请不要将此文件分享给外部任何人",
      "mark": "interim",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     }
@@ -236,7 +115,7 @@
   {
    "main": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
@@ -246,19 +125,14 @@
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "请不要将此文件分享给公司外的任何人。",
+     "text": "请不要将此文档分享给公司外的任何人。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "我们团队卖出了25,000辆汽车",
-     "mark": "final",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ],
    "pip": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
@@ -268,12 +142,7 @@
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "我们团队卖出了25,000辆汽车",
+     "text": "请不要将此文档分享给公司外的任何人。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     }
@@ -283,7 +152,7 @@
   {
    "main": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
@@ -293,71 +162,19 @@
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "请不要将此文件分享给公司外的任何人。",
+     "text": "请不要将此文档分享给公司外的任何人。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    }
-   ],
-   "pip": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    }
-   ],
-   "pipStatus": "正在听"
-  },
-  {
-   "main": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "新的",
+     "text": "我们的",
      "mark": "interim",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ],
    "pip": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
@@ -367,17 +184,12 @@
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "请不要将此文件分享给公司外的任何人。",
+     "text": "请不要将此文档分享给公司外的任何人。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "新的",
+     "text": "我们的",
      "mark": "interim",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     }
@@ -387,7 +199,7 @@
   {
    "main": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
@@ -397,24 +209,19 @@
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "请不要将此文件分享给公司外的任何人。",
+     "text": "请不要将此文档分享给公司外的任何人。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "上海的新办公室",
+     "text": "我们的",
      "mark": "interim",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ],
    "pip": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
@@ -424,17 +231,12 @@
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "请不要将此文件分享给公司外的任何人。",
+     "text": "请不要将此文档分享给公司外的任何人。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "上海的新办公室",
+     "text": "我们的",
      "mark": "interim",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     }
@@ -444,7 +246,7 @@
   {
    "main": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
@@ -454,143 +256,19 @@
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "请不要将此文件分享给公司外的任何人。",
+     "text": "请不要将此文档分享给公司外的任何人。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "在上海的新办公室将会在",
-     "mark": "final",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ],
-   "pip": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "在上海的新办公室将会在",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    }
-   ],
-   "pipStatus": "正在听"
-  },
-  {
-   "main": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "上海的新办公室将于七月开业。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    }
-   ],
-   "pip": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "上海的新办公室将于七月开业。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    }
-   ],
-   "pipStatus": "正在听"
-  },
-  {
-   "main": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "上海的新办公室将于七月开业。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "我们不能",
+     "text": "我们的",
      "mark": "interim",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ],
    "pip": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
@@ -600,22 +278,12 @@
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "请不要将此文件分享给公司外的任何人。",
+     "text": "请不要将此文档分享给公司外的任何人。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "上海的新办公室将于七月开业。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "我们不能",
+     "text": "我们的",
      "mark": "interim",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     }
@@ -625,7 +293,7 @@
   {
    "main": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
@@ -635,7 +303,423 @@
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "请不要将此文件分享给公司外的任何人。",
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    }
+   ],
+   "pip": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    }
+   ],
+   "pipStatus": "正在听"
+  },
+  {
+   "main": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    }
+   ],
+   "pip": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    }
+   ],
+   "pipStatus": "正在听"
+  },
+  {
+   "main": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    }
+   ],
+   "pip": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    }
+   ],
+   "pipStatus": "正在听"
+  },
+  {
+   "main": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    }
+   ],
+   "pip": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    }
+   ],
+   "pipStatus": "正在听"
+  },
+  {
+   "main": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "上海的新办公室将于七月开业。",
+     "mark": "final",
+     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+    }
+   ],
+   "pip": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "上海的新办公室将于七月开业。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    }
+   ],
+   "pipStatus": "正在听"
+  },
+  {
+   "main": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "上海的新办公室将于七月开业。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    }
+   ],
+   "pip": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "上海的新办公室将于七月开业。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    }
+   ],
+   "pipStatus": "正在听"
+  },
+  {
+   "main": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "上海的新办公室将于七月开业。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    }
+   ],
+   "pip": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "上海的新办公室将于七月开业。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    }
+   ],
+   "pipStatus": "正在听"
+  },
+  {
+   "main": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "上海的新办公室将于七月开业。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    }
+   ],
+   "pip": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "上海的新办公室将于七月开业。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    }
+   ],
+   "pipStatus": "正在听"
+  },
+  {
+   "main": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
@@ -650,14 +734,153 @@
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "我们不能接受这个价格，因为",
+     "text": "我们",
+     "mark": "final",
+     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+    }
+   ],
+   "pip": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "上海的新办公室将于七月开业。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "我们",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    }
+   ],
+   "pipStatus": "正在听"
+  },
+  {
+   "main": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "上海的新办公室将于七月开业。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "我们不能接受这个价格，因为它太高了。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    }
+   ],
+   "pip": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "上海的新办公室将于七月开业。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "我们不能接受这个价格，因为它太高了。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    }
+   ],
+   "pipStatus": "正在听"
+  },
+  {
+   "main": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "会议将于明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "请不要将此文档分享给公司外的任何人。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "我们团队去年卖出了25,000辆汽车。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "上海的新办公室将于七月开业。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "我们不能接受这个价格，因为它太高了。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "季度",
      "mark": "interim",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ],
    "pip": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
@@ -667,7 +890,7 @@
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "请不要将此文件分享给公司外的任何人。",
+     "text": "请不要将此文档分享给公司外的任何人。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
@@ -682,7 +905,12 @@
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "我们不能接受这个价格，因为",
+     "text": "我们不能接受这个价格，因为它太高了。",
+     "mark": "final",
+     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
+    },
+    {
+     "text": "季度",
      "mark": "interim",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     }
@@ -692,7 +920,7 @@
   {
    "main": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
@@ -702,7 +930,7 @@
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "请不要将此文件分享给公司外的任何人。",
+     "text": "请不要将此文档分享给公司外的任何人。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
@@ -717,153 +945,19 @@
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "我们不能接受这个价格，因为它太高了",
-     "mark": "final",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ],
-   "pip": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "上海的新办公室将于七月开业。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "我们不能接受这个价格，因为它太高了",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    }
-   ],
-   "pipStatus": "正在听"
-  },
-  {
-   "main": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "我们不能接受这个价格，因为它太高了。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "上海的新办公室将于七月开业。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "我们不能接受这个价格，因为太高了。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    }
-   ],
-   "pip": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "上海的新办公室将于七月开业。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "我们不能接受这个价格，因为太高了。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    }
-   ],
-   "pipStatus": "正在听"
-  },
-  {
-   "main": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "上海的新办公室将于七月开业。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "我们不能接受这个价格，因为太高了。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "这",
+     "text": "季度销售",
      "mark": "interim",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ],
    "pip": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
@@ -873,7 +967,7 @@
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "请不要将此文件分享给公司外的任何人。",
+     "text": "请不要将此文档分享给公司外的任何人。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
@@ -888,12 +982,12 @@
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "我们不能接受这个价格，因为太高了。",
+     "text": "我们不能接受这个价格，因为它太高了。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "这",
+     "text": "季度销售",
      "mark": "interim",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     }
@@ -903,7 +997,7 @@
   {
    "main": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
@@ -913,7 +1007,7 @@
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "请不要将此文件分享给公司外的任何人。",
+     "text": "请不要将此文档分享给公司外的任何人。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
@@ -928,19 +1022,19 @@
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "我们不能接受这个价格，因为太高了。",
+     "text": "我们不能接受这个价格，因为它太高了。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "季度销售报告",
+     "text": "季度销售报告显示",
      "mark": "interim",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ],
    "pip": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初时的预期相比，实际销售的产品多得多。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
@@ -950,7 +1044,7 @@
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "请不要将此文件分享给公司外的任何人。",
+     "text": "请不要将此文档分享给公司外的任何人。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
@@ -965,166 +1059,12 @@
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "我们不能接受这个价格，因为太高了。",
+     "text": "我们不能接受这个价格，因为它太高了。",
      "mark": "final",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     },
     {
-     "text": "季度销售报告",
-     "mark": "interim",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    }
-   ],
-   "pipStatus": "正在听"
-  },
-  {
-   "main": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "上海的新办公室将于七月开业。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "我们不能接受这个价格，因为太高了。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "季度销售报告显示我们的团队",
-     "mark": "interim",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ],
-   "pip": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "上海的新办公室将于七月开业。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "我们不能接受这个价格，因为太高了。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "季度销售报告显示我们的团队",
-     "mark": "interim",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    }
-   ],
-   "pipStatus": "正在听"
-  },
-  {
-   "main": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "上海的新办公室将于七月开业。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "我们不能接受这个价格，因为太高了。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "季度销售报告显示，我们在欧洲的团队",
-     "mark": "interim",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ],
-   "pip": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖出了更多的产品。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "请不要将此文件分享给公司外的任何人。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "我们团队去年卖出了25,000辆汽车。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "上海的新办公室将于七月开业。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "我们不能接受这个价格，因为太高了。",
-     "mark": "final",
-     "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
-    },
-    {
-     "text": "季度销售报告显示，我们在欧洲的团队",
+     "text": "季度销售报告显示",
      "mark": "interim",
      "sig": "rgb(0, 0, 0)|1|normal|400|none|rgba(0, 0, 0, 0)|nonergb(0, 0, 0)|16px"
     }

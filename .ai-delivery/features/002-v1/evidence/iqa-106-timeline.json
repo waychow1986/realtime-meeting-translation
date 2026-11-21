@@ -1,148 +1,54 @@
 {
  "timeline": [
   {
-   "t": 1795246775184,
+   "t": 1795248072132,
    "mode": "region",
    "items": []
   },
   {
-   "t": 1795246781184,
+   "t": 1795248083232,
    "mode": "region",
    "items": [
     {
-     "text": "季度",
-     "mark": "interim",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ]
-  },
-  {
-   "t": 1795246781783,
-   "mode": "region",
-   "items": [
-    {
-     "text": "季度销售报告显示",
-     "mark": "interim",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ]
-  },
-  {
-   "t": 1795246781883,
-   "mode": "region",
-   "items": [
-    {
-     "text": "季度销售报告显示我们在欧洲的团队",
-     "mark": "interim",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ]
-  },
-  {
-   "t": 1795246782283,
-   "mode": "region",
-   "items": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队",
-     "mark": "interim",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ]
-  },
-  {
-   "t": 1795246782483,
-   "mode": "region",
-   "items": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队多卖出了很多",
-     "mark": "interim",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ]
-  },
-  {
-   "t": 1795246783083,
-   "mode": "region",
-   "items": [
-    {
-     "text": "季度销售报告显示我们在欧洲市场的团队销售了更多产品",
-     "mark": "interim",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ]
-  },
-  {
-   "t": 1795246783983,
-   "mode": "region",
-   "items": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售了更多的产品比",
-     "mark": "interim",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ]
-  },
-  {
-   "t": 1795246784883,
-   "mode": "region",
-   "items": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量远远超过了我们预期在",
-     "mark": "interim",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ]
-  },
-  {
-   "t": 1795246785783,
-   "mode": "region",
-   "items": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量远超出我们在今年年初的预期",
-     "mark": "interim",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ]
-  },
-  {
-   "t": 1795246785883,
-   "mode": "region",
-   "items": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量远超出我们在今年年初的预期",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初预期之外多卖出了很多产品。",
      "mark": "final",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ]
   },
   {
-   "t": 1795246786283,
+   "t": 1795248083332,
    "mode": "region",
    "items": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量远超我们在今年年初的预期。",
-     "mark": "final",
-     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ]
-  },
-  {
-   "t": 1795246786383,
-   "mode": "region",
-   "items": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量远超我们在今年年初的预期。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初预期之外多卖出了很多产品。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     }
    ]
   },
   {
-   "t": 1795246823983,
+   "t": 1795248120532,
    "mode": "region",
    "items": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量远超我们在今年年初的预期。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初预期之外多卖出了很多产品。",
+     "mark": "final",
+     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "text": "会议将在明天上午10点开始。",
+     "mark": "final",
+     "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
+    }
+   ]
+  },
+  {
+   "t": 1795248120632,
+   "mode": "region",
+   "items": [
+    {
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初预期之外多卖出了很多产品。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
@@ -154,11 +60,11 @@
    ]
   },
   {
-   "t": 1795246831383,
+   "t": 1795248129832,
    "mode": "region",
    "items": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量远超我们在今年年初的预期。",
+     "text": "季度销售报告显示，我们在欧洲市场的团队今年年初预期之外多卖出了很多产品。",
      "mark": "final",
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
@@ -168,30 +74,9 @@
      "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "会议",
+     "text": "会议将在",
      "mark": "final",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
-    }
-   ]
-  },
-  {
-   "t": 1795246831483,
-   "mode": "region",
-   "items": [
-    {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品数量远超我们在今年年初的预期。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "会议将在明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
-    },
-    {
-     "text": "会议将于明天上午10点开始。",
-     "mark": "final",
-     "sig": "rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     }
    ]
   }
@@ -200,7 +85,7 @@
   "media": [
    {
     "type": "gdm",
-    "t": 1795246775429,
+    "t": 1795248072359,
     "constraints": {
      "video": {
       "frameRate": {
@@ -225,13 +110,13 @@
      "monitorTypeSurfaces": "include",
      "preferCurrentTab": false
     },
-    "ok": 1795246776488,
+    "ok": 1795248073404,
     "audio": 1,
     "video": 1
    },
    {
     "type": "gum",
-    "t": 1795246818208,
+    "t": 1795248114723,
     "constraints": {
      "audio": {
       "echoCancellation": true,
@@ -241,13 +126,13 @@
      "video": false
     },
     "content": "one",
-    "ok": 1795246818231,
+    "ok": 1795248114746,
     "audio": 1,
     "video": 0
    },
    {
     "type": "gdm",
-    "t": 1795246824526,
+    "t": 1795248121040,
     "constraints": {
      "video": {
       "frameRate": {
@@ -272,7 +157,7 @@
      "monitorTypeSurfaces": "include",
      "preferCurrentTab": false
     },
-    "ok": 1795246825571,
+    "ok": 1795248122085,
     "audio": 1,
     "video": 1
    }
@@ -282,8 +167,8 @@
     "call": "gdm",
     "kind": "audio",
     "label": "Tab audio",
-    "start": 1795246776488,
-    "end": 1795246786893,
+    "start": 1795248073404,
+    "end": 1795248083408,
     "settings": {
      "autoGainControl": false,
      "channelCount": 2,
@@ -303,9 +188,9 @@
    {
     "call": "gdm",
     "kind": "video",
-    "label": "web-contents-media-stream://F63302127F9E81D7FC72A40BDDE94241",
-    "start": 1795246776488,
-    "end": 1795246786894,
+    "label": "web-contents-media-stream://0F8BC9E6B1C4481231CD0B30A290BE6E",
+    "start": 1795248073404,
+    "end": 1795248083408,
     "settings": {
      "aspectRatio": 1.7777777777777777,
      "cursor": "motion",
@@ -324,11 +209,11 @@
     "call": "gum",
     "kind": "audio",
     "label": "MediaStreamAudioDestinationNode",
-    "start": 1795246818231,
-    "end": 1795246824175,
+    "start": 1795248114746,
+    "end": 1795248120689,
     "settings": {
      "channelCount": 2,
-     "deviceId": "WebAudio-b3584bc8-c5c1-4fa8-976a-18436d4bc0d7",
+     "deviceId": "WebAudio-35cdc7a4-cc65-4272-ad49-42b9d23798ad",
      "latency": 0.01,
      "sampleRate": 44100,
      "sampleSize": 16
@@ -340,8 +225,8 @@
     "call": "gdm",
     "kind": "audio",
     "label": "Tab audio",
-    "start": 1795246825571,
-    "end": 1795246831557,
+    "start": 1795248122085,
+    "end": 1795248129856,
     "settings": {
      "autoGainControl": false,
      "channelCount": 2,
@@ -361,9 +246,9 @@
    {
     "call": "gdm",
     "kind": "video",
-    "label": "web-contents-media-stream://0A19921BA808896A6B733559BE2DE442",
-    "start": 1795246825571,
-    "end": 1795246831558,
+    "label": "web-contents-media-stream://5046A7DF066F30384B71A9A0ADECBFE8",
+    "start": 1795248122085,
+    "end": 1795248129856,
     "settings": {
      "aspectRatio": 1.7777777777777777,
      "cursor": "motion",

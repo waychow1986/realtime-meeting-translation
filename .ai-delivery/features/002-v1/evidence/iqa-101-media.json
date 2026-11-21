@@ -2,7 +2,7 @@
  "media": [
   {
    "type": "gum",
-   "t": 1795246726679,
+   "t": 1795248024094,
    "constraints": {
     "audio": {
      "echoCancellation": true,
@@ -12,13 +12,13 @@
     "video": false
    },
    "content": "loop",
-   "ok": 1795246726749,
+   "ok": 1795248024167,
    "audio": 1,
    "video": 0
   },
   {
    "type": "gdm",
-   "t": 1795246727663,
+   "t": 1795248025044,
    "constraints": {
     "video": {
      "frameRate": {
@@ -43,7 +43,7 @@
     "monitorTypeSurfaces": "include",
     "preferCurrentTab": false
    },
-   "ok": 1795246728723,
+   "ok": 1795248026105,
    "audio": 1,
    "video": 1
   }
@@ -53,11 +53,11 @@
    "call": "gum",
    "kind": "audio",
    "label": "MediaStreamAudioDestinationNode",
-   "start": 1795246726749,
-   "end": 1795246727296,
+   "start": 1795248024167,
+   "end": 1795248024694,
    "settings": {
     "channelCount": 2,
-    "deviceId": "WebAudio-80c0b731-f70f-4efd-b55d-f95bd817817e",
+    "deviceId": "WebAudio-94c94068-c031-496c-937c-16b4dae36926",
     "latency": 0.01,
     "sampleRate": 44100,
     "sampleSize": 16
@@ -69,7 +69,7 @@
    "call": "gdm",
    "kind": "audio",
    "label": "Tab audio",
-   "start": 1795246728723,
+   "start": 1795248026105,
    "end": null,
    "settings": {
     "autoGainControl": false,
@@ -89,8 +89,8 @@
   {
    "call": "gdm",
    "kind": "video",
-   "label": "web-contents-media-stream://B2E6497995769E5EBCC776872146C887",
-   "start": 1795246728723,
+   "label": "web-contents-media-stream://852BC0DE609CE348209096439730F093",
+   "start": 1795248026105,
    "end": null,
    "settings": {
     "aspectRatio": 1.7777777777777777,

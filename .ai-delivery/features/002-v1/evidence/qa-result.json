@@ -1,10 +1,10 @@
 {
  "passed": false,
- "testedCommitSha": "720833972d47425ad1f940bae245db5d25894450",
+ "testedCommitSha": "44c6bd7ee5f290b3d935eb380dcfe0f5e68b6b4a",
  "summary": "系统声音实时翻译独立测试：23 个场景中 19 个通过；产品缺陷 3 条、脚本未能完成验证 3 条、环境问题 0 条。被测地址 https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/。",
  "defects": [
   "IQA-103 c4 临时与定稿样式不同：临时与定稿样式签名相同",
-  "IQA-119 c5 四档字号、≤1 s 生效、递增、特大 ≥48、行距 ≥1.4：主页面 24/32/40/52 px，小窗 16/16/16/16 px，行距不足 0 档，生效用时 10/11/10/11 ms",
+  "IQA-119 c5 四档字号、≤1 s 生效、递增、特大 ≥48、行距 ≥1.4：主页面 24/32/40/52 px，小窗 16/16/16/16 px，行距不足 0 档，生效用时 14/11/9/10 ms",
   "IQA-123 c3 麦克风模式出中文字幕：正在听:false，中文且命中第 2 句关键词的定稿:false"
  ],
  "testGaps": [
@@ -168,7 +168,7 @@
     {
      "step": "c1 首条字幕早于语音结束",
      "passed": true,
-     "observation": "首次出现相对第 1 句结束 -3.75 s"
+     "observation": "首次出现相对第 1 句结束 -4.00 s"
     },
     {
      "step": "c2 结束前至少再变化一次",
@@ -178,7 +178,7 @@
     {
      "step": "c3 结束后 ≤15 s 定稿且不再改变",
      "passed": true,
-     "observation": "定稿相对结束 1.25 s，最后变化相对结束 1.75 s，定稿标记有"
+     "observation": "定稿相对结束 1.20 s，最后变化相对结束 1.80 s，定稿标记有"
     },
     {
      "step": "c4 临时与定稿样式不同",
@@ -433,7 +433,7 @@
     {
      "step": "c4 再次共享正常出字幕",
      "passed": true,
-     "observation": "正在听:true，中文定稿:true（会议将于明天）"
+     "observation": "正在听:true，中文定稿:true（会议将于明天上午10点开始。）"
     }
    ],
    "evidence": "iqa-111-noaudio.png, iqa-111-media.json"
@@ -480,7 +480,7 @@
     {
      "step": "M2 流式",
      "passed": true,
-     "observation": "首次出现相对结束 -5.62 s，结束前变化 10 次，定稿相对结束 1.08 s"
+     "observation": "首次出现相对结束 -5.05 s，结束前变化 5 次，定稿相对结束 1.15 s"
     },
     {
      "step": "M3 无语言选择控件",
@@ -520,7 +520,7 @@
     {
      "step": "M9 日志无客户内容",
      "passed": true,
-     "observation": "时段 2026-11-21T07:38:36.140Z～2026-11-21T07:40:32.679Z，日志共 1350 行、时段内 520 行（{\"status\":\"ok\",\"logsReadAt\":\"2026-11-21T07:41:06.813963684Z\",\"droppedOldest\":0,\"gaps\":0}），英文片段 55 个、中文窗口 129 个；原句 0、译文 0、画面 0、secret 0"
+     "observation": "时段 2026-11-21T08:00:13.541Z～2026-11-21T08:02:09.646Z，日志共 500 行、时段内 451 行（{\"status\":\"ok\",\"logsReadAt\":\"2026-11-21T08:02:47.467111455Z\",\"droppedOldest\":0,\"gaps\":0}），英文片段 55 个、中文窗口 133 个；原句 0、译文 0、画面 0、secret 0"
     },
     {
      "step": "M7 真实服务（c1 真实服务）",
@@ -530,7 +530,7 @@
     {
      "step": "M8 无长期凭据",
      "passed": true,
-     "observation": "麦克风主会话：扫描 2268427 字节、1383 项、请求 43 个、WebSocket 帧 599；命中 {\"secretValue\":0,\"connStringKey\":0,\"keyHeader\":0,\"keyPattern\":0,\"longLivedJwt\":0,\"jwtNoExp\":0}（比对值 2 个）"
+     "observation": "麦克风主会话：扫描 2248598 字节、1346 项、请求 41 个、WebSocket 帧 590；命中 {\"secretValue\":0,\"connStringKey\":0,\"keyHeader\":0,\"keyPattern\":0,\"longLivedJwt\":0,\"jwtNoExp\":0}（比对值 2 个）"
     }
    ],
    "evidence": "mic-main-captions.png, mic-main-timeline.json, mic-main-stream.json, mic-main-sentences.json, mic-page-b.png, mic-after-reload.png, mic-denied.png, iqa-113-m9-logscan.json, iqa-113-services.json, iqa-113-m8-scan.json"
@@ -582,12 +582,12 @@
     {
      "step": "c1 系统声音与小窗会话无长期凭据",
      "passed": true,
-     "observation": "SYS-MAIN 与 IQA-122：扫描 4486895 字节、3116 项、请求 106 个、WebSocket 帧 1221；命中 {\"secretValue\":0,\"connStringKey\":0,\"keyHeader\":0,\"keyPattern\":0,\"longLivedJwt\":0,\"jwtNoExp\":0}（比对值 2 个）"
+     "observation": "SYS-MAIN 与 IQA-122：扫描 4337651 字节、2820 项、请求 92 个、WebSocket 帧 1169；命中 {\"secretValue\":0,\"connStringKey\":0,\"keyHeader\":0,\"keyPattern\":0,\"longLivedJwt\":0,\"jwtNoExp\":0}（比对值 2 个）"
     },
     {
      "step": "c2 麦克风会话无长期凭据",
      "passed": true,
-     "observation": "麦克风主会话：扫描 2268427 字节、1383 项、请求 43 个、WebSocket 帧 599；命中 {\"secretValue\":0,\"connStringKey\":0,\"keyHeader\":0,\"keyPattern\":0,\"longLivedJwt\":0,\"jwtNoExp\":0}（比对值 2 个）"
+     "observation": "麦克风主会话：扫描 2248598 字节、1346 项、请求 41 个、WebSocket 帧 590；命中 {\"secretValue\":0,\"connStringKey\":0,\"keyHeader\":0,\"keyPattern\":0,\"longLivedJwt\":0,\"jwtNoExp\":0}（比对值 2 个）"
     }
    ],
    "evidence": "iqa-115-c1-scan.json, iqa-115-c2-scan.json"
@@ -603,7 +603,7 @@
     {
      "step": "c1 原句命中 0",
      "passed": true,
-     "observation": "时段 2026-11-21T07:38:36.079Z～2026-11-21T07:40:32.325Z，日志共 1350 行、时段内 520 行（{\"status\":\"ok\",\"logsReadAt\":\"2026-11-21T07:41:06.813963684Z\",\"droppedOldest\":0,\"gaps\":0}），英文片段 55 个、中文窗口 145 个；原句命中 0 行"
+     "observation": "时段 2026-11-21T08:00:13.540Z～2026-11-21T08:02:09.246Z，日志共 500 行、时段内 450 行（{\"status\":\"ok\",\"logsReadAt\":\"2026-11-21T08:02:47.467111455Z\",\"droppedOldest\":0,\"gaps\":0}），英文片段 55 个、中文窗口 162 个；原句命中 0 行"
     },
     {
      "step": "c2 译文命中 0",
@@ -639,7 +639,7 @@
     {
      "step": "c2 未上传画面数据",
      "passed": true,
-     "observation": "图像特征 0、视频特征 0；请求类型 {\"document\":2,\"stylesheet\":4,\"script\":2,\"fetch\":98}，WebSocket 发送帧 1044"
+     "observation": "图像特征 0、视频特征 0；请求类型 {\"document\":2,\"stylesheet\":4,\"script\":2,\"fetch\":84}，WebSocket 发送帧 1005"
     },
     {
      "step": "c3 未把视频轨道交给录制或 RTC",
@@ -718,7 +718,7 @@
     {
      "step": "c5 四档字号、≤1 s 生效、递增、特大 ≥48、行距 ≥1.4",
      "passed": false,
-     "observation": "主页面 24/32/40/52 px，小窗 16/16/16/16 px，行距不足 0 档，生效用时 10/11/10/11 ms"
+     "observation": "主页面 24/32/40/52 px，小窗 16/16/16/16 px，行距不足 0 档，生效用时 14/11/9/10 ms"
     },
     {
      "step": "c6 切换中保持正在听与 live，之后仍有新字幕",
@@ -741,7 +741,7 @@
     {
      "step": "c1 首次打开 ≤5 s 出现中文引导",
      "passed": true,
-     "observation": "引导出现于 401 ms"
+     "observation": "引导出现于 407 ms"
     },
     {
      "step": "c2 引导内容完整",
@@ -800,7 +800,7 @@
     {
      "step": "c1 ≤5 s 出现独立窗口",
      "passed": true,
-     "observation": "可用:true，Document PiP:true，新顶层窗口:true，视频画中画:false，用时 369 ms"
+     "observation": "可用:true，Document PiP:true，新顶层窗口:true，视频画中画:false，用时 381 ms"
     },
     {
      "step": "c2 小窗与主页面一致且显示正在听",
@@ -815,7 +815,7 @@
     {
      "step": "c4 再次弹出显示当前全部字幕",
      "passed": true,
-     "observation": "主页面定稿 7 条，小窗 7 条"
+     "observation": "主页面定稿 6 条，小窗 6 条"
     },
     {
      "step": "c5 麦克风模式小窗可用且一致",

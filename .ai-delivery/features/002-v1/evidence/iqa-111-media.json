@@ -2,7 +2,7 @@
  "media": [
   {
    "type": "gdm",
-   "t": 1795246719712,
+   "t": 1795248017158,
    "constraints": {
     "video": {
      "frameRate": {
@@ -27,7 +27,7 @@
     "monitorTypeSurfaces": "include",
     "preferCurrentTab": false
    },
-   "ok": 1795246719757,
+   "ok": 1795248017200,
    "audio": 0,
    "video": 1
   }
@@ -37,8 +37,8 @@
    "call": "gdm",
    "kind": "video",
    "label": "screen:401:0",
-   "start": 1795246719757,
-   "end": 1795246719757,
+   "start": 1795248017200,
+   "end": 1795248017201,
    "settings": {
     "aspectRatio": 1.7777777777777777,
     "cursor": "always",

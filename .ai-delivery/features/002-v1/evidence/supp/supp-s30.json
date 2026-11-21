@@ -1,0 +1,228 @@
+{
+ "1366x768": {
+  "idle": {
+   "detailsSummary": "系统声音：操作步骤与支持的浏览器",
+   "detailsOpen": true,
+   "headerHeight": 57,
+   "nativeRadioVisible": 0,
+   "radios": 6,
+   "captionArea": 945,
+   "accessibleNames": [
+    [
+     "麦克风",
+     true
+    ],
+    [
+     "系统声音",
+     true
+    ],
+    [
+     "小",
+     true
+    ],
+    [
+     "中",
+     true
+    ],
+    [
+     "大",
+     true
+    ],
+    [
+     "特大",
+     true
+    ]
+   ],
+   "hasStart": true,
+   "hasPip": true,
+   "hasGuide": true
+  },
+  "listening": {
+   "detailsSummary": "系统声音：操作步骤与支持的浏览器",
+   "detailsOpen": false,
+   "headerHeight": 57,
+   "nativeRadioVisible": 0,
+   "radios": 6,
+   "captionArea": 945,
+   "accessibleNames": [
+    [
+     "麦克风",
+     true
+    ],
+    [
+     "系统声音",
+     true
+    ],
+    [
+     "小",
+     true
+    ],
+    [
+     "中",
+     true
+    ],
+    [
+     "大",
+     true
+    ],
+    [
+     "特大",
+     true
+    ]
+   ],
+   "hasStart": true,
+   "hasPip": true,
+   "hasGuide": true
+  },
+  "stopped": {
+   "detailsSummary": "系统声音：操作步骤与支持的浏览器",
+   "detailsOpen": true,
+   "headerHeight": 57,
+   "nativeRadioVisible": 0,
+   "radios": 6,
+   "captionArea": 945,
+   "accessibleNames": [
+    [
+     "麦克风",
+     true
+    ],
+    [
+     "系统声音",
+     true
+    ],
+    [
+     "小",
+     true
+    ],
+    [
+     "中",
+     true
+    ],
+    [
+     "大",
+     true
+    ],
+    [
+     "特大",
+     true
+    ]
+   ],
+   "hasStart": true,
+   "hasPip": true,
+   "hasGuide": true
+  }
+ },
+ "480x800": {
+  "idle": {
+   "detailsSummary": "系统声音：操作步骤与支持的浏览器",
+   "detailsOpen": true,
+   "headerHeight": 93,
+   "nativeRadioVisible": 0,
+   "radios": 6,
+   "captionArea": 823,
+   "accessibleNames": [
+    [
+     "麦克风",
+     true
+    ],
+    [
+     "系统声音",
+     true
+    ],
+    [
+     "小",
+     true
+    ],
+    [
+     "中",
+     true
+    ],
+    [
+     "大",
+     true
+    ],
+    [
+     "特大",
+     true
+    ]
+   ],
+   "hasStart": true,
+   "hasPip": true,
+   "hasGuide": true
+  },
+  "listening": {
+   "detailsSummary": "系统声音：操作步骤与支持的浏览器",
+   "detailsOpen": false,
+   "headerHeight": 93,
+   "nativeRadioVisible": 0,
+   "radios": 6,
+   "captionArea": 823,
+   "accessibleNames": [
+    [
+     "麦克风",
+     true
+    ],
+    [
+     "系统声音",
+     true
+    ],
+    [
+     "小",
+     true
+    ],
+    [
+     "中",
+     true
+    ],
+    [
+     "大",
+     true
+    ],
+    [
+     "特大",
+     true
+    ]
+   ],
+   "hasStart": true,
+   "hasPip": true,
+   "hasGuide": true
+  },
+  "stopped": {
+   "detailsSummary": "系统声音：操作步骤与支持的浏览器",
+   "detailsOpen": true,
+   "headerHeight": 93,
+   "nativeRadioVisible": 0,
+   "radios": 6,
+   "captionArea": 823,
+   "accessibleNames": [
+    [
+     "麦克风",
+     true
+    ],
+    [
+     "系统声音",
+     true
+    ],
+    [
+     "小",
+     true
+    ],
+    [
+     "中",
+     true
+    ],
+    [
+     "大",
+     true
+    ],
+    [
+     "特大",
+     true
+    ]
+   ],
+   "hasStart": true,
+   "hasPip": true,
+   "hasGuide": true
+  }
+ }
+}

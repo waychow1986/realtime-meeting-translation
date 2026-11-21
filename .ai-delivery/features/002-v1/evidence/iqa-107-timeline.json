@@ -1,12 +1,12 @@
 {
  "timeline": [
   {
-   "t": 1795246834431,
+   "t": 1795248132680,
    "mode": "region",
    "items": []
   },
   {
-   "t": 1795246841031,
+   "t": 1795248139280,
    "mode": "region",
    "items": [
     {
@@ -17,51 +17,51 @@
    ]
   },
   {
-   "t": 1795246841831,
+   "t": 1795248139779,
    "mode": "region",
    "items": [
     {
-     "text": "季度销售报告显示，我们在",
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售",
      "mark": "interim",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ]
   },
   {
-   "t": 1795246841931,
+   "t": 1795248139879,
    "mode": "region",
    "items": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售了",
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售了更多",
      "mark": "interim",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ]
   },
   {
-   "t": 1795246842631,
+   "t": 1795248140779,
    "mode": "region",
    "items": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售了更多的产品",
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售了更多产品",
      "mark": "interim",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ]
   },
   {
-   "t": 1795246843331,
+   "t": 1795248141379,
    "mode": "region",
    "items": [
     {
-     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品远远多于我们",
+     "text": "季度销售报告显示，我们在欧洲市场的团队销售的产品远远多于我们预期",
      "mark": "interim",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
    ]
   },
   {
-   "t": 1795246844531,
+   "t": 1795248142579,
    "mode": "region",
    "items": [
     {
@@ -72,7 +72,7 @@
    ]
   },
   {
-   "t": 1795246845031,
+   "t": 1795248142979,
    "mode": "region",
    "items": [
     {
@@ -83,7 +83,7 @@
    ]
   },
   {
-   "t": 1795246881431,
+   "t": 1795248179080,
    "mode": "region",
    "items": [
     {
@@ -94,7 +94,7 @@
    ]
   },
   {
-   "t": 1795246887731,
+   "t": 1795248185679,
    "mode": "region",
    "items": [
     {
@@ -103,7 +103,7 @@
      "sig": "rgb(182, 194, 207)|1|italic|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
     },
     {
-     "text": "会议",
+     "text": "会议将于明天上午10点开始。",
      "mark": "final",
      "sig": "rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px"
     }
@@ -114,7 +114,7 @@
   "media": [
    {
     "type": "gdm",
-    "t": 1795246834659,
+    "t": 1795248132907,
     "constraints": {
      "video": {
       "frameRate": {
@@ -139,13 +139,13 @@
      "monitorTypeSurfaces": "include",
      "preferCurrentTab": false
     },
-    "ok": 1795246835704,
+    "ok": 1795248133952,
     "audio": 1,
     "video": 1
    },
    {
     "type": "gdm",
-    "t": 1795246881359,
+    "t": 1795248179007,
     "constraints": {
      "video": {
       "frameRate": {
@@ -170,7 +170,7 @@
      "monitorTypeSurfaces": "include",
      "preferCurrentTab": false
     },
-    "ok": 1795246882401,
+    "ok": 1795248180051,
     "audio": 1,
     "video": 1
    }
@@ -180,8 +180,8 @@
     "call": "gdm",
     "kind": "audio",
     "label": "Tab audio",
-    "start": 1795246835704,
-    "end": 1795246845281,
+    "start": 1795248133952,
+    "end": 1795248142924,
     "settings": {
      "autoGainControl": false,
      "channelCount": 2,
@@ -201,9 +201,9 @@
    {
     "call": "gdm",
     "kind": "video",
-    "label": "web-contents-media-stream://2A27FDB282E1CB430F4C3BAE57D3AA1A",
-    "start": 1795246835704,
-    "end": 1795246845281,
+    "label": "web-contents-media-stream://C4E37E1BBE8A86BE1E5417CCBAFEB189",
+    "start": 1795248133952,
+    "end": 1795248142924,
     "settings": {
      "aspectRatio": 1.7777777777777777,
      "cursor": "motion",
@@ -222,8 +222,8 @@
     "call": "gdm",
     "kind": "audio",
     "label": "Tab audio",
-    "start": 1795246882401,
-    "end": 1795246887789,
+    "start": 1795248180051,
+    "end": 1795248185737,
     "settings": {
      "autoGainControl": false,
      "channelCount": 2,
@@ -243,9 +243,9 @@
    {
     "call": "gdm",
     "kind": "video",
-    "label": "web-contents-media-stream://F648E366CCCE7FC0B753DE576DE21319",
-    "start": 1795246882401,
-    "end": 1795246887789,
+    "label": "web-contents-media-stream://5105746C514CFC35ED9D70D10CF6325A",
+    "start": 1795248180051,
+    "end": 1795248185737,
     "settings": {
      "aspectRatio": 1.7777777777777777,
      "cursor": "motion",

@@ -1,0 +1,30 @@
+{
+ "rule": "同一位置字幕在相邻快照间长度降到 <60% 且减少 ≥5 字视为骤降",
+ "results": {
+  "sys-main-timeline.json": {
+   "samples": 51,
+   "sharpLengthDrops": 0,
+   "examples": []
+  },
+  "iqa-122-timeline.json": {
+   "samples": 58,
+   "sharpLengthDrops": 0,
+   "examples": []
+  },
+  "mic-main-timeline.json": {
+   "samples": 48,
+   "sharpLengthDrops": 0,
+   "examples": []
+  },
+  "iqa-106-timeline.json": {
+   "samples": 6,
+   "sharpLengthDrops": 0,
+   "examples": []
+  },
+  "iqa-107-timeline.json": {
+   "samples": 10,
+   "sharpLengthDrops": 0,
+   "examples": []
+  }
+ }
+}

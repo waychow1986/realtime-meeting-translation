@@ -1,0 +1,148 @@
+{
+ "url": "https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/",
+ "time": "2026-11-21T08:03:49.557Z",
+ "runs": [
+  {
+   "browser": "chromium",
+   "withRoute": false,
+   "rows": [
+    {
+     "size": "小",
+     "pipOpen": true,
+     "pipCap": {
+      "fs": 24,
+      "lh": "36px"
+     },
+     "sheets": 1,
+     "links": [
+      {
+       "href": "/styles.css",
+       "rules": 93
+      }
+     ]
+    },
+    {
+     "size": "中",
+     "pipOpen": true,
+     "pipCap": {
+      "fs": 32,
+      "lh": "48px"
+     },
+     "sheets": 1,
+     "links": [
+      {
+       "href": "/styles.css",
+       "rules": 93
+      }
+     ]
+    },
+    {
+     "size": "大",
+     "pipOpen": true,
+     "pipCap": {
+      "fs": 40,
+      "lh": "60px"
+     },
+     "sheets": 1,
+     "links": [
+      {
+       "href": "/styles.css",
+       "rules": 93
+      }
+     ]
+    },
+    {
+     "size": "特大",
+     "pipOpen": true,
+     "pipCap": {
+      "fs": 52,
+      "lh": "78px"
+     },
+     "sheets": 1,
+     "links": [
+      {
+       "href": "/styles.css",
+       "rules": 93
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "browser": "chromium",
+   "withRoute": true,
+   "rows": [
+    {
+     "size": "小",
+     "pipOpen": true,
+     "pipCap": {
+      "fs": 16,
+      "lh": "normal"
+     },
+     "sheets": 0,
+     "links": [
+      {
+       "href": "/styles.css",
+       "rules": null
+      }
+     ]
+    },
+    {
+     "size": "中",
+     "pipOpen": true,
+     "pipCap": {
+      "fs": 16,
+      "lh": "normal"
+     },
+     "sheets": 0,
+     "links": [
+      {
+       "href": "/styles.css",
+       "rules": null
+      }
+     ]
+    },
+    {
+     "size": "大",
+     "pipOpen": true,
+     "pipCap": {
+      "fs": 16,
+      "lh": "normal"
+     },
+     "sheets": 0,
+     "links": [
+      {
+       "href": "/styles.css",
+       "rules": null
+      }
+     ]
+    },
+    {
+     "size": "特大",
+     "pipOpen": true,
+     "pipCap": {
+      "fs": 16,
+      "lh": "normal"
+     },
+     "sheets": 0,
+     "links": [
+      {
+       "href": "/styles.css",
+       "rules": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "browser": "webkit",
+   "found": true,
+   "hasDPiP": false,
+   "disabled": true,
+   "title": "",
+   "describedBy": null,
+   "nearText": "弹出字幕小窗\n当前浏览器不支持悬浮字幕小窗。请使用 Windows 或 macOS 上最新版的 Chrome 或 Edge。",
+   "version": "27.2"
+  }
+ ]
+}
