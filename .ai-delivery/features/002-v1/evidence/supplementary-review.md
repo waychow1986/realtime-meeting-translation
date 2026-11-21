@@ -1,44 +1,46 @@
-# G3 独立测试 · 结果复核与补充探测
+# G3 独立测试补充复核（候选 720833972d47425ad1f940bae245db5d25894450）
 
-- 候选：`74fab869466081726af23c49c85c5b4dda4bae40`，地址 `https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com`
-- 测试计划：`tasks-qa.md` v1 + `runtime/qa-run.sh`，指纹 `sha256:2f5df71150367e70e92d42b01d64720b40d37cdc95da32ca0f9cf9099aca7174`（已按“计划 + 脚本”的拼接内容核对，结果一致）
-- 执行时间：2026-11-21 06:22–06:25 UTC。锁定脚本退出码为 0，`qa-result.json` 中的 `testedCommitSha` 与上述候选一致。结果原文见 `qa-result.json`，逐个检查点的日志见 `run.log`。本目录中此前针对另一候选（`353a335…`）的证据已清除，现有证据都来自本次执行。
-- 锁定脚本结论：23 个场景中 19 个通过；脚本记录了 3 条产品缺陷和 3 条未能完成验证的检查点。下面逐项复核这些未通过的检查点。补充探测只读访问候选，没有修改测试计划和脚本。探测结果见 `supp-probe.json` 和 `supp-probe-with-route.json`。
+- 被测地址：https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/
+- 测试计划：tasks-qa.md 第 1 版，锁定指纹 `sha256:2f5df71150367e70e92d42b01d64720b40d37cdc95da32ca0f9cf9099aca7174`；脚本 runtime/qa-run.sh 原样执行，未修改计划与产品代码。
+- 分阶段：1 个阶段，不请求重部署。
+- 浏览器：Playwright 1.65.1 Chromium（Xvfb 有头）、Firefox 159.0、WebKit（仅补充探针）。
 
-## 1. IQA-103 c4（临时与定稿样式不同）：脚本取样口径问题，不是产品缺陷
+## 1. 锁定脚本运行
 
-- 根据 `iqa-103-stream.json` 中第 1 句字幕的历史：临时状态的样式为 `rgb(182,194,207)` 加虚线边框；t=…173936 时元素已带上 final 标记，但样式仍是临时样式；t=…174636 时替换为定稿译文，样式变为 `rgb(255,255,255)` 加实线透明边框，与临时样式明显不同。
-- 脚本只拿“第一条带 final 标记的快照”与临时样式比较，正好取到切换前约 700 ms 的过渡快照，所以判为“相同”。补充探测在字幕小窗中也读到临时字幕为 `rgb(182,194,207)`、虚线边框，定稿字幕为白色、实线边框（`supp-probe.json`）。
-- AC-03 要求的流式行为（句子说完前出字幕、随语音持续更新、句子结束后替换为定稿）在 c1、c2、c3、c5 中都已通过：第一条字幕在该句结束前 3.9 s 出现，句子结束前共更新 5 次，句子结束后 1.3 s 出现定稿。
-- 观察（不影响判定）：过渡期间，定稿译文从头流式显示，文本先从 33 字缩回 4 字，再增长到 43 字，约 0.7 s 内可以看到一次字幕回退。建议在 G4 作为体验问题参考。
+| 运行 | 时间（UTC） | 结果 | 证据 |
+| --- | --- | --- | --- |
+| 运行 1 | 约 07:30–07:34 | 23 个场景通过 18 个；脚本记缺陷 IQA-103 c4、IQA-119 c5、IQA-122 c3、IQA-123 c3；未能验证 IQA-114 c4、IQA-123 c1/c2 | `run1-qa-result.json`、`run1-run.log`、`run1-iqa-122-*.json` |
+| 运行 2（主证据） | 约 07:38–07:41 | 23 个场景通过 19 个；IQA-122 全部通过；其余失败检查点同上一个候选 | `qa-result.json`、`run.log` 及本目录其他文件 |
 
-## 2. IQA-119 c5（字号档在小窗中生效）：测试工具造成的误判，不是产品缺陷
+两次运行结果的差别只有 IQA-122 c3，见第 3 节。
 
-- 锁定脚本测得，主页面四档字号依次为 24/32/40/52 px，行距 1.5 倍，生效用时不超过 11 ms；但小窗中始终是 16 px（`iqa-119-sizes.json`）。
-- 补充探测（Playwright Chromium，有头模式，Xvfb，假麦克风，打开“弹出字幕小窗”后开始翻译，再切换字号）：
-  - 不注册 `context.route` 时：小窗加载了 1 个样式表，背景为 `rgb(13,17,23)`；小窗字幕在“小/中/大/特大”四档下依次为 24/32/40/52 px，行距依次为 36/48/60/78 px（1.5 倍），与主页面同步变化（`supp-probe.json`）。
-  - 和锁定脚本第 712 行一样注册 `context.route('/__qa__/…')` 后：小窗样式表数为 0，背景透明，文字为 16 px 黑色，切到“特大”后仍是 16 px，完全复现了脚本的观测结果（`supp-probe-with-route.json`）。
-- 结论：误判来自脚本拦截请求，导致 Document Picture-in-Picture 小窗加载不到样式表。候选本身的小窗字号能随档位变化。AC-11 的其余检查点（IQA-118、IQA-119 c1–c4/c6/c7、IQA-120、IQA-121）全部通过。
+## 2. 脚本失败检查点的复核与归类
 
-## 3. IQA-123 c3（Firefox 麦克风模式出字幕）：执行环境问题，不是产品缺陷
+| 检查点 | 脚本结论 | 复核 | 归类 |
+| --- | --- | --- | --- |
+| IQA-103 c4 临时与定稿样式不同 | 缺陷 | 采样伪影：同一条字幕刚定稿后约 0.5 s 的快照仍带临时样式，下一次快照即为定稿样式（`iqa-103-stream.json`）。IQA-119 c4 同时测得临时为 rgb(182,194,207)、虚线边框，定稿为白色、实线边框，两者不同。 | 非产品缺陷（测试计划问题：采样时机） |
+| IQA-119 c5 小窗字号 | 缺陷（小窗 16 px） | 工具伪影：脚本 `context.route('/__qa__/…')` 拦截后，Document PiP 窗口加载不到样式表。用去掉拦截的探针副本复测，主页面和小窗都是 24/32/40/52 px，行高 1.5，生效用时 ≤26 ms（`supp/supp-noroute-iqa-119-sizes.json`、`supp/supp-noroute-run.log`）。该副本中 IQA-122 c5 失败，原因是麦克风素材本来就通过被去掉的拦截提供，属于探针自身的副作用。 | 非产品缺陷（测试计划问题：工具干扰） |
+| IQA-123 c3 Firefox 麦克风出中文字幕 | 缺陷 | 环境：容器没有音频输出设备（无 /dev/snd，`enumerateDevices` 只有 audioinput/videoinput）。在空白页新建的 AudioContext 调用 resume 后仍是 suspended，页面一直停在“正在启动…”（`supp/supp-firefox-audio.json`、`supp/supp-firefox-mic.png`）。 | 环境或平台问题 |
+| IQA-123 c1/c2 不支持浏览器的按钮与说明 | 未能验证（脚本已标为测试计划问题） | Firefox 159 支持 Document PiP，计划假设 T-A5 不成立。用 WebKit 补充探针：`documentPictureInPicture` 不存在，“弹出字幕小窗”按钮不可用，旁边显示“当前浏览器不支持悬浮字幕小窗。请使用 Windows 或 macOS 上最新版的 Chrome 或 Edge。”（`supp/supp-pip-browsers.json`、`supp/supp-webkit-pip.png`） | 测试计划问题（T-A5），补充探针给出正面证据 |
+| IQA-114 c4 reasoning 关闭 | 未能验证（无证据来源） | 服务日志（status ok）中有 451 条 `translation_completed`（partial 380、final 71），全部为 `reasoningTokens: 0`，模型都是 gpt-5.1-2025-11-13。另有 105 条为 `client_aborted`，没有 token 字段（`supp/supp-logs-reasoning.json`）。 | 补充证据，判为满足 |
 
-- 补充探测：在 Firefox 159.0 中点击“开始”，30 s 后页面仍停在“正在启动…”（`supp-firefox-mic.png`）。同一环境中，`new AudioContext()` 执行 `resume()` 后状态仍为 `suspended`，原因是测试容器没有音频输出设备。Chromium 中的同类流程（IQA-113、IQA-122）都能正常出字幕。
-- A-01 的目标浏览器不包括 Firefox；对 Firefox，AC-06 只要求说明“不支持系统声音”，IQA-109 已通过。
+## 3. 观察：IQA-122 系统声音字幕偶发停止更新（交 G4 判断）
 
-## 4. IQA-123 c1/c2（不支持的浏览器上小窗按钮不可用）：测试计划假设 T-A5 不成立
+- 现象（只在运行 1 出现）：07:32:40 弹出小窗后约 1.5 s（07:32:41.9）起，主页面与小窗的字幕都停止更新。临时字幕“请不要把这个文档分享给”一直没有定稿；状态始终显示“正在听”，2 条共享轨道保持 live，直到 07:33:19 停止。c2 通过只是因为两边都静止，c3 判失败（15 s 内无新字幕）。见 `run1-iqa-122-timeline.json`、`run1-iqa-122-sync.json`、`run1-run.log`。
+- 服务日志在该时段没有与此会话相关的错误。语音识别 WebSocket 由浏览器直连 eastus2.stt.speech.microsoft.com，服务端日志看不到。
+- 重复验证：只跑 IQA-122 的探针副本连续 2 次（`supp/supp-iqa122-repeat-r1.log`、`supp/supp-iqa122-repeat-r2.log`），加上锁定脚本完整运行 2，共 3 次全部通过（7 条定稿，关闭小窗后继续更新）。
+- 判断：偶发，无法稳定复现，不能区分是产品问题还是外部语音服务或测试环境的瞬时问题。AC-12 按运行 2 判为通过，此现象作为风险观察交 G4。
 
-- Firefox 159.0 提供了 `documentPictureInPicture`，候选在 Firefox 中启用了这个按钮，并且能打开小窗。因此 Firefox 不能代表“不支持的浏览器”，c1/c2 的前提不成立（脚本已记为测试计划问题）。
-- 补充探测：在 WebKit 27.2（不支持 Document PiP）中，“弹出字幕小窗”按钮为禁用状态，旁边显示“当前浏览器不支持悬浮字幕小窗。请使用 Windows 或 macOS 上最新版的 Chrome 或 Edge。”（`supp-webkit-pip.png`、`supp-probe.json`）。这满足 AC-12 中“不支持的浏览器上该按钮不可用，并用中文说明原因”的要求。
+## 4. S30 修复项核对（观察，不单列验收标准）
 
-## 5. IQA-114 c4（reasoning 关闭）：服务日志元数据中有正面证据
+- ① 定稿回退闪烁：两次运行的全部字幕时间线（sys-main、iqa-122、mic-main、iqa-106、iqa-107）中，同一条字幕都没有出现文本长度骤降。上一候选 sys-main 曾出现 33→4 字的回退。`iqa-103-stream.json` 显示定稿原位替换临时字幕，长度只增不减。已修复。
+- ② 正在听时说明栏自动收起：1366×768 下，“系统声音：操作步骤与支持的浏览器”所在的 details 未开始时展开（open=true），正在听时收起（open=false），停止后重新展开（`supp/s30-sidebar.txt`、`supp/s30-1366-*.png`）。已修复。
+- ③ 顶栏：6 个单选输入都不显示原生圆点；1366 宽时顶栏 1 行，480 宽时 2 行（header 高 93 px）；麦克风/系统声音/小/中/大/特大/开始/停止/弹出字幕小窗/使用引导这些无障碍名称都在（`supp/s30-probe.json`、`supp/s30-480-*.png`）。IQA-118/IQA-121 全部通过。已修复。
 
-- 平台服务日志（`status=ok`，`gaps=[]`，`logsReadAt=2026-11-21T06:25:20Z`，共 546 行，覆盖整个测试时段）中，`translation_completed` 事件共 204 条：
-  - 已完成的 166 条全部为 `reasoningTokens: 0`，`model: gpt-5.1-2025-11-13`，与注入依赖的部署 `gpt-5.1` 一致；
-  - 另外 38 条为 `errorCode: client_aborted`：临时译文被更新的结果取代后，由客户端中止，没有产生用量；
-  - `inputSource` 中 `system` 105 条、`microphone` 99 条，两种模式都覆盖；全部 204 条的 `sourceLanguage` 都是服务自动识别出的 `en-US`。
-- 锁定脚本只检索 `reasoning_effort`、`reasoning: disabled` 等字样，没有识别出 `reasoningTokens: 0` 这一字段，所以记为“未找到证据”。依据的假设是 T-A7。
-- 观察：服务日志中有 30 条 `unhandled_error`，与客户端中止同时出现；这些日志只含元数据，不含识别文本或译文（IQA-116 已通过）。
+## 5. 凭据扫描
 
-## 6. 证据中的凭据扫描
+用注入的 2 个依赖密钥的值逐字节比对本目录全部 100 个文件，命中 0。比对值未写入任何文件或日志。脚本自身的凭据扫描（IQA-115 c1/c2、IQA-116）同样为 0 命中。
 
-- 用注入的 2 个依赖密钥值扫描本目录的全部文件：命中 0 次。
+## 6. 结论
+
+12 条验收标准都按证据判为通过，没有产品缺陷。依赖补充证据或假设的项目已在结果信封各条 note 中写明：AC-03（采样伪影）、AC-10（日志 reasoningTokens）、AC-11（去掉拦截后的字号探针）、AC-12（WebKit 探针、T-A5 不成立、Firefox 环境问题、IQA-122 偶发观察）。交 G4 复核。

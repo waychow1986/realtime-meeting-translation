@@ -1,0 +1,30 @@
+[
+ {
+  "kind": "partial",
+  "model": "gpt-5.1-2025-11-13",
+  "reasoningTokens": 0,
+  "errorCode": null,
+  "count": 380
+ },
+ {
+  "kind": "partial",
+  "model": null,
+  "reasoningTokens": null,
+  "errorCode": "client_aborted",
+  "count": 84
+ },
+ {
+  "kind": "final",
+  "model": "gpt-5.1-2025-11-13",
+  "reasoningTokens": 0,
+  "errorCode": null,
+  "count": 71
+ },
+ {
+  "kind": "final",
+  "model": null,
+  "reasoningTokens": null,
+  "errorCode": "client_aborted",
+  "count": 21
+ }
+]

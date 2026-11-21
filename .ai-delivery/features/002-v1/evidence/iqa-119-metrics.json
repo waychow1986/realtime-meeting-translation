@@ -1,7 +1,7 @@
 {
  "caps": [
   {
-   "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期基础上",
+   "text": "季度销售报告显示，我们在欧洲市场的团队在今年年初的预期之上卖",
    "mark": "final",
    "fontSize": 32,
    "lineHeight": 48,
@@ -33,18 +33,18 @@
  ],
  "maxOther": 20,
  "maxOtherText": "会议实时中文字幕",
- "regionArea": 648478.90625,
- "maxBlockArea": 533806.875,
- "maxBlockDesc": "DETAILS.",
+ "regionArea": 829744.5,
+ "maxBlockArea": 420228,
+ "maxBlockDesc": "DIV.matrix-wrap",
  "scrollWidth": 1366,
  "clientWidth": 1366,
  "region": {
   "x": 20,
-  "y": 69.390625,
-  "width": 950,
-  "height": 682.609375,
-  "top": 69.390625,
-  "right": 970,
+  "y": 126.25,
+  "width": 1326,
+  "height": 625.75,
+  "top": 126.25,
+  "right": 1346,
   "bottom": 752,
   "left": 20
  }

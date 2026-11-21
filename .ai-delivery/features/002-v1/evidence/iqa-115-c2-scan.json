@@ -11,10 +11,10 @@
    "sentImage": 0,
    "sentVideo": 0
   },
-  "scannedBytes": 2263920,
-  "scannedItems": 1345,
+  "scannedBytes": 2268427,
+  "scannedItems": 1383,
   "where": {},
-  "wsFrames": 598,
-  "requests": 42
+  "wsFrames": 599,
+  "requests": 43
  }
 ]

@@ -1,0 +1,856 @@
+{
+ "passed": false,
+ "testedCommitSha": "720833972d47425ad1f940bae245db5d25894450",
+ "summary": "系统声音实时翻译独立测试：23 个场景中 18 个通过；产品缺陷 4 条、脚本未能完成验证 3 条、环境问题 0 条。被测地址 https://cand-42ad37e84bf9.eastus2.cloudapp.azure.com/。",
+ "defects": [
+  "IQA-103 c4 临时与定稿样式不同：临时与定稿样式签名相同",
+  "IQA-119 c5 四档字号、≤1 s 生效、递增、特大 ≥48、行距 ≥1.4：主页面 24/32/40/52 px，小窗 16/16/16/16 px，行距不足 0 档，生效用时 9/10/9/8 ms",
+  "IQA-122 c3 关闭小窗后主页面继续：15 s 内字幕更新:false，状态:正在听，live 共享轨道 2",
+  "IQA-123 c3 麦克风模式出中文字幕：正在听:false，中文且命中第 2 句关键词的定稿:false"
+ ],
+ "testGaps": [
+  "IQA-114 c4 reasoning 关闭：reasoning 关闭证据来源：无（已查服务日志、诊断接口）；翻译调用指向注入的大模型部署:true",
+  "IQA-123 c1 按钮可见但不可用：按钮可见可点，点击后新窗口:true；测试计划问题：Firefox 159.0 支持 Document Picture-in-Picture，T-A5“Firefox 不支持字幕小窗”不成立，本检查点不作为产品缺陷",
+  "IQA-123 c2 按钮附近有不支持原因与支持的浏览器：附近文字含 不支持:false，Chrome/Edge:false；测试计划问题：Firefox 159.0 支持 Document Picture-in-Picture，T-A5“Firefox 不支持字幕小窗”不成立，本检查点不作为产品缺陷"
+ ],
+ "evidence": [
+  "firefox-version.txt",
+  "iqa-101-media.json",
+  "iqa-101-mic-listening.png",
+  "iqa-103-stream.json",
+  "iqa-104-105-sentences.json",
+  "iqa-106-stopped.png",
+  "iqa-106-timeline.json",
+  "iqa-107-share-ended.png",
+  "iqa-107-timeline.json",
+  "iqa-108-full.png",
+  "iqa-108-text.txt",
+  "iqa-109-firefox.png",
+  "iqa-110-cancelled.png",
+  "iqa-110-media.json",
+  "iqa-110-second.png",
+  "iqa-111-media.json",
+  "iqa-111-noaudio.png",
+  "iqa-111-second.png",
+  "iqa-112-env.json",
+  "iqa-113-m8-scan.json",
+  "iqa-113-m9-logscan.json",
+  "iqa-113-services.json",
+  "iqa-114-services.json",
+  "iqa-115-c1-scan.json",
+  "iqa-115-c2-scan.json",
+  "iqa-116-logscan.json",
+  "iqa-118-sigs.json",
+  "iqa-119-0.png",
+  "iqa-119-1.png",
+  "iqa-119-2.png",
+  "iqa-119-3.png",
+  "iqa-119-default.png",
+  "iqa-119-metrics.json",
+  "iqa-119-sizes.json",
+  "iqa-120-guide.png",
+  "iqa-120-guide.txt",
+  "iqa-120-reopened.png",
+  "iqa-121-1366x768-出错.png",
+  "iqa-121-1366x768-已停止.png",
+  "iqa-121-1366x768-未开始.png",
+  "iqa-121-1366x768-正在听.png",
+  "iqa-121-1440x900-出错.png",
+  "iqa-121-1440x900-已停止.png",
+  "iqa-121-1440x900-未开始.png",
+  "iqa-121-1440x900-正在听.png",
+  "iqa-121-1600x900-出错.png",
+  "iqa-121-1600x900-已停止.png",
+  "iqa-121-1600x900-未开始.png",
+  "iqa-121-1600x900-正在听.png",
+  "iqa-121-1920x1080-出错.png",
+  "iqa-121-1920x1080-已停止.png",
+  "iqa-121-1920x1080-未开始.png",
+  "iqa-121-1920x1080-正在听.png",
+  "iqa-121-480x800-出错.png",
+  "iqa-121-480x800-已停止.png",
+  "iqa-121-480x800-未开始.png",
+  "iqa-121-480x800-正在听.png",
+  "iqa-121-layout.json",
+  "iqa-122-pip.png",
+  "iqa-122-sync.json",
+  "iqa-122-timeline.json",
+  "iqa-123-firefox.png",
+  "mic-after-reload.png",
+  "mic-denied.png",
+  "mic-main-captions.png",
+  "mic-main-sentences.json",
+  "mic-main-stream.json",
+  "mic-main-timeline.json",
+  "mic-page-b.png",
+  "network-summary.json",
+  "run.log",
+  "setup.log",
+  "sys-main-captions.png",
+  "sys-main-listening.png",
+  "sys-main-media.json",
+  "sys-main-stopped.png",
+  "sys-main-timeline.json"
+ ],
+ "bugfixResults": [],
+ "scenarios": [
+  {
+   "id": "IQA-101",
+   "passed": true,
+   "externalServices": [],
+   "checkpoints": [
+    {
+     "step": "c1 恰有两项且默认麦克风",
+     "passed": true,
+     "observation": "{\"found\":true,\"names\":[\"麦克风\",\"系统声音\"],\"micSelected\":true,\"sysSelected\":false}"
+    },
+    {
+     "step": "c2 默认开始只调用麦克风",
+     "passed": true,
+     "observation": "开始按钮:true，状态:正在听，调用:gum"
+    },
+    {
+     "step": "c3 正在听时不可改选",
+     "passed": true,
+     "observation": "系统声音控件可用:false，点击后:{\"麦克风\":{\"enabled\":false,\"selected\":true},\"系统声音\":{\"enabled\":false,\"selected\":false}}"
+    },
+    {
+     "step": "c4 系统声音只调用共享",
+     "passed": true,
+     "observation": "getDisplayMedia 1 次，此次开始后 getUserMedia 0 次，live 麦克风轨道 0，状态:正在听"
+    },
+    {
+     "step": "c5 刷新后回到麦克风",
+     "passed": true,
+     "observation": "{\"found\":true,\"names\":[\"麦克风\",\"系统声音\"],\"micSelected\":true,\"sysSelected\":false}"
+    }
+   ],
+   "evidence": "iqa-101-mic-listening.png, iqa-101-media.json"
+  },
+  {
+   "id": "IQA-102",
+   "passed": true,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 共享含音频且 ≤20 s 正在听",
+     "passed": true,
+     "observation": "选择系统声音:true，开始按钮:true，状态:正在听（经历 正在听），共享调用 1 次，音频轨道 1"
+    },
+    {
+     "step": "c2 至少 5 句出中文字幕",
+     "passed": true,
+     "observation": "有中文定稿对应的句：1,2,3,4,5,6（定稿共 6 条）"
+    },
+    {
+     "step": "c3 未调用麦克风且无干扰内容",
+     "passed": true,
+     "observation": "getUserMedia 调用 0 次；字幕中香蕉/大象 0 次"
+    },
+    {
+     "step": "c4 原声未被静音或中断",
+     "passed": true,
+     "observation": "播放事件 pause,ended；暂停/卡顿 0，静音/音量变化 0，suppressLocalAudioPlayback=false"
+    }
+   ],
+   "evidence": "sys-main-listening.png, sys-main-timeline.json, sys-main-media.json"
+  },
+  {
+   "id": "IQA-103",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 首条字幕早于语音结束",
+     "passed": true,
+     "observation": "首次出现相对第 1 句结束 -3.45 s"
+    },
+    {
+     "step": "c2 结束前至少再变化一次",
+     "passed": true,
+     "observation": "语音结束前变化次数 8"
+    },
+    {
+     "step": "c3 结束后 ≤15 s 定稿且不再改变",
+     "passed": true,
+     "observation": "定稿相对结束 1.25 s，最后变化相对结束 2.15 s，定稿标记有"
+    },
+    {
+     "step": "c4 临时与定稿样式不同",
+     "passed": false,
+     "observation": "临时与定稿样式签名相同"
+    },
+    {
+     "step": "c5 最多一条临时字幕且在末尾",
+     "passed": true,
+     "observation": "{\"multiInterim\":0,\"interimNotLast\":0,\"nonLastChanged\":0}"
+    }
+   ],
+   "evidence": "sys-main-timeline.json, sys-main-media.json, iqa-103-stream.json"
+  },
+  {
+   "id": "IQA-104",
+   "passed": true,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 无语言选择控件",
+     "passed": true,
+     "observation": "未发现语言选择控件"
+    },
+    {
+     "step": "c2 定稿均为中文",
+     "passed": true,
+     "observation": "定稿 6 条，非中文 0 条"
+    },
+    {
+     "step": "c3 六句含义一致",
+     "passed": true,
+     "observation": "6 句均命中全部关键词组"
+    }
+   ],
+   "evidence": "sys-main-captions.png, sys-main-timeline.json, sys-main-media.json, iqa-104-105-sentences.json"
+  },
+  {
+   "id": "IQA-105",
+   "passed": true,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 归并后 6 条",
+     "passed": true,
+     "observation": "归并后 6 条，对应句序 1,2,3,4,5,6"
+    },
+    {
+     "step": "c2 顺序递增",
+     "passed": true,
+     "observation": "句序 1,2,3,4,5,6"
+    },
+    {
+     "step": "c3 不重不漏",
+     "passed": true,
+     "observation": "重复 无；遗漏 无"
+    },
+    {
+     "step": "c4 静音段无新增",
+     "passed": true,
+     "observation": "末句结束 15 s 后新增条目 0"
+    }
+   ],
+   "evidence": "sys-main-timeline.json, sys-main-media.json"
+  },
+  {
+   "id": "IQA-106",
+   "passed": true,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 ≤5 s 共享结束、已停止、可操作",
+     "passed": true,
+     "observation": "轨道全部结束:true（live 0），状态:已停止，输入可选:{\"麦克风\":{\"enabled\":true,\"selected\":false},\"系统声音\":{\"enabled\":true,\"selected\":true}}，开始可用:true"
+    },
+    {
+     "step": "c2 停止后 30 s 无新增或修改",
+     "passed": true,
+     "observation": "停止后 1 s 条目 1，31 s 条目 1，停止前定稿 1 条保留:true"
+    },
+    {
+     "step": "c3 麦克风再开始新字幕接在后面",
+     "passed": true,
+     "observation": "正在听:true，新定稿:true，原有 1 条保留:true，现 2 条"
+    },
+    {
+     "step": "c4 系统声音再开始重新共享且接在后面",
+     "passed": true,
+     "observation": "getDisplayMedia 次数 1→2，正在听:true，新定稿:true，原有保留:true"
+    }
+   ],
+   "evidence": "iqa-106-stopped.png, iqa-106-timeline.json"
+  },
+  {
+   "id": "IQA-107",
+   "passed": true,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 ≤5 s 共享结束且已停止",
+     "passed": true,
+     "observation": "关闭素材页后：轨道全部结束:true，状态:已停止"
+    },
+    {
+     "step": "c2 中文“共享已结束”提示",
+     "passed": true,
+     "observation": "提示：共享已结束，翻译已停止。如需继续，请点击“开始”并重新选择共享内容。"
+    },
+    {
+     "step": "c3 此后 30 s 无新增或修改",
+     "passed": true,
+     "observation": "前后条目 1/1，原有定稿保留:true"
+    },
+    {
+     "step": "c4 开始可用且再次开始后接在后面",
+     "passed": true,
+     "observation": "开始可用:true，正在听:true，新定稿:true，原有保留:true"
+    }
+   ],
+   "evidence": "iqa-107-share-ended.png, iqa-107-timeline.json"
+  },
+  {
+   "id": "IQA-108",
+   "passed": true,
+   "externalServices": [],
+   "checkpoints": [
+    {
+     "step": "c1 中文操作步骤",
+     "passed": true,
+     "observation": "含 标签页/窗口/整个屏幕/音频/共享/停止/停止共享"
+    },
+    {
+     "step": "c2 支持列表",
+     "passed": true,
+     "observation": "缺少名称：无；未写明支持情况：无"
+    },
+    {
+     "step": "c3 三种共享方式能采到的声音",
+     "passed": true,
+     "observation": "标签页声音:true，全部/系统声音:true，会议软件/播放器:true"
+    },
+    {
+     "step": "c4 画面不显示/上传/保存，仍可听到原声",
+     "passed": true,
+     "observation": "否定词命中 0 个，含“听到”:true"
+    },
+    {
+     "step": "c5 背景音乐/多人说话提示",
+     "passed": true,
+     "observation": "背景音乐或音效:true，多人:true，不完整/不准确:true"
+    },
+    {
+     "step": "c6 说明与实测一致",
+     "passed": true,
+     "observation": "说明称 Chrome 标签页声音可采集:true；IQA-102 c1/c2 通过:true"
+    }
+   ],
+   "evidence": "iqa-108-text.txt, iqa-108-full.png"
+  },
+  {
+   "id": "IQA-109",
+   "passed": true,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 ≤2 s 显示不支持说明与可用浏览器",
+     "passed": true,
+     "observation": "系统声音选项:true（可用:true），不支持:true，Chrome/Edge:true"
+    },
+    {
+     "step": "c2 系统声音模式下开始不可操作",
+     "passed": true,
+     "observation": "开始按钮:禁用"
+    },
+    {
+     "step": "c3 麦克风模式可开始",
+     "passed": true,
+     "observation": "开始按钮:true，状态:null，麦克风调用:ok"
+    }
+   ],
+   "evidence": "firefox-version.txt, iqa-109-firefox.png"
+  },
+  {
+   "id": "IQA-110",
+   "passed": true,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 取消后 ≤10 s 出错且未正在听",
+     "passed": true,
+     "observation": "Esc 发送:true，共享调用结果:NotAllowedError: Permission denied by user，状态:出错（经历 出错）"
+    },
+    {
+     "step": "c2 中文原因与重新操作方法",
+     "passed": true,
+     "observation": "原因:true，重新操作方法:true"
+    },
+    {
+     "step": "c3 无字幕、无 live 轨道",
+     "passed": true,
+     "observation": "字幕 0 条，live 轨道 0"
+    },
+    {
+     "step": "c4 再次共享正常出字幕",
+     "passed": true,
+     "observation": "正在听:true，中文定稿:true（会议将在明天上午10点开始。）"
+    }
+   ],
+   "evidence": "iqa-110-cancelled.png, iqa-110-media.json"
+  },
+  {
+   "id": "IQA-111",
+   "passed": true,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 0 条音频轨道且 ≤10 s 出错",
+     "passed": true,
+     "observation": "共享调用 1 次，音频轨道 0，视频轨道 1，状态:出错（经历 出错）"
+    },
+    {
+     "step": "c2 中文提示无声音及可带声音的方式",
+     "passed": true,
+     "observation": "无声音提示:true，标签页/整个屏幕:true，音频:true"
+    },
+    {
+     "step": "c3 ≤5 s 共享轨道结束、无字幕",
+     "passed": true,
+     "observation": "共享轨道 1 条，仍 live 0，字幕 0 条"
+    },
+    {
+     "step": "c4 再次共享正常出字幕",
+     "passed": true,
+     "observation": "正在听:true，中文定稿:true（会议将于明天上午10点开始。）"
+    }
+   ],
+   "evidence": "iqa-111-noaudio.png, iqa-111-media.json"
+  },
+  {
+   "id": "IQA-112",
+   "passed": true,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 全新配置完成开始→字幕→停止",
+     "passed": true,
+     "observation": "扩展 0 个（Playwright 全新配置）；plugins=[\"PDF Viewer\",\"Chrome PDF Viewer\",\"Chromium PDF Viewer\",\"Microsoft Edge PDF Viewer\",\"WebKit built-in PDF\"]；devices=[\"audioinput:QA synthetic microphone\"]；正在听:true，定稿 6 条，停止后状态:已停止"
+    },
+    {
+     "step": "c2 无下载与扩展商店跳转",
+     "passed": true,
+     "observation": "下载 0，商店/安装包导航 0；导航 1 次"
+    },
+    {
+     "step": "c3 无安装要求语句",
+     "passed": true,
+     "observation": "未发现安装要求语句"
+    }
+   ],
+   "evidence": "iqa-112-env.json, sys-main-stopped.png"
+  },
+  {
+   "id": "IQA-113",
+   "passed": true,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "M1 打开即用、只调用麦克风、≤20 s 正在听",
+     "passed": true,
+     "observation": "登录要求:false，状态:正在听，getUserMedia 1 次，getDisplayMedia 0 次"
+    },
+    {
+     "step": "M2 流式",
+     "passed": true,
+     "observation": "首次出现相对结束 -5.51 s，结束前变化 9 次，定稿相对结束 1.08 s"
+    },
+    {
+     "step": "M3 无语言选择控件",
+     "passed": true,
+     "observation": "未发现"
+    },
+    {
+     "step": "M4 只显示中文且含义一致",
+     "passed": true,
+     "observation": "非中文 0 条；未一致的句 无"
+    },
+    {
+     "step": "M5 顺序不重不漏",
+     "passed": true,
+     "observation": "归并后 6 条，句序 1,2,3,4,5,6，重复 无，遗漏 无，静音段新增 0"
+    },
+    {
+     "step": "M11 各页面互不显示",
+     "passed": true,
+     "observation": "页面 A 定稿 3 条；页面 B 字幕条目 0，A 的字幕在 B 中出现 0 次"
+    },
+    {
+     "step": "M6 停止与重新开始",
+     "passed": true,
+     "observation": "麦克风轨道结束:true，已停止:true，20 s 无变化:true，再开始正在听:true，新字幕接在后面:true"
+    },
+    {
+     "step": "M10 刷新不保留",
+     "passed": true,
+     "observation": "刷新后残留此前字幕 0 条，输入方式:{\"麦克风\":{\"enabled\":true,\"selected\":true},\"系统声音\":{\"enabled\":true,\"selected\":false}}，状态:未开始"
+    },
+    {
+     "step": "M12 麦克风被拒绝",
+     "passed": true,
+     "observation": "状态:出错（经历 出错），提示:无法使用麦克风：权限被拒绝。请在浏览器中允许本页面使用麦克风后，再次点击“开始”。，字幕 0 条；媒体:[\"NotAllowedError: Permission denied\"]"
+    },
+    {
+     "step": "M9 日志无客户内容",
+     "passed": true,
+     "observation": "时段 2026-11-21T07:31:43.059Z～2026-11-21T07:33:39.567Z，日志共 501 行、时段内 455 行（{\"status\":\"ok\",\"logsReadAt\":\"2026-11-21T07:34:32.824298622Z\",\"droppedOldest\":0,\"gaps\":0}），英文片段 55 个、中文窗口 145 个；原句 0、译文 0、画面 0、secret 0"
+    },
+    {
+     "step": "M7 真实服务（c1 真实服务）",
+     "passed": true,
+     "observation": "流式临时结果:true，依赖迹象：主机 1 个、名称 2 个；mock/stub/fake 端点 0"
+    },
+    {
+     "step": "M8 无长期凭据",
+     "passed": true,
+     "observation": "麦克风主会话：扫描 2271001 字节、1414 项、请求 45 个、WebSocket 帧 600；命中 {\"secretValue\":0,\"connStringKey\":0,\"keyHeader\":0,\"keyPattern\":0,\"longLivedJwt\":0,\"jwtNoExp\":0}（比对值 2 个）"
+    }
+   ],
+   "evidence": "mic-main-captions.png, mic-main-timeline.json, mic-main-stream.json, mic-main-sentences.json, mic-page-b.png, mic-after-reload.png, mic-denied.png, iqa-113-m9-logscan.json, iqa-113-services.json, iqa-113-m8-scan.json"
+  },
+  {
+   "id": "IQA-114",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 真实服务",
+     "passed": true,
+     "observation": "流式临时结果:true，依赖迹象：主机 1 个、名称 2 个；mock/stub/fake 端点 0"
+    },
+    {
+     "step": "c2 同一现有实例",
+     "passed": true,
+     "observation": "观测到 Azure 主机 1 个，不属于注入依赖的 0 个"
+    },
+    {
+     "step": "c3 语言自动识别",
+     "passed": true,
+     "observation": "固定单一语言的连接 0 个；自动识别正面证据来源：网络"
+    },
+    {
+     "step": "c4 reasoning 关闭",
+     "passed": false,
+     "observation": "reasoning 关闭证据来源：无（已查服务日志、诊断接口）；翻译调用指向注入的大模型部署:true"
+    },
+    {
+     "step": "c5 未新增实例",
+     "passed": true,
+     "observation": "观测端点 1 个（声明依赖 2 个，均属注入依赖:true）"
+    }
+   ],
+   "evidence": "iqa-114-services.json"
+  },
+  {
+   "id": "IQA-115",
+   "passed": true,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 系统声音与小窗会话无长期凭据",
+     "passed": true,
+     "observation": "SYS-MAIN 与 IQA-122：扫描 3559369 字节、2152 项、请求 68 个、WebSocket 帧 909；命中 {\"secretValue\":0,\"connStringKey\":0,\"keyHeader\":0,\"keyPattern\":0,\"longLivedJwt\":0,\"jwtNoExp\":0}（比对值 2 个）"
+    },
+    {
+     "step": "c2 麦克风会话无长期凭据",
+     "passed": true,
+     "observation": "麦克风主会话：扫描 2271001 字节、1414 项、请求 45 个、WebSocket 帧 600；命中 {\"secretValue\":0,\"connStringKey\":0,\"keyHeader\":0,\"keyPattern\":0,\"longLivedJwt\":0,\"jwtNoExp\":0}（比对值 2 个）"
+    }
+   ],
+   "evidence": "iqa-115-c1-scan.json, iqa-115-c2-scan.json"
+  },
+  {
+   "id": "IQA-116",
+   "passed": true,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 原句命中 0",
+     "passed": true,
+     "observation": "时段 2026-11-21T07:31:43.052Z～2026-11-21T07:33:39.778Z，日志共 501 行、时段内 455 行（{\"status\":\"ok\",\"logsReadAt\":\"2026-11-21T07:34:32.824298622Z\",\"droppedOldest\":0,\"gaps\":0}），英文片段 55 个、中文窗口 130 个；原句命中 0 行"
+    },
+    {
+     "step": "c2 译文命中 0",
+     "passed": true,
+     "observation": "译文命中 0 行"
+    },
+    {
+     "step": "c3 画面数据命中 0",
+     "passed": true,
+     "observation": "画面数据特征命中 0 行"
+    },
+    {
+     "step": "c4 secret 命中 0",
+     "passed": true,
+     "observation": "secret 命中 0 行（日志已由平台脱敏，此项为补充）"
+    }
+   ],
+   "evidence": "iqa-116-logscan.json"
+  },
+  {
+   "id": "IQA-117",
+   "passed": true,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 页面与小窗不显示共享画面",
+     "passed": true,
+     "observation": "可见共享视频元素 0 个，QA-CANARY 可见:false；小窗已检查:true"
+    },
+    {
+     "step": "c2 未上传画面数据",
+     "passed": true,
+     "observation": "图像特征 0、视频特征 0；请求类型 {\"document\":2,\"stylesheet\":4,\"script\":2,\"fetch\":60}，WebSocket 发送帧 784"
+    },
+    {
+     "step": "c3 未把视频轨道交给录制或 RTC",
+     "passed": true,
+     "observation": "MediaRecorder 0 次（含视频 0），RTC 轨道 无"
+    },
+    {
+     "step": "c4 无保存/导出入口",
+     "passed": true,
+     "observation": "未发现"
+    }
+   ],
+   "evidence": "sys-main-captions.png"
+  },
+  {
+   "id": "IQA-118",
+   "passed": true,
+   "externalServices": [],
+   "checkpoints": [
+    {
+     "step": "c1 四项均在首屏",
+     "passed": true,
+     "observation": "四种状态下四项均在视口内、scrollY=0"
+    },
+    {
+     "step": "c2 状态文字",
+     "passed": true,
+     "observation": "未开始→未开始，正在听→正在听，已停止→已停止，出错→出错"
+    },
+    {
+     "step": "c3 四种状态样式两两不同",
+     "passed": true,
+     "observation": "两两不同"
+    },
+    {
+     "step": "c4 按钮可用性",
+     "passed": true,
+     "observation": "符合"
+    },
+    {
+     "step": "c5 界面文字为中文",
+     "passed": true,
+     "observation": "未发现连续 2 个以上英文单词"
+    }
+   ],
+   "evidence": "iqa-121-1366x768-未开始.png, iqa-121-1366x768-正在听.png, iqa-121-1366x768-已停止.png, iqa-121-1366x768-出错.png, iqa-118-sigs.json"
+  },
+  {
+   "id": "IQA-119",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 字幕区面积最大",
+     "passed": true,
+     "observation": "字幕区 829745 px²，其他最大区块 420228 px²（DIV.matrix-wrap）"
+    },
+    {
+     "step": "c2 默认“中”、定稿 ≥28 px 且不小于其他文字",
+     "passed": true,
+     "observation": "默认中:true，定稿字号 32 px，其他文字最大 20 px（会议实时中文字幕）"
+    },
+    {
+     "step": "c3 对比度",
+     "passed": true,
+     "observation": "定稿最小 18.92，临时 10.46"
+    },
+    {
+     "step": "c4 临时与定稿样式不同",
+     "passed": true,
+     "observation": "临时 rgb(182, 194, 207)|1|normal|400|none|rgba(0, 0, 0, 0)|dashedrgb(182, 194, 207)|32px / 定稿 rgb(255, 255, 255)|1|normal|400|none|rgba(0, 0, 0, 0)|solidrgba(0, 0, 0, 0)|32px"
+    },
+    {
+     "step": "c5 四档字号、≤1 s 生效、递增、特大 ≥48、行距 ≥1.4",
+     "passed": false,
+     "observation": "主页面 24/32/40/52 px，小窗 16/16/16/16 px，行距不足 0 档，生效用时 9/10/9/8 ms"
+    },
+    {
+     "step": "c6 切换中保持正在听与 live，之后仍有新字幕",
+     "passed": true,
+     "observation": "状态或轨道异常 0 次，15 s 内字幕更新:true"
+    },
+    {
+     "step": "c7 最新字幕在可视范围内",
+     "passed": true,
+     "observation": "切换后不可见 0 次，新字幕后可见:true"
+    }
+   ],
+   "evidence": "iqa-119-metrics.json, iqa-119-default.png, iqa-119-sizes.json"
+  },
+  {
+   "id": "IQA-120",
+   "passed": true,
+   "externalServices": [],
+   "checkpoints": [
+    {
+     "step": "c1 首次打开 ≤5 s 出现中文引导",
+     "passed": true,
+     "observation": "引导出现于 474 ms"
+    },
+    {
+     "step": "c2 引导内容完整",
+     "passed": true,
+     "observation": "五项均包含"
+    },
+    {
+     "step": "c3 一次点击关闭且可直接开始",
+     "passed": true,
+     "observation": "关闭按钮:true，一次点击后关闭:true，开始按钮:true，状态:正在听"
+    },
+    {
+     "step": "c4 刷新后引导不自动出现",
+     "passed": true,
+     "observation": "5 s 内未出现"
+    },
+    {
+     "step": "c5 入口可重新打开引导",
+     "passed": true,
+     "observation": "入口“使用引导”，打开:true"
+    }
+   ],
+   "evidence": "iqa-120-guide.png, iqa-120-guide.txt, iqa-120-reopened.png"
+  },
+  {
+   "id": "IQA-121",
+   "passed": true,
+   "externalServices": [],
+   "checkpoints": [
+    {
+     "step": "c1 无横向滚动",
+     "passed": true,
+     "observation": "各尺寸各状态 scrollWidth ≤ clientWidth"
+    },
+    {
+     "step": "c2 控制区四项可见、不重叠、可点击",
+     "passed": true,
+     "observation": "全部满足"
+    },
+    {
+     "step": "c3 字幕无溢出与截断",
+     "passed": true,
+     "observation": "无溢出"
+    }
+   ],
+   "evidence": "iqa-121-layout.json, iqa-121-1366x768-未开始.png, iqa-121-1366x768-正在听.png, iqa-121-1366x768-已停止.png, iqa-121-1366x768-出错.png, iqa-121-1440x900-未开始.png, iqa-121-1440x900-正在听.png, iqa-121-1440x900-已停止.png, iqa-121-1440x900-出错.png, iqa-121-1600x900-未开始.png, iqa-121-1600x900-正在听.png, iqa-121-1600x900-已停止.png, iqa-121-1600x900-出错.png, iqa-121-1920x1080-未开始.png, iqa-121-1920x1080-正在听.png, iqa-121-1920x1080-已停止.png, iqa-121-1920x1080-出错.png, iqa-121-480x800-未开始.png, iqa-121-480x800-正在听.png, iqa-121-480x800-已停止.png, iqa-121-480x800-出错.png"
+  },
+  {
+   "id": "IQA-122",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 ≤5 s 出现独立窗口",
+     "passed": true,
+     "observation": "可用:true，Document PiP:true，新顶层窗口:true，视频画中画:false，用时 503 ms"
+    },
+    {
+     "step": "c2 小窗与主页面一致且显示正在听",
+     "passed": true,
+     "observation": "20 次采样不一致 0 次（容许 0.5 s 内消失的差异按下一次采样复核；采样间隔 1 s 时以下一次为准），小窗状态“正在听” 20/20"
+    },
+    {
+     "step": "c3 关闭小窗后主页面继续",
+     "passed": false,
+     "observation": "15 s 内字幕更新:false，状态:正在听，live 共享轨道 2"
+    },
+    {
+     "step": "c4 再次弹出显示当前全部字幕",
+     "passed": true,
+     "observation": "主页面定稿 2 条，小窗 2 条"
+    },
+    {
+     "step": "c5 麦克风模式小窗可用且一致",
+     "passed": true,
+     "observation": "正在听:true，小窗按钮可用:true，小窗:true，2 条新定稿:true，最新 2 条在小窗中:true"
+    }
+   ],
+   "evidence": "iqa-122-pip.png, iqa-122-sync.json, iqa-122-timeline.json"
+  },
+  {
+   "id": "IQA-123",
+   "passed": false,
+   "externalServices": [
+    "speech",
+    "chat"
+   ],
+   "checkpoints": [
+    {
+     "step": "c1 按钮可见但不可用",
+     "passed": false,
+     "observation": "按钮可见可点，点击后新窗口:true；测试计划问题：Firefox 159.0 支持 Document Picture-in-Picture，T-A5“Firefox 不支持字幕小窗”不成立，本检查点不作为产品缺陷"
+    },
+    {
+     "step": "c2 按钮附近有不支持原因与支持的浏览器",
+     "passed": false,
+     "observation": "附近文字含 不支持:false，Chrome/Edge:false；测试计划问题：Firefox 159.0 支持 Document Picture-in-Picture，T-A5“Firefox 不支持字幕小窗”不成立，本检查点不作为产品缺陷"
+    },
+    {
+     "step": "c3 麦克风模式出中文字幕",
+     "passed": false,
+     "observation": "正在听:false，中文且命中第 2 句关键词的定稿:false"
+    }
+   ],
+   "evidence": "firefox-version.txt, iqa-123-firefox.png"
+  }
+ ]
+}

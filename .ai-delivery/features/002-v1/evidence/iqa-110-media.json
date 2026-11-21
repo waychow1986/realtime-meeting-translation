@@ -2,7 +2,7 @@
  "media": [
   {
    "type": "gdm",
-   "t": 1795242181494,
+   "t": 1795246738461,
    "constraints": {
     "video": {
      "frameRate": {
@@ -28,7 +28,7 @@
     "preferCurrentTab": false
    },
    "error": "NotAllowedError: Permission denied by user",
-   "errT": 1795242184566
+   "errT": 1795246741533
   }
  ],
  "tracks": [],
