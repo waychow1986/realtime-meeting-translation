@@ -1,0 +1,9 @@
+{
+ "diag": [
+  "AIDH_SERVICE_WEB_URL: HTTP 200 text/html; charset=utf-8"
+ ],
+ "deps": [
+  "speech",
+  "chat-model"
+ ]
+}

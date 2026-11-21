@@ -9,7 +9,7 @@
  "console": [
   "[warning] The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
  ],
- "wallStart": 1795283300792,
+ "wallStart": 1795284944375,
  "step": "final-snapshot",
  "guide": {
   "closed": [
@@ -20,7 +20,7 @@
  "visibleText": "会议实时中文字幕\n输入方式\n麦克风\n系统声音\n开始\n停止\n○\n当前状态\n未开始\n字号\n小\n中\n大\n特大\n弹出字幕小窗\n?\n使用引导\n\n选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。",
  "inputControl": "radio",
  "tl": {
-  "t0": 2701.9000000003725,
+  "t0": 2715.5999999996275,
   "s": [
    {
     "start": 0,
@@ -97,12 +97,12 @@
   },
   "pip": null
  },
- "tStop": 40426.59999999963,
+ "tStop": 40426.699999999255,
  "stopErr": "locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /停止/ }).first()\n    - locator resolved to <button disabled type=\"button\" id=\"stop-button\" class=\"secondary\">停止</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n      - waiting 100ms\n    10 × waiting for element to be visible, enabled and stable\n       - element is not enabled\n     - retrying click action\n       - waiting 500ms\n",
  "snaps": [
   {
    "k": "main",
-   "t": 68,
+   "t": 65.59999999962747,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -248,7 +248,7 @@
   },
   {
    "k": "main",
-   "t": 2055.7999999988824,
+   "t": 2053,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -295,7 +295,7 @@
   },
   {
    "k": "main",
-   "t": 2089.5,
+   "t": 2104.199999999255,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -342,7 +342,7 @@
   },
   {
    "k": "main",
-   "t": 2191.0999999996275,
+   "t": 2208.9000000003725,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -389,7 +389,7 @@
   },
   {
    "k": "main",
-   "t": 6711.199999999255,
+   "t": 6733.699999999255,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -441,7 +441,7 @@
   },
   {
    "k": "main",
-   "t": 7135.299999998882,
+   "t": 7301.199999999255,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -517,7 +517,7 @@
   },
   {
    "k": "main",
-   "t": 8722.299999998882,
+   "t": 8738.300000000745,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -564,7 +564,7 @@
   },
   {
    "k": "main",
-   "t": 10516.900000000373,
+   "t": 10531.900000000373,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -616,7 +616,7 @@
   },
   {
    "k": "main",
-   "t": 10982.699999999255,
+   "t": 11087.400000000373,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -692,7 +692,7 @@
   },
   {
    "k": "main",
-   "t": 14128.799999998882,
+   "t": 14146.699999999255,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -775,7 +775,7 @@
  "req": [
   {
    "id": 1,
-   "t": 6709.5999999996275,
+   "t": 6732.300000000745,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -788,8 +788,8 @@
    "marker": false,
    "action": "pass",
    "status": 200,
-   "tResp": 6986.799999998882,
-   "tEnd": 7135.5999999996275,
+   "tResp": 7156,
+   "tEnd": 7299.300000000745,
    "done": true,
    "aborted": false,
    "err": null,
@@ -798,7 +798,7 @@
   },
   {
    "id": 2,
-   "t": 7209,
+   "t": 7300.699999999255,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -812,7 +812,7 @@
    "action": "reject",
    "status": null,
    "tResp": null,
-   "tEnd": 7209.0999999996275,
+   "tEnd": 7300.699999999255,
    "done": false,
    "aborted": false,
    "err": "TypeError(injected)",
@@ -821,21 +821,21 @@
   },
   {
    "id": 3,
-   "t": 7709.4000000003725,
+   "t": 7736.5,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
     "content-type": "application/json"
    },
-   "body": "{\"kind\":\"partial\",\"text\":\"안녕하세요 오늘 회의에 참석해 주셔서 감사합니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
-   "src": "안녕하세요 오늘 회의에 참석해 주셔서 감사합니다",
+   "body": "{\"kind\":\"final\",\"text\":\"안녕하세요. 오늘 회의에 참석해 주셔서 감사합니다.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "안녕하세요. 오늘 회의에 참석해 주셔서 감사합니다.",
    "sentence": 0,
    "retrans": false,
-   "marker": false,
+   "marker": true,
    "action": "reject",
    "status": null,
    "tResp": null,
-   "tEnd": 7709.5,
+   "tEnd": 7736.5,
    "done": false,
    "aborted": false,
    "err": "TypeError(injected)",
@@ -844,7 +844,7 @@
   },
   {
    "id": 4,
-   "t": 7720.5999999996275,
+   "t": 8737.400000000373,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -858,7 +858,7 @@
    "action": "reject",
    "status": null,
    "tResp": null,
-   "tEnd": 7720.699999999255,
+   "tEnd": 8737.400000000373,
    "done": false,
    "aborted": false,
    "err": "TypeError(injected)",
@@ -867,30 +867,7 @@
   },
   {
    "id": 5,
-   "t": 8721.5,
-   "url": "/api/translations",
-   "method": "POST",
-   "headers": {
-    "content-type": "application/json"
-   },
-   "body": "{\"kind\":\"final\",\"text\":\"안녕하세요. 오늘 회의에 참석해 주셔서 감사합니다.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
-   "src": "안녕하세요. 오늘 회의에 참석해 주셔서 감사합니다.",
-   "sentence": 0,
-   "retrans": false,
-   "marker": true,
-   "action": "reject",
-   "status": null,
-   "tResp": null,
-   "tEnd": 8721.5,
-   "done": false,
-   "aborted": false,
-   "err": "TypeError(injected)",
-   "respText": "",
-   "outText": ""
-  },
-  {
-   "id": 6,
-   "t": 10516,
+   "t": 10531.099999999627,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -903,8 +880,8 @@
    "marker": false,
    "action": "pass",
    "status": 200,
-   "tResp": 10851.799999998882,
-   "tEnd": 10982.900000000373,
+   "tResp": 10972.800000000745,
+   "tEnd": 11087.800000000745,
    "done": true,
    "aborted": false,
    "err": null,
@@ -912,8 +889,8 @@
    "outText": ""
   },
   {
-   "id": 7,
-   "t": 11016.5,
+   "id": 6,
+   "t": 11087,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -927,7 +904,30 @@
    "action": "reject",
    "status": null,
    "tResp": null,
-   "tEnd": 11016.5,
+   "tEnd": 11087,
+   "done": false,
+   "aborted": false,
+   "err": "TypeError(injected)",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 7,
+   "t": 11586.800000000745,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은 지난해\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은 지난해",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "reject",
+   "status": null,
+   "tResp": null,
+   "tEnd": 11586.800000000745,
    "done": false,
    "aborted": false,
    "err": "TypeError(injected)",
@@ -936,30 +936,7 @@
   },
   {
    "id": 8,
-   "t": 11517,
-   "url": "/api/translations",
-   "method": "POST",
-   "headers": {
-    "content-type": "application/json"
-   },
-   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
-   "src": "이번 분기 매출은",
-   "sentence": 1,
-   "retrans": false,
-   "marker": false,
-   "action": "reject",
-   "status": null,
-   "tResp": null,
-   "tEnd": 11517.099999999627,
-   "done": false,
-   "aborted": false,
-   "err": "TypeError(injected)",
-   "respText": "",
-   "outText": ""
-  },
-  {
-   "id": 9,
-   "t": 12017.400000000373,
+   "t": 12087.099999999627,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -973,7 +950,30 @@
    "action": "reject",
    "status": null,
    "tResp": null,
-   "tEnd": 12017.400000000373,
+   "tEnd": 12087.099999999627,
+   "done": false,
+   "aborted": false,
+   "err": "TypeError(injected)",
+   "respText": "",
+   "outText": ""
+  },
+  {
+   "id": 9,
+   "t": 12587.400000000373,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은 지난해보다 20\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은 지난해보다 20",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "reject",
+   "status": null,
+   "tResp": null,
+   "tEnd": 12587.400000000373,
    "done": false,
    "aborted": false,
    "err": "TypeError(injected)",
@@ -982,7 +982,7 @@
   },
   {
    "id": 10,
-   "t": 12516.799999998882,
+   "t": 13087.699999999255,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -996,7 +996,7 @@
    "action": "reject",
    "status": null,
    "tResp": null,
-   "tEnd": 12516.799999998882,
+   "tEnd": 13087.699999999255,
    "done": false,
    "aborted": false,
    "err": "TypeError(injected)",
@@ -1005,21 +1005,21 @@
   },
   {
    "id": 11,
-   "t": 13017,
+   "t": 13588,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
     "content-type": "application/json"
    },
-   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은 지난해보다 20\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
-   "src": "이번 분기 매출은 지난해보다 20",
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은 지난해보다 20% 증가했습니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은 지난해보다 20% 증가했습니다",
    "sentence": 1,
    "retrans": false,
    "marker": false,
    "action": "reject",
    "status": null,
    "tResp": null,
-   "tEnd": 13017,
+   "tEnd": 13588,
    "done": false,
    "aborted": false,
    "err": "TypeError(injected)",
@@ -1028,7 +1028,7 @@
   },
   {
    "id": 12,
-   "t": 13517.299999998882,
+   "t": 14088.300000000745,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -1042,7 +1042,7 @@
    "action": "reject",
    "status": null,
    "tResp": null,
-   "tEnd": 13517.299999998882,
+   "tEnd": 14088.300000000745,
    "done": false,
    "aborted": false,
    "err": "TypeError(injected)",
@@ -1051,30 +1051,7 @@
   },
   {
    "id": 13,
-   "t": 14016.5,
-   "url": "/api/translations",
-   "method": "POST",
-   "headers": {
-    "content-type": "application/json"
-   },
-   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은 지난해보다 20% 증가했습니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
-   "src": "이번 분기 매출은 지난해보다 20% 증가했습니다",
-   "sentence": 1,
-   "retrans": false,
-   "marker": false,
-   "action": "reject",
-   "status": null,
-   "tResp": null,
-   "tEnd": 14016.5,
-   "done": false,
-   "aborted": false,
-   "err": "TypeError(injected)",
-   "respText": "",
-   "outText": ""
-  },
-  {
-   "id": 14,
-   "t": 14122.299999998882,
+   "t": 14140.199999999255,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -1088,7 +1065,7 @@
    "action": "reject",
    "status": null,
    "tResp": null,
-   "tEnd": 14122.299999998882,
+   "tEnd": 14140.199999999255,
    "done": false,
    "aborted": false,
    "err": "TypeError(injected)",
@@ -1099,11 +1076,11 @@
  "media": [
   {
    "api": "getDisplayMedia",
-   "t": 2086,
+   "t": 2100.4000000003725,
    "armed": true
   }
  ],
- "tEndObs": 55431.90000000037,
+ "tEndObs": 55435.5,
  "listeningAfterStop": false,
- "wallEnd": 1795283356303
+ "wallEnd": 1795284999893
 }

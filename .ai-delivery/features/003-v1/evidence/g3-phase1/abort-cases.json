@@ -17,25 +17,25 @@
    "abort": {
     "way": "cancel",
     "phase": "before",
-    "tSend": 1795283157236,
+    "tSend": 1795284801566,
     "bytesAtAbort": 0,
     "hanAtAbort": false,
     "endedAtAbort": false,
     "received": "",
-    "tAbort": 1795283157387,
+    "tAbort": 1795284801717,
     "err": "AbortError"
    },
    "normal": {
-    "tSend": 1795283158390,
+    "tSend": 1795284802719,
     "status": 200,
     "han": true,
     "hangul": false,
-    "received": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"天气\"}\n{\"type\":\"delta\",\"text\":\"真的\"}\n{\"type\":\"delta\",\"text\":\"很好\"}\n{\"type\":\"delta\",\"text\":\"呢\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
-    "tEnd": 1795283159194
+    "received": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"delta\",\"text\":\"天气\"}\n{\"type\":\"delta\",\"text\":\"真的\"}\n{\"type\":\"delta\",\"text\":\"很好\"}\n{\"type\":\"delta\",\"text\":\"呢\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
+    "tEnd": 1795284803552
    },
    "win": [
-    1795283155736,
-    1795283162194
+    1795284800066,
+    1795284806552
    ]
   },
   {
@@ -44,25 +44,25 @@
    "abort": {
     "way": "disconnect",
     "phase": "before",
-    "tSend": 1795283168698,
+    "tSend": 1795284813055,
     "bytesAtAbort": 0,
     "hanAtAbort": false,
     "endedAtAbort": false,
     "received": "",
-    "tAbort": 1795283168850,
+    "tAbort": 1795284813209,
     "why": "timer-150ms"
    },
    "normal": {
-    "tSend": 1795283170052,
+    "tSend": 1795284814411,
     "status": 200,
     "han": true,
     "hangul": false,
     "received": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"天气\"}\n{\"type\":\"delta\",\"text\":\"真的\"}\n{\"type\":\"delta\",\"text\":\"很好\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
-    "tEnd": 1795283170712
+    "tEnd": 1795284814995
    },
    "win": [
-    1795283167198,
-    1795283173712
+    1795284811555,
+    1795284817995
    ]
   },
   {
@@ -71,26 +71,26 @@
    "abort": {
     "way": "cancel",
     "phase": "after",
-    "tSend": 1795283180218,
+    "tSend": 1795284824496,
     "bytesAtAbort": 33,
     "hanAtAbort": true,
     "endedAtAbort": false,
     "received": "{\"type\":\"delta\",\"text\":\"今天\"}\n",
     "status": 200,
-    "tAbort": 1795283180711,
+    "tAbort": 1795284825039,
     "err": "AbortError"
    },
    "normal": {
-    "tSend": 1795283181713,
+    "tSend": 1795284826040,
     "status": 200,
     "han": true,
     "hangul": false,
-    "received": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"天气\"}\n{\"type\":\"delta\",\"text\":\"真的\"}\n{\"type\":\"delta\",\"text\":\"很好\"}\n{\"type\":\"delta\",\"text\":\"呢\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
-    "tEnd": 1795283182648
+    "received": "{\"type\":\"delta\",\"text\":\"今\"}\n{\"type\":\"delta\",\"text\":\"天天\"}\n{\"type\":\"delta\",\"text\":\"气\"}\n{\"type\":\"delta\",\"text\":\"真的\"}\n{\"type\":\"delta\",\"text\":\"很好\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
+    "tEnd": 1795284826572
    },
    "win": [
-    1795283178718,
-    1795283185648
+    1795284822996,
+    1795284829572
    ]
   },
   {
@@ -99,26 +99,26 @@
    "abort": {
     "way": "disconnect",
     "phase": "after",
-    "tSend": 1795283192149,
+    "tSend": 1795284836074,
     "bytesAtAbort": 33,
     "hanAtAbort": true,
     "endedAtAbort": false,
     "received": "{\"type\":\"delta\",\"text\":\"今天\"}\n",
     "status": 200,
-    "tAbort": 1795283193040,
+    "tAbort": 1795284836583,
     "why": "first-han-fragment"
    },
    "normal": {
-    "tSend": 1795283194242,
+    "tSend": 1795284837785,
     "status": 200,
     "han": true,
     "hangul": false,
     "received": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"天气\"}\n{\"type\":\"delta\",\"text\":\"真的\"}\n{\"type\":\"delta\",\"text\":\"很好\"}\n{\"type\":\"delta\",\"text\":\"呢\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
-    "tEnd": 1795283194815
+    "tEnd": 1795284838435
    },
    "win": [
-    1795283190649,
-    1795283197815
+    1795284834574,
+    1795284841435
    ]
   }
  ]

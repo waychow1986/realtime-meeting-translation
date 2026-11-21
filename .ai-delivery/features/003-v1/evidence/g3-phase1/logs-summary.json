@@ -3,7 +3,7 @@
  "reason": null,
  "status": {
   "status": "ok",
-  "logsReadAt": "2026-11-21T17:50:59.084186817Z",
+  "logsReadAt": "2026-11-21T18:18:15.065646475Z",
   "gaps": [],
   "droppedOldest": 0
  },
@@ -12,8 +12,8 @@
    "phase": "before",
    "way": "cancel",
    "win": [
-    "2026-11-21T17:45:55.736Z",
-    "2026-11-21T17:46:02.194Z"
+    "2026-11-21T18:13:20.066Z",
+    "2026-11-21T18:13:26.552Z"
    ],
    "stat": {
     "lines": 4,
@@ -50,11 +50,11 @@
    "phase": "before",
    "way": "disconnect",
    "win": [
-    "2026-11-21T17:46:07.198Z",
-    "2026-11-21T17:46:13.712Z"
+    "2026-11-21T18:13:31.555Z",
+    "2026-11-21T18:13:37.995Z"
    ],
    "stat": {
-    "lines": 5,
+    "lines": 4,
     "errors": 0,
     "errorServices": [],
     "clientAborted": 1,
@@ -88,8 +88,8 @@
    "phase": "after",
    "way": "cancel",
    "win": [
-    "2026-11-21T17:46:18.718Z",
-    "2026-11-21T17:46:25.648Z"
+    "2026-11-21T18:13:42.996Z",
+    "2026-11-21T18:13:49.572Z"
    ],
    "stat": {
     "lines": 4,
@@ -126,11 +126,11 @@
    "phase": "after",
    "way": "disconnect",
    "win": [
-    "2026-11-21T17:46:30.649Z",
-    "2026-11-21T17:46:37.815Z"
+    "2026-11-21T18:13:54.574Z",
+    "2026-11-21T18:14:01.435Z"
    ],
    "stat": {
-    "lines": 4,
+    "lines": 5,
     "errors": 0,
     "errorServices": [],
     "clientAborted": 1,
@@ -164,7 +164,7 @@
  "browserRuns": {
   "reason": null,
   "count": 0,
-  "lines": 794,
+  "lines": 814,
   "aborted": 46
  }
 }

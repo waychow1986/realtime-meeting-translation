@@ -9,7 +9,7 @@
  "console": [
   "[warning] The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)"
  ],
- "wallStart": 1795283255224,
+ "wallStart": 1795284898781,
  "step": "final-snapshot",
  "guide": {
   "closed": [
@@ -20,7 +20,7 @@
  "visibleText": "会议实时中文字幕\n输入方式\n麦克风\n系统声音\n开始\n停止\n○\n当前状态\n未开始\n字号\n小\n中\n大\n特大\n弹出字幕小窗\n?\n使用引导\n\n选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。",
  "inputControl": "radio",
  "tl": {
-  "t0": 2737.89999999851,
+  "t0": 2750.5999999996275,
   "s": [
    {
     "start": 0,
@@ -40,7 +40,7 @@
   "main": {
    "entries": [
     {
-     "text": "大家好，感谢各位参加今天的会议。",
+     "text": "大家好，感谢各位出席今天的会议。",
      "cls": "caption",
      "color": "rgb(255, 255, 255)",
      "bg": {
@@ -85,11 +85,11 @@
   },
   "pip": null
  },
- "tStop": 15430.799999998882,
+ "tStop": 15457.099999999627,
  "snaps": [
   {
    "k": "main",
-   "t": 97.79999999888241,
+   "t": 88.39999999850988,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -235,7 +235,7 @@
   },
   {
    "k": "main",
-   "t": 2075.0999999996275,
+   "t": 2068.89999999851,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -282,7 +282,7 @@
   },
   {
    "k": "main",
-   "t": 2108.5999999996275,
+   "t": 2119.2999999988824,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -329,7 +329,7 @@
   },
   {
    "k": "main",
-   "t": 2225.5999999996275,
+   "t": 2243.89999999851,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -376,7 +376,7 @@
   },
   {
    "k": "main",
-   "t": 6741.5,
+   "t": 6797.5999999996275,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -428,7 +428,7 @@
   },
   {
    "k": "main",
-   "t": 7360.699999999255,
+   "t": 7479.5999999996275,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -504,7 +504,7 @@
   },
   {
    "k": "main",
-   "t": 8251.39999999851,
+   "t": 8229.199999999255,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -517,7 +517,7 @@
      "kids": [
       {
        "id": 8,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption-scroll"
       }
      ]
@@ -528,7 +528,7 @@
      "kids": [
       {
        "id": 11,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "captions"
       }
      ]
@@ -539,7 +539,7 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       }
      ]
@@ -565,7 +565,7 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       }
      ]
@@ -580,7 +580,7 @@
   },
   {
    "k": "main",
-   "t": 10540.299999998882,
+   "t": 10557,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -593,7 +593,7 @@
      "kids": [
       {
        "id": 8,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption-scroll"
       }
      ]
@@ -604,7 +604,7 @@
      "kids": [
       {
        "id": 11,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "captions"
       }
      ]
@@ -615,7 +615,7 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       }
      ]
@@ -646,7 +646,7 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       }
      ]
@@ -661,7 +661,7 @@
   },
   {
    "k": "main",
-   "t": 10989,
+   "t": 10900.5,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -674,7 +674,7 @@
      "kids": [
       {
        "id": 8,
-       "t": "大家好，感谢各位参加今天的会议。 这次",
+       "t": "大家好，感谢各位出席今天的会议。 这次",
        "c": "caption-scroll"
       }
      ]
@@ -685,7 +685,7 @@
      "kids": [
       {
        "id": 11,
-       "t": "大家好，感谢各位参加今天的会议。 这次",
+       "t": "大家好，感谢各位出席今天的会议。 这次",
        "c": "captions"
       }
      ]
@@ -696,7 +696,7 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       },
       {
@@ -732,7 +732,7 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       },
       {
@@ -752,7 +752,7 @@
   },
   {
    "k": "main",
-   "t": 11882.099999999627,
+   "t": 11461.199999999255,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -765,7 +765,7 @@
      "kids": [
       {
        "id": 8,
-       "t": "大家好，感谢各位参加今天的会议。 本季度销售额",
+       "t": "大家好，感谢各位出席今天的会议。 这次季度的销售额",
        "c": "caption-scroll"
       }
      ]
@@ -776,7 +776,7 @@
      "kids": [
       {
        "id": 11,
-       "t": "大家好，感谢各位参加今天的会议。 本季度销售额",
+       "t": "大家好，感谢各位出席今天的会议。 这次季度的销售额",
        "c": "captions"
       }
      ]
@@ -787,12 +787,12 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       },
       {
        "id": 25,
-       "t": "本季度销售额",
+       "t": "这次季度的销售额",
        "c": "caption"
       }
      ]
@@ -823,12 +823,12 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       },
       {
        "id": 25,
-       "t": "本季度销售额",
+       "t": "这次季度的销售额",
        "c": "caption"
       }
      ]
@@ -843,7 +843,7 @@
   },
   {
    "k": "main",
-   "t": 12304.5,
+   "t": 11917.099999999627,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -856,7 +856,7 @@
      "kids": [
       {
        "id": 8,
-       "t": "大家好，感谢各位参加今天的会议。 本季度的销售额比去年",
+       "t": "大家好，感谢各位出席今天的会议。 本季度的销售额比去年",
        "c": "caption-scroll"
       }
      ]
@@ -867,7 +867,7 @@
      "kids": [
       {
        "id": 11,
-       "t": "大家好，感谢各位参加今天的会议。 本季度的销售额比去年",
+       "t": "大家好，感谢各位出席今天的会议。 本季度的销售额比去年",
        "c": "captions"
       }
      ]
@@ -878,7 +878,7 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       },
       {
@@ -914,7 +914,7 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       },
       {
@@ -934,7 +934,7 @@
   },
   {
    "k": "main",
-   "t": 12993.89999999851,
+   "t": 13127.299999998882,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -947,7 +947,7 @@
      "kids": [
       {
        "id": 8,
-       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年更加",
+       "t": "大家好，感谢各位出席今天的会议。 本季度销售额比去年增加了20",
        "c": "caption-scroll"
       }
      ]
@@ -958,7 +958,7 @@
      "kids": [
       {
        "id": 11,
-       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年更加",
+       "t": "大家好，感谢各位出席今天的会议。 本季度销售额比去年增加了20",
        "c": "captions"
       }
      ]
@@ -969,12 +969,12 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       },
       {
        "id": 25,
-       "t": "本季度销售额比去年更加",
+       "t": "本季度销售额比去年增加了20",
        "c": "caption"
       }
      ]
@@ -1005,12 +1005,12 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       },
       {
        "id": 25,
-       "t": "本季度销售额比去年更加",
+       "t": "本季度销售额比去年增加了20",
        "c": "caption"
       }
      ]
@@ -1025,7 +1025,7 @@
   },
   {
    "k": "main",
-   "t": 13414.799999998882,
+   "t": 13486.599999999627,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -1038,7 +1038,7 @@
      "kids": [
       {
        "id": 8,
-       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年高了20",
+       "t": "大家好，感谢各位出席今天的会议。 本季度销售额比去年增长了20%",
        "c": "caption-scroll"
       }
      ]
@@ -1049,7 +1049,7 @@
      "kids": [
       {
        "id": 11,
-       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年高了20",
+       "t": "大家好，感谢各位出席今天的会议。 本季度销售额比去年增长了20%",
        "c": "captions"
       }
      ]
@@ -1060,98 +1060,7 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
-       "c": "caption"
-      },
-      {
-       "id": 25,
-       "t": "本季度销售额比去年高了20",
-       "c": "caption"
-      }
-     ]
-    },
-    "12": {
-     "sig": "SPAN#.status-caption@5",
-     "d": 5,
-     "kids": []
-    },
-    "13": {
-     "sig": "STRONG#status.@5",
-     "d": 5,
-     "kids": []
-    },
-    "24": {
-     "sig": "LI#.caption@6",
-     "d": 6,
-     "kids": []
-    },
-    "25": {
-     "sig": "LI#.caption@6",
-     "d": 6,
-     "kids": []
-    },
-    "generic": {
-     "sig": "generic",
-     "d": 0,
-     "kids": [
-      {
-       "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
-       "c": "caption"
-      },
-      {
-       "id": 25,
-       "t": "本季度销售额比去年高了20",
-       "c": "caption"
-      }
-     ]
-    }
-   },
-   "f": {
-    "hangul": false,
-    "kana": false,
-    "interrupted": false,
-    "listening": true
-   }
-  },
-  {
-   "k": "main",
-   "t": 13931.5,
-   "d": {
-    "1": {
-     "sig": "FIELDSET#caption-size.choice.segmented@4",
-     "d": 4,
-     "kids": []
-    },
-    "7": {
-     "sig": "SECTION#caption-panel.caption-panel@3",
-     "d": 3,
-     "kids": [
-      {
-       "id": 8,
-       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%",
-       "c": "caption-scroll"
-      }
-     ]
-    },
-    "8": {
-     "sig": "DIV#caption-scroll.caption-scroll@4",
-     "d": 4,
-     "kids": [
-      {
-       "id": 11,
-       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%",
-       "c": "captions"
-      }
-     ]
-    },
-    "11": {
-     "sig": "OL#captions.captions@5",
-     "d": 5,
-     "kids": [
-      {
-       "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       },
       {
@@ -1187,7 +1096,7 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       },
       {
@@ -1207,7 +1116,7 @@
   },
   {
    "k": "main",
-   "t": 15473.599999999627,
+   "t": 15499.199999999255,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -1220,7 +1129,7 @@
      "kids": [
       {
        "id": 8,
-       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%",
+       "t": "大家好，感谢各位出席今天的会议。 本季度销售额比去年增长了20%",
        "c": "caption-scroll"
       }
      ]
@@ -1231,7 +1140,7 @@
      "kids": [
       {
        "id": 11,
-       "t": "大家好，感谢各位参加今天的会议。 本季度销售额比去年增长了20%",
+       "t": "大家好，感谢各位出席今天的会议。 本季度销售额比去年增长了20%",
        "c": "captions"
       }
      ]
@@ -1242,7 +1151,7 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       },
       {
@@ -1278,7 +1187,7 @@
      "kids": [
       {
        "id": 24,
-       "t": "大家好，感谢各位参加今天的会议。",
+       "t": "大家好，感谢各位出席今天的会议。",
        "c": "caption"
       },
       {
@@ -1300,7 +1209,7 @@
  "req": [
   {
    "id": 1,
-   "t": 6740.0999999996275,
+   "t": 6796.199999999255,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -1313,8 +1222,8 @@
    "marker": false,
    "action": "pass",
    "status": 200,
-   "tResp": 7231.299999998882,
-   "tEnd": 7358.299999998882,
+   "tResp": 7294.799999998882,
+   "tEnd": 7480,
    "done": true,
    "aborted": false,
    "err": null,
@@ -1323,7 +1232,7 @@
   },
   {
    "id": 2,
-   "t": 7359.699999999255,
+   "t": 7478.5999999996275,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -1337,7 +1246,7 @@
    "action": "pass",
    "status": null,
    "tResp": null,
-   "tEnd": 7741.89999999851,
+   "tEnd": 7761.89999999851,
    "done": false,
    "aborted": true,
    "err": "AbortError",
@@ -1346,7 +1255,7 @@
   },
   {
    "id": 3,
-   "t": 7741.199999999255,
+   "t": 7761.299999998882,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -1359,17 +1268,17 @@
    "marker": true,
    "action": "pass",
    "status": 200,
-   "tResp": 8029.5,
-   "tEnd": 8250.099999999627,
+   "tResp": 8025.0999999996275,
+   "tEnd": 8227.89999999851,
    "done": true,
    "aborted": false,
    "err": null,
-   "respText": "{\"type\":\"delta\",\"text\":\"大家\"}\n{\"type\":\"delta\",\"text\":\"好\"}\n{\"type\":\"delta\",\"text\":\"，\"}\n{\"type\":\"delta\",\"text\":\"感谢\"}\n{\"type\":\"delta\",\"text\":\"各\"}\n{\"type\":\"delta\",\"text\":\"位\"}\n{\"type\":\"delta\",\"text\":\"参加\"}\n{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
+   "respText": "{\"type\":\"delta\",\"text\":\"大家\"}\n{\"type\":\"delta\",\"text\":\"好\"}\n{\"type\":\"delta\",\"text\":\"，\"}\n{\"type\":\"delta\",\"text\":\"感谢\"}\n{\"type\":\"delta\",\"text\":\"各\"}\n{\"type\":\"delta\",\"text\":\"位\"}\n{\"type\":\"delta\",\"text\":\"出\"}\n{\"type\":\"delta\",\"text\":\"席\"}\n{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n",
    "outText": ""
   },
   {
    "id": 4,
-   "t": 10539.299999998882,
+   "t": 10555.89999999851,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -1382,8 +1291,8 @@
    "marker": false,
    "action": "pass",
    "status": 200,
-   "tResp": 10842.89999999851,
-   "tEnd": 10989.299999998882,
+   "tResp": 10811.099999999627,
+   "tEnd": 10900.699999999255,
    "done": true,
    "aborted": false,
    "err": null,
@@ -1392,7 +1301,7 @@
   },
   {
    "id": 5,
-   "t": 11039.799999998882,
+   "t": 11056.39999999851,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -1405,17 +1314,17 @@
    "marker": false,
    "action": "pass",
    "status": 200,
-   "tResp": 11788.099999999627,
-   "tEnd": 11882.5,
+   "tResp": 11346.89999999851,
+   "tEnd": 11461.5,
    "done": true,
    "aborted": false,
    "err": null,
-   "respText": "{\"type\":\"delta\",\"text\":\"本\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"done\"}\n",
+   "respText": "{\"type\":\"delta\",\"text\":\"这\"}\n{\"type\":\"delta\",\"text\":\"次\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"done\"}\n",
    "outText": ""
   },
   {
    "id": 6,
-   "t": 11881.299999998882,
+   "t": 11555.89999999851,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -1428,8 +1337,8 @@
    "marker": false,
    "action": "pass",
    "status": 200,
-   "tResp": 12117.599999999627,
-   "tEnd": 12304.799999998882,
+   "tResp": 11782.699999999255,
+   "tEnd": 11917.299999998882,
    "done": true,
    "aborted": false,
    "err": null,
@@ -1438,7 +1347,7 @@
   },
   {
    "id": 7,
-   "t": 12381.299999998882,
+   "t": 12158.099999999627,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -1451,17 +1360,17 @@
    "marker": false,
    "action": "pass",
    "status": 200,
-   "tResp": 12680.199999999255,
-   "tEnd": 12992.39999999851,
+   "tResp": 12477.299999998882,
+   "tEnd": 12577.099999999627,
    "done": true,
    "aborted": false,
    "err": null,
-   "respText": "{\"type\":\"delta\",\"text\":\"本\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n{\"type\":\"delta\",\"text\":\"更加\"}\n{\"type\":\"done\"}\n",
+   "respText": "{\"type\":\"delta\",\"text\":\"本\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n{\"type\":\"done\"}\n",
    "outText": ""
   },
   {
    "id": 8,
-   "t": 12993,
+   "t": 12658,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -1474,17 +1383,40 @@
    "marker": false,
    "action": "pass",
    "status": 200,
-   "tResp": 13262.89999999851,
-   "tEnd": 13415.099999999627,
+   "tResp": 12994.89999999851,
+   "tEnd": 13127.599999999627,
    "done": true,
    "aborted": false,
    "err": null,
-   "respText": "{\"type\":\"delta\",\"text\":\"本\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n{\"type\":\"delta\",\"text\":\"高\"}\n{\"type\":\"delta\",\"text\":\"了\"}\n{\"type\":\"delta\",\"text\":\"20\"}\n{\"type\":\"done\"}\n",
+   "respText": "{\"type\":\"delta\",\"text\":\"本\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n{\"type\":\"delta\",\"text\":\"增加\"}\n{\"type\":\"delta\",\"text\":\"了\"}\n{\"type\":\"delta\",\"text\":\"20\"}\n{\"type\":\"done\"}\n",
    "outText": ""
   },
   {
    "id": 9,
-   "t": 13492.599999999627,
+   "t": 13158.299999998882,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"이번 분기 매출은 지난해보다 20% 증가\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"system\"}",
+   "src": "이번 분기 매출은 지난해보다 20% 증가",
+   "sentence": 1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 13384.799999998882,
+   "tEnd": 13485.599999999627,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"本\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n{\"type\":\"delta\",\"text\":\"增长\"}\n{\"type\":\"delta\",\"text\":\"了\"}\n{\"type\":\"delta\",\"text\":\"20\"}\n{\"type\":\"delta\",\"text\":\"%\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 10,
+   "t": 13658.39999999851,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -1497,17 +1429,17 @@
    "marker": false,
    "action": "pass",
    "status": 200,
-   "tResp": 13731.89999999851,
-   "tEnd": 13930.39999999851,
-   "done": true,
-   "aborted": false,
-   "err": null,
-   "respText": "{\"type\":\"delta\",\"text\":\"本\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n{\"type\":\"delta\",\"text\":\"增长\"}\n{\"type\":\"delta\",\"text\":\"了\"}\n{\"type\":\"delta\",\"text\":\"20\"}\n{\"type\":\"delta\",\"text\":\"%\"}\n{\"type\":\"done\"}\n",
+   "tResp": 14003.5,
+   "tEnd": 14164.299999998882,
+   "done": false,
+   "aborted": true,
+   "err": "AbortError",
+   "respText": "{\"type\":\"delta\",\"text\":\"本\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n",
    "outText": ""
   },
   {
-   "id": 10,
-   "t": 14137,
+   "id": 11,
+   "t": 14163.89999999851,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -1520,17 +1452,17 @@
    "marker": true,
    "action": "corrupt",
    "status": 200,
-   "tResp": 14427.599999999627,
-   "tEnd": 14562.699999999255,
+   "tResp": 14442.299999998882,
+   "tEnd": 14607.199999999255,
    "done": true,
    "aborted": false,
    "err": null,
-   "respText": "{\"type\":\"delta\",\"text\":\"本\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n{\"type\":\"delta\",\"text\":\"增加\"}\n{\"type\":\"delta\",\"text\":\"了\"}\n{\"type\":\"delta\",\"text\":\"20\"}\n{\"type\":\"delta\",\"text\":\"%。\"}\n{\"type\":\"done\"}\n",
+   "respText": "{\"type\":\"delta\",\"text\":\"本\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n{\"type\":\"delta\",\"text\":\"增长\"}\n{\"type\":\"delta\",\"text\":\"了\"}\n{\"type\":\"delta\",\"text\":\"20\"}\n{\"type\":\"delta\",\"text\":\"%。\"}\n{\"type\":\"done\"}\n",
    "outText": "{\"type\":\"delta\",\"text\":\"한\"}\n{\"type\":\"delta\",\"text\":\"한한\"}\n{\"type\":\"delta\",\"text\":\"한한\"}\n{\"type\":\"delta\",\"text\":\"한\"}\n{\"type\":\"delta\",\"text\":\"한\"}\n{\"type\":\"delta\",\"text\":\"한한\"}\n{\"type\":\"delta\",\"text\":\"한한\"}\n{\"type\":\"delta\",\"text\":\"한\"}\n{\"type\":\"delta\",\"text\":\"20\"}\n{\"type\":\"delta\",\"text\":\"%。\"}\n{\"type\":\"done\"}\n"
   },
   {
-   "id": 11,
-   "t": 14562.799999998882,
+   "id": 12,
+   "t": 14607.299999998882,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -1544,7 +1476,7 @@
    "action": "delay",
    "status": null,
    "tResp": null,
-   "tEnd": 15471.199999999255,
+   "tEnd": 15496.699999999255,
    "done": false,
    "aborted": true,
    "err": "AbortError",
@@ -1555,11 +1487,11 @@
  "media": [
   {
    "api": "getDisplayMedia",
-   "t": 2105.199999999255,
+   "t": 2115.39999999851,
    "armed": true
   }
  ],
- "tEndObs": 45477.89999999851,
+ "tEndObs": 45503.199999999255,
  "listeningAfterStop": false,
- "wallEnd": 1795283300784
+ "wallEnd": 1795284944368
 }

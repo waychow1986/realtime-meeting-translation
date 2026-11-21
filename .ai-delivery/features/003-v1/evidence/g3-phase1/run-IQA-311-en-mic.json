@@ -10,7 +10,7 @@
   "[warning] The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)",
   "[error] Creating a worker from 'data:text/javascript;base64,IWZ1bmN0aW9uKGUpe3ZhciB0PXt9O2Z1bmN0aW9uIG4ocil7aWYodFtyXSlyZXR1cm4gdFtyXS5leHBvcnRzO3ZhciBvPXRbcl09e2k6cixsOiExLGV4cG9ydHM6e319O3JldHVybiBlW3JdLmNhbGwoby5leHBvcnRzLG8sby5leHBvcnRzLG4pLG8ubD0hMCxvLmV4cG9ydHN9bi5tPWUsbi5jPXQsbi5kPWZ1bmN0aW9uKGUsdCxyKXtuLm8oZSx0KXx8T2JqZWN0LmRlZmluZVByb3BlcnR5KGUsdCx7ZW51bWVyYWJsZTohMCxnZXQ6cn0pfSxuLnI9ZnVuY3Rpb24o…"
  ],
- "wallStart": 1795283296842,
+ "wallStart": 1795284940419,
  "step": "final-snapshot",
  "guide": {
   "closed": [
@@ -21,7 +21,7 @@
  "visibleText": "会议实时中文字幕\n输入方式\n麦克风\n系统声音\n开始\n停止\n○\n当前状态\n未开始\n字号\n小\n中\n大\n特大\n弹出字幕小窗\n?\n使用引导\n\n选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。",
  "inputControl": "radio",
  "tl": {
-  "t0": 2725.699999999255,
+  "t0": 2724.7999999988824,
   "s": [
    {
     "start": 0,
@@ -36,8 +36,8 @@
     "end": 13.135963718820861
    },
    {
-    "start": 14.73596371882086,
-    "end": 17.85596371882086
+    "start": 14.735963718820862,
+    "end": 17.855963718820863
    }
   ],
   "total": 17.85596371882086
@@ -136,11 +136,11 @@
   },
   "pip": null
  },
- "tStop": 28884.699999999255,
+ "tStop": 28869.900000000373,
  "snaps": [
   {
    "k": "main",
-   "t": 118.69999999925494,
+   "t": 138.2999999988824,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -286,7 +286,7 @@
   },
   {
    "k": "main",
-   "t": 2110.5,
+   "t": 2129.0999999996275,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -333,7 +333,7 @@
   },
   {
    "k": "main",
-   "t": 2220.699999999255,
+   "t": 2216,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -380,7 +380,7 @@
   },
   {
    "k": "main",
-   "t": 6687.89999999851,
+   "t": 6696.9000000003725,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -432,7 +432,7 @@
   },
   {
    "k": "main",
-   "t": 7601.699999999255,
+   "t": 7397.5,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -508,7 +508,7 @@
   },
   {
    "k": "main",
-   "t": 9016.39999999851,
+   "t": 8941.699999999255,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -589,7 +589,7 @@
   },
   {
    "k": "main",
-   "t": 9525.599999999627,
+   "t": 9753.599999999627,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -680,7 +680,7 @@
   },
   {
    "k": "main",
-   "t": 10476.5,
+   "t": 10630.599999999627,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -693,7 +693,7 @@
      "kids": [
       {
        "id": 8,
-       "t": "大家早上好。欢迎参加会议。 我们的销售额增加",
+       "t": "大家早上好。欢迎参加会议。 我们的销售额增加了",
        "c": "caption-scroll"
       }
      ]
@@ -704,7 +704,7 @@
      "kids": [
       {
        "id": 11,
-       "t": "大家早上好。欢迎参加会议。 我们的销售额增加",
+       "t": "大家早上好。欢迎参加会议。 我们的销售额增加了",
        "c": "captions"
       }
      ]
@@ -720,7 +720,7 @@
       },
       {
        "id": 25,
-       "t": "我们的销售额增加",
+       "t": "我们的销售额增加了",
        "c": "caption"
       }
      ]
@@ -756,7 +756,7 @@
       },
       {
        "id": 25,
-       "t": "我们的销售额增加",
+       "t": "我们的销售额增加了",
        "c": "caption"
       }
      ]
@@ -771,7 +771,7 @@
   },
   {
    "k": "main",
-   "t": 11053,
+   "t": 11272.400000000373,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -784,7 +784,7 @@
      "kids": [
       {
        "id": 8,
-       "t": "大家早上好。欢迎参加会议。 我们的销售额在这期间增长了20%",
+       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%",
        "c": "caption-scroll"
       }
      ]
@@ -795,7 +795,7 @@
      "kids": [
       {
        "id": 11,
-       "t": "大家早上好。欢迎参加会议。 我们的销售额在这期间增长了20%",
+       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%",
        "c": "captions"
       }
      ]
@@ -811,7 +811,7 @@
       },
       {
        "id": 25,
-       "t": "我们的销售额在这期间增长了20%",
+       "t": "我们本季度的销售额增长了20%",
        "c": "caption"
       }
      ]
@@ -847,7 +847,7 @@
       },
       {
        "id": 25,
-       "t": "我们的销售额在这期间增长了20%",
+       "t": "我们本季度的销售额增长了20%",
        "c": "caption"
       }
      ]
@@ -862,7 +862,7 @@
   },
   {
    "k": "main",
-   "t": 12266.099999999627,
+   "t": 11957,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -953,7 +953,7 @@
   },
   {
    "k": "main",
-   "t": 13816,
+   "t": 13841.5,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -1049,7 +1049,7 @@
   },
   {
    "k": "main",
-   "t": 14438.299999998882,
+   "t": 14663.599999999627,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -1155,7 +1155,7 @@
   },
   {
    "k": "main",
-   "t": 14965,
+   "t": 15032.900000000373,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -1168,7 +1168,7 @@
      "kids": [
       {
        "id": 8,
-       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品",
+       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品将会",
        "c": "caption-scroll"
       }
      ]
@@ -1179,7 +1179,7 @@
      "kids": [
       {
        "id": 11,
-       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品",
+       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品将会",
        "c": "captions"
       }
      ]
@@ -1200,7 +1200,7 @@
       },
       {
        "id": 26,
-       "t": "新产品",
+       "t": "新产品将会",
        "c": "caption"
       }
      ]
@@ -1246,7 +1246,7 @@
       },
       {
        "id": 26,
-       "t": "新产品",
+       "t": "新产品将会",
        "c": "caption"
       }
      ]
@@ -1261,7 +1261,7 @@
   },
   {
    "k": "main",
-   "t": 15805.89999999851,
+   "t": 15546,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -1274,7 +1274,7 @@
      "kids": [
       {
        "id": 8,
-       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品将会推出",
+       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品将于下周一发布",
        "c": "caption-scroll"
       }
      ]
@@ -1285,7 +1285,7 @@
      "kids": [
       {
        "id": 11,
-       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品将会推出",
+       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品将于下周一发布",
        "c": "captions"
       }
      ]
@@ -1306,7 +1306,7 @@
       },
       {
        "id": 26,
-       "t": "新产品将会推出",
+       "t": "新产品将于下周一发布",
        "c": "caption"
       }
      ]
@@ -1352,7 +1352,7 @@
       },
       {
        "id": 26,
-       "t": "新产品将会推出",
+       "t": "新产品将于下周一发布",
        "c": "caption"
       }
      ]
@@ -1367,7 +1367,7 @@
   },
   {
    "k": "main",
-   "t": 16533.799999998882,
+   "t": 16453.199999999255,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -1473,7 +1473,7 @@
   },
   {
    "k": "main",
-   "t": 18527.199999999255,
+   "t": 18541.699999999255,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -1584,7 +1584,7 @@
   },
   {
    "k": "main",
-   "t": 19339.89999999851,
+   "t": 19113.599999999627,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -1705,7 +1705,7 @@
   },
   {
    "k": "main",
-   "t": 19789.5,
+   "t": 19712.299999998882,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -1718,7 +1718,7 @@
      "kids": [
       {
        "id": 8,
-       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品将于下周一发布。 如果你有的话请告诉我",
+       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品将于下周一发布。 如果你……请告诉我",
        "c": "caption-scroll"
       }
      ]
@@ -1729,7 +1729,7 @@
      "kids": [
       {
        "id": 11,
-       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品将于下周一发布。 如果你有的话请告诉我",
+       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品将于下周一发布。 如果你……请告诉我",
        "c": "captions"
       }
      ]
@@ -1755,7 +1755,7 @@
       },
       {
        "id": 27,
-       "t": "如果你有的话请告诉我",
+       "t": "如果你……请告诉我",
        "c": "caption"
       }
      ]
@@ -1811,7 +1811,7 @@
       },
       {
        "id": 27,
-       "t": "如果你有的话请告诉我",
+       "t": "如果你……请告诉我",
        "c": "caption"
       }
      ]
@@ -1826,7 +1826,7 @@
   },
   {
    "k": "main",
-   "t": 20386.39999999851,
+   "t": 20312.699999999255,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -1839,7 +1839,7 @@
      "kids": [
       {
        "id": 8,
-       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品将于下周一发布。 如果你有任何问题，请告诉我",
+       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品将于下周一发布。 如果你有任何……请告诉我",
        "c": "caption-scroll"
       }
      ]
@@ -1850,7 +1850,7 @@
      "kids": [
       {
        "id": 11,
-       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品将于下周一发布。 如果你有任何问题，请告诉我",
+       "t": "大家早上好。欢迎参加会议。 我们本季度的销售额增长了20%。 新产品将于下周一发布。 如果你有任何……请告诉我",
        "c": "captions"
       }
      ]
@@ -1876,7 +1876,7 @@
       },
       {
        "id": 27,
-       "t": "如果你有任何问题，请告诉我",
+       "t": "如果你有任何……请告诉我",
        "c": "caption"
       }
      ]
@@ -1932,7 +1932,7 @@
       },
       {
        "id": 27,
-       "t": "如果你有任何问题，请告诉我",
+       "t": "如果你有任何……请告诉我",
        "c": "caption"
       }
      ]
@@ -1947,7 +1947,7 @@
   },
   {
    "k": "main",
-   "t": 21242.89999999851,
+   "t": 21313.699999999255,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -2068,7 +2068,7 @@
   },
   {
    "k": "main",
-   "t": 28925.199999999255,
+   "t": 28909.400000000373,
    "d": {
     "1": {
      "sig": "FIELDSET#caption-size.choice.segmented@4",
@@ -2191,7 +2191,7 @@
  "req": [
   {
    "id": 1,
-   "t": 6686.39999999851,
+   "t": 6695.299999998882,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -2205,7 +2205,7 @@
    "action": "pass",
    "status": null,
    "tResp": null,
-   "tEnd": 7048.89999999851,
+   "tEnd": 7018.9000000003725,
    "done": false,
    "aborted": true,
    "err": "AbortError",
@@ -2214,7 +2214,7 @@
   },
   {
    "id": 2,
-   "t": 7048.299999998882,
+   "t": 7018.4000000003725,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -2227,8 +2227,8 @@
    "marker": true,
    "action": "pass",
    "status": 200,
-   "tResp": 7477.5,
-   "tEnd": 7599.799999998882,
+   "tResp": 7290.9000000003725,
+   "tEnd": 7397.699999999255,
    "done": true,
    "aborted": false,
    "err": null,
@@ -2237,7 +2237,7 @@
   },
   {
    "id": 3,
-   "t": 9015.5,
+   "t": 8940.900000000373,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -2250,8 +2250,8 @@
    "marker": false,
    "action": "pass",
    "status": 200,
-   "tResp": 9404.599999999627,
-   "tEnd": 9524,
+   "tResp": 9646.099999999627,
+   "tEnd": 9751.900000000373,
    "done": true,
    "aborted": false,
    "err": null,
@@ -2260,53 +2260,30 @@
   },
   {
    "id": 4,
-   "t": 9524.699999999255,
+   "t": 9752.799999998882,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
     "content-type": "application/json"
    },
-   "body": "{\"kind\":\"partial\",\"text\":\"our sales increased\",\"sourceLanguage\":\"en-US\",\"inputSource\":\"microphone\"}",
-   "src": "our sales increased",
+   "body": "{\"kind\":\"partial\",\"text\":\"our sales increased by\",\"sourceLanguage\":\"en-US\",\"inputSource\":\"microphone\"}",
+   "src": "our sales increased by",
    "sentence": 1,
    "retrans": false,
    "marker": false,
    "action": "pass",
    "status": 200,
-   "tResp": 10310.89999999851,
-   "tEnd": 10476.799999998882,
+   "tResp": 10479.5,
+   "tEnd": 10630.900000000373,
    "done": true,
    "aborted": false,
    "err": null,
-   "respText": "{\"type\":\"delta\",\"text\":\"我们的\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"增加\"}\n{\"type\":\"done\"}\n",
+   "respText": "{\"type\":\"delta\",\"text\":\"我们的\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"增加\"}\n{\"type\":\"delta\",\"text\":\"了\"}\n{\"type\":\"done\"}\n",
    "outText": ""
   },
   {
    "id": 5,
-   "t": 10475.699999999255,
-   "url": "/api/translations",
-   "method": "POST",
-   "headers": {
-    "content-type": "application/json"
-   },
-   "body": "{\"kind\":\"partial\",\"text\":\"our sales increased by 20% this\",\"sourceLanguage\":\"en-US\",\"inputSource\":\"microphone\"}",
-   "src": "our sales increased by 20% this",
-   "sentence": 1,
-   "retrans": false,
-   "marker": false,
-   "action": "pass",
-   "status": 200,
-   "tResp": 10734.799999998882,
-   "tEnd": 11051.5,
-   "done": true,
-   "aborted": false,
-   "err": null,
-   "respText": "{\"type\":\"delta\",\"text\":\"我们的\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"在\"}\n{\"type\":\"delta\",\"text\":\"这\"}\n{\"type\":\"delta\",\"text\":\"期间\"}\n{\"type\":\"delta\",\"text\":\"增长\"}\n{\"type\":\"delta\",\"text\":\"了\"}\n{\"type\":\"delta\",\"text\":\"20\"}\n{\"type\":\"delta\",\"text\":\"%\"}\n{\"type\":\"done\"}\n",
-   "outText": ""
-  },
-  {
-   "id": 6,
-   "t": 11052.099999999627,
+   "t": 10629.799999998882,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -2318,18 +2295,18 @@
    "retrans": false,
    "marker": false,
    "action": "pass",
-   "status": null,
-   "tResp": null,
-   "tEnd": 11349.599999999627,
-   "done": false,
-   "aborted": true,
-   "err": "AbortError",
-   "respText": "",
+   "status": 200,
+   "tResp": 11271,
+   "tEnd": 11271.5,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"我们\"}\n{\"type\":\"delta\",\"text\":\"本\"}\n{\"type\":\"delta\",\"text\":\"季度\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"增长\"}\n{\"type\":\"delta\",\"text\":\"了\"}\n{\"type\":\"delta\",\"text\":\"20\"}\n{\"type\":\"delta\",\"text\":\"%\"}\n{\"type\":\"done\"}\n",
    "outText": ""
   },
   {
-   "id": 7,
-   "t": 11349.199999999255,
+   "id": 6,
+   "t": 11379.699999999255,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -2342,8 +2319,8 @@
    "marker": true,
    "action": "pass",
    "status": 200,
-   "tResp": 12091.199999999255,
-   "tEnd": 12266.39999999851,
+   "tResp": 11624.299999998882,
+   "tEnd": 11957.099999999627,
    "done": true,
    "aborted": false,
    "err": null,
@@ -2351,8 +2328,8 @@
    "outText": ""
   },
   {
-   "id": 8,
-   "t": 13815.099999999627,
+   "id": 7,
+   "t": 13840.5,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -2365,8 +2342,8 @@
    "marker": false,
    "action": "pass",
    "status": 200,
-   "tResp": 14219.39999999851,
-   "tEnd": 14436.699999999255,
+   "tResp": 14581.900000000373,
+   "tEnd": 14662.199999999255,
    "done": true,
    "aborted": false,
    "err": null,
@@ -2374,54 +2351,31 @@
    "outText": ""
   },
   {
+   "id": 8,
+   "t": 14662.699999999255,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"the new product will\",\"sourceLanguage\":\"en-US\",\"inputSource\":\"microphone\"}",
+   "src": "the new product will",
+   "sentence": 2,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 14912.299999998882,
+   "tEnd": 15033.099999999627,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"产品\"}\n{\"type\":\"delta\",\"text\":\"将\"}\n{\"type\":\"delta\",\"text\":\"会\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
    "id": 9,
-   "t": 14437.299999998882,
-   "url": "/api/translations",
-   "method": "POST",
-   "headers": {
-    "content-type": "application/json"
-   },
-   "body": "{\"kind\":\"partial\",\"text\":\"the new product\",\"sourceLanguage\":\"en-US\",\"inputSource\":\"microphone\"}",
-   "src": "the new product",
-   "sentence": 2,
-   "retrans": false,
-   "marker": false,
-   "action": "pass",
-   "status": 200,
-   "tResp": 14760.699999999255,
-   "tEnd": 14965.299999998882,
-   "done": true,
-   "aborted": false,
-   "err": null,
-   "respText": "{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"产品\"}\n{\"type\":\"done\"}\n",
-   "outText": ""
-  },
-  {
-   "id": 10,
-   "t": 14964.099999999627,
-   "url": "/api/translations",
-   "method": "POST",
-   "headers": {
-    "content-type": "application/json"
-   },
-   "body": "{\"kind\":\"partial\",\"text\":\"the new product will launch\",\"sourceLanguage\":\"en-US\",\"inputSource\":\"microphone\"}",
-   "src": "the new product will launch",
-   "sentence": 2,
-   "retrans": false,
-   "marker": false,
-   "action": "pass",
-   "status": 200,
-   "tResp": 15652.299999998882,
-   "tEnd": 15806.099999999627,
-   "done": true,
-   "aborted": false,
-   "err": null,
-   "respText": "{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"产品\"}\n{\"type\":\"delta\",\"text\":\"将\"}\n{\"type\":\"delta\",\"text\":\"会\"}\n{\"type\":\"delta\",\"text\":\"推出\"}\n{\"type\":\"done\"}\n",
-   "outText": ""
-  },
-  {
-   "id": 11,
-   "t": 15805,
+   "t": 15162.599999999627,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -2433,18 +2387,18 @@
    "retrans": false,
    "marker": false,
    "action": "pass",
-   "status": null,
-   "tResp": null,
-   "tEnd": 15964.299999998882,
-   "done": false,
-   "aborted": true,
-   "err": "AbortError",
-   "respText": "",
+   "status": 200,
+   "tResp": 15431.799999998882,
+   "tEnd": 15546.299999998882,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"产品\"}\n{\"type\":\"delta\",\"text\":\"将\"}\n{\"type\":\"delta\",\"text\":\"于\"}\n{\"type\":\"delta\",\"text\":\"下\"}\n{\"type\":\"delta\",\"text\":\"周\"}\n{\"type\":\"delta\",\"text\":\"一\"}\n{\"type\":\"delta\",\"text\":\"发布\"}\n{\"type\":\"done\"}\n",
    "outText": ""
   },
   {
-   "id": 12,
-   "t": 15963.89999999851,
+   "id": 10,
+   "t": 15987.900000000373,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -2457,8 +2411,8 @@
    "marker": true,
    "action": "pass",
    "status": 200,
-   "tResp": 16411.89999999851,
-   "tEnd": 16532.39999999851,
+   "tResp": 16322.400000000373,
+   "tEnd": 16452.099999999627,
    "done": true,
    "aborted": false,
    "err": null,
@@ -2466,8 +2420,8 @@
    "outText": ""
   },
   {
-   "id": 13,
-   "t": 18526.299999998882,
+   "id": 11,
+   "t": 18540.799999998882,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -2480,8 +2434,8 @@
    "marker": false,
    "action": "pass",
    "status": 200,
-   "tResp": 19251.099999999627,
-   "tEnd": 19340.099999999627,
+   "tResp": 18999.199999999255,
+   "tEnd": 19112.199999999255,
    "done": true,
    "aborted": false,
    "err": null,
@@ -2489,31 +2443,54 @@
    "outText": ""
   },
   {
-   "id": 14,
-   "t": 19339.099999999627,
+   "id": 12,
+   "t": 19112.799999998882,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
     "content-type": "application/json"
    },
-   "body": "{\"kind\":\"partial\",\"text\":\"please let me know if you have\",\"sourceLanguage\":\"en-US\",\"inputSource\":\"microphone\"}",
-   "src": "please let me know if you have",
+   "body": "{\"kind\":\"partial\",\"text\":\"please let me know if you\",\"sourceLanguage\":\"en-US\",\"inputSource\":\"microphone\"}",
+   "src": "please let me know if you",
    "sentence": -1,
    "retrans": false,
    "marker": false,
    "action": "pass",
    "status": 200,
-   "tResp": 19639.39999999851,
-   "tEnd": 19788.39999999851,
+   "tResp": 19586.400000000373,
+   "tEnd": 19710.699999999255,
    "done": true,
    "aborted": false,
    "err": null,
-   "respText": "{\"type\":\"delta\",\"text\":\"如果\"}\n{\"type\":\"delta\",\"text\":\"你\"}\n{\"type\":\"delta\",\"text\":\"有\"}\n{\"type\":\"delta\",\"text\":\"的话\"}\n{\"type\":\"delta\",\"text\":\"请\"}\n{\"type\":\"delta\",\"text\":\"告诉\"}\n{\"type\":\"delta\",\"text\":\"我\"}\n{\"type\":\"done\"}\n",
+   "respText": "{\"type\":\"delta\",\"text\":\"如果\"}\n{\"type\":\"delta\",\"text\":\"你\"}\n{\"type\":\"delta\",\"text\":\"……\"}\n{\"type\":\"delta\",\"text\":\"请\"}\n{\"type\":\"delta\",\"text\":\"告诉\"}\n{\"type\":\"delta\",\"text\":\"我\"}\n{\"type\":\"done\"}\n",
    "outText": ""
   },
   {
-   "id": 15,
-   "t": 19840.199999999255,
+   "id": 13,
+   "t": 19711.299999998882,
+   "url": "/api/translations",
+   "method": "POST",
+   "headers": {
+    "content-type": "application/json"
+   },
+   "body": "{\"kind\":\"partial\",\"text\":\"please let me know if you have any\",\"sourceLanguage\":\"en-US\",\"inputSource\":\"microphone\"}",
+   "src": "please let me know if you have any",
+   "sentence": -1,
+   "retrans": false,
+   "marker": false,
+   "action": "pass",
+   "status": 200,
+   "tResp": 20126.599999999627,
+   "tEnd": 20312.900000000373,
+   "done": true,
+   "aborted": false,
+   "err": null,
+   "respText": "{\"type\":\"delta\",\"text\":\"如果\"}\n{\"type\":\"delta\",\"text\":\"你\"}\n{\"type\":\"delta\",\"text\":\"有\"}\n{\"type\":\"delta\",\"text\":\"任何\"}\n{\"type\":\"delta\",\"text\":\"……\"}\n{\"type\":\"delta\",\"text\":\"请\"}\n{\"type\":\"delta\",\"text\":\"告诉\"}\n{\"type\":\"delta\",\"text\":\"我\"}\n{\"type\":\"done\"}\n",
+   "outText": ""
+  },
+  {
+   "id": 14,
+   "t": 20311.699999999255,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -2525,18 +2502,18 @@
    "retrans": false,
    "marker": false,
    "action": "pass",
-   "status": 200,
-   "tResp": 20248.89999999851,
-   "tEnd": 20387.199999999255,
-   "done": true,
-   "aborted": false,
-   "err": null,
-   "respText": "{\"type\":\"delta\",\"text\":\"如果\"}\n{\"type\":\"delta\",\"text\":\"你\"}\n{\"type\":\"delta\",\"text\":\"有\"}\n{\"type\":\"delta\",\"text\":\"任何\"}\n{\"type\":\"delta\",\"text\":\"问题\"}\n{\"type\":\"delta\",\"text\":\"，请\"}\n{\"type\":\"delta\",\"text\":\"告诉\"}\n{\"type\":\"delta\",\"text\":\"我\"}\n{\"type\":\"done\"}\n",
+   "status": null,
+   "tResp": null,
+   "tEnd": 20773.400000000373,
+   "done": false,
+   "aborted": true,
+   "err": "AbortError",
+   "respText": "",
    "outText": ""
   },
   {
-   "id": 16,
-   "t": 20787.099999999627,
+   "id": 15,
+   "t": 20772.900000000373,
    "url": "/api/translations",
    "method": "POST",
    "headers": {
@@ -2549,8 +2526,8 @@
    "marker": true,
    "action": "pass",
    "status": 200,
-   "tResp": 21059.599999999627,
-   "tEnd": 21243.099999999627,
+   "tResp": 21112.199999999255,
+   "tEnd": 21313.900000000373,
    "done": true,
    "aborted": false,
    "err": null,
@@ -2561,11 +2538,11 @@
  "media": [
   {
    "api": "getUserMedia",
-   "t": 2106.5999999996275,
+   "t": 2125,
    "armed": true
   }
  ],
- "tEndObs": 38930,
+ "tEndObs": 38914.09999999963,
  "listeningAfterStop": false,
- "wallEnd": 1795283335903
+ "wallEnd": 1795284979453
 }
