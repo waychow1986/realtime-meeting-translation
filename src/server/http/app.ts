@@ -52,6 +52,7 @@ const translationBodySchema = {
     text: { type: 'string', minLength: 1, maxLength: MAX_TRANSLATION_TEXT_LENGTH, pattern: '\\S' },
     sourceLanguage: { type: 'string', pattern: LANGUAGE_CODE_PATTERN_SOURCE },
     inputSource: { type: 'string', enum: INPUT_SOURCES },
+    retranslate: { type: 'boolean' },
   },
 } as const;
 
@@ -204,6 +205,8 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
     { onRequest: requireSameOrigin, schema: { body: translationBodySchema } },
     async (request, reply) => {
       const body = request.body;
+      // Interim translations are never retranslated (FR-304, TD-308).
+      if (body.kind === 'partial' && body.retranslate === true) return sendError(reply, 400, 'invalid_request');
       const limiter = body.kind === 'partial' ? limiters.partial : limiters.final;
       if (!enforceLimit(limiter, request, reply)) return reply;
 
@@ -239,6 +242,8 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
         sourceLanguage: body.sourceLanguage,
         inputSource: body.inputSource,
       };
+      // TD-312: only on success and upstream_error records, never on client_aborted (FR-315).
+      const retranslateField = body.retranslate === true ? { retranslate: true } : {};
 
       void (async () => {
         try {
@@ -250,6 +255,7 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
             writeLine({ type: 'done' });
             logger.info('translation_completed', 'translation completed', {
               ...baseFields,
+              ...retranslateField,
               deltaCount: result.deltaCount,
               ttfbMs: result.ttfbMs,
               durationMs: Math.round(performance.now() - started),
@@ -267,6 +273,7 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
             writeLine({ type: 'error', code: result.code });
             logger.warn('upstream_error', 'upstream error', {
               ...baseFields,
+              ...retranslateField,
               upstream: 'chat-model',
               upstreamStatus: result.upstreamStatus,
               errorCode: result.upstreamErrorCode ?? result.code,

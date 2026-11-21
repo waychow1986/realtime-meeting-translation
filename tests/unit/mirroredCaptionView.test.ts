@@ -15,6 +15,9 @@ class RecordingView implements CaptionView {
   setText(id: number, text: string): void {
     this.calls.push([this.name, 'setText', id, text]);
   }
+  setNotice(id: number, text: string): void {
+    this.calls.push([this.name, 'setNotice', id, text]);
+  }
   setStatus(id: number, status: SegmentStatus): void {
     this.calls.push([this.name, 'setStatus', id, status]);
   }
@@ -26,6 +29,7 @@ class RecordingView implements CaptionView {
 function drive(view: CaptionView): void {
   view.append(1);
   view.setText(1, '你好');
+  view.setNotice(1, '（此句未能翻译成中文）');
   view.setStatus(1, 'final');
   view.remove(1);
 }
@@ -34,7 +38,7 @@ describe('MirroredCaptionView', () => {
   it('without a second view only writes the main view', () => {
     const calls: Call[] = [];
     drive(new MirroredCaptionView(new RecordingView('main', calls)));
-    expect(calls.map((call) => call[0])).toEqual(['main', 'main', 'main', 'main']);
+    expect(calls.map((call) => call[0])).toEqual(['main', 'main', 'main', 'main', 'main']);
   });
 
   it('writes every change to the main view first, then to the attached view, with the same arguments', () => {
@@ -47,6 +51,8 @@ describe('MirroredCaptionView', () => {
       ['pip', 'append', 1],
       ['main', 'setText', 1, '你好'],
       ['pip', 'setText', 1, '你好'],
+      ['main', 'setNotice', 1, '（此句未能翻译成中文）'],
+      ['pip', 'setNotice', 1, '（此句未能翻译成中文）'],
       ['main', 'setStatus', 1, 'final'],
       ['pip', 'setStatus', 1, 'final'],
       ['main', 'remove', 1],
@@ -92,6 +98,7 @@ describe('MirroredCaptionView', () => {
         throw new Error('window closed');
       },
       setText: () => undefined,
+      setNotice: () => undefined,
       setStatus: () => undefined,
       remove: () => undefined,
     });

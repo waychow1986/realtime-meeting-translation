@@ -58,6 +58,16 @@ describe('whitelist logger', () => {
     expect(other).not.toHaveProperty('inputSource');
   });
 
+  it('keeps retranslate only as a boolean (TD-312)', () => {
+    const sink = new MemoryLogSink();
+    const log = createLogger({ level: 'info', destination: sink });
+    log.info('translation_completed', 'translation completed', { retranslate: true });
+    log.info('translation_completed', 'translation completed', { retranslate: '안녕하세요' as never });
+    const [flagged, other] = sink.records();
+    expect(flagged).toHaveProperty('retranslate', true);
+    expect(other).not.toHaveProperty('retranslate');
+  });
+
   it('drops non-primitive values even for allowed keys', () => {
     const sink = new MemoryLogSink();
     const log = createLogger({ level: 'info', destination: sink });

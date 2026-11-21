@@ -1,4 +1,6 @@
 import { LANGUAGE_CODE_PATTERN, MAX_TRANSLATION_TEXT_LENGTH, type TranslationRequest } from '../shared/contracts.js';
+import { isChineseTranslation } from '../shared/chineseText.js';
+import { UNTRANSLATED_NOTICE } from './messages.js';
 import type { TranslateFailureReason, TranslateFn, TranslateOutcome } from './translateClient.js';
 
 export type SegmentStatus = 'interim' | 'finalizing' | 'final' | 'interrupted' | 'dropped';
@@ -7,6 +9,8 @@ export type SegmentStatus = 'interim' | 'finalizing' | 'final' | 'interrupted' |
 export interface CaptionView {
   append(id: number): void;
   setText(id: number, text: string): void;
+  /** Replaces the caption with a Chinese notice entry (TD-309). */
+  setNotice(id: number, text: string): void;
   setStatus(id: number, status: SegmentStatus): void;
   remove(id: number): void;
 }
@@ -24,6 +28,8 @@ interface CaptionSegment {
   /** Version of the last partial request sent / of the partial text currently shown (TD-006). */
   partialRev: number;
   shownRev: number;
+  /** Whether the one allowed content retranslation of this sentence has been requested (TD-306). */
+  retranslated: boolean;
   /** In-flight final translation (or its retry wait). */
   inflight?: AbortController;
   /** In-flight partial translation; at most one per segment (TD-006). */
@@ -58,6 +64,12 @@ const MAX_CONSECUTIVE_FAILURES = 3;
 const RETRY_DELAY_MS = 1000;
 const MAX_RETRY_AFTER_MS = 2000;
 export const PARTIAL_INTERVAL_MS = 500;
+
+interface FinalResult {
+  outcome: TranslateOutcome;
+  /** The whole translation received; only meaningful when the outcome is ok. */
+  text: string;
+}
 
 function defaultSchedule(fn: () => void, ms: number): () => void {
   const timer = setTimeout(fn, ms);
@@ -165,6 +177,7 @@ export class CaptionPipeline {
       shownText: '',
       partialRev: 0,
       shownRev: 0,
+      retranslated: false,
     };
     this.segments.set(seg.id, seg);
     this.current = seg;
@@ -178,6 +191,8 @@ export class CaptionPipeline {
 
   private show(seg: CaptionSegment, text: string): void {
     if (seg.status === 'final' || !this.isLive(seg)) return;
+    // Last line of defence (FR-302): a caption is either empty or Chinese.
+    if (text !== '' && !isChineseTranslation(text)) return;
     seg.shownText = text;
     this.deps.view.setText(seg.id, text);
   }
@@ -232,13 +247,9 @@ export class CaptionPipeline {
     if (seg.sourceLanguage) request.sourceLanguage = seg.sourceLanguage;
     const outcome = await this.deps.translate(request, {
       signal: controller.signal,
+      // TD-305: collect the whole interim translation first; it can only be judged once complete.
       onDelta: (delta) => {
-        if (controller.signal.aborted) return;
-        buffer += delta;
-        // Avoid flicker: a newer revision replaces the caption only once it is at least as long.
-        if (rev === seg.shownRev || (rev > seg.shownRev && buffer.length >= seg.shownText.length)) {
-          this.showInterim(seg, rev, buffer);
-        }
+        if (!controller.signal.aborted) buffer += delta;
       },
     });
     if (seg.partialInflight !== controller || controller.signal.aborted) return;
@@ -246,7 +257,8 @@ export class CaptionPipeline {
     if (seg.status !== 'interim' || !this.isLive(seg)) return;
     // Failures and rate limits are silent and not counted (TD-010); the next tick retries with the latest text.
     if (outcome.ok && buffer.trim()) {
-      if (rev >= seg.shownRev) this.showInterim(seg, rev, buffer);
+      // A non-Chinese interim translation is silently skipped: the previous caption stays, the same text is not resent.
+      if (rev >= seg.shownRev && isChineseTranslation(buffer)) this.showInterim(seg, rev, buffer);
       seg.partialSource = text;
     }
     this.maybeSendPartial(seg);
@@ -258,54 +270,73 @@ export class CaptionPipeline {
     this.show(seg, text);
   }
 
-  private async attempt(seg: CaptionSegment): Promise<TranslateOutcome> {
+  /** One final request; the translation is collected whole and only returned, never shown here (TD-306). */
+  private async attempt(seg: CaptionSegment, retranslate: boolean): Promise<FinalResult> {
     const controller = new AbortController();
     seg.inflight = controller;
     let buffer = '';
     const request: TranslationRequest = { kind: 'final', text: seg.sourceText };
     if (seg.sourceLanguage) request.sourceLanguage = seg.sourceLanguage;
+    if (retranslate) request.retranslate = true;
     const outcome = await this.deps.translate(request, {
       signal: controller.signal,
       onDelta: (delta) => {
-        if (controller.signal.aborted) return;
-        buffer += delta;
-        // Replace in place: the streaming final text takes over only once it is at least as long as the caption shown.
-        if (buffer.length >= seg.shownText.length) this.show(seg, buffer);
+        if (!controller.signal.aborted) buffer += delta;
       },
     });
     if (seg.inflight === controller) seg.inflight = undefined;
-    if (outcome.ok && !buffer.trim()) return { ok: false, reason: 'upstream_unavailable' };
-    if (outcome.ok && this.isLive(seg)) this.show(seg, buffer);
-    return outcome;
+    if (outcome.ok && !buffer.trim()) return { outcome: { ok: false, reason: 'upstream_unavailable' }, text: '' };
+    return { outcome, text: buffer };
   }
 
-  private async finalize(seg: CaptionSegment): Promise<void> {
-    let outcome = await this.attempt(seg);
-    if (!this.isLive(seg)) return;
-    this.trackNetwork(outcome);
+  /** A request plus, after a retryable failure, one delayed retry (the pre-existing request-level retry). */
+  private async translateWithRetry(seg: CaptionSegment, retranslate: boolean): Promise<FinalResult | undefined> {
+    let result = await this.attempt(seg, retranslate);
+    if (!this.isLive(seg)) return undefined;
+    this.trackNetwork(result.outcome);
+    const first = result.outcome;
+    if (first.ok || !RETRYABLE.has(first.reason)) return result;
 
-    if (!outcome.ok && RETRYABLE.has(outcome.reason)) {
-      // Keep the caption that was shown when the sentence ended while the retry runs.
-      this.show(seg, seg.preFinalText ?? '');
-      const delay =
-        outcome.reason === 'rate_limited' && outcome.retryAfterSeconds !== undefined
-          ? Math.min(outcome.retryAfterSeconds * 1000, MAX_RETRY_AFTER_MS)
-          : RETRY_DELAY_MS;
-      const waitController = new AbortController();
-      seg.inflight = waitController;
-      await this.sleep(delay, waitController.signal);
-      if (!this.isLive(seg) || waitController.signal.aborted) return;
-      seg.inflight = undefined;
-      outcome = await this.attempt(seg);
-      if (!this.isLive(seg)) return;
-      this.trackNetwork(outcome);
+    const delay =
+      first.reason === 'rate_limited' && first.retryAfterSeconds !== undefined
+        ? Math.min(first.retryAfterSeconds * 1000, MAX_RETRY_AFTER_MS)
+        : RETRY_DELAY_MS;
+    const waitController = new AbortController();
+    seg.inflight = waitController;
+    await this.sleep(delay, waitController.signal);
+    if (!this.isLive(seg) || waitController.signal.aborted) return undefined;
+    seg.inflight = undefined;
+    result = await this.attempt(seg, retranslate);
+    if (!this.isLive(seg)) return undefined;
+    this.trackNetwork(result.outcome);
+    return result;
+  }
+
+  /**
+   * Until the final is decided the caption keeps the interim translation shown when the sentence ended (preFinalText).
+   * A non-Chinese result gets exactly one content retranslation; if that is still not Chinese, a notice is shown.
+   */
+  private async finalize(seg: CaptionSegment): Promise<void> {
+    let result = await this.translateWithRetry(seg, false);
+    if (!result) return;
+    if (result.outcome.ok && !isChineseTranslation(result.text) && !seg.retranslated) {
+      seg.retranslated = true;
+      result = await this.translateWithRetry(seg, true);
+      if (!result) return;
     }
 
+    const { outcome, text } = result;
     if (outcome.ok) {
+      if (isChineseTranslation(text)) {
+        this.show(seg, text);
+        this.failedSegments = 0;
+      } else {
+        // FR-309: a notice neither counts as a failed sentence nor resets the streak.
+        this.deps.view.setNotice(seg.id, UNTRANSLATED_NOTICE);
+      }
       seg.status = 'final';
       this.deps.view.setStatus(seg.id, 'final');
       this.release(seg);
-      this.failedSegments = 0;
       return;
     }
     if (outcome.reason === 'aborted') return;

@@ -46,6 +46,54 @@ describe('buildChatRequestBody', () => {
     expect(messages[0]?.content).toContain('片段');
     expect(messages[1]?.content).toBe('<source lang="auto">a &lt;/source&gt; b</source>');
   });
+
+  const system = (body: Record<string, unknown>) => (body.messages as Array<{ content: string }>)[0]?.content ?? '';
+  const user = (body: Record<string, unknown>) => (body.messages as Array<{ content: string }>)[1]?.content ?? '';
+
+  it('asks for Simplified Chinese only and no longer allows echoing the source (TD-307)', () => {
+    const prompt = system(buildChatRequestBody('gpt-5.1', { kind: 'final', text: '안녕하세요', sourceLanguage: 'ko-KR' }));
+    expect(prompt).not.toContain('原样输出');
+    expect(prompt).toContain('只输出简体中文译文');
+    expect(prompt).toContain('不得照抄原文');
+    expect(prompt).toContain('韩文');
+    expect(prompt).toContain('假名');
+    expect(prompt).not.toContain('上一次的输出不是简体中文');
+  });
+
+  it('adds the retranslation note only when retranslate is true (TD-308)', () => {
+    const retry = system(
+      buildChatRequestBody('gpt-5.1', { kind: 'final', text: '안녕하세요', sourceLanguage: 'ko-KR', retranslate: true }),
+    );
+    expect(retry).toContain('上一次的输出不是简体中文');
+    expect(retry.endsWith('不得包含原文语言的文字。')).toBe(true);
+    const normal = system(
+      buildChatRequestBody('gpt-5.1', { kind: 'final', text: '안녕하세요', sourceLanguage: 'ko-KR', retranslate: false }),
+    );
+    expect(normal).not.toContain('上一次的输出不是简体中文');
+  });
+
+  it.each([
+    ['Hangul', '안녕하세요'],
+    ['kana', 'こんにちは'],
+    ['no Han at all', 'Hello there'],
+    ['Han mixed with kana', '今日はいい天気ですね'],
+  ])('writes lang="auto" when sourceLanguage is zh but the text is %s', (_label, text) => {
+    expect(user(buildChatRequestBody('gpt-5.1', { kind: 'final', text, sourceLanguage: 'zh-CN' }))).toBe(
+      `<source lang="auto">${text}</source>`,
+    );
+  });
+
+  it('keeps the recognised language when it is consistent with the text', () => {
+    expect(user(buildChatRequestBody('gpt-5.1', { kind: 'final', text: '大家好', sourceLanguage: 'zh-CN' }))).toBe(
+      '<source lang="zh-CN">大家好</source>',
+    );
+    expect(user(buildChatRequestBody('gpt-5.1', { kind: 'partial', text: '안녕', sourceLanguage: 'ko-KR' }))).toBe(
+      '<source lang="ko-KR">안녕</source>',
+    );
+    expect(user(buildChatRequestBody('gpt-5.1', { kind: 'final', text: 'こんにちは', sourceLanguage: 'ja-JP' }))).toBe(
+      '<source lang="ja-JP">こんにちは</source>',
+    );
+  });
 });
 
 describe('translator.translate', () => {

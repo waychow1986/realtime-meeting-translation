@@ -260,6 +260,47 @@ describe('POST /api/translations', () => {
     await app.close();
   });
 
+  it('passes retranslate to the translator and logs it only on retranslation success/upstream_error records (TD-308, TD-312)', async () => {
+    const seen: unknown[] = [];
+    let fail = false;
+    const { app, sink } = await harness({
+      translator: {
+        async translate(req, { onDelta }) {
+          seen.push(req.retranslate);
+          if (fail) return { ok: false, code: 'upstream_unavailable', upstreamStatus: 503, deltaCount: 0 };
+          onDelta('你好');
+          return { ok: true, deltaCount: 1 };
+        },
+      },
+    });
+    expect((await post(app, { kind: 'final', text: '안녕하세요', retranslate: true })).statusCode).toBe(200);
+    expect((await post(app, { kind: 'final', text: '안녕하세요', retranslate: false })).statusCode).toBe(200);
+    expect((await post(app, { kind: 'final', text: '안녕하세요' })).statusCode).toBe(200);
+    expect((await post(app, { kind: 'partial', text: '안녕', retranslate: false })).statusCode).toBe(200);
+    fail = true;
+    expect((await post(app, { kind: 'final', text: '안녕하세요', retranslate: true })).statusCode).toBe(200);
+    expect((await post(app, { kind: 'final', text: '안녕하세요' })).statusCode).toBe(200);
+    expect(seen).toEqual([true, false, undefined, false, true, undefined]);
+
+    const completed = sink.records().filter((r) => r.event === 'translation_completed');
+    expect(completed.map((r) => r.retranslate)).toEqual([true, undefined, undefined, undefined]);
+    const upstream = sink.records().filter((r) => r.event === 'upstream_error');
+    expect(upstream.map((r) => r.retranslate)).toEqual([true, undefined]);
+    expect(sink.raw()).not.toContain('안녕');
+    await app.close();
+  });
+
+  it('does not add retranslate to client_aborted records (FR-315)', async () => {
+    const { app, sink } = await harness({
+      translator: { translate: async () => ({ ok: false, code: 'client_aborted', deltaCount: 0 }) },
+    });
+    await post(app, { kind: 'final', text: '안녕하세요', retranslate: true });
+    const aborted = sink.records().filter((r) => r.errorCode === 'client_aborted');
+    expect(aborted).toHaveLength(1);
+    expect(aborted[0]).not.toHaveProperty('retranslate');
+    await app.close();
+  });
+
   it('ends the stream with an error line and logs upstream_error on upstream failure', async () => {
     const { app, sink } = await harness({
       translator: {
@@ -293,6 +334,9 @@ describe('POST /api/translations', () => {
     [{ kind: 'final', text: 'x', extra: 1 }],
     [{ kind: 'final', text: 'x', inputSource: 'camera' }],
     [{ kind: 'final', text: 'x', inputSource: 1 }],
+    [{ kind: 'final', text: 'x', retranslate: 'yes' }],
+    [{ kind: 'final', text: 'x', retranslate: 1 }],
+    [{ kind: 'partial', text: 'x', retranslate: true }],
   ])('rejects invalid bodies %#', async (payload) => {
     const { app } = await harness();
     const res = await post(app, payload);

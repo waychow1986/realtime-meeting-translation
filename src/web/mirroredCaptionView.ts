@@ -28,6 +28,11 @@ export class MirroredCaptionView implements CaptionView {
     this.mirror((view) => view.setText(id, text));
   }
 
+  setNotice(id: number, text: string): void {
+    this.main.setNotice(id, text);
+    this.mirror((view) => view.setNotice(id, text));
+  }
+
   setStatus(id: number, status: SegmentStatus): void {
     this.main.setStatus(id, status);
     this.mirror((view) => view.setStatus(id, status));
