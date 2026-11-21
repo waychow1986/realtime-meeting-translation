@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S16",
+  "result": "done",
+  "summary": "第 2 批（S15：只显示中文字幕，AC-1～AC-6、AC-11～AC-13）审查完成：实现与技术方案 TD-304～TD-313 一致，未发现阻断问题，记 3 条观察项。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/003-v1/.state/results/NR-DLV-20261121-9919BA0E9588-0017.json"
+  ],
+  "review": {
+    "mode": "code-review",
+    "conclusion": "通过。src/web/captionPipeline.ts 中临时与定稿译文的 onDelta 只累积缓冲，请求完成后先用 isChineseTranslation 判定再显示；show() 入口另有守卫，非空且非中文的文本一律不写入视图（TD-305、TD-306；FR-302、FR-303、AC-4、AC-12）。定稿流程把原有“请求失败后等待再试一次”原样抽成 translateWithRetry，内容重译受 seg.retranslated 约束，每句最多一次，并带 retranslate: true；重译仍非中文时调用 setNotice、置为 final 并释放，failedSegments 不加一也不清零（FR-309、AC-5、Q-4）；重译请求本身失败时沿用既有的移除、计数与可用性检查（FR-311）。endRun 和换轮时仍按 isLive 与 aborted 丢弃迟到结果，在途请求与等待都被中止，没有发现跨轮写入或计数错乱。由于定稿过程中不再显示流式片段，原来重试时恢复 preFinalText 的步骤已不再需要；判定前继续显示句末那条已校验为中文的临时译文（AC-4“不留空白”）。视图方面，DomCaptionView.setNotice 用 textContent 写入并设置 data-kind=\"notice\"，MirroredCaptionView 先写主页面再写小窗，小窗打开时克隆列表会带上 data-kind；样式只按 data-kind 区分，data-status 仍为 final，既有计数契约不变（TD-309、AC-6）。服务端改动：schema 增加布尔字段 retranslate；partial 请求带 retranslate 返回 400（TD-308）。提示词删去“原样输出”；当 sourceLanguage 为 zh 但文本不含汉字或含谚文、假名时，lang 改用 auto（TD-307）。retranslate 只写入 translation_completed 和 upstream_error 记录，没有加入 baseFields，因此 client_aborted 的字段集合不变（TD-312、FR-315、AC-10）。日志校验器只接受布尔值。新增的验证文档与集成测试输出只含条数，不含原文、译文或凭据。既有单元测试的改动都对应 TD-305/306 规定的“收齐后再显示”这一行为变化：原来断言逐片显示的地方改为断言片段期间不显示、完成后显示，没有删除用例，也没有放宽断言。测试沿用现有的 Vitest、Playwright、TTS 合成和 env.ts 读取方式；凭据从注入的环境变量读取，没有改动 CI、部署或基础设施定义。",
+    "items": [],
+    "findings": [
+      {
+        "ownerStep": "S15",
+        "text": "观察项：src/shared/chineseText.ts 的 FORBIDDEN_LETTER 在 TD-304 的允许集合 Han/Latin/Bopomofo 之外又加入了 \\p{Script=Common}，用来放行日文长音符“ー”（U+30FC 属于 Common 的 Lm 字母）。谚文属于 Script=Hangul，平假名和片假名（含半角）属于 Hiragana/Katakana，仍会被判为非中文，AC-1/AC-2 的判定不受影响。被放行的 Common 字母只有长音符和少量修饰字母，不构成源语言文字。这是相对技术方案的偏差，S15 结果信封中已说明，建议在 design.md 的 TD-304 中补记，使设计与实现一致。",
+        "blocking": false
+      },
+      {
+        "ownerStep": "S15",
+        "text": "观察项：tests/e2e/non-chinese.spec.ts 中 IQA-305/307（中文提示、样式区分、与小窗一致）用麦克风输入。spec.md 中 IQA-305 写的是选择“系统声音”。原因是 Playwright 路由会使小窗样式表在测试中不生效，这一偏差已在 README 和 S15 结果信封中说明。AC-5 没有限定输入方式，提示与小窗同步也和输入来源无关（setNotice 经 MirroredCaptionView 写入），所以不阻断。另外，IQA-303/304（AC-4 两种输入）没有打开小窗；AC-6 在 AC-4 情形下的小窗一致性，只能靠同一 Mirrored 写入机制和 IQA-301 第 1 次运行（系统声音、小窗打开）间接覆盖。系统声音下的小窗与提示一致性，以独立测试 IQA-305/307 的结果为准。",
+        "blocking": false
+      },
+      {
+        "ownerStep": "S15",
+        "text": "观察项：如果某句说话过程中所有临时译文都不是中文，该句在句末之前没有显示过任何临时译文（preFinalText 为空）。判定定稿期间该条目是空的，CSS .caption:empty 使它不占位，直到中文定稿或提示出现。这符合 TD-306 和规格假设（“没有显示过任何临时译文时保持空”），与 AC-4“继续显示最后一条临时译文”不矛盾，记录在此供验收时理解现象。",
+        "blocking": false
+      }
+    ]
+  }
+}
