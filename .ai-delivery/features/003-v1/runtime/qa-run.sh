@@ -43,6 +43,8 @@ cat > inpage.js <<'QA_INPAGE_EOF'
   const now = () => performance.now();
   const RE_HANGUL = /[\u1100-\u11FF\u3130-\u318F\uA960-\uA97F\uAC00-\uD7AF\uD7B0-\uD7FF]/;
   const RE_KANA = /[\u3040-\u309F\u30A0-\u30FA\u30FC-\u30FF\u31F0-\u31FF\uFF66-\uFF9F]/;
+  // 修订（测试计划第 2 版）：状态“正在听”不计引号内的提示文字（如“状态变为“正在听”后即开始出字幕”）
+  const isListening = (window.__qaListening = (s) => String(s || '').replace(/[“"「『]正在听[”"」』]/g, '').includes('正在听'));
   const RE_HAN_G = /[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]/g;
   const isHanCode = (c) => (c >= 0x3400 && c <= 0x4DBF) || (c >= 0x4E00 && c <= 0x9FFF) || (c >= 0xF900 && c <= 0xFAFF);
 
@@ -305,7 +307,7 @@ cat > inpage.js <<'QA_INPAGE_EOF'
     const key = JSON.stringify(r.data) + '|' + r.body;
     if (last[kind] === key) return;
     last[kind] = key;
-    const bodyFlags = { hangul: RE_HANGUL.test(r.body), kana: RE_KANA.test(r.body), interrupted: r.body.includes('翻译已中断'), listening: r.body.includes('正在听') };
+    const bodyFlags = { hangul: RE_HANGUL.test(r.body), kana: RE_KANA.test(r.body), interrupted: r.body.includes('翻译已中断'), listening: isListening(r.body) };
     SNAPS.push({ k: kind, t: now(), d: r.data, f: bodyFlags });
   }
   window.__qaSnap = snap;
@@ -535,6 +537,30 @@ async function clickByText(page, re) {
   return null;
 }
 async function bodyText(page) { return page.evaluate(() => (document.body ? document.body.innerText : '')).catch(() => ''); }
+// 修订（测试计划第 2 版）：关闭首次进入时自动弹出的“使用引导”等模态对话框；没有弹出时直接继续
+const RE_GUIDE_CLOSE = /知道了|我知道了|开始使用|关闭|跳过|好的|确定|^×$|^✕$|close|got it|dismiss/i;
+async function openModalCount(page) {
+  return page.evaluate(() => [...document.querySelectorAll('dialog,[role=dialog],[role=alertdialog],[aria-modal=true]')]
+    .filter((d) => (d.tagName === 'DIALOG' ? d.open : true) && !!(d.offsetWidth || d.offsetHeight || d.getClientRects().length)).length).catch(() => 0);
+}
+async function dismissGuide(page, waitMs = 0) {
+  const t0 = Date.now();
+  while ((await openModalCount(page)) === 0 && Date.now() - t0 < waitMs) await sleep(250);
+  const done = [];
+  for (let i = 0; i < 4 && (await openModalCount(page)) > 0; i++) {
+    const dlg = page.locator('dialog[open], [role=dialog]:visible, [role=alertdialog]:visible, [aria-modal=true]:visible').last();
+    const btn = dlg.getByRole('button', { name: RE_GUIDE_CLOSE });
+    let how = null;
+    if (await btn.count().catch(() => 0)) {
+      const name = short(((await btn.first().textContent().catch(() => '')) || (await btn.first().getAttribute('aria-label').catch(() => '')) || '').trim(), 20);
+      await btn.first().click({ timeout: 5000 }).then(() => { how = `按钮“${name}”`; }).catch(() => {});
+    }
+    if (!how) { await page.keyboard.press('Escape').catch(() => {}); how = 'Escape'; }
+    done.push(how);
+    await sleep(400);
+  }
+  return { closed: done, remaining: await openModalCount(page) };
+}
 
 // opts: { name, scen, mat, sentences, audio, input, pip, inject, playCount, mode312 }
 // 单次运行看门狗：任何一步卡住时按测试缺口记录，不拖垮整轮测试
@@ -575,16 +601,22 @@ async function runBrowserInner(opts, r, H) {
     page.on('pageerror', (e) => r.console.push(`[pageerror] ${short(e.message, 400)}`));
     try { await page.goto(BASE, { waitUntil: 'load', timeout: 45000 }); } catch (e) { r.failKind = 'env'; r.failMsg = '页面加载失败：' + short(e.message, 200); return r; }
     await sleep(1500);
+    r.step = 'guide';
+    r.guide = await dismissGuide(page, 3000);
+    if (r.guide.remaining) { r.failKind = 'gap'; r.failMsg = `未能关闭首次进入时的模态对话框（尝试：${r.guide.closed.join('、')}）`; await page.screenshot({ path: path.join(EV, `${opts.name}-nocontrol.png`) }).catch(() => {}); return r; }
+    r.step = 'select';
     await page.evaluate(() => window.__qaTakeBaseline());
     r.visibleText = short(await bodyText(page), 1500);
     const sel = await clickByText(page, opts.input === 'mic' ? RE_MIC : RE_SYS).catch((e) => null);
     r.inputControl = sel;
     if (!sel) { r.failKind = 'gap'; r.failMsg = `找不到输入选择控件（${opts.input === 'mic' ? '麦克风' : '系统声音'}）`; await page.screenshot({ path: path.join(EV, `${opts.name}-nocontrol.png`) }).catch(() => {}); return r; }
+    const g2 = await dismissGuide(page, 0);
+    if (g2.closed.length) r.guide.closed.push(...g2.closed);
     const startBtn = page.getByRole('button', { name: /开始/ });
     if (!(await startBtn.count())) { r.failKind = 'gap'; r.failMsg = '找不到“开始”按钮'; await page.screenshot({ path: path.join(EV, `${opts.name}-nocontrol.png`) }).catch(() => {}); return r; }
     await page.evaluate(() => { window.__qaArmed = true; });
     await startBtn.first().click({ timeout: 10000 });
-    try { await page.waitForFunction(() => document.body.innerText.includes('正在听'), null, { timeout: 25000 }); } catch (e) {
+    try { await page.waitForFunction(() => window.__qaListening(document.body.innerText), null, { timeout: 25000 }); } catch (e) {
       r.failKind = 'defect'; r.failMsg = '点击“开始”后 25 秒内未出现“正在听”'; r.visibleText = short(await bodyText(page), 1500);
       await page.screenshot({ path: path.join(EV, `${opts.name}-nolisten.png`) }).catch(() => {});
       r.media = await page.evaluate(() => window.__qaMedia).catch(() => null);
@@ -649,7 +681,7 @@ async function runBrowserInner(opts, r, H) {
     await page.evaluate(() => { window.__qaSnap('main', document); if (window.__qaPip) window.__qaSnap('pip', window.__qaPip.document); });
     const fin = await page.evaluate(() => ({ snaps: window.__qaSnaps, req: window.__qaReq, media: window.__qaMedia, now: performance.now(), body: document.body.innerText }));
     r.snaps = fin.snaps; r.req = fin.req; r.media = fin.media; r.tEndObs = fin.now;
-    r.listeningAfterStop = fin.body.includes('正在听');
+    r.listeningAfterStop = String(fin.body || '').replace(/[“"「『]正在听[”"」』]/g, '').includes('正在听');
     r.ok = true;
     return r;
   } catch (e) {
@@ -665,12 +697,16 @@ function chooseSig(snaps, kind) {
     if (s.k !== kind || !s.d) continue;
     for (const c of Object.values(s.d)) {
       if (!c || !c.kids || c.sig === 'generic') continue;
-      const sc = (score[c.sig] ||= { max: 0, d: c.d });
+      const sc = (score[c.sig] ||= { max: 0, d: c.d, seen: new Set() });
       sc.max = Math.max(sc.max, c.kids.length);
+      if (c.kids.length) sc.seen.add(c.kids.map((k) => k.t).join('\u0001'));
     }
   }
+  // 修订（测试计划第 2 版）：字幕容器的非空条目内容必须在运行中发生变化，排除名称含 caption 的静态控件（如字号选择）
+  const dynamic = Object.entries(score).filter(([, sc]) => sc.seen.size > 1);
+  const cands = dynamic.length ? dynamic : Object.entries(score);
   let best = null;
-  for (const [sig, sc] of Object.entries(score)) if (!best || sc.max > best.max || (sc.max === best.max && sc.d > best.d)) best = { sig, ...sc };
+  for (const [sig, sc] of cands) if (!best || sc.max > best.max || (sc.max === best.max && sc.d > best.d)) best = { sig, ...sc };
   return !best || best.max === 0 ? 'generic' : best.sig;
 }
 async function measureRun(page, snaps) {
@@ -1242,7 +1278,7 @@ async function main() {
   const nPass = scenarios.filter((s) => s.passed).length;
   writeResult({
     passed, testedCommitSha: SHA,
-    summary: `执行 ${scenarios.length} 个验收场景，通过 ${nPass} 个；产品缺陷 ${defects.length} 项，脚本未能完成验证 ${testGaps.length} 项，环境或平台问题 ${envNotes.length} 项。语音合成：${A.engines.join(',')}；请求体模板来源：${tpl.from}。IQA-310（AC-9）按 G2 决定为测试缺口，不在脚本中执行；IQA-313（AC-13）为执行会话中对 design.md 的文档检查，不在脚本中执行。`,
+    summary: `执行 ${scenarios.length} 个验收场景，通过 ${nPass} 个；产品缺陷 ${defects.length} 项，脚本未能完成验证 ${testGaps.length} 项，环境或平台问题 ${envNotes.length} 项。语音合成：${A.engines.join(',')}；请求体模板来源：${tpl.from}。IQA-310（AC-9）按 G2 决定为测试缺口，不在脚本中执行；IQA-313（AC-13）独立测试无法判定（独立测试按规则读不到技术方案），不在脚本中执行，由技术负责人在 G3 按测试缺口确认。`,
     defects, testGaps, evidence: evidenceList,
     bugfixResults: [{ bugfixId: 'IR-001', verdict, evidence: `IQA-308/309：${abortScen.map((s) => `${s.id} ${s.passed ? '通过' : '未通过'}`).join('，')}；见 abort-cases.json、logs-summary.json` }],
     scenarios,
