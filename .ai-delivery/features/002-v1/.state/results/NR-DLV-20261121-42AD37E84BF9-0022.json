@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S27",
+  "result": "done",
+  "summary": "批次 2（S26：系统声音输入，AC-01～08、AC-10）代码审查通过，无阻断问题，记录 5 项观察项。",
+  "asks": [],
+  "outputs": [],
+  "review": {
+    "mode": "code-review",
+    "conclusion": "通过。本批与技术方案一致：AudioSource 抽象只按开始时锁定的输入方式打开一种音源（TD-101，系统声音路径不调用 getUserMedia，麦克风路径不调用 getDisplayMedia）；AudioContext 创建与 getDisplayMedia 在点击处理函数中同步发起、早于任何 await（TD-102、TD-106）；DISPLAY_OPTIONS 与方案逐项一致，suppressLocalAudioPlayback:false；音频图只取 getAudioTracks()、下混单声道且不连接 ctx.destination，视频轨不被读取或连接，只在 release/无音频时 stop（TD-103、TD-116）；每条共享轨道 ended → stopRun('share-ended')，release 后的回调被 released 标志屏蔽，SDK 随后的 canceled 因 run 已失效被忽略（TD-107）；NotAllowedError 按 400 ms 区分阻止/取消，其余归为共享失败（TD-111）；弹窗期间点停止、取得音源前后停止、令牌或识别启动失败等并发/失败分支均通过 run !== current 检查释放轨道与 AudioContext，不留采集。麦克风路径只把 openMicrophone 包进 acquireMicrophone，错误映射与第 1 版文案相同。服务端只增加 Permissions-Policy display-capture=(self) 与严格枚举 inputSource（schema enum + 日志白名单 oneOf），不记录文本；CSP 未变。原有测试只做与方案一致的期望更新（Permissions-Policy）并新增用例，未删除或放宽断言；未改动 CI、部署脚本、IaC 或依赖声明；未发现仓库中凭据或环境配置取值被复制进代码或测试（集成测试经既有 env 读取真实 dev 实例）。",
+    "items": [],
+    "findings": [
+      {
+        "ownerStep": "S26",
+        "text": "观察项：tests/e2e/system.spec.ts 的 IQA-110（取消共享）与 IQA-111（共享无声音）只断言了出错状态与提示，没有做技术方案“端到端用例设计”中写明的第二步——之后在会自动选中素材标签页的浏览器里重新开始，进入“正在听”并出字幕。从“出错”状态重新开始走的是与 IQA-106/107 相同的 start() 路径，读代码看不出缺陷，但 AC-07“如何重新操作”的恢复端到端证据不完整，建议后续批次补上。",
+        "blocking": false
+      },
+      {
+        "ownerStep": "S26",
+        "text": "观察项：README.md 第 38 行写“视频轨道立即结束”，但 src/web/displayAudio.ts 按 TD-103 保留视频轨直到 release()/无音频时才 stop。同一段还写“macOS 与 Linux 上的 Chrome / Edge 只能共享标签页”，与 supportMatrix.ts 中 macOS 整屏共享“取决于系统与浏览器版本”的说明不一致。代码和页面都正确，只是 README 需要按实现与支持列表更正。",
+        "blocking": false
+      },
+      {
+        "ownerStep": "S26",
+        "text": "观察项：S26 结果中说明，Playwright Firefox 里麦克风识别会停在“正在启动…”（Speech SDK 的 blob AudioWorklet 被 CSP script-src 'self' 拦截），所以 IQA-109 只断言改回麦克风后发起了采集。Firefox 不在 A-01 的目标浏览器内，这也是第 1 版就有的限制，不是本批引入的；但支持列表把 Firefox 写成可用麦克风的浏览器之一，建议在 G3/G4 记录这一限制，或交由技术负责人决定是否处理。",
+        "blocking": false
+      },
+      {
+        "ownerStep": "S26",
+        "text": "观察项：src/web/main.ts 中 withInputSource(() => run?.source ?? selectedSource) 在 run 为空时回退到当前单选值。endRun() 会同步中止进行中的翻译，目前不会因此产生标错的请求；但如果以后放宽停止后的定稿行为，inputSource 可能按用户新选的输入方式打标。它只是日志枚举，不影响字幕或隐私，可考虑在 Run 内固定该值。",
+        "blocking": false
+      },
+      {
+        "ownerStep": "S26",
+        "text": "观察项：如 S26 如实说明，CI 只实测了 Linux · Chromium 的标签页共享（IQA-102）。Q-01 承诺的“Windows 上 Chrome / Edge 整屏系统声音”和“macOS 标签页声音”需要在独立测试或发布后试用时按 A-07 实际验证；支持列表中这些行目前没有自动化证据。",
+        "blocking": false
+      }
+    ]
+  }
+}
