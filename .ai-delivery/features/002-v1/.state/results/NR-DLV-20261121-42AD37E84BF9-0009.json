@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S6",
+  "result": "done",
+  "summary": "按已确认的技术方案细化计划：维持完整档和三批编码（界面产品化与麦克风回归 → 系统声音采集、引导与隐私 → 悬浮字幕小窗），每批之后都有代码审查。按技术方案落实各批的模块、测试和验收场景，预算调整为 22 个会话、9 小时；没有待负责人决定的事项。",
+  "asks": [],
+  "outputs": [],
+  "plan": {
+    "schemaVersion": 1,
+    "steps": [
+      { "id": "S8", "capability": "code", "zone": "build", "dependsOn": ["S6"], "batch": 1 },
+      { "id": "S9", "capability": "review", "zone": "build", "dependsOn": ["S8"], "batch": 1 },
+      { "id": "S10", "capability": "code", "zone": "build", "dependsOn": ["S9"], "batch": 2 },
+      { "id": "S11", "capability": "review", "zone": "build", "dependsOn": ["S10"], "batch": 2 },
+      { "id": "S12", "capability": "code", "zone": "build", "dependsOn": ["S11"], "batch": 3 },
+      { "id": "S13", "capability": "review", "zone": "build", "dependsOn": ["S12"], "batch": 3 }
+    ],
+    "omitted": [
+      { "capability": "spec", "reason": "规格已在 S4 完成，PQ-001～PQ-004 已按人的回答修订，覆盖 AC-01～AC-12（IQA-101～IQA-123），没有需要重做的内容。" },
+      { "capability": "solution", "reason": "技术方案已在 S5 完成，DD-101 已按人的回答写入，原型已验证关键可行性（headed Chromium + Xvfb 取得真实标签页声音、取消与无音频共享、Document PiP），没有开放决策，无需重做。" },
+      { "capability": "plan", "reason": "本次就是技术方案之后的细化计划，模块边界、测试方式和验收证据范围都已确定，后续不再安排计划；如编码或审查发现批次需要调整，可通过退回重新计划。" }
+    ],
+    "batches": [
+      { "n": 1, "criteria": ["AC-11", "AC-09"] },
+      { "n": 2, "criteria": ["AC-01", "AC-02", "AC-03", "AC-04", "AC-05", "AC-06", "AC-07", "AC-08", "AC-10"] },
+      { "n": 3, "criteria": ["AC-12"] }
+    ],
+    "factors": [
+      { "name": "change-size", "lean": "heavy", "basis": "技术方案确定的改动比规划时估计的大：前端页面结构、样式和装配（index.html、styles.css、main.ts、messages.ts）整体重做；新增 7 个前端模块（audioSource、displayAudio、support、supportMatrix、pip、preferences、guide）；captionView 增加镜像视图；端到端测试整体改为在 xvfb-run 中运行有界面的 Chromium，新增约 19 组用例，另加素材播放页和 XTest 按键辅助脚本。服务端只有两处小改动（Permissions-Policy 和 inputSource 字段）。" },
+      { "name": "modules", "lean": "medium", "basis": "改动集中在 src/web 和 tests/e2e。另外 src/shared/contracts.ts、src/server/http/app.ts、src/server/logger.ts 各有小改动，单元测试和集成测试有少量补充。recognition.ts 和 captionPipeline.ts 的逻辑不改；依赖声明、部署声明和 IaC 不改（归技术方案所有）。" },
+      { "name": "new-or-first", "lean": "light", "basis": "这是已有项目的第 2 个交付，沿用第 1 版的技术基线（TypeScript + Fastify + Speech SDK + Vitest/Playwright）和已绑定的依赖实例，第 1 版已在真实依赖上通过独立测试。" },
+      { "name": "risk", "lean": "heavy", "basis": "没有数据迁移，也不新增凭据。风险集中在四处：一是共享画面必须不显示、不上传、不保存（TD-103，IQA-117）；二是麦克风模式要在新界面上全部不退化（AC-09，状态名称和“出错”状态改变，第 1 版 e2e 断言要同步更新）；三是系统声音的端到端验证依赖 headed Chromium + Xvfb 和按标题自动选择共享来源等测试环境行为（TD-108、TD-109），在 QA Pod 上也要可复现；四是 Document PiP 等较新的浏览器能力。" }
+    ],
+    "tier": "full",
+    "budget": { "revisions": 4, "sessions": 22, "hours": 9 },
+    "items": [],
+    "reason": "技术方案确认了第一次计划的批次划分，本次按方案把各批的内容落实到模块和验收场景。第 1 批（S8 编码、S9 审查，AC-11、AC-09）：新版页面骨架和 DOM 契约，包括控制区、五种状态（TD-110，麦克风被拒等改为“出错”）、4 档字号（TD-114）、localStorage 偏好（TD-113）、首次引导、视觉与响应式布局；同时把端到端测试切换为 xvfb-run 中的 headed Chromium（TD-108）；第 1 版麦克风 e2e 全部保留，并按新的状态名称更新断言。本批在麦克风模式下用 IQA-113、IQA-118～IQA-121 独立验证，为后两批提供稳定的界面和测试基础。第 2 批（S10 编码、S11 审查，AC-01～AC-08、AC-10）：输入方式选择；AudioSource 抽象（TD-101）；getDisplayMedia 取声、下混和视频轨不消费（TD-102、TD-103、TD-106）；共享结束检测（TD-107）；能力检测、支持列表和中文说明（TD-105）；共享错误分类与提示（TD-111）；translations 接口的 inputSource 字段和日志（TD-112），以及 Permissions-Policy；另有素材播放页、interference 句组和 XTest 取消脚本（TD-109）。本批用 IQA-101～IQA-112、IQA-114～IQA-117 验证，并重跑 IQA-113，在系统声音模式下复测 IQA-121 的布局（含说明面板）。这几项在功能上分不开：缺了说明和错误提示，系统声音模式就会静默无字幕。第 3 批（S12 编码、S13 审查，AC-12）：Document PiP 字幕小窗与 MirroredCaptionView（TD-104）、不支持时的说明，以及引导中关于小窗的条目。本批用 IQA-122、IQA-123 验证；按 DD-101，“悬浮在全屏窗口之上”不做自动化判定。同时补上 IQA-119 中小窗字号同步、IQA-115/IQA-117 中涉及小窗的部分，并重跑 IQA-113 保证 AC-09 不退化。预算从 17 个会话、7.5 小时调整为 22 个会话、9 小时，原因有三：到本步骤为止已用 9 个会话（S2、S4、S5 各有一次补充或重跑）；后续还有测试计划、3 次编码、3 次审查和各关口；技术方案确定端到端测试需要以 headed Chromium + Xvfb 在真实 dev 实例上运行约 19 组用例，单次编码和审查的验证时间明显增加。修订次数保持 4 次。当前没有需要业务负责人或技术负责人决定的事项。"
+  }
+}
