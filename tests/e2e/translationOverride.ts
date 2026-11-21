@@ -34,6 +34,12 @@ export interface TranslationCall {
   /** Ordinal among partial requests, null for final ones. */
   partialNth: number | null;
   overridden: 'hangul' | 'delay' | null;
+  /**
+   * Epoch ms at which a Hangul override delivered its first delta (null otherwise). The page can react to the
+   * override only from this moment on; `at` is taken synchronously in the same task in which the app may have just
+   * rendered the previous response, so caption changes recorded after `at` can still belong to that response.
+   */
+  firstDeltaAt: number | null;
 }
 
 /** Non-Chinese output used by the overrides: long enough to never be shorter than a shown interim caption. */
@@ -59,13 +65,14 @@ export function translationOverrideScript(rules: OverrideRule[]): string {
     const timer = setTimeout(resolve, ms);
     if (signal) signal.addEventListener('abort', () => { clearTimeout(timer); reject(abortError()); }, { once: true });
   });
-  const hangulResponse = (signal) => {
+  const hangulResponse = (signal, call) => {
     const encoder = new TextEncoder();
     const stream = new ReadableStream({
       async start(controller) {
         try {
           for (const text of deltas) {
             await sleep(40, signal);
+            if (call.firstDeltaAt === null) call.firstDeltaAt = Date.now();
             controller.enqueue(encoder.encode(JSON.stringify({ type: 'delta', text }) + '\\n'));
           }
           controller.enqueue(encoder.encode(JSON.stringify({ type: 'done' }) + '\\n'));
@@ -85,7 +92,7 @@ export function translationOverrideScript(rules: OverrideRule[]): string {
     let body;
     try { body = JSON.parse(init.body); } catch { return original(input, init); }
     const retranslate = body.retranslate === true;
-    const call = { at: Date.now(), kind: body.kind, retranslate, sentence: null, partialNth: null, overridden: null };
+    const call = { at: Date.now(), kind: body.kind, retranslate, sentence: null, partialNth: null, overridden: null, firstDeltaAt: null };
     let rule;
     if (body.kind === 'partial') {
       partials += 1;
@@ -103,7 +110,7 @@ export function translationOverrideScript(rules: OverrideRule[]): string {
     if (!rule) return original(input, init);
     call.overridden = rule.action;
     if (rule.delayMs) await sleep(rule.delayMs, init.signal);
-    return rule.action === 'hangul' ? hangulResponse(init.signal) : original(input, init);
+    return rule.action === 'hangul' ? hangulResponse(init.signal, call) : original(input, init);
   };
 })();`;
 }

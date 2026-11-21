@@ -1,6 +1,6 @@
 import { spawn, type ChildProcess } from 'node:child_process';
 import { createWriteStream } from 'node:fs';
-import { mkdir, readFile } from 'node:fs/promises';
+import { mkdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { test as base, chromium, expect, type Browser, type BrowserContext, type Page } from '@playwright/test';
 import { ensureSpeechWav, pcmOf, wavFromPcm, type SentenceSetName } from '../support/tts.js';
@@ -14,6 +14,17 @@ export interface ServerHandle {
   baseURL: string;
   /** Everything the server process wrote to stdout/stderr so far (structured JSON log lines). */
   readLog(): Promise<string>;
+  /**
+   * Only what the server wrote since the current test started. The server is shared by all tests of a worker, so
+   * assertions about this test's own requests (e.g. the detected language of its translations) must not see the log
+   * lines of earlier tests (such as the Korean and Japanese material runs).
+   */
+  readTestLog(): Promise<string>;
+}
+
+interface WorkerServer extends ServerHandle {
+  /** Called at the start of every test: remembers where this test's part of the log begins. */
+  markTestStart(): Promise<void>;
 }
 
 export interface FrameRecord {
@@ -159,7 +170,7 @@ async function waitForServer(baseURL: string, child: ChildProcess): Promise<void
   throw new Error('server did not become ready');
 }
 
-export const test = base.extend<Options & { harness: Harness }, { server: ServerHandle }>({
+export const test = base.extend<Options & { harness: Harness; serverLogMark: void }, { server: WorkerServer }>({
   audioSet: ['multi', { option: true }],
   grantMicrophone: [true, { option: true }],
   guideSeen: [true, { option: true }],
@@ -182,7 +193,15 @@ export const test = base.extend<Options & { harness: Harness }, { server: Server
       const baseURL = `http://localhost:${port}`;
       try {
         await waitForServer(baseURL, child);
-        await use({ baseURL, readLog: () => readFile(logFile, 'utf8') });
+        let testStart = 0;
+        await use({
+          baseURL,
+          readLog: () => readFile(logFile, 'utf8'),
+          readTestLog: async () => (await readFile(logFile)).subarray(testStart).toString('utf8'),
+          markTestStart: async () => {
+            testStart = (await stat(logFile)).size;
+          },
+        });
       } finally {
         const exited = new Promise((resolve) => child.once('exit', resolve));
         child.kill('SIGTERM');
@@ -191,6 +210,14 @@ export const test = base.extend<Options & { harness: Harness }, { server: Server
       }
     },
     { scope: 'worker' },
+  ],
+
+  serverLogMark: [
+    async ({ server }, use) => {
+      await server.markTestStart();
+      await use();
+    },
+    { auto: true },
   ],
 
   harness: async ({ server, audioSet, grantMicrophone, guideSeen, shareTabTitle, extraBrowserArgs }, use, testInfo) => {

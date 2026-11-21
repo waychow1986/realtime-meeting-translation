@@ -320,14 +320,20 @@ for (const input of ['system', 'microphone'] as const) {
 
       const third = calls.find((call) => call.partialNth === 3);
       expect(third?.overridden).toBe('hangul');
-      // A Chinese interim translation was already shown before the overridden request.
-      const before = timeline.filter((event) => event.at <= third!.at && event.status === 'interim' && event.text.trim());
+      // The overridden response can affect the page only once its first delta arrived. The previous response is
+      // rendered in the same task that sends the overridden request, so its caption change may be recorded a few
+      // milliseconds after `third.at`; it is part of "before", not a change caused by the overridden response.
+      const from = third!.firstDeltaAt;
+      expect(from).not.toBeNull();
+      expect(from!).toBeGreaterThanOrEqual(third!.at);
+      // A Chinese interim translation was already shown before the overridden response.
+      const before = timeline.filter((event) => event.at < from! && event.status === 'interim' && event.text.trim());
       expect(before.length).toBeGreaterThan(0);
       expect(isChineseTranslation(before[before.length - 1]!.text)).toBe(true);
       // Until the next translation request the interim caption did not change (kept the previous one).
       const next = calls.find((call) => call.at > third!.at);
       const until = next?.at ?? Number.POSITIVE_INFINITY;
-      expect(timeline.filter((event) => event.at > third!.at && event.at < until && event.status === 'interim')).toEqual([]);
+      expect(timeline.filter((event) => event.at >= from! && event.at < until && event.status === 'interim')).toEqual([]);
 
       expectNeverNonChinese(timeline, sentences);
       expect(calls.filter((call) => call.retranslate)).toEqual([]);
