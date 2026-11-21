@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S5",
+  "result": "needs-answer",
+  "summary": "技术方案已写出：查明 IR-001 唯一根因（Fastify 在首个片段前客户端关闭时把 ERR_STREAM_PREMATURE_CLOSE 交给应用错误处理器，已本地复现并验证修复原型），确认“韩语显示原文”的根因是显示链路对模型输出无中文校验（已排除界面显示识别原文与请求失败，模型偶发输出韩文的触发条件列为未排除），并设计先判定后显示、定稿重译一次与中文提示、提示词收紧、受控触发测试与韩语/日语真实服务验收；依赖与部署声明仅更新说明文字。只剩 AC-9 在独立测试中的证据方式需技术负责人决定。",
+  "asks": [
+    {
+      "kind": "decide",
+      "category": "technical",
+      "question": "D-301：IQA-310（AC-9“未预期的服务端异常仍记 error”）在独立测试中如何取得证据？已部署的候选无法从外部触发“非客户端中止的未预期异常”，除非在生产代码中加入可被外部触发的故障注入入口。",
+      "recommended": "生产代码不加故障注入入口：AC-9 以候选验证中执行的集成测试 translationFailure.int.test.ts（构造依赖注入异常、真实日志写入内存，由 Runner 在不可变候选提交上运行，属平台证据）为证据；独立测试把 IQA-310 按测试缺口处理（结果写 unverifiable 并注明本决定），其余场景照常验证。",
+      "alternatives": [
+        "新增只在 test 环境提供的应用机密（如 FAULT_INJECTION_TOKEN），服务端在该机密存在且请求头携带相同值时于翻译任务中抛出一次异常，独立测试即可在已部署候选上验证 IQA-310；代价是生产代码多一条受机密保护的故障路径、依赖声明新增应用机密、需人在项目机密中提供该值，并需确认平台会把应用机密注入候选部署的容器。",
+        "以环境变量开关启用故障注入（候选部署无法按服务设置环境变量，实际不可行，不推荐）。"
+      ]
+    }
+  ],
+  "outputs": [
+    ".ai-delivery/features/003-v1/design.md",
+    ".ai-delivery/features/003-v1/runtime/deployment.json",
+    "docs/dependencies.json",
+    "docs/deployment.json"
+  ]
+}
