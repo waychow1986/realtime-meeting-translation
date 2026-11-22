@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S6",
+  "result": "done",
+  "summary": "细化计划（修正上次被退回的依赖引用）：维持标准档与两批编码——第 1 批修服务端中止误报（AC-7～AC-10），第 2 批做只显示中文、重译与中文提示及韩语/日语真实服务验收（AC-1～AC-6、AC-11～AC-13），每批后一次代码审查；S8 不再依赖本步骤，三项未经人确认的方案选择列为 G2 决定事项。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/003-v1/.state/results/NR-DLV-20261121-9919BA0E9588-0010.json"
+  ],
+  "plan": {
+    "schemaVersion": 1,
+    "steps": [
+      {
+        "id": "S8",
+        "capability": "code",
+        "zone": "build",
+        "dependsOn": [],
+        "batch": 1
+      },
+      {
+        "id": "S9",
+        "capability": "review",
+        "zone": "build",
+        "dependsOn": [
+          "S8"
+        ],
+        "batch": 1
+      },
+      {
+        "id": "S10",
+        "capability": "code",
+        "zone": "build",
+        "dependsOn": [
+          "S9"
+        ],
+        "batch": 2
+      },
+      {
+        "id": "S11",
+        "capability": "review",
+        "zone": "build",
+        "dependsOn": [
+          "S10"
+        ],
+        "batch": 2
+      }
+    ],
+    "omitted": [
+      {
+        "capability": "spec",
+        "reason": "规格（S4）已完成并已按 PQ-301 的人工回答修订，技术方案未发现需要改动规格的问题，不重做。"
+      },
+      {
+        "capability": "solution",
+        "reason": "技术方案（S5）已完成，记录了根因与证据（AC-13），并已按技术负责人对 D-301 的回答修订，没有待决事项，不重做。"
+      },
+      {
+        "capability": "plan",
+        "reason": "本步骤即技术方案之后的细化计划；技术方案没有遗留需要编码后再定的设计问题，之后不再安排计划步骤。"
+      }
+    ],
+    "batches": [
+      {
+        "n": 1,
+        "criteria": [
+          "AC-7",
+          "AC-8",
+          "AC-9",
+          "AC-10"
+        ]
+      },
+      {
+        "n": 2,
+        "criteria": [
+          "AC-1",
+          "AC-2",
+          "AC-3",
+          "AC-4",
+          "AC-5",
+          "AC-6",
+          "AC-11",
+          "AC-12",
+          "AC-13"
+        ]
+      }
+    ],
+    "factors": [
+      {
+        "name": "change-size",
+        "lean": "medium",
+        "basis": "按技术方案的写路径：服务端新增 clientAbort.ts，修改 http/app.ts、main.ts、logger.ts、translator.ts（小）；浏览器端新增 shared/chineseText.ts，修改 captionPipeline.ts（临时/定稿先收齐后判定、重译一次、提示）、captionView.ts、mirroredCaptionView.ts、messages.ts、styles.css（中等）；另有 3 个新集成测试、2 个新 e2e 用例文件、韩语/日语素材与 TTS 支持（中等）。无新依赖、无配置项、无 IaC。"
+      },
+      {
+        "name": "modules",
+        "lean": "medium",
+        "basis": "涉及服务端 HTTP 层、进程入口、日志、翻译提示词，浏览器字幕状态机与两个视图、样式，以及共享模块和单元/集成/e2e 三层测试；docs/dependencies.json 与 deployment.json 只在设计区改了说明文字，编码不碰。"
+      },
+      {
+        "name": "new-or-first",
+        "lean": "light",
+        "basis": "既有项目的第 3 个交付，沿用第 2 版技术基线、部署声明与已绑定的 dev/test 依赖实例。"
+      },
+      {
+        "name": "risk",
+        "lean": "medium",
+        "basis": "无数据迁移、无新凭据；风险在于：日志降级只在“响应已被客户端关闭且为中止类错误”时成立，不能掩盖真正异常（AC-9）；日志不得含内容（AC-10，宪章“安全与隐私”）；新增的 retranslate 日志字段不得进入 client_aborted 记录；临时/定稿改为整段判定后显示会改变流式字幕的时序，既有 e2e 必须原样通过（AC-11）；大模型输出不确定，真实服务验收需 3 次一致（AC-3）。"
+      }
+    ],
+    "tier": "standard",
+    "budget": {
+      "revisions": 3,
+      "sessions": 15,
+      "hours": 6
+    },
+    "items": [
+      {
+        "category": "technical",
+        "question": "AC-4、AC-5、AC-12（翻译结果不是中文）在端到端测试与独立测试中如何受控触发？技术方案选择了与 S2 计划推荐不同的方式（AC-9 的触发方式已由 D-301 决定，不在此列）。",
+        "recommended": "按技术方案 TD-310：用浏览器初始化脚本包装 window.fetch，只替换被测句子的 /api/translations 响应为非中文内容，其余请求走真实服务；生产代码不加任何测试开关。原因是第 2 版实测 Playwright 的 context.route 会使字幕小窗不载入样式，破坏 AC-5/AC-6 的样式判定。",
+        "alternatives": [
+          "按 S2 原推荐使用 Playwright 响应拦截（route.fulfill），并另行解决小窗样式载入问题。",
+          "在服务端加只在测试配置下开启的故障注入开关（与 D-301 对生产代码的取向不一致）。"
+        ]
+      },
+      {
+        "category": "technical",
+        "question": "“是否为中文”的判定与重译放在哪一层、服务端是否同时修正提示词与语言标注？",
+        "recommended": "按技术方案 TD-304～TD-308：判定与重译放在浏览器字幕状态机（主页面与小窗共用，天然一致）；服务端只收紧提示词（去掉“原样输出”的出口）、新增可选的 retranslate 请求字段与重译说明、语言标注与文字不符时用 auto，并只新增布尔日志字段 retranslate（不进入 client_aborted 记录）。",
+        "alternatives": [
+          "只做浏览器端判定，不改提示词与语言标注（清晰素材上仍可能出现中文提示，影响 PQ-301 的通过标准）。",
+          "服务端判定并缓冲整段，在流尾返回“非中文”标记，由客户端据此重译与提示。"
+        ]
+      },
+      {
+        "category": "business",
+        "question": "为保证“任何时刻都不显示非中文结果的任何片段”，说话过程中的临时字幕将不再逐字增长，而是每 0.5～1 秒整段更新一次；定稿字幕在句末后整段替换（定稿的轻微延迟意图已接受）。是否接受临时字幕的这一显示变化？",
+        "recommended": "接受：临时译文整段收齐、判定为中文后再显示，仍在说话过程中持续更新；外观不变。",
+        "alternatives": [
+          "保持逐字增长：只显示“到目前为止仍是中文”的部分，一旦出现非中文文字就撤回为上一条临时译文（会显示非中文结果中的中文片段，并可能闪动，需相应修改规格 FR-303）。"
+        ]
+      }
+    ],
+    "reason": "技术方案已查明根因：问题一是显示链路对大模型译文没有任何中文校验（界面显示识别原文已排除），触发条件以提示词中的“原样输出”出口可能性最高；问题二是 Fastify 在首个片段前把客户端关闭产生的 ERR_STREAM_PREMATURE_CLOSE 交给应用错误处理器，已在本地复现。两项修复相互独立，维持 S2 的两批划分：第 1 批（S8）只改服务端中止分类（clientAbort.ts、app.ts 的 clientClosedRequests 与错误处理器/翻译任务 catch、main.ts 的 unhandledRejection），用服务端单元测试与 translationAbort/translationFailure 集成测试独立验证 AC-7～AC-10，尽早消除告警误报，并保持既有测试全部通过；第 2 批（S10）在其之上完成共享中文判定、字幕状态机先收齐后判定与重译一次、中文提示条目与样式、提示词收紧与 retranslate 字段、韩语/日语素材与真实服务 e2e（3 次）、受控触发 e2e，以及 translationChinese 集成测试补齐 AC-13 的收敛证据；第 2 批改动字幕状态机之前，先在修复前提交上运行 AC-4 受控触发用例并记录失败摘要（docs/verification/003-ac4-prefix-run.txt），既有 e2e 全部通过作为 AC-11 证据。第 2 批同样修改 app.ts 与 logger.ts（retranslate 字段），审查须确认第 1 批的中止分类与 client_aborted 字段集合未被改变。测试计划与关口由平台补入。档位四项依据中三项中等、一项轻，维持标准档。预算：本交付到本步骤已用 10 个会话（含上一次细化计划因依赖引用不在计划内被检查退回的一次），之后还有测试计划 1 个与编码/审查 4 个，不再另留余量，会话预算由 13 调为 15、时长由 5.5 调为 6 小时，修订次数 3 不变。G2 决定事项：技术方案对受控触发方式与判定分层作了选择（前者不同于 S2 推荐），临时字幕由逐字增长改为整段更新是用户可见的变化，均未经人确认，列为待决事项；D-301 已决定，不重复提出。计划只列本步骤之后的步骤，第 1 批编码（S8）在 G2 通过后开始，不再引用本步骤作为依赖。"
+  }
+}

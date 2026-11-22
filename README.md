@@ -3,13 +3,22 @@ AIDelivery Hub project: 会议中把外语发言实时翻译成中文字幕的 W
 
 浏览器打开页面、点击“开始”并允许麦克风后，发言由 Azure 语音服务流式识别（连续语言自动识别，无需选择语言），说话过程中即按中间识别结果显示临时中文译文（同一句同时最多 1 个临时翻译请求、两次请求间隔 ≥ 500 ms、原文未变化不重发，失败静默），每句识别完成后由 Foundry 大模型（`gpt-5.1`，`reasoning_effort: "none"`）流式翻译成定稿中文字幕并替换临时译文；点击“停止”立即释放麦克风。字幕只保存在当前页面内存中，刷新即清空。设计依据见 `.ai-delivery/features/001-v1/design.md`。
 
+只显示中文（第 3 版，设计依据见 `.ai-delivery/features/003-v1/design.md`）：
+
+- 临时译文和定稿译文都不再逐片显示，而是整段收齐后先判定“是否为中文”，通过才显示。判定见 `src/shared/chineseText.ts`：至少含一个汉字，且字母只能是汉字、拉丁字母、注音或通用字符，所以出现谚文或假名就不算中文。
+- 临时译文不是中文时不显示，继续保留上一条临时译文，也不重译。
+- 定稿译文不是中文时，带 `retranslate: true` 恰好重译一次（服务端在提示词中加入更强的说明）。重译仍不是中文时，该句显示中文提示“（此句未能翻译成中文）”：`data-kind="notice"`，颜色为低饱和的 `--caption-notice`，字号是当前档的 0.75 倍，左侧有实线。翻译继续进行，不进入出错状态。
+- 提示词已去掉“已是中文则原样输出”。`sourceLanguage` 标为中文、文本却不含汉字或含谚文、假名时，服务端以 `lang="auto"` 发送。
+- 临时翻译请求带 `retranslate` 时返回 400 `invalid_request`。`retranslate: true` 只出现在 `translation_completed` 和 `upstream_error` 日志中。
+- 根因证据见 `docs/verification/003-ac13-root-cause.txt`。
+
 ## 结构
 
 | 路径 | 内容 |
 | --- | --- |
 | `src/server/` | Node.js 22 + Fastify 单服务：静态页面、`GET /healthz`、`POST /api/speech-token`（短时语音令牌）、`POST /api/translations`（NDJSON 流式翻译代理）、同源校验与限流、白名单日志 |
 | `src/web/` | 浏览器端：输入采集（麦克风 / 系统声音，`audioSource.ts`、`displayAudio.ts`、平台识别 `support.ts`）、Speech SDK 连续识别、字幕状态机（`captionPipeline.ts`）、中文界面（状态与按钮可用性 `uiState.ts`、界面偏好 `preferences.ts`、首次使用引导 `guide.ts`） |
-| `src/shared/` | 前后端共用的接口约定 |
+| `src/shared/` | 前后端共用的接口约定、中文判定（`chineseText.ts`） |
 | `tests/unit/` | 单元测试（Vitest） |
 | `tests/integration/` | 针对真实 `dev` 依赖实例的集成测试（语音令牌、流式识别、流式翻译） |
 | `tests/e2e/` | Playwright + Chromium 假麦克风（TTS 合成的英语 WAV）的端到端测试 |
@@ -59,6 +68,13 @@ npm run test:e2e                    # 构建后用 Playwright 运行端到端测
 字幕小窗验收在 `tests/e2e/pip.spec.ts`（IQA-122）：麦克风与系统声音两种模式下运行中点击“弹出字幕小窗”，经 `documentPictureInPicture.window` 读取小窗文档；仪表脚本（`tests/e2e/fixtures.ts`）在主页面或小窗字幕每次变化时同时记录两处列表，断言逐次一致；另验证字号与状态同步、关闭后主页面继续更新、再次弹出内容一致、小窗无媒体元素且不含凭据。不判定“悬浮在全屏之上”（DD-101）。
 
 界面验收在 `tests/e2e/ui.spec.ts`（IQA-118～121：五种状态、字幕样式与 4 档字号、首次引导、5 种窗口尺寸 × 4 种状态的布局；测量辅助见 `tests/e2e/ui.ts`），截图与测量 JSON 写入各用例的 `test-results/` 输出目录。用例默认通过初始化脚本标记“已看过引导”，`test.use({ guideSeen: false })` 可模拟首次打开。
+
+只显示中文的验收（第 3 版）：
+
+- `tests/e2e/chinese-only.spec.ts`（IQA-301、302）：韩语、日语的 `drama` 素材各运行 3 次，走真实服务。素材见 `tests/fixtures/sentences.ko.json` 和 `sentences.ja.json`，TTS 声音分别为 `ko-KR-SunHiNeural` 和 `ja-JP-NanamiNeural`。韩语第 1 次运行打开字幕小窗。
+- `tests/e2e/non-chinese.spec.ts`（IQA-303～307、312）：受控触发。`tests/e2e/translationOverride.ts` 用初始化脚本包装页面的 `window.fetch`，只把指定句子的首次定稿、重译或第 n 个临时翻译替换为谚文流，或者延迟转发；其余请求都走真实服务。生产代码没有任何测试开关。
+- 已知限制：上下文启用 Playwright 路由（系统声音的播放器标签页）后，字幕小窗的样式表在测试中不生效，所以提示样式与小窗一致性的用例（IQA-305/307）用麦克风输入。
+- 集成测试 `tests/integration/translationChinese.int.test.ts`（TD-311）：向真实模型发送韩语、日语句子（含片段和误标为 zh-CN 的句子），只统计非中文的条数。
 
 ## 日志
 

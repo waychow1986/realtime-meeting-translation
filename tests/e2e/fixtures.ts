@@ -1,6 +1,6 @@
 import { spawn, type ChildProcess } from 'node:child_process';
 import { createWriteStream } from 'node:fs';
-import { mkdir, readFile } from 'node:fs/promises';
+import { mkdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { test as base, chromium, expect, type Browser, type BrowserContext, type Page } from '@playwright/test';
 import { ensureSpeechWav, pcmOf, wavFromPcm, type SentenceSetName } from '../support/tts.js';
@@ -14,6 +14,17 @@ export interface ServerHandle {
   baseURL: string;
   /** Everything the server process wrote to stdout/stderr so far (structured JSON log lines). */
   readLog(): Promise<string>;
+  /**
+   * Only what the server wrote since the current test started. The server is shared by all tests of a worker, so
+   * assertions about this test's own requests (e.g. the detected language of its translations) must not see the log
+   * lines of earlier tests (such as the Korean and Japanese material runs).
+   */
+  readTestLog(): Promise<string>;
+}
+
+interface WorkerServer extends ServerHandle {
+  /** Called at the start of every test: remembers where this test's part of the log begins. */
+  markTestStart(): Promise<void>;
 }
 
 export interface FrameRecord {
@@ -57,7 +68,8 @@ interface Options {
  * Records every MediaStreamTrack obtained via getUserMedia or getDisplayMedia (with the call counts and the
  * getDisplayMedia options) so tests can check which source was captured and that stop really ends capture,
  * the time the first capture started (the fake microphone plays the WAV from its start at that moment) and a
- * timeline of every caption change: { at, index (order of appearance), status, text }.
+ * timeline of every caption change: { at, index (order of appearance), status, kind (`data-kind`, '' for normal
+ * captions), text }. Caption-window samples serialize rows as [segmentId, status, text, kind].
  */
 // Kept as browser source text: the test tsconfig has no DOM lib.
 export const INSTRUMENTATION = `(() => {
@@ -75,18 +87,18 @@ export const INSTRUMENTATION = `(() => {
     for (const item of list.querySelectorAll('li.caption')) {
       if (!indexes.has(item)) indexes.set(item, { index: nextIndex++, last: '' });
       const state = indexes.get(item);
-      const entry = { status: item.dataset.status || '', text: item.textContent || '' };
-      const key = entry.status + '\\u0000' + entry.text;
+      const entry = { status: item.dataset.status || '', kind: item.dataset.kind || '', text: item.textContent || '' };
+      const key = entry.status + '\\u0000' + entry.kind + '\\u0000' + entry.text;
       if (key === state.last) continue;
       state.last = key;
-      record.timeline.push({ at: Date.now(), index: state.index, status: entry.status, text: entry.text });
+      record.timeline.push({ at: Date.now(), index: state.index, status: entry.status, kind: entry.kind, text: entry.text });
     }
     pipSample();
   };
   // Caption window (Document PiP): on every change of either list, both lists are serialized side by side.
   record.pip = { opened: 0, samples: [] };
   const serialize = (list) =>
-    [...list.querySelectorAll('li.caption')].map((li) => [li.dataset.segmentId || '', li.dataset.status || '', li.textContent || '']);
+    [...list.querySelectorAll('li.caption')].map((li) => [li.dataset.segmentId || '', li.dataset.status || '', li.textContent || '', li.dataset.kind || '']);
   const pipSample = () => {
     const pipWindow = window.documentPictureInPicture && window.documentPictureInPicture.window;
     const pipList = pipWindow && pipWindow.document.getElementById('pip-captions');
@@ -138,6 +150,8 @@ export interface CaptionEvent {
   at: number;
   index: number;
   status: string;
+  /** `data-kind` of the entry ('notice' for the untranslated notice, '' otherwise). */
+  kind: string;
   text: string;
 }
 
@@ -156,7 +170,7 @@ async function waitForServer(baseURL: string, child: ChildProcess): Promise<void
   throw new Error('server did not become ready');
 }
 
-export const test = base.extend<Options & { harness: Harness }, { server: ServerHandle }>({
+export const test = base.extend<Options & { harness: Harness; serverLogMark: void }, { server: WorkerServer }>({
   audioSet: ['multi', { option: true }],
   grantMicrophone: [true, { option: true }],
   guideSeen: [true, { option: true }],
@@ -179,7 +193,15 @@ export const test = base.extend<Options & { harness: Harness }, { server: Server
       const baseURL = `http://localhost:${port}`;
       try {
         await waitForServer(baseURL, child);
-        await use({ baseURL, readLog: () => readFile(logFile, 'utf8') });
+        let testStart = 0;
+        await use({
+          baseURL,
+          readLog: () => readFile(logFile, 'utf8'),
+          readTestLog: async () => (await readFile(logFile)).subarray(testStart).toString('utf8'),
+          markTestStart: async () => {
+            testStart = (await stat(logFile)).size;
+          },
+        });
       } finally {
         const exited = new Promise((resolve) => child.once('exit', resolve));
         child.kill('SIGTERM');
@@ -188,6 +210,14 @@ export const test = base.extend<Options & { harness: Harness }, { server: Server
       }
     },
     { scope: 'worker' },
+  ],
+
+  serverLogMark: [
+    async ({ server }, use) => {
+      await server.markTestStart();
+      await use();
+    },
+    { auto: true },
   ],
 
   harness: async ({ server, audioSet, grantMicrophone, guideSeen, shareTabTitle, extraBrowserArgs }, use, testInfo) => {
@@ -333,4 +363,65 @@ export function hanCount(text: string): number {
 
 export function latinWordCount(text: string): number {
   return text.match(/[A-Za-z]+/g)?.length ?? 0;
+}
+
+/** The untranslated-notice text (TD-309), kept literal so the tests do not depend on the production module. */
+export const UNTRANSLATED_NOTICE = '（此句未能翻译成中文）';
+
+/** Every caption entry that ever showed text, in order of appearance, with its own timeline events. */
+export function captionEntries(timeline: CaptionEvent[]): CaptionEvent[][] {
+  const byIndex = new Map<number, CaptionEvent[]>();
+  for (const event of timeline) {
+    const events = byIndex.get(event.index) ?? [];
+    events.push(event);
+    byIndex.set(event.index, events);
+  }
+  return [...byIndex.entries()]
+    .sort(([a], [b]) => a - b)
+    .map(([, events]) => events)
+    .filter((events) => events.some((event) => event.text.trim()));
+}
+
+/**
+ * Starts translating the material player tab: opens the player with `leadInMs` of silence, starts playback,
+ * selects 系统声音 and presses 开始 before the first sentence. Returns the epoch ms of material time zero.
+ */
+export async function startSystemAudio(harness: Harness, set: SentenceSetName, leadInMs = 6_000): Promise<number> {
+  const { page } = harness;
+  if (!page.url().startsWith('http')) await page.goto('/');
+  const player = await harness.openPlayer(set, leadInMs);
+  await player.evaluate('window.__play()');
+  await player.waitForFunction('window.__playerState().playingAt !== null');
+  const playingAt = await player.evaluate<number>('window.__playerState().playingAt');
+  await selectSource(page, '系统声音');
+  await startButton(page).click();
+  await expect(statusText(page)).toHaveText(RUNNING, { timeout: 15_000 });
+  return playingAt + leadInMs;
+}
+
+/**
+ * Records every change of the status text and of the page notice (`#notice`), so a test can assert that the
+ * run was never interrupted: `window.__rtmtStatus = [{ at, status, notice }]`.
+ */
+export const STATUS_LOG = `(() => {
+  const log = [];
+  Object.defineProperty(window, '__rtmtStatus', { value: log });
+  const take = () => {
+    const status = document.getElementById('status');
+    const notice = document.getElementById('notice');
+    log.push({ at: Date.now(), status: status ? status.textContent : '', notice: notice && !notice.hidden ? notice.textContent : '' });
+  };
+  const observe = () => {
+    for (const id of ['status', 'notice']) {
+      const el = document.getElementById(id);
+      if (el) new MutationObserver(take).observe(el, { subtree: true, childList: true, characterData: true, attributes: true });
+    }
+    take();
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', observe);
+  else observe();
+})();`;
+
+export function statusLog(page: Page): Promise<{ at: number; status: string; notice: string }[]> {
+  return page.evaluate('window.__rtmtStatus.slice()');
 }

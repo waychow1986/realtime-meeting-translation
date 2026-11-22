@@ -2,11 +2,13 @@ import { describe, expect, it } from 'vitest';
 import { CaptionPipeline, type CaptionView, type SegmentStatus } from '../../src/web/captionPipeline.js';
 import type { TranslateFn, TranslateOutcome } from '../../src/web/translateClient.js';
 import type { TranslationRequest } from '../../src/shared/contracts.js';
+import { UNTRANSLATED_NOTICE } from '../../src/web/messages.js';
 
 class FakeView implements CaptionView {
   readonly order: number[] = [];
   readonly text = new Map<number, string>();
   readonly status = new Map<number, SegmentStatus>();
+  readonly notices = new Map<number, string>();
   writesAfterFinal = 0;
 
   append(id: number): void {
@@ -16,6 +18,11 @@ class FakeView implements CaptionView {
   }
   setText(id: number, text: string): void {
     if (this.status.get(id) === 'final') this.writesAfterFinal += 1;
+    this.text.set(id, text);
+  }
+  setNotice(id: number, text: string): void {
+    if (this.status.get(id) === 'final') this.writesAfterFinal += 1;
+    this.notices.set(id, text);
     this.text.set(id, text);
   }
   setStatus(id: number, status: SegmentStatus): void {
@@ -108,7 +115,7 @@ describe('CaptionPipeline', () => {
     expect(view.visible()).toEqual([]);
   });
 
-  it('translates the recognized text, streams deltas and freezes the final caption', async () => {
+  it('translates the recognized text, shows the final once the whole translation is checked and freezes it', async () => {
     const { view, pipeline, finals } = setup();
     const epoch = pipeline.beginRun();
     pipeline.handleRecognizing(epoch, 'Good morning', 'en-US');
@@ -116,7 +123,7 @@ describe('CaptionPipeline', () => {
     expect(finals()).toHaveLength(1);
     expect(finals()[0]?.req).toEqual({ kind: 'final', text: 'Good morning everyone.', sourceLanguage: 'en-US' });
     finals()[0]?.onDelta('大家');
-    expect(view.visible()).toEqual(['大家']);
+    expect(view.visible()).toEqual([]);
     finals()[0]?.onDelta('早上好。');
     finals()[0]?.resolve({ ok: true });
     await flush();
@@ -255,10 +262,14 @@ describe('CaptionPipeline', () => {
   });
 
   it('marks leftover segments interrupted on restart and appends new ones after them', async () => {
-    const { view, pipeline, finals } = setup();
+    const { view, pipeline, finals, partials } = setup();
     const first = pipeline.beginRun();
+    pipeline.handleRecognizing(first, 'One', 'en-US');
+    partials()[0]?.onDelta('第一');
+    partials()[0]?.resolve({ ok: true });
+    await flush();
     pipeline.handleRecognized(first, 'One.', 'en-US');
-    finals()[0]?.onDelta('第一');
+    finals()[0]?.onDelta('第一句');
     pipeline.handleRecognizing(first, 'Two', 'en-US');
     pipeline.endRun();
     await flush();
@@ -289,15 +300,18 @@ describe('CaptionPipeline', () => {
 });
 
 describe('CaptionPipeline interim translation (TD-006)', () => {
-  it('sends the first partial immediately and shows its deltas directly as an interim caption', () => {
+  it('sends the first partial immediately and shows the whole interim translation only after it is checked (TD-305)', async () => {
     const { view, pipeline, partials } = setup();
     const epoch = pipeline.beginRun();
     pipeline.handleRecognizing(epoch, 'Good morning', 'en-US');
     expect(partials()).toHaveLength(1);
     expect(partials()[0]?.req).toEqual({ kind: 'partial', text: 'Good morning', sourceLanguage: 'en-US' });
     partials()[0]?.onDelta('早');
-    expect(view.visible()).toEqual(['早']);
+    expect(view.visible()).toEqual([]);
     partials()[0]?.onDelta('上好');
+    expect(view.visible()).toEqual([]);
+    partials()[0]?.resolve({ ok: true });
+    await flush();
     expect(view.visible()).toEqual(['早上好']);
     expect(view.status.get(1)).toBe('interim');
   });
@@ -321,6 +335,8 @@ describe('CaptionPipeline interim translation (TD-006)', () => {
     expect(partials()).toHaveLength(2);
     expect(partials()[1]?.req.text).toBe('Good morning everyone');
     partials()[1]?.onDelta('大家早上好');
+    partials()[1]?.resolve({ ok: true });
+    await flush();
     expect(view.visible()).toEqual(['大家早上好']);
   });
 
@@ -353,7 +369,7 @@ describe('CaptionPipeline interim translation (TD-006)', () => {
     expect(partials()).toHaveLength(1);
   });
 
-  it('does not let a shorter newer partial overwrite a longer caption until its stream ends', async () => {
+  it('keeps the previous interim caption while a newer partial streams and replaces it only once complete', async () => {
     const { view, pipeline, partials, clock } = setup();
     const epoch = pipeline.beginRun();
     pipeline.handleRecognizing(epoch, 'We will review', 'en-US');
@@ -362,15 +378,17 @@ describe('CaptionPipeline interim translation (TD-006)', () => {
     pipeline.handleRecognizing(epoch, 'We will review the budget', 'en-US');
     partials()[0]?.resolve({ ok: true });
     await flush();
+    expect(view.visible()).toEqual(['我们将审查']);
     partials()[1]?.onDelta('我们');
     expect(view.visible()).toEqual(['我们将审查']);
     partials()[1]?.onDelta('将审查预算');
-    expect(view.visible()).toEqual(['我们将审查预算']);
+    expect(view.visible()).toEqual(['我们将审查']);
 
     clock.advance(600);
     pipeline.handleRecognizing(epoch, 'We will review it', 'en-US');
     partials()[1]?.resolve({ ok: true });
     await flush();
+    expect(view.visible()).toEqual(['我们将审查预算']);
     partials()[2]?.onDelta('审查');
     expect(view.visible()).toEqual(['我们将审查预算']);
     partials()[2]?.resolve({ ok: true });
@@ -407,18 +425,31 @@ describe('CaptionPipeline interim translation (TD-006)', () => {
     const epoch = pipeline.beginRun();
     pipeline.handleRecognizing(epoch, 'Good', 'en-US');
     partials()[0]?.onDelta('好的');
-    clock.advance(100);
+    partials()[0]?.resolve({ ok: true });
+    await flush();
+    clock.advance(600);
     pipeline.handleRecognizing(epoch, 'Good morning', 'en-US');
+    expect(partials()).toHaveLength(2);
+    partials()[1]?.onDelta('早上好');
+    partials()[1]?.resolve({ ok: true });
+    await flush();
+    clock.advance(100);
+    pipeline.handleRecognizing(epoch, 'Good morning every', 'en-US');
+    expect(clock.pending()).toBe(1);
+    clock.advance(400);
+    expect(partials()).toHaveLength(3);
+    pipeline.handleRecognizing(epoch, 'Good morning everyone', 'en-US');
     pipeline.handleRecognized(epoch, 'Good morning everyone.', 'en-US');
-    expect(partials()[0]?.signal.aborted).toBe(true);
+    expect(partials()[2]?.signal.aborted).toBe(true);
+    expect(clock.pending()).toBe(0);
     expect(view.status.get(1)).toBe('finalizing');
-    expect(view.visible()).toEqual(['好的']);
-    partials()[0]?.onDelta('迟到');
-    expect(view.visible()).toEqual(['好的']);
+    expect(view.visible()).toEqual(['早上好']);
+    partials()[2]?.onDelta('迟到');
+    expect(view.visible()).toEqual(['早上好']);
     clock.advance(2000);
-    expect(partials()).toHaveLength(1);
+    expect(partials()).toHaveLength(3);
     finals()[0]?.onDelta('大家早上好。');
-    expect(view.visible()).toEqual(['大家早上好。']);
+    expect(view.visible()).toEqual(['早上好']);
     finals()[0]?.resolve({ ok: true });
     await flush();
     expect(view.status.get(1)).toBe('final');
@@ -429,6 +460,9 @@ describe('CaptionPipeline interim translation (TD-006)', () => {
     const epoch = pipeline.beginRun();
     pipeline.handleRecognizing(epoch, 'Hello', 'en-US');
     partials()[0]?.onDelta('你好');
+    partials()[0]?.resolve({ ok: true });
+    await flush();
+    expect(view.visible()).toEqual(['你好']);
     pipeline.handleRecognized(epoch, 'Hello.', 'en-US');
     finals()[0]?.resolve({ ok: false, reason: 'upstream_rejected' });
     await flush();
@@ -473,6 +507,8 @@ describe('CaptionPipeline finalization replaces the interim caption in place', (
     const epoch = pipeline.beginRun();
     pipeline.handleRecognizing(epoch, 'We will discuss the market budget at three', 'en-US');
     partials()[0]?.onDelta('我们将在下午三点讨论市场预算');
+    partials()[0]?.resolve({ ok: true });
+    await flush();
     expect(view.visible()).toEqual(['我们将在下午三点讨论市场预算']);
     const history = lengthHistory(view, 1);
     pipeline.handleRecognized(epoch, 'We will discuss the market budget and hiring plan at three this afternoon.', 'en-US');
@@ -494,6 +530,8 @@ describe('CaptionPipeline finalization replaces the interim caption in place', (
     const epoch = pipeline.beginRun();
     pipeline.handleRecognizing(epoch, 'We will discuss the budget', 'en-US');
     partials()[0]?.onDelta('我们将讨论预算');
+    partials()[0]?.resolve({ ok: true });
+    await flush();
     const history = lengthHistory(view, 1);
     pipeline.handleRecognized(epoch, 'We will discuss the budget today.', 'en-US');
     finals()[0]?.onDelta('我们');
@@ -507,5 +545,195 @@ describe('CaptionPipeline finalization replaces the interim caption in place', (
     await flush();
     expect(view.visible()).toEqual(['我们今天将讨论预算。']);
     expect(history.every((length) => length >= '我们将讨论预算'.length)).toBe(true);
+  });
+});
+
+/** 003: captions only ever show Chinese (TD-305, TD-306, FR-303～FR-311, FR-313). */
+describe('CaptionPipeline Chinese-only captions', () => {
+  const HANGUL = '안녕하세요 여러분';
+  const KANA = 'こんにちは、みなさん';
+
+  async function finalOk(call: Call | undefined, text: string): Promise<void> {
+    call?.onDelta(text);
+    call?.resolve({ ok: true });
+    await flush();
+  }
+
+  function startWithInterim(text = '大家好') {
+    const ctx = setup();
+    const epoch = ctx.pipeline.beginRun();
+    ctx.pipeline.handleRecognizing(epoch, '여러분', 'ko-KR');
+    ctx.partials()[0]?.onDelta(text);
+    ctx.partials()[0]?.resolve({ ok: true });
+    return { ...ctx, epoch };
+  }
+
+  it('never shows a non-Chinese interim translation, keeps the previous caption and does not resend the same text', async () => {
+    const { view, pipeline, partials, clock, epoch } = startWithInterim();
+    await flush();
+    expect(view.visible()).toEqual(['大家好']);
+    clock.advance(600);
+    pipeline.handleRecognizing(epoch, '안녕하세요 여러분', 'ko-KR');
+    partials()[1]?.onDelta('안녕');
+    partials()[1]?.onDelta('하세요');
+    expect(view.visible()).toEqual(['大家好']);
+    partials()[1]?.resolve({ ok: true });
+    await flush();
+    expect(view.visible()).toEqual(['大家好']);
+    clock.advance(2000);
+    pipeline.handleRecognizing(epoch, '안녕하세요 여러분', 'ko-KR');
+    expect(partials()).toHaveLength(2);
+    expect(partials().some((c) => c.req.retranslate)).toBe(false);
+    expect(view.notices.size).toBe(0);
+
+    pipeline.handleRecognizing(epoch, '안녕하세요 여러분 반가워요', 'ko-KR');
+    await finalOk(partials()[2], '大家好，很高兴见到你们');
+    expect(view.visible()).toEqual(['大家好，很高兴见到你们']);
+  });
+
+  it('shows no interim caption at all when the first interim translation is not Chinese', async () => {
+    const { view, pipeline, partials } = setup();
+    const epoch = pipeline.beginRun();
+    pipeline.handleRecognizing(epoch, 'こんにちは', 'ja-JP');
+    await finalOk(partials()[0], KANA);
+    expect(view.visible()).toEqual([]);
+    expect(view.order).toEqual([1]);
+  });
+
+  it('retranslates a non-Chinese final translation exactly once, keeping the interim caption, then finalizes the Chinese result', async () => {
+    const { view, pipeline, finals, epoch } = startWithInterim();
+    await flush();
+    pipeline.handleRecognized(epoch, '안녕하세요 여러분.', 'ko-KR');
+    expect(finals()[0]?.req).toEqual({ kind: 'final', text: '안녕하세요 여러분.', sourceLanguage: 'ko-KR' });
+    await finalOk(finals()[0], HANGUL);
+    expect(view.visible()).toEqual(['大家好']);
+    expect(view.status.get(1)).toBe('finalizing');
+    expect(finals()).toHaveLength(2);
+    expect(finals()[1]?.req).toEqual({
+      kind: 'final',
+      text: '안녕하세요 여러분.',
+      sourceLanguage: 'ko-KR',
+      retranslate: true,
+    });
+    finals()[1]?.onDelta('大家');
+    expect(view.visible()).toEqual(['大家好']);
+    await finalOk(finals()[1], '好。');
+    expect(view.visible()).toEqual(['大家好。']);
+    expect(view.status.get(1)).toBe('final');
+    expect(view.notices.size).toBe(0);
+  });
+
+  it('shows the Chinese notice as a final entry when the retranslation is still not Chinese, and keeps translating', async () => {
+    const { view, pipeline, finals, unavailable, epoch } = startWithInterim();
+    await flush();
+    pipeline.handleRecognized(epoch, '안녕하세요.', 'ko-KR');
+    await finalOk(finals()[0], HANGUL);
+    await finalOk(finals()[1], KANA);
+    expect(finals()).toHaveLength(2);
+    expect(view.notices.get(1)).toBe(UNTRANSLATED_NOTICE);
+    expect(view.text.get(1)).toBe(UNTRANSLATED_NOTICE);
+    expect(view.status.get(1)).toBe('final');
+    expect(unavailable()).toBe(0);
+
+    pipeline.handleRecognized(epoch, '감사합니다.', 'ko-KR');
+    await finalOk(finals()[2], '谢谢。');
+    expect(view.visible()).toEqual([UNTRANSLATED_NOTICE, '谢谢。']);
+    expect(view.writesAfterFinal).toBe(0);
+  });
+
+  it('a notice neither counts as a failed segment nor resets the streak (FR-309)', async () => {
+    const { pipeline, t, finals, unavailable } = setup();
+    const epoch = pipeline.beginRun();
+    const fail = async () => {
+      pipeline.handleRecognized(epoch, 'x.', 'ko-KR');
+      t.calls[t.calls.length - 1]?.resolve({ ok: false, reason: 'timeout' });
+      await flush();
+      t.calls[t.calls.length - 1]?.resolve({ ok: false, reason: 'timeout' });
+      await flush();
+    };
+    await fail();
+    pipeline.handleRecognized(epoch, '네.', 'ko-KR');
+    await finalOk(finals()[finals().length - 1], HANGUL);
+    await finalOk(finals()[finals().length - 1], HANGUL);
+    await fail();
+    expect(unavailable()).toBe(0);
+    await fail();
+    expect(unavailable()).toBe(1);
+  });
+
+  it('handles a failed retranslation request like any failed request: retry once, then remove and count', async () => {
+    const { view, pipeline, finals, sleeps, epoch } = startWithInterim();
+    await flush();
+    pipeline.handleRecognized(epoch, '안녕하세요.', 'ko-KR');
+    await finalOk(finals()[0], HANGUL);
+    finals()[1]?.resolve({ ok: false, reason: 'upstream_unavailable' });
+    await flush();
+    expect(sleeps).toEqual([1000]);
+    expect(view.visible()).toEqual(['大家好']);
+    expect(finals()[2]?.req.retranslate).toBe(true);
+    finals()[2]?.resolve({ ok: false, reason: 'upstream_unavailable' });
+    await flush();
+    expect(view.order).toEqual([]);
+    expect(finals()).toHaveLength(3);
+    expect(view.notices.size).toBe(0);
+  });
+
+  it('a retranslation that streams back Chinese after a request retry still finalizes', async () => {
+    const { view, pipeline, finals, epoch } = startWithInterim();
+    await flush();
+    pipeline.handleRecognized(epoch, '안녕하세요.', 'ko-KR');
+    await finalOk(finals()[0], HANGUL);
+    finals()[1]?.resolve({ ok: false, reason: 'timeout' });
+    await flush();
+    await finalOk(finals()[2], '你好。');
+    expect(view.visible()).toEqual(['你好。']);
+    expect(view.status.get(1)).toBe('final');
+    expect(finals().filter((c) => c.req.retranslate)).toHaveLength(2);
+  });
+
+  it('stopping during the retranslation discards its result: no final, no notice, caption unchanged', async () => {
+    const { view, pipeline, finals, epoch } = startWithInterim();
+    await flush();
+    pipeline.handleRecognized(epoch, '안녕하세요.', 'ko-KR');
+    await finalOk(finals()[0], HANGUL);
+    expect(finals()).toHaveLength(2);
+    pipeline.endRun();
+    expect(finals()[1]?.signal.aborted).toBe(true);
+    finals()[1]?.onDelta(KANA);
+    await flush();
+    expect(view.visible()).toEqual(['大家好']);
+    expect(view.status.get(1)).toBe('finalizing');
+    expect(view.notices.size).toBe(0);
+    expect(finals()).toHaveLength(2);
+  });
+
+  it('stopping before a non-Chinese first result arrives sends no retranslation', async () => {
+    const { view, pipeline, finals, epoch } = startWithInterim();
+    await flush();
+    pipeline.handleRecognized(epoch, '안녕하세요.', 'ko-KR');
+    finals()[0]?.onDelta(HANGUL);
+    pipeline.endRun();
+    await flush();
+    expect(finals()).toHaveLength(1);
+    expect(view.visible()).toEqual(['大家好']);
+  });
+
+  it('accepts Chinese with Latin names, digits and shared CJK marks as Chinese', async () => {
+    const { view, pipeline, finals } = setup();
+    const epoch = pipeline.beginRun();
+    pipeline.handleRecognized(epoch, 'iPhone 15・ー', 'ja-JP');
+    await finalOk(finals()[0], 'iPhone 15 发布了・真好ー。');
+    expect(view.visible()).toEqual(['iPhone 15 发布了・真好ー。']);
+    expect(finals()).toHaveLength(1);
+  });
+
+  it('treats a translation without any Han character as not Chinese', async () => {
+    const { view, pipeline, finals } = setup();
+    const epoch = pipeline.beginRun();
+    pipeline.handleRecognized(epoch, 'OK!', 'en-US');
+    await finalOk(finals()[0], 'OK!');
+    expect(finals()).toHaveLength(2);
+    await finalOk(finals()[1], '好的！');
+    expect(view.visible()).toEqual(['好的！']);
   });
 });

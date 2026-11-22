@@ -1,0 +1,102 @@
+{
+ "usable": true,
+ "reason": null,
+ "status": {
+  "status": "ok",
+  "logsReadAt": "2026-11-21T16:01:11.961115125Z",
+  "gaps": [],
+  "droppedOldest": 0
+ },
+ "windows": [
+  {
+   "phase": "before",
+   "way": "cancel",
+   "win": [
+    "2026-11-21T15:58:58.605Z",
+    "2026-11-21T15:59:04.261Z"
+   ],
+   "stat": {
+    "lines": 4,
+    "errors": 0,
+    "errorServices": [],
+    "clientAborted": 0,
+    "clientAbortedInfo": 0,
+    "abortedLevels": [],
+    "abortedKeys": [],
+    "contentHits": 0,
+    "redacted": 0,
+    "secretHits": 0,
+    "fragments": 13
+   }
+  },
+  {
+   "phase": "before",
+   "way": "disconnect",
+   "win": [
+    "2026-11-21T15:59:09.267Z",
+    "2026-11-21T15:59:15.060Z"
+   ],
+   "stat": {
+    "lines": 3,
+    "errors": 0,
+    "errorServices": [],
+    "clientAborted": 0,
+    "clientAbortedInfo": 0,
+    "abortedLevels": [],
+    "abortedKeys": [],
+    "contentHits": 0,
+    "redacted": 0,
+    "secretHits": 0,
+    "fragments": 13
+   }
+  },
+  {
+   "phase": "after",
+   "way": "cancel",
+   "win": [
+    "2026-11-21T15:59:20.066Z",
+    "2026-11-21T15:59:25.641Z"
+   ],
+   "stat": {
+    "lines": 3,
+    "errors": 0,
+    "errorServices": [],
+    "clientAborted": 0,
+    "clientAbortedInfo": 0,
+    "abortedLevels": [],
+    "abortedKeys": [],
+    "contentHits": 0,
+    "redacted": 0,
+    "secretHits": 0,
+    "fragments": 13
+   }
+  },
+  {
+   "phase": "after",
+   "way": "disconnect",
+   "win": [
+    "2026-11-21T15:59:30.642Z",
+    "2026-11-21T15:59:36.415Z"
+   ],
+   "stat": {
+    "lines": 3,
+    "errors": 0,
+    "errorServices": [],
+    "clientAborted": 0,
+    "clientAbortedInfo": 0,
+    "abortedLevels": [],
+    "abortedKeys": [],
+    "contentHits": 0,
+    "redacted": 0,
+    "secretHits": 0,
+    "fragments": 13
+   }
+  }
+ ],
+ "browserRuns": {
+  "reason": null,
+  "count": 0,
+  "lines": 65,
+  "aborted": 0
+ }
+}

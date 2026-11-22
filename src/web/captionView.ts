@@ -45,6 +45,16 @@ export class DomCaptionView implements CaptionView {
     });
   }
 
+  /** A notice entry (TD-309): same list item, marked with data-kind so it is styled apart from translations. */
+  setNotice(id: number, text: string): void {
+    const item = this.nodes.get(id);
+    if (!item) return;
+    this.update(() => {
+      item.textContent = text;
+      item.dataset.kind = 'notice';
+    });
+  }
+
   setStatus(id: number, status: SegmentStatus): void {
     const item = this.nodes.get(id);
     if (!item) return;

@@ -182,7 +182,8 @@ test.describe('系统声音：主流程', () => {
     expect(downloads).toEqual([]);
 
     // IQA-104/105/114: language detected automatically, translation logged with the input source.
-    const completed = logLines(await server.readLog()).filter(
+    // Only this test's log lines: earlier tests of the same worker play Korean/Japanese material via system audio.
+    const completed = logLines(await server.readTestLog()).filter(
       (line) => line.event === 'translation_completed' && line.inputSource === 'system' && !line.errorCode,
     );
     expect(completed.length).toBeGreaterThanOrEqual(3);

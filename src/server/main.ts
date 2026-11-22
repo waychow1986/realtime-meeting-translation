@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chatAuth, speechAuth } from './auth/azureAuth.js';
+import { handleUnhandledRejection } from './clientAbort.js';
 import { ConfigError, loadConfig, type AppConfig } from './config.js';
 import { buildApp } from './http/app.js';
 import { createLogger } from './logger.js';
@@ -36,7 +37,7 @@ async function main(): Promise<void> {
     process.exit(1);
   };
   process.on('uncaughtException', fatal('uncaught exception'));
-  process.on('unhandledRejection', fatal('unhandled rejection'));
+  process.on('unhandledRejection', handleUnhandledRejection(logger, (code) => process.exit(code)));
 
   const app = await buildApp({
     config,

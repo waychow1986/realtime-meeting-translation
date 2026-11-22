@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S2",
+  "result": "done",
+  "summary": "计划：设计区依次做规格、技术方案（查明韩语显示原文的根因与中止日志级别修复）和一次计划细化；实施区分两批编码，每批后各有一次代码审查——第 1 批修服务端中止误报（AC-7～AC-10），第 2 批做“只显示中文”的字幕修复与真实服务验收测试（AC-1～AC-6、AC-11～AC-13）；建议标准档。",
+  "asks": [],
+  "outputs": [],
+  "plan": {
+    "schemaVersion": 1,
+    "steps": [
+      {
+        "id": "S4",
+        "capability": "spec",
+        "zone": "design",
+        "dependsOn": []
+      },
+      {
+        "id": "S5",
+        "capability": "solution",
+        "zone": "design",
+        "dependsOn": [
+          "S4"
+        ]
+      },
+      {
+        "id": "S6",
+        "capability": "plan",
+        "zone": "design",
+        "dependsOn": [
+          "S5"
+        ]
+      },
+      {
+        "id": "S7",
+        "capability": "code",
+        "zone": "build",
+        "dependsOn": [
+          "S6"
+        ],
+        "batch": 1
+      },
+      {
+        "id": "S8",
+        "capability": "review",
+        "zone": "build",
+        "dependsOn": [
+          "S7"
+        ],
+        "batch": 1
+      },
+      {
+        "id": "S9",
+        "capability": "code",
+        "zone": "build",
+        "dependsOn": [
+          "S8"
+        ],
+        "batch": 2
+      },
+      {
+        "id": "S10",
+        "capability": "review",
+        "zone": "build",
+        "dependsOn": [
+          "S9"
+        ],
+        "batch": 2
+      }
+    ],
+    "omitted": [],
+    "batches": [
+      {
+        "n": 1,
+        "criteria": [
+          "AC-7",
+          "AC-8",
+          "AC-9",
+          "AC-10"
+        ]
+      },
+      {
+        "n": 2,
+        "criteria": [
+          "AC-1",
+          "AC-2",
+          "AC-3",
+          "AC-4",
+          "AC-5",
+          "AC-6",
+          "AC-11",
+          "AC-12",
+          "AC-13"
+        ]
+      }
+    ],
+    "factors": [
+      {
+        "name": "change-size",
+        "lean": "medium",
+        "basis": "两项缺陷修复：服务端 /api/translations 中止路径与 main.ts 的 unhandledRejection 路径的日志级别（改动小）；客户端字幕状态机新增中文判定、定稿重译一次与中文提示，加上韩语/日语真实服务验收测试与受控触发测试（中等）。"
+      },
+      {
+        "name": "modules",
+        "lean": "medium",
+        "basis": "涉及服务端 http/app.ts、main.ts（可能含 translation/translator.ts 的提示词），客户端 captionPipeline.ts、captionView.ts、mirroredCaptionView.ts/pip.ts、styles.css，以及单元、集成与 e2e 测试；不涉及认证、配置与基础设施。"
+      },
+      {
+        "name": "new-or-first",
+        "lean": "light",
+        "basis": "既有项目的第 3 个交付，已有技术基线、部署声明与既有验收测试，沿用现有依赖实例。"
+      },
+      {
+        "name": "risk",
+        "lean": "medium",
+        "basis": "无数据迁移、无新增凭据或依赖；风险在于：降级日志不能掩盖真正未预期的异常（AC-9）、日志不得含客户内容（AC-10，宪章“安全与隐私”）、基于大模型的翻译结果有不确定性，真实服务验收测试需稳定复现（AC-3），以及不能让两种输入、流式字幕与小窗退化（AC-11）。"
+      }
+    ],
+    "tier": "standard",
+    "budget": {
+      "revisions": 3,
+      "sessions": 13,
+      "hours": 5.5
+    },
+    "items": [
+      {
+        "category": "technical",
+        "question": "AC-4、AC-5（翻译结果不是中文）与 AC-9（未预期的服务端异常）需要受控触发，触发方式会影响生产代码是否含测试专用开关。采用哪种方式？",
+        "recommended": "生产代码不加测试开关：AC-4/AC-5 在端到端测试中拦截浏览器对 /api/translations 的响应、替换为非中文内容（其余请求仍走真实服务），并辅以字幕状态机单元测试；AC-9 在服务端测试中注入会抛异常的翻译器依赖。AC-1～AC-3 的功能验收仍只用真实语音与翻译服务（宪章“测试与质量”）。",
+        "alternatives": [
+          "在服务端加只在测试配置下启用的故障注入开关（生产默认关闭），由真实部署的应用返回非中文结果或抛出异常。",
+          "两者结合：端到端用响应拦截，部署环境验证再用测试开关。"
+        ]
+      },
+      {
+        "category": "technical",
+        "question": "“是否为中文”的判定与重新翻译放在哪一层？这决定主页面与小窗是否天然一致、以及服务端日志是否需要新增字段。",
+        "recommended": "放在客户端字幕状态机（captionPipeline）：按 Q-2 规则（出现谚文、日文假名等源语言文字或整句未翻译即视为非中文）判定，定稿不是中文时重译一次、仍不是中文时显示中文提示，小窗沿用现有镜像视图；服务端不新增日志内容。根因若在提示词或语言参数，另在服务端修正，由技术方案按根因决定。",
+        "alternatives": [
+          "放在服务端：服务端判定并在流结束时返回“非中文”标记，由客户端据此重译与提示。",
+          "两层都做：服务端修正根因并判定，客户端再做兜底判定。"
+        ]
+      }
+    ],
+    "reason": "需求包含新的用户可见行为（非中文结果不显示、定稿重译一次、区分样式的中文提示、不计入连续失败规则、临时译文只显示中文），按宪章需要可独立执行的验收场景，故先做规格；AC-13 要求技术方案记录根因及证据，故安排技术方案；按平台检查（FR-034），技术方案之后、G2 之前再安排一次计划（细化），以技术方案查明的根因为输入确认或调整实施区批次（例如根因在服务端提示词或语言参数时，第 2 批的改动范围随之调整）。两项修复相互独立：第 1 批先修服务端中止误报（含 main.ts 中 unhandledRejection 记 fatal 的路径），改动小、可用服务端测试独立验证 AC-7～AC-10，并尽早消除告警误报；第 2 批在其之上完成“只显示中文”修复与韩语、日语真实服务验收测试，并以既有验收测试全部通过验证 AC-11（第 1 批同样须保持既有测试通过）。改动规模与模块数中等、非新项目、无数据迁移与安全面扩大，建议标准档而非当前的完整档；预算相应定为 5.5 小时、13 个会话、3 次修订（含细化计划一次会话）。"
+  }
+}

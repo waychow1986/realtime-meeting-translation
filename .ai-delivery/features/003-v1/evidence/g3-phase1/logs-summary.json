@@ -1,0 +1,170 @@
+{
+ "usable": true,
+ "reason": null,
+ "status": {
+  "status": "ok",
+  "logsReadAt": "2026-11-21T18:18:15.065646475Z",
+  "gaps": [],
+  "droppedOldest": 0
+ },
+ "windows": [
+  {
+   "phase": "before",
+   "way": "cancel",
+   "win": [
+    "2026-11-21T18:13:20.066Z",
+    "2026-11-21T18:13:26.552Z"
+   ],
+   "stat": {
+    "lines": 4,
+    "errors": 0,
+    "errorServices": [],
+    "clientAborted": 1,
+    "clientAbortedInfo": 1,
+    "abortedLevels": [
+     "info"
+    ],
+    "abortedKeys": [
+     [
+      "deltaCount",
+      "durationMs",
+      "errorCode",
+      "event",
+      "inputSource",
+      "kind",
+      "level",
+      "msg",
+      "reqId",
+      "sourceLanguage",
+      "textLength",
+      "time"
+     ]
+    ],
+    "contentHits": 0,
+    "redacted": 0,
+    "secretHits": 0,
+    "fragments": 13
+   }
+  },
+  {
+   "phase": "before",
+   "way": "disconnect",
+   "win": [
+    "2026-11-21T18:13:31.555Z",
+    "2026-11-21T18:13:37.995Z"
+   ],
+   "stat": {
+    "lines": 4,
+    "errors": 0,
+    "errorServices": [],
+    "clientAborted": 1,
+    "clientAbortedInfo": 1,
+    "abortedLevels": [
+     "info"
+    ],
+    "abortedKeys": [
+     [
+      "deltaCount",
+      "durationMs",
+      "errorCode",
+      "event",
+      "inputSource",
+      "kind",
+      "level",
+      "msg",
+      "reqId",
+      "sourceLanguage",
+      "textLength",
+      "time"
+     ]
+    ],
+    "contentHits": 0,
+    "redacted": 0,
+    "secretHits": 0,
+    "fragments": 13
+   }
+  },
+  {
+   "phase": "after",
+   "way": "cancel",
+   "win": [
+    "2026-11-21T18:13:42.996Z",
+    "2026-11-21T18:13:49.572Z"
+   ],
+   "stat": {
+    "lines": 4,
+    "errors": 0,
+    "errorServices": [],
+    "clientAborted": 1,
+    "clientAbortedInfo": 1,
+    "abortedLevels": [
+     "info"
+    ],
+    "abortedKeys": [
+     [
+      "deltaCount",
+      "durationMs",
+      "errorCode",
+      "event",
+      "inputSource",
+      "kind",
+      "level",
+      "msg",
+      "reqId",
+      "sourceLanguage",
+      "textLength",
+      "time"
+     ]
+    ],
+    "contentHits": 0,
+    "redacted": 0,
+    "secretHits": 0,
+    "fragments": 13
+   }
+  },
+  {
+   "phase": "after",
+   "way": "disconnect",
+   "win": [
+    "2026-11-21T18:13:54.574Z",
+    "2026-11-21T18:14:01.435Z"
+   ],
+   "stat": {
+    "lines": 5,
+    "errors": 0,
+    "errorServices": [],
+    "clientAborted": 1,
+    "clientAbortedInfo": 1,
+    "abortedLevels": [
+     "info"
+    ],
+    "abortedKeys": [
+     [
+      "deltaCount",
+      "durationMs",
+      "errorCode",
+      "event",
+      "inputSource",
+      "kind",
+      "level",
+      "msg",
+      "reqId",
+      "sourceLanguage",
+      "textLength",
+      "time"
+     ]
+    ],
+    "contentHits": 0,
+    "redacted": 0,
+    "secretHits": 0,
+    "fragments": 13
+   }
+  }
+ ],
+ "browserRuns": {
+  "reason": null,
+  "count": 0,
+  "lines": 814,
+  "aborted": 46
+ }
+}

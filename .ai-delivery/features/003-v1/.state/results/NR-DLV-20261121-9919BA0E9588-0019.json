@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S17",
+  "result": "done",
+  "summary": "根因在端到端测试本身，不在产品代码（产品代码未改动）。① system IQA-102 断言 en-US 却收到 ko-KR：e2e 服务端按 worker 共享、一个 worker 跑完全部用例，server.readLog() 返回整次运行累计的日志，S15 新增的韩语/日语“系统声音”用例按文件名排在 system.spec.ts 之前，它们 inputSource=system、sourceLanguage=ko-KR 的 translation_completed 记录被 IQA-102 一并读到；S15 结果中“语音服务偶发把英语识别为 ko-KR”的判断不成立（IQA-102 单独重复 4 次全部通过；先跑一条韩语用例再跑 IQA-102 稳定复现失败）。修复：fixtures 增加按用例自动记录日志起点的 readTestLog()，IQA-102 的语言断言只读本用例的日志，断言本身不变；日志不含客户内容、凭据的检查仍读全量日志。② IQA-306（系统声音、麦克风）的观测竞态：界面渲染第 2 次临时译文后，在同一个同步任务里发出第 3 次请求，fetch 包装器在发请求时同步记录 call.at，而字幕时间线由 MutationObserver 在随后的微任务中记录，所以第 2 次译文的显示时间可能晚于 call.at 1～2 ms，被误算成第 3 次（谚文）请求之后的变化。修复：覆盖脚本记录谚文流首个片段的到达时间 firstDeltaAt，用这个时间点作为“之前/之后”的分界；仍然断言从这一刻到下一次请求之间临时字幕没有任何变化，断言强度不变。验证：lint、typecheck、单元测试 224/224、集成测试 16/16 通过；复现组合（韩语 IQA-301 + IQA-102 + 两条 IQA-306）修复前 IQA-102 失败、修复后 4/4 通过；完整 npm run test:e2e 33/33 通过（15.1 分钟）。IQA-306 的竞态与毫秒边界有关、无法稳定复现（修复前那次运行恰好通过），依据是上面的执行顺序分析。",
+  "asks": [],
+  "outputs": [
+    "tests/e2e/fixtures.ts",
+    "tests/e2e/system.spec.ts",
+    "tests/e2e/non-chinese.spec.ts",
+    "tests/e2e/translationOverride.ts",
+    ".ai-delivery/features/003-v1/.state/results/NR-DLV-20261121-9919BA0E9588-0019.json"
+  ]
+}

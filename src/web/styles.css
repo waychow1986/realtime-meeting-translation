@@ -9,6 +9,7 @@
   --caption-bg: #0d1117;
   --caption-final: #ffffff;
   --caption-interim: #b6c2cf;
+  --caption-notice: #c9b48f;
   --caption-size: 32px;
   --state-color: #57606a;
 }
@@ -551,6 +552,14 @@ body[data-source='system'] .workspace:has(#system-details:not([open])) {
 .caption[data-status='interrupted'] {
   color: var(--caption-interim);
   font-style: italic;
+}
+
+/* TD-309: "not translated" notice — muted amber, smaller, solid marker; never red, no animation. */
+.caption[data-kind='notice'] {
+  color: var(--caption-notice);
+  font-size: calc(var(--caption-size) * 0.75);
+  border-left: 4px solid var(--caption-notice);
+  font-style: normal;
 }
 
 .jump-latest {

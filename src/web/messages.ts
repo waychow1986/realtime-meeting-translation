@@ -31,6 +31,9 @@ export const MESSAGES = {
   pipTitle: '中文字幕小窗',
 } as const;
 
+/** Final caption shown when a sentence's translation is still not Chinese after one retranslation (FR-307, TD-309). */
+export const UNTRANSLATED_NOTICE = '（此句未能翻译成中文）';
+
 const SHARE_NO_AUDIO_PREFIX = '所选的共享内容没有包含声音，无法翻译。';
 const SHARE_NO_AUDIO_RETRY = '然后再次点击“开始”。';
 

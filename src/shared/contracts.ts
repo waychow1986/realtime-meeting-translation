@@ -15,6 +15,8 @@ export interface TranslationRequest {
   text: string;
   sourceLanguage?: string;
   inputSource?: InputSource;
+  /** Set only on the single content retranslation of a final whose first result was not Chinese (TD-306, TD-308). */
+  retranslate?: boolean;
 }
 
 export type TranslationErrorCode =

@@ -1,0 +1,473 @@
+{
+ "reqs": [
+  {
+   "t": 1795280231956,
+   "m": "POST",
+   "u": "/api/speech-token",
+   "body": null,
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "t": 1795280236690,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"안녕하세요\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "t": 1795280236882,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"final\",\"text\":\"안녕하세요 여러분.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "t": 1795280237123,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280237622,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 회의에 참석\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"大家\"}\n{\"type\":\"delta\",\"text\":\"好\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280238210,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 회의에 참석해\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"参加\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280238845,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 회의에 참석해 주셔서 감사\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"参加\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280239503,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"오늘 회의에 참석해 주셔서 감사합니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"感谢\"}\n{\"type\":\"delta\",\"text\":\"大家\"}\n{\"type\":\"delta\",\"text\":\"参加\"}\n{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280239635,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"final\",\"text\":\"오늘 회의에 참석해 주셔서 감사합니다.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"感谢\"}\n{\"type\":\"delta\",\"text\":\"大家\"}\n{\"type\":\"delta\",\"text\":\"今天\"}\n{\"type\":\"delta\",\"text\":\"出\"}\n{\"type\":\"delta\",\"text\":\"席\"}\n{\"type\":\"delta\",\"text\":\"会议\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280240703,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"올해\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "t": 1795280241548,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"올해 매출은\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"今年\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280242691,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"올해 매출은 작년보다 20\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"今年\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"是\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280243266,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"올해 매출은 작년보다 20% 증가\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"今年\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n{\"type\":\"delta\",\"text\":\"高\"}\n{\"type\":\"delta\",\"text\":\"20\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280243882,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"올해 매출은 작년보다 20% 증가했습니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"今年\"}\n{\"type\":\"delta\",\"text\":\"的\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n{\"type\":\"delta\",\"text\":\"增加\"}\n{\"type\":\"delta\",\"text\":\"了\"}\n{\"type\":\"delta\",\"text\":\"20\"}\n{\"type\":\"delta\",\"text\":\"%\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280243943,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"final\",\"text\":\"올해 매출은 작년보다 20% 증가했습니다.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"今年\"}\n{\"type\":\"delta\",\"text\":\"销售\"}\n{\"type\":\"delta\",\"text\":\"额\"}\n{\"type\":\"delta\",\"text\":\"比\"}\n{\"type\":\"delta\",\"text\":\"去年\"}\n{\"type\":\"delta\",\"text\":\"增长\"}\n{\"type\":\"delta\",\"text\":\"了\"}\n{\"type\":\"delta\",\"text\":\"20\"}\n{\"type\":\"delta\",\"text\":\"%。\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280245011,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"다음\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "t": 1795280245599,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"다음 달에\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"下\"}\n{\"type\":\"delta\",\"text\":\"一个\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280246240,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"다음 달에 새로운 제품\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"下\"}\n{\"type\":\"delta\",\"text\":\"个月\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280246802,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"다음 달에 새로운 제품을 출시\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"下\"}\n{\"type\":\"delta\",\"text\":\"个月\"}\n{\"type\":\"delta\",\"text\":\"有\"}\n{\"type\":\"delta\",\"text\":\"新的\"}\n{\"type\":\"delta\",\"text\":\"产品\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280247345,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"다음 달에 새로운 제품을 출시할 예정입니다\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"下\"}\n{\"type\":\"delta\",\"text\":\"个月\"}\n{\"type\":\"delta\",\"text\":\"推出\"}\n{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"产品\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280247970,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"final\",\"text\":\"다음 달에 새로운 제품을 출시할 예정입니다.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"我们\"}\n{\"type\":\"delta\",\"text\":\"计划\"}\n{\"type\":\"delta\",\"text\":\"下\"}\n{\"type\":\"delta\",\"text\":\"个月\"}\n{\"type\":\"delta\",\"text\":\"推出\"}\n{\"type\":\"delta\",\"text\":\"新\"}\n{\"type\":\"delta\",\"text\":\"产品\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280249039,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"질문이\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "t": 1795280249572,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"질문이 있으\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"问题\"}\n{\"type\":\"delta\",\"text\":\"가\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280250467,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"질문이 있으시면 언제든지\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"有\"}\n{\"type\":\"delta\",\"text\":\"个\"}\n{\"type\":\"delta\",\"text\":\"问题\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280251033,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"partial\",\"text\":\"질문이 있으시면 언제든지 말씀해주세요\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"如果\"}\n{\"type\":\"delta\",\"text\":\"有\"}\n{\"type\":\"delta\",\"text\":\"问题\"}\n{\"type\":\"delta\",\"text\":\"的话\"}\n{\"type\":\"delta\",\"text\":\"随\"}\n{\"type\":\"delta\",\"text\":\"时\"}\n{\"type\":\"delta\",\"text\":\"问\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"如果\"}\n{\"type\":\"delta\",\"text\":\"有\"}\n{\"type\":\"delta\",\"text\":\"问题\"}\n{\"type\":\"delta\",\"text\":\"的话\"}\n{\"type\":\"delta\",\"text\":\"请\"}\n{\"type\":\"delta\",\"text\":\"随\"}\n{\"type\":\"delta\",\"text\":\"时\"}\n{\"type\":\"delta\",\"text\":\"说\"}\n{\"type\":\"done\"}\n"
+  },
+  {
+   "t": 1795280251678,
+   "m": "POST",
+   "u": "/api/translations",
+   "body": "{\"kind\":\"final\",\"text\":\"질문이 있으시면 언제든지 말씀해주세요.\",\"sourceLanguage\":\"ko-KR\",\"inputSource\":\"microphone\"}",
+   "h": {
+    "sec-ch-ua-platform": "\"Linux\"",
+    "referer": "",
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/159.0.8154.6 Safari/537.36",
+    "sec-ch-ua": "\"HeadlessChrome\";v=\"159\", \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"159\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0"
+   }
+  },
+  {
+   "resp": 200,
+   "ct": "application/x-ndjson; charset=utf-8",
+   "body": "{\"type\":\"delta\",\"text\":\"如果\"}\n{\"type\":\"delta\",\"text\":\"有\"}\n{\"type\":\"delta\",\"text\":\"问题\"}\n{\"type\":\"delta\",\"text\":\"，请\"}\n{\"type\":\"delta\",\"text\":\"随\"}\n{\"type\":\"delta\",\"text\":\"时\"}\n{\"type\":\"delta\",\"text\":\"提\"}\n{\"type\":\"delta\",\"text\":\"出来\"}\n{\"type\":\"delta\",\"text\":\"。\"}\n{\"type\":\"done\"}\n"
+  }
+ ],
+ "cap": "会议实时中文字幕\n输入方式\n麦克风\n系统声音\n开始\n停止\n●\n当前状态\n正在听\n字号\n小\n中\n大\n特大\n弹出字幕小窗\n?\n使用引导\n大家好。\n感谢大家今天出席会议。\n今年销售额比去年增长了20%。\n我们计划下个月推出新产品。\n如果有问题，请随时提出来。"
+}

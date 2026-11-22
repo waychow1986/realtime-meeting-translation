@@ -1,5 +1,6 @@
 {
   "voice": "en-US-JennyNeural",
+  "locale": "en-US",
   "sets": {
     "single": {
       "description": "1 句英语，用于打开即用、权限与隔离场景",

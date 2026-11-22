@@ -4,7 +4,7 @@
     {
       "name": "speech",
       "kind": "azure-ai-foundry-speech",
-      "purpose": "Azure AI Foundry 语音转文字服务：浏览器经 Speech SDK 以实时（流式）连续识别并开启连续语言自动识别（候选语言 en-US、zh-CN、ja-JP、ko-KR），把麦克风或经浏览器共享取得的电脑系统声音（两种输入二选一）转成文字；服务端只向其 STS 换取 10 分钟语音授权令牌下发给浏览器。测试另用同一资源的语音合成生成英语测试素材。",
+      "purpose": "Azure AI Foundry 语音转文字服务：浏览器经 Speech SDK 以实时（流式）连续识别并开启连续语言自动识别（候选语言 en-US、zh-CN、ja-JP、ko-KR），把麦克风或经浏览器共享取得的电脑系统声音（两种输入二选一）转成文字；服务端只向其 STS 换取 10 分钟语音授权令牌下发给浏览器。测试另用同一资源的语音合成生成英语、韩语、日语测试素材（韩语、日语用于验证非英语素材的定稿字幕只显示中文）。",
       "recommendation": {
         "form": "cloud",
         "reason": "客户要求沿用现有 Azure Foundry 语音转文本（实时、自动语言识别）并沿用现有依赖实例，本交付不新建语音实例：推荐在依赖与机密任务中为 dev、test 选择“沿用”第 1 版已绑定并探测通过的实例。系统声音模式与麦克风模式使用同一实时识别端点与令牌方式，约束不变。声明形态保留 cloud 与 infra/speech 的 Terraform，仅在现有实例不可用、经人决定重建时使用。认证推荐 platform-identity（宪章：支持时使用 managed identity），credential 同样支持。"
@@ -33,7 +33,7 @@
           },
           {
             "name": "TTS_HOST",
-            "purpose": "资源所在区域的语音合成主机与端口，仅用于测试时合成英语测试语音",
+            "purpose": "资源所在区域的语音合成主机与端口，仅用于测试时合成英语、韩语、日语测试语音",
             "target": true,
             "example": "example-region.tts.speech.microsoft.com:443"
           },

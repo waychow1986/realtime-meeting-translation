@@ -9,7 +9,10 @@ import { loadConfig } from '../../src/server/config.js';
 import { createSpeechTokenService, type SpeechTokenService } from '../../src/server/speech/tokenService.js';
 import { hostToHttpsBase, requireEnv } from './env.js';
 
-export type SentenceSetName = 'single' | 'multi' | 'meeting' | 'long' | 'interference';
+export type SentenceLanguage = 'en' | 'ko' | 'ja';
+type EnglishSetName = 'single' | 'multi' | 'meeting' | 'long' | 'interference';
+/** English sets keep their plain names; other languages are `<language>-<set>` (e.g. `ko-drama`, TD-313). */
+export type SentenceSetName = EnglishSetName | 'ko-drama' | 'ja-drama';
 
 /** Reference translation and meaning checks for one sentence (regex sources; every key point must match). */
 export interface SentenceAnnotation {
@@ -26,7 +29,9 @@ interface SentenceSet {
 
 interface Fixture {
   voice: string;
-  sets: Record<SentenceSetName, SentenceSet>;
+  /** SSML `xml:lang` of the voice. */
+  locale: string;
+  sets: Record<string, SentenceSet>;
 }
 
 /** Position of one spoken sentence inside the synthesized WAV. */
@@ -41,23 +46,37 @@ export interface SpeechAudio {
   durationMs: number;
 }
 
-const FIXTURE_PATH = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../fixtures/sentences.en.json');
+const FIXTURE_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../fixtures');
 
 export const LEADING_SILENCE_MS = 1000;
 export const SENTENCE_GAP_MS = 2000;
 export const TRAILING_SILENCE_MS = 4000;
 const SAMPLE_RATE = 16000;
 
-export function loadFixture(): Fixture {
-  return JSON.parse(readFileSync(FIXTURE_PATH, 'utf8')) as Fixture;
+/** Language of the fixture file and the set name inside it. */
+export function resolveSet(set: SentenceSetName): { language: SentenceLanguage; name: string } {
+  const match = /^(ko|ja)-(.+)$/.exec(set);
+  return match ? { language: match[1] as SentenceLanguage, name: match[2]! } : { language: 'en', name: set };
+}
+
+export function loadFixture(language: SentenceLanguage = 'en'): Fixture {
+  return JSON.parse(readFileSync(path.join(FIXTURE_DIR, `sentences.${language}.json`), 'utf8')) as Fixture;
+}
+
+function setOf(set: SentenceSetName): { fixture: Fixture; data: SentenceSet } {
+  const { language, name } = resolveSet(set);
+  const fixture = loadFixture(language);
+  const data = fixture.sets[name];
+  if (!data) throw new Error(`unknown sentence set ${set}`);
+  return { fixture, data };
 }
 
 export function sentencesOf(set: SentenceSetName): string[] {
-  return loadFixture().sets[set].sentences;
+  return setOf(set).data.sentences;
 }
 
 export function annotationsOf(set: SentenceSetName): SentenceAnnotation[] {
-  const { sentences, annotations } = loadFixture().sets[set];
+  const { sentences, annotations } = setOf(set).data;
   if (!annotations || annotations.length !== sentences.length) throw new Error(`set ${set} has no annotation per sentence`);
   return annotations;
 }
@@ -67,9 +86,9 @@ function escapeXml(text: string): string {
 }
 
 /** One sentence without leading/trailing silence, so its position in the concatenated WAV is exact. */
-function buildSentenceSsml(voice: string, sentence: string): string {
+function buildSentenceSsml(voice: string, locale: string, sentence: string): string {
   return (
-    `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" xml:lang="en-US">` +
+    `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" xml:lang="${locale}">` +
     `<voice name="${voice}"><mstts:silence type="Leading-exact" value="0ms"/>` +
     `<mstts:silence type="Tailing-exact" value="0ms"/>` +
     `<mstts:silence type="comma-exact" value="200ms"/>${escapeXml(sentence)}</voice></speak>`
@@ -168,8 +187,8 @@ async function writeAtomic(file: string, data: Buffer | string): Promise<void> {
  * per-sentence start/end times are cached in the system temp directory.
  */
 export async function ensureSpeechAudio(set: SentenceSetName): Promise<SpeechAudio> {
-  const fixture = loadFixture();
-  const ssmls = fixture.sets[set].sentences.map((sentence) => buildSentenceSsml(fixture.voice, sentence));
+  const { fixture, data } = setOf(set);
+  const ssmls = data.sentences.map((sentence) => buildSentenceSsml(fixture.voice, fixture.locale, sentence));
   const digest = createHash('sha256')
     .update(JSON.stringify([ssmls, LEADING_SILENCE_MS, SENTENCE_GAP_MS, TRAILING_SILENCE_MS]))
     .digest('hex')

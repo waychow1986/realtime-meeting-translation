@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S13",
+  "result": "done",
+  "summary": "第 1 批（AC-7～AC-10）已实现：服务端在确认客户端已断开且错误属于中止类时只记录一条 info 级 client_aborted 日志、不再记 error/fatal，真正的意外异常仍记一条 error，日志不含内容与凭据；单元测试 175 项、对真实模型的集成测试 15 项及 lint、类型检查、构建均通过，修复前新测试均可复现问题。",
+  "asks": [],
+  "outputs": [
+    "src/server/clientAbort.ts",
+    "src/server/http/app.ts",
+    "src/server/main.ts",
+    "tests/unit/clientAbort.test.ts",
+    "tests/unit/app.test.ts",
+    "tests/support/abortClient.ts",
+    "tests/support/realApp.ts",
+    "tests/integration/translationAbort.int.test.ts",
+    "tests/integration/translationFailure.int.test.ts",
+    ".ai-delivery/features/003-v1/.state/results/NR-DLV-20261121-9919BA0E9588-0014.json"
+  ]
+}

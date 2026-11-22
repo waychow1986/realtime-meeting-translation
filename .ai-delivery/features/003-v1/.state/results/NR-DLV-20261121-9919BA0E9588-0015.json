@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S14",
+  "result": "done",
+  "summary": "第 1 批（S13：客户端中止的日志分类，AC-7～AC-10）审查完成：实现与技术方案 TD-301～TD-303 一致，未发现阻断问题，记 2 条观察项。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/003-v1/.state/results/NR-DLV-20261121-9919BA0E9588-0015.json"
+  ],
+  "review": {
+    "mode": "code-review",
+    "conclusion": "通过。src/server/http/app.ts 在注册监听前检查 reply.raw.destroyed，并在 close（未 writableFinished）时把 request.raw 记入 clientClosedRequests 再 abort；错误处理器与翻译任务 catch 只在“客户端已关闭且错误属于中止类”同时成立时不记 error，翻译任务写出唯一一条沿用现有字段的 client_aborted 信息级记录，其余异常仍记 error 并写出 upstream_unavailable（AC-7、AC-8、AC-9；FR-314～FR-317）。src/server/clientAbort.ts 的分类集合与 TD-303 一致（不含 TimeoutError、ECONNRESET、EPIPE）；main.ts 的 unhandledRejection 对中止类只记 warn、不退出，uncaughtException 不变。新增日志不含原文、译文或凭据，只有 errorClass 等元数据（AC-10；宪章“安全与隐私”）。docs/deployment.json 中 app-error-or-fatal 按 level 匹配，warn 不会触发告警。测试覆盖首个片段前/后 × AbortController/断开 socket 四种组合（受控翻译器的单元测试与真实 dev 模型的集成测试各一套），断言无 error/fatal、恰好一条 client_aborted、字段集合不变、日志不含内容与机密；AC-9 包括“客户端未关闭时的中止类异常仍记 error”这一反向用例。既有测试只有新增，没有删除或放宽断言；tests/support/realApp.ts 的 wrapTranslator 是向后兼容的新增参数。沿用现有 Vitest、MemoryLogSink、SecretScanner 与 buildRealApp 的写法，没有改动 CI、部署或基础设施定义，也没有使用仓库中的连接信息或凭据。",
+    "items": [],
+    "findings": [
+      {
+        "ownerStep": "S13",
+        "text": "观察项：src/server/http/app.ts markClientClosed 以 reply.raw 的 close 且 !writableFinished 作为“客户端已关闭”的依据。若 Fastify 在已写出响应头后因服务端自身的流错误主动 destroy 响应，也会被标记为客户端关闭；这时如果翻译器恰好抛出中止类错误，会被记为 client_aborted 而不是 error。当前代码路径中 PassThrough 只由本处理函数写入，没有现实触发条件，因此不阻断；后续改动流处理时需注意这一前提。",
+        "blocking": false
+      },
+      {
+        "ownerStep": "S13",
+        "text": "观察项：tests/integration/translationAbort.int.test.ts 的“首个片段前”场景在包装翻译器开始调用时立即中止，依赖真实模型首个片段的时延长于客户端中止的时延，并断言 outcome.received 为空。实际时延差在数百毫秒量级，风险低；若 CI 中出现偶发失败，可先从这里排查。",
+        "blocking": false
+      }
+    ]
+  }
+}

@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import type { IncomingMessage } from 'node:http';
 import { PassThrough } from 'node:stream';
 import fastifyStatic from '@fastify/static';
 import Fastify, { type FastifyError, type FastifyInstance, type FastifyReply, type FastifyRequest } from 'fastify';
@@ -12,6 +13,7 @@ import {
   type TranslationLine,
   type TranslationRequest,
 } from '../../shared/contracts.js';
+import { isClientAbortError } from '../clientAbort.js';
 import type { AppConfig } from '../config.js';
 import { UpstreamError } from '../errors.js';
 import type { AppLogger } from '../logger.js';
@@ -38,6 +40,9 @@ export interface AppDeps {
 
 const TOKEN_REFRESH_SECONDS = 240;
 
+/** Requests whose streaming response was closed by the client before it finished (TD-301). */
+const clientClosedRequests = new WeakSet<IncomingMessage>();
+
 const translationBodySchema = {
   type: 'object',
   additionalProperties: false,
@@ -47,6 +52,7 @@ const translationBodySchema = {
     text: { type: 'string', minLength: 1, maxLength: MAX_TRANSLATION_TEXT_LENGTH, pattern: '\\S' },
     sourceLanguage: { type: 'string', pattern: LANGUAGE_CODE_PATTERN_SOURCE },
     inputSource: { type: 'string', enum: INPUT_SOURCES },
+    retranslate: { type: 'boolean' },
   },
 } as const;
 
@@ -146,6 +152,11 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
     if (error.validation || (error.statusCode !== undefined && error.statusCode >= 400 && error.statusCode < 500)) {
       return sendError(reply, 400, 'invalid_request');
     }
+    // A stream closed by the client before the first delta surfaces here as ERR_STREAM_PREMATURE_CLOSE (TD-301).
+    // The translation task writes the single client_aborted record for that request.
+    if (clientClosedRequests.has(request.raw) && isClientAbortError(error)) {
+      return sendError(reply, 500, 'internal_error');
+    }
     logger.error('unhandled_error', 'unhandled error', {
       reqId: request.id,
       route: request.routeOptions.url,
@@ -194,17 +205,26 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
     { onRequest: requireSameOrigin, schema: { body: translationBodySchema } },
     async (request, reply) => {
       const body = request.body;
+      // Interim translations are never retranslated (FR-304, TD-308).
+      if (body.kind === 'partial' && body.retranslate === true) return sendError(reply, 400, 'invalid_request');
       const limiter = body.kind === 'partial' ? limiters.partial : limiters.final;
       if (!enforceLimit(limiter, request, reply)) return reply;
 
       const controller = new AbortController();
-      reply.raw.on('close', () => {
-        if (!reply.raw.writableFinished) controller.abort();
-      });
+      const markClientClosed = () => {
+        if (reply.raw.writableFinished) return;
+        clientClosedRequests.add(request.raw);
+        controller.abort();
+      };
+      if (reply.raw.destroyed) markClientClosed();
+      else reply.raw.on('close', markClientClosed);
 
       const stream = new PassThrough();
+      let deltasWritten = 0;
       const writeLine = (line: TranslationLine) => {
-        if (!stream.writableEnded) stream.write(`${JSON.stringify(line)}\n`);
+        if (stream.writableEnded) return;
+        stream.write(`${JSON.stringify(line)}\n`);
+        if (line.type === 'delta') deltasWritten += 1;
       };
 
       reply
@@ -222,6 +242,8 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
         sourceLanguage: body.sourceLanguage,
         inputSource: body.inputSource,
       };
+      // TD-312: only on success and upstream_error records, never on client_aborted (FR-315).
+      const retranslateField = body.retranslate === true ? { retranslate: true } : {};
 
       void (async () => {
         try {
@@ -233,6 +255,7 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
             writeLine({ type: 'done' });
             logger.info('translation_completed', 'translation completed', {
               ...baseFields,
+              ...retranslateField,
               deltaCount: result.deltaCount,
               ttfbMs: result.ttfbMs,
               durationMs: Math.round(performance.now() - started),
@@ -250,6 +273,7 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
             writeLine({ type: 'error', code: result.code });
             logger.warn('upstream_error', 'upstream error', {
               ...baseFields,
+              ...retranslateField,
               upstream: 'chat-model',
               upstreamStatus: result.upstreamStatus,
               errorCode: result.upstreamErrorCode ?? result.code,
@@ -259,6 +283,15 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
             });
           }
         } catch (err) {
+          if (clientClosedRequests.has(request.raw) && isClientAbortError(err)) {
+            logger.info('translation_completed', 'translation aborted by client', {
+              ...baseFields,
+              deltaCount: deltasWritten,
+              errorCode: 'client_aborted',
+              durationMs: Math.round(performance.now() - started),
+            });
+            return;
+          }
           writeLine({ type: 'error', code: 'upstream_unavailable' });
           logger.error('unhandled_error', 'translation failed unexpectedly', {
             reqId: request.id,

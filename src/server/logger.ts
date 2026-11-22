@@ -45,6 +45,8 @@ export interface LogFields {
   authMode?: string;
   sourceLanguage?: string;
   inputSource?: InputSource;
+  /** Present (true) only on the single content retranslation request of a sentence (TD-312). */
+  retranslate?: boolean;
   /** Upstream model version string (metadata, evidence for the deployed model). */
   model?: string;
   /** Error class name only, never the message or stack. */
@@ -82,6 +84,7 @@ const VALIDATORS: Record<keyof LogFields, Validator> = {
   authMode: oneOf(['credential', 'platform-identity']),
   sourceLanguage: matches(LANGUAGE_CODE_PATTERN),
   inputSource: oneOf(INPUT_SOURCES),
+  retranslate: (v) => typeof v === 'boolean',
   model: matches(/^[A-Za-z0-9._:-]{1,64}$/),
   errorClass: matches(/^[A-Za-z][A-Za-z0-9_]{0,63}$/),
   configKeys: matches(/^[A-Z0-9_]+(,[A-Z0-9_]+)*$/),
