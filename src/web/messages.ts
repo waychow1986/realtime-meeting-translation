@@ -16,6 +16,8 @@ export const MESSAGES = {
   micNotFound: '无法使用麦克风：未检测到可用的麦克风设备。请接入麦克风后，再次点击“开始”。',
   micUnavailable: '无法使用麦克风：麦克风当前不可用。请检查设备后，再次点击“开始”。',
   interrupted: '翻译已中断，请稍后重新开始。',
+  /** Shown when recognition silently stopped in 系统声音 mode (IR-003, TD-705). */
+  stalled: '翻译已中断：语音识别已停止输出结果。请点击“开始”并重新选择共享内容，重新开始翻译。',
   unsupported: '当前浏览器不支持麦克风采集，请使用最新版的桌面浏览器打开本页面。',
   shareCancelled:
     '未开始翻译：没有选择共享内容，或共享授权被拒绝。请再次点击“开始”，在弹窗中选择标签页或整个屏幕，打开共享音频后点击“分享”。',

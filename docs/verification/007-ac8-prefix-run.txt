@@ -1,0 +1,38 @@
+第 7 版第 1 批（S20）· AC-8 / IR-003 修复前运行记录
+====================================================
+
+运行对象：修复前提交 d2089bc 的生产代码。
+  - 工作区只新增或修改了测试文件：tests/e2e/stall.spec.ts、tests/e2e/speechStall.ts，以及
+    tests/e2e/fixtures.ts（播放器可使用测试拼接的素材）和 tests/support/tts.ts（可选的句间间隔）。
+    dist/ 由 `npm run build` 从该提交的生产代码构建，src/ 下没有任何改动。
+运行时间：2026-11-24 06:57:37–06:59:08（UTC）。
+命令：npm run build && xvfb-run -a --server-args="-screen 0 1920x1080x24" npx playwright test tests/e2e/stall.spec.ts -g "识别器静默停止" --reporter=list
+依赖：真实 dev 语音实例（识别、合成）和大模型实例。凭据只从注入的环境变量读取。本记录不含任何凭据、识别原文或译文内容。
+受控触发：浏览器内的 WebSocket 包装（tests/e2e/speechStall.ts）。测试调用 window.__rtmtTest.stallRecognizer() 后，
+  当时已打开的语音识别连接不再把服务端下发的消息交给 SDK。连接不报错、不关闭，音频照常上送。
+  这与 IR-003 的现象一致：页面看到的是“声音还在送，结果不再回来”。
+素材：tests/fixtures/sentences.en.json 的 meeting 组（句间 2 秒），后接约 240 秒的持续有声段。
+  持续有声段由 meeting、multi、long、interference、single 各句无间隔拼接而成，并去掉每句首尾的静音。
+  触发时机：持续有声段开始约 3 秒后，在刚观察到一次字幕更新之后。
+
+Playwright list 报告摘要
+------------------------
+Running 1 test using 1 worker
+  ✘  1 tests/e2e/stall.spec.ts:128:3 › IR-003 系统声音：语音识别停滞 › 识别器静默停止：持续有声音时不超过 30 秒转为“出错”并提示重新开始；重新开始后恢复 (1.5m)
+  1 failed
+
+失败断言：
+  tests/e2e/stall.spec.ts:155  await expect(statusText(page)).toHaveText(ERROR, { timeout: STALL_WAIT_MS })
+  Error: expect(locator).toHaveText(expected) failed
+    Locator: getByRole('status')
+    Expected pattern: /出错/
+    Received string:  "正在听"
+    Timeout: 50000ms
+    104 × locator resolved to <strong id="status" role="status" aria-live="polite">正在听</strong>
+
+结论
+----
+1. 用例在修复前按预期失败于“状态在触发后转为出错”这一断言：触发后 50 秒内，状态一直是“正在听”。
+   这满足 AC-8 的“修复前失败”要求。
+2. 这复现了 IR-003 的现象：识别器静默停止后，系统声音模式没有任何检测，页面持续显示“正在听”，
+   也没有提示用户重新开始。

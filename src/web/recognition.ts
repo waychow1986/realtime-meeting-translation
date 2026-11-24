@@ -74,8 +74,10 @@ export async function fetchSpeechToken(signal?: AbortSignal): Promise<SpeechToke
 export interface RecognitionHandlers {
   onRecognizing(text: string, language: string | undefined): void;
   onRecognized(text: string, language: string | undefined): void;
-  /** Recognition can no longer continue (connection lost, invalid token, quota...). */
+  /** Recognition can no longer continue (connection lost, invalid token, quota...): an error cancellation. */
   onFailure(errorCode: string): void;
+  /** The recognition session ended without an error (TD-704); the caller decides what that means for the run. */
+  onSessionEnded(cause: 'session_stopped' | 'end_of_stream'): void;
 }
 
 export interface RecognitionSession {
@@ -103,6 +105,9 @@ export function createRecognitionSession(
   config.authorizationToken = token.token;
   config.setProperty(PropertyId.SpeechServiceConnection_LanguageIdMode, 'Continuous');
   config.setProperty(PropertyId.Speech_SegmentationSilenceTimeoutMs, String(token.segmentationSilenceMs));
+  // The SDK otherwise paces audio sending with a timer worker loaded from a data: URL; the page CSP
+  // (`script-src 'self'`) blocks it, and the send loop then dies silently (observed after long silences).
+  config.setProperty(PropertyId.WebWorkerLoadType, 'off');
   config.outputFormat = OutputFormat.Simple;
   const lid = AutoDetectSourceLanguageConfig.fromLanguages(token.candidateLanguages);
   const audio = AudioConfig.fromStreamInput(stream);
@@ -119,12 +124,13 @@ export function createRecognitionSession(
     handlers.onRecognized(text, detectedLanguage(event.result));
   };
   recognizer.canceled = (_sender, event) => {
-    if (disposed || event.reason !== CancellationReason.Error) return;
-    handlers.onFailure(String(event.errorCode));
+    if (disposed) return;
+    if (event.reason === CancellationReason.Error) handlers.onFailure(String(event.errorCode));
+    else if (event.reason === CancellationReason.EndOfStream) handlers.onSessionEnded('end_of_stream');
   };
   recognizer.sessionStopped = () => {
     if (disposed) return;
-    handlers.onFailure('session_stopped');
+    handlers.onSessionEnded('session_stopped');
   };
 
   return {

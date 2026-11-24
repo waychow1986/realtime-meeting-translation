@@ -15,6 +15,7 @@ import {
   openMicrophone,
   type RecognitionSession,
 } from './recognition.js';
+import { StallWatchdog } from './stallWatchdog.js';
 import { detectSupport } from './support.js';
 import { renderSupportMatrix } from './supportMatrix.js';
 import { requestTranslation, withInputSource } from './translateClient.js';
@@ -22,7 +23,7 @@ import { STATE_ICONS, controlsFor, isNearBottom } from './uiState.js';
 
 const TOKEN_RETRY_MS = 30_000;
 
-type StopReason = 'user' | 'share-ended' | 'error' | 'unload';
+type StopReason = 'user' | 'share-ended' | 'error' | 'stalled' | 'unload';
 
 interface Run {
   epoch: number;
@@ -32,6 +33,8 @@ interface Run {
   session?: RecognitionSession;
   refreshTimer?: ReturnType<typeof setTimeout>;
   tokenAbort: AbortController;
+  /** System audio only: detects that recognition silently stopped (IR-003, TD-702). */
+  watchdog?: StallWatchdog;
 }
 
 function requireElement<T extends HTMLElement>(id: string, type: { new (): T }): T {
@@ -140,12 +143,14 @@ function init(): void {
     const current = run;
     if (!current) return;
     run = null;
+    current.watchdog?.stop();
     pipeline.endRun();
     current.audio?.release();
     current.tokenAbort.abort();
     if (current.refreshTimer !== undefined) clearTimeout(current.refreshTimer);
-    setState(reason === 'error' ? 'error' : 'stopped');
+    setState(reason === 'error' || reason === 'stalled' ? 'error' : 'stopped');
     if (reason === 'error') showNotice(MESSAGES.interrupted);
+    else if (reason === 'stalled') showNotice(MESSAGES.stalled);
     else if (reason === 'share-ended') showNotice(MESSAGES.shareEnded, 'info');
     void current.session?.dispose();
   };
@@ -226,18 +231,48 @@ function init(): void {
       const token = await fetchSpeechToken(current.tokenAbort.signal);
       if (run !== current) return;
       const epoch = current.epoch;
+      const noteResult = (text: string): void => {
+        if (run === current && text.trim() !== '') current.watchdog?.noteResult();
+      };
       current.session = createRecognitionSession(audio.stream, token, {
-        onRecognizing: (text, language) => pipeline.handleRecognizing(epoch, text, language),
-        onRecognized: (text, language) => pipeline.handleRecognized(epoch, text, language),
+        onRecognizing: (text, language) => {
+          noteResult(text);
+          pipeline.handleRecognizing(epoch, text, language);
+        },
+        onRecognized: (text, language) => {
+          noteResult(text);
+          pipeline.handleRecognized(epoch, text, language);
+        },
         onFailure: (errorCode) => {
           if (run !== current) return;
           console.debug('speech recognition stopped', errorCode);
           stopRun('error');
         },
+        onSessionEnded: (cause) => {
+          if (run !== current) return;
+          if (current.watchdog) {
+            current.watchdog.noteSessionEnded();
+          } else if (cause === 'session_stopped') {
+            // Microphone runs (and a system run not yet listening) keep the previous behaviour.
+            console.debug('speech recognition stopped', cause);
+            stopRun('error');
+          }
+        },
       });
       await current.session.start();
       if (run !== current) return;
       setState('running');
+      if (current.source === 'system' && audio.monitor) {
+        current.watchdog = new StallWatchdog({
+          monitor: audio.monitor,
+          onStall: (cause) => {
+            if (run !== current) return;
+            console.debug('speech recognition stalled', cause);
+            stopRun('stalled');
+          },
+        });
+        current.watchdog.start();
+      }
       scheduleTokenRefresh(current, token.refreshAfterSeconds * 1000);
     } catch (error) {
       if (run !== current) return;

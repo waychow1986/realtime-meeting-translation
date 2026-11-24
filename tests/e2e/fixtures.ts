@@ -48,6 +48,8 @@ export interface Harness {
    * prepended so playback can already run before the share starts (material time zero = playingAt + leadInMs).
    */
   openPlayer(set: SentenceSetName, leadInMs?: number): Promise<Page>;
+  /** Same as {@link openPlayer}, but plays a WAV the test composed itself (e.g. speech, long silence, speech). */
+  openPlayerWav(wav: () => Promise<Buffer>): Promise<Page>;
 }
 
 interface Options {
@@ -254,17 +256,27 @@ export const test = base.extend<Options & { harness: Harness; serverLogMark: voi
     };
     context.on('page', observe);
     const page = await context.newPage();
-    const openPlayerTab = async (set: SentenceSetName, leadInMs = 0) => {
-      await routePlayer(context, playerTitle(testInfo.workerIndex), async () => {
-        const pcm = pcmOf(await readFile(await ensureSpeechWav(set)));
-        // 16 kHz mono 16-bit: 32 bytes of silence per millisecond.
-        return wavFromPcm(Buffer.concat([Buffer.alloc(Math.round(leadInMs) * 32), pcm]));
-      });
+    const openPlayerWav = async (wav: () => Promise<Buffer>) => {
+      await routePlayer(context, playerTitle(testInfo.workerIndex), wav);
       const player = await openPlayer(context);
       await page.bringToFront();
       return player;
     };
-    await use({ browser, context, page, frames, newPage: () => context.newPage(), openPlayer: openPlayerTab });
+    const openPlayerTab = (set: SentenceSetName, leadInMs = 0) =>
+      openPlayerWav(async () => {
+        const pcm = pcmOf(await readFile(await ensureSpeechWav(set)));
+        // 16 kHz mono 16-bit: 32 bytes of silence per millisecond.
+        return wavFromPcm(Buffer.concat([Buffer.alloc(Math.round(leadInMs) * 32), pcm]));
+      });
+    await use({
+      browser,
+      context,
+      page,
+      frames,
+      newPage: () => context.newPage(),
+      openPlayer: openPlayerTab,
+      openPlayerWav,
+    });
     await browser.close();
   },
 });
