@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S20",
+  "result": "done",
+  "summary": "分支上原本没有系统现状文件，已按发布后的代码新建 .ai-delivery/system-current.md，内容包括技术栈、模块、命令、依赖与配置、接口、数据模型、浏览器端行为、安全与日志、部署、测试和约定，每条都注明出处；本交付带来的变化都已写入，包括“字幕显示”弹出面板、紧凑/标准/宽松三档行距的取值、rtmt.captionSpacing 本机保存以及字幕小窗同步行距；没有改动其他文件。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/system-current.md"
+  ]
+}
