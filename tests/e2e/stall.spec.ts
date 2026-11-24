@@ -8,6 +8,7 @@ import { MESSAGES } from '../../src/web/messages.js';
 import { ensureSpeechAudio, pcmOf, readWav, wavFromPcm, type SentenceSetName } from '../support/tts.js';
 import {
   ERROR,
+  NOT_RUNNING,
   RUNNING,
   STATUS_LOG,
   captionTexts,
@@ -22,7 +23,8 @@ import {
   waitForFinalCaptions,
   type Harness,
 } from './fixtures.js';
-import { installSpeechStall, stallRecognizer } from './speechStall.js';
+import { breakAudioChain, installSpeechStall, stallRecognizer, type AudioChainFault } from './speechStall.js';
+import { TRANSLATION_FAILURE_SCRIPT, failFinalTranslations, failedFinals } from './translationOverride.js';
 
 const BYTES_PER_MS = 32; // 16 kHz mono 16-bit
 const STALL_LIMIT_MS = 30_000;
@@ -78,6 +80,8 @@ interface Segment {
 interface Material {
   /** Epoch ms at which each segment starts playing. */
   segmentStarts: number[];
+  /** The shared material player tab. */
+  player: Page;
 }
 
 /** Plays the composed material in the player tab and starts the page in 系统声音 mode. */
@@ -100,7 +104,7 @@ async function startWithMaterial(harness: Harness, segments: Segment[]): Promise
     segmentStarts.push(offset);
     offset += pcm.length / BYTES_PER_MS;
   }
-  return { segmentStarts };
+  return { segmentStarts, player };
 }
 
 async function finalCount(page: Page): Promise<number> {
@@ -299,5 +303,188 @@ test.describe('IR-003 系统声音：翻译主页面在后台', () => {
     expect(await leftRunningAt(page, runningSince)).toBeNull();
     await expect(statusText(page)).toHaveText(RUNNING);
     await expect(page.locator('#notice')).toBeHidden();
+  });
+});
+
+const QUIET_AFTER_END_MS = 35_000;
+
+async function nonEmptyFinals(page: Page): Promise<string[]> {
+  return (await captionTexts(page, 'final')).filter((text) => text.trim());
+}
+
+/** Waits for a caption change of the running page, so the chain is known to carry sound right now. */
+async function waitForCaptionChange(page: Page): Promise<void> {
+  const snapshot = () => page.locator('#captions li.caption').evaluateAll((items) => items.map((li) => li.textContent).join('|'));
+  const initial = await snapshot();
+  await expect.poll(snapshot, { intervals: [100], timeout: 30_000 }).not.toBe(initial);
+}
+
+/**
+ * AC-2: within 30 s of `triggeredAt` the page left “正在听” for “出错” with the stall notice; the run is over (开始
+ * enabled, 停止 disabled) and the captions shown at the trigger are kept.
+ */
+async function expectStalled(page: Page, triggeredAt: number, captionsAtTrigger: string[]): Promise<void> {
+  await expect(statusText(page)).toHaveText(ERROR, { timeout: STALL_WAIT_MS });
+  const left = await leftRunningAt(page, triggeredAt);
+  expect(left, 'status timeline after the trigger').not.toBeNull();
+  expect(left!.status).toMatch(ERROR);
+  expect(left!.at - triggeredAt).toBeLessThanOrEqual(STALL_LIMIT_MS);
+  await expect(page.locator('#notice')).toHaveText(MESSAGES.stalled);
+  await expect(page.locator('#notice')).toHaveAttribute('data-kind', 'error');
+  await expect(startButton(page)).toBeEnabled();
+  await expect(stopButton(page)).toBeDisabled();
+  expect((await nonEmptyFinals(page)).slice(0, captionsAtTrigger.length)).toEqual(captionsAtTrigger);
+}
+
+/** 开始 again (the share picker re-selects the player tab) and wait until a new final caption arrives. */
+async function restart(page: Page): Promise<void> {
+  const before = await finalCount(page);
+  await page.bringToFront();
+  await startButton(page).click();
+  await expect(statusText(page)).toHaveText(RUNNING, { timeout: 15_000 });
+  await expect(page.locator('#notice')).toBeHidden();
+  await expect.poll(() => finalCount(page), { timeout: 90_000 }).toBeGreaterThan(before);
+}
+
+/**
+ * AC-7: from `since` on, for 35 s, every status/notice change keeps the expected end state and the stall notice
+ * never appears; the page still shows that state afterwards.
+ */
+async function expectEndStateKept(page: Page, since: number, status: RegExp, notice: string): Promise<void> {
+  await waitUntil(since + QUIET_AFTER_END_MS);
+  const entries = (await statusLog(page)).filter((entry) => entry.at >= since);
+  for (const entry of entries) {
+    expect(entry.status).toMatch(status);
+    expect(entry.notice).toBe(notice);
+  }
+  await expect(statusText(page)).toHaveText(status);
+  if (notice) await expect(page.locator('#notice')).toHaveText(notice);
+  else await expect(page.locator('#notice')).toBeHidden();
+}
+
+test.describe('IR-003 系统声音：混音链路中断（AC-2）', () => {
+  test('有声音时混音链路被挂起、关闭或输出轨道停止：各自在 30 秒内转为“出错”并提示重新开始，字幕小窗同步', async ({
+    harness,
+  }) => {
+    test.setTimeout(420_000);
+    const { page } = harness;
+    await installSpeechStall(page);
+    await page.addInitScript({ content: STATUS_LOG });
+    await page.goto('/');
+
+    await startWithMaterial(harness, [{ pcm: () => normalSpeech('meeting') }, { pcm: () => continuousSpeech(300_000) }]);
+    await waitForFinalCaptions(page, 1);
+    await page.locator('#pip-button').click();
+    await expect.poll(() => pipStatus(page)).toMatch(RUNNING);
+
+    const faults: AudioChainFault[] = ['suspend', 'close', 'stop-track'];
+    for (const [i, fault] of faults.entries()) {
+      await test.step(fault, async () => {
+        if (i > 0) await restart(page);
+        await waitForCaptionChange(page);
+        const triggeredAt = await breakAudioChain(page, fault);
+        const captionsAtTrigger = await nonEmptyFinals(page);
+        await expectStalled(page, triggeredAt, captionsAtTrigger);
+        await expect.poll(() => pipStatus(page)).toMatch(ERROR);
+      });
+    }
+  });
+
+  test('静音期间混音链路被挂起：同样在 30 秒内转为“出错”并提示重新开始', async ({ harness }) => {
+    test.setTimeout(240_000);
+    const { page } = harness;
+    await installSpeechStall(page);
+    await page.addInitScript({ content: STATUS_LOG });
+    await page.goto('/');
+
+    const { segmentStarts } = await startWithMaterial(harness, [
+      { pcm: () => normalSpeech('meeting') },
+      { pcm: async () => silencePcm(45_000) },
+      { pcm: () => normalSpeech('multi') },
+    ]);
+    await waitForFinalCaptions(page, 1);
+
+    await waitUntil(segmentStarts[1]! + 5_000);
+    const triggeredAt = await breakAudioChain(page, 'suspend');
+    const captionsAtTrigger = await nonEmptyFinals(page);
+    await expectStalled(page, triggeredAt, captionsAtTrigger);
+    // Detected while the material was still silent.
+    expect((await leftRunningAt(page, triggeredAt))!.at).toBeLessThan(segmentStarts[2]!);
+  });
+});
+
+test.describe('IR-003 系统声音：既有结束路径不变（AC-7）', () => {
+  test('点击停止与关闭被共享的标签页：各自照旧结束，之后 35 秒内不出现停滞提示', async ({ harness }) => {
+    test.setTimeout(300_000);
+    const { page } = harness;
+    await page.addInitScript({ content: STATUS_LOG });
+    await page.goto('/');
+
+    const { player } = await startWithMaterial(harness, [{ pcm: () => continuousSpeech(240_000) }]);
+    await waitForFinalCaptions(page, 1);
+
+    await test.step('停止', async () => {
+      await stopButton(page).click();
+      await expect(statusText(page)).toHaveText(NOT_RUNNING, { timeout: 3_000 });
+      await expect(page.locator('#notice')).toBeHidden();
+      await expectEndStateKept(page, Date.now(), NOT_RUNNING, '');
+    });
+
+    await test.step('关闭被共享的标签页', async () => {
+      await restart(page);
+      await player.close();
+      await expect(statusText(page)).toHaveText(NOT_RUNNING, { timeout: 5_000 });
+      await expect(page.locator('#notice')).toHaveText(MESSAGES.shareEnded);
+      await expectEndStateKept(page, Date.now(), NOT_RUNNING, MESSAGES.shareEnded);
+    });
+  });
+
+  test('单句翻译被拒绝只丢弃该句、继续“正在听”；连续 3 句翻译不可用照旧“出错”并提示翻译已中断；均不出现停滞提示', async ({
+    harness,
+  }) => {
+    test.setTimeout(360_000);
+    const { page } = harness;
+    await page.addInitScript({ content: TRANSLATION_FAILURE_SCRIPT });
+    await page.addInitScript({ content: STATUS_LOG });
+    await page.goto('/');
+
+    const sets: SentenceSetName[] = ['meeting', 'multi', 'long', 'single'];
+    await startWithMaterial(harness, [
+      {
+        pcm: async () => {
+          const groups: Buffer[] = [];
+          let bytes = 0;
+          for (let i = 0; bytes < 200_000 * BYTES_PER_MS; i += 1) {
+            const group = Buffer.concat([await normalSpeech(sets[i % sets.length]!), silencePcm(2_000)]);
+            groups.push(group);
+            bytes += group.length;
+          }
+          return Buffer.concat(groups);
+        },
+      },
+    ]);
+    const runningSince = Date.now();
+    await waitForFinalCaptions(page, 1);
+
+    await test.step('upstream_rejected 一句', async () => {
+      await failFinalTranslations(page, 'upstream_rejected', 1);
+      await expect.poll(async () => (await failedFinals(page)).length, { timeout: 60_000 }).toBe(1);
+      const rejectedAt = (await failedFinals(page))[0]!.at;
+      const afterRejection = await finalCount(page);
+      await waitUntil(rejectedAt + QUIET_AFTER_END_MS);
+      expect(await leftRunningAt(page, runningSince)).toBeNull();
+      await expect(statusText(page)).toHaveText(RUNNING);
+      await expect(page.locator('#notice')).toBeHidden();
+      // Later sentences are still translated.
+      expect(await finalCount(page)).toBeGreaterThan(afterRejection);
+    });
+
+    await test.step('连续 3 句 upstream_unavailable', async () => {
+      await failFinalTranslations(page, 'upstream_unavailable', 3);
+      await expect(statusText(page)).toHaveText(ERROR, { timeout: 90_000 });
+      expect((await failedFinals(page)).filter((f) => f.code === 'upstream_unavailable')).toHaveLength(3);
+      await expect(page.locator('#notice')).toHaveText(MESSAGES.interrupted);
+      await expectEndStateKept(page, Date.now(), ERROR, MESSAGES.interrupted);
+    });
   });
 });

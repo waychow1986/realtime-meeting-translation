@@ -76,6 +76,11 @@ npm run test:e2e                    # 构建后用 Playwright 运行端到端测
 - 已知限制：上下文启用 Playwright 路由（系统声音的播放器标签页）后，字幕小窗的样式表在测试中不生效，所以提示样式与小窗一致性的用例（IQA-305/307）用麦克风输入。
 - 集成测试 `tests/integration/translationChinese.int.test.ts`（TD-311）：向真实模型发送韩语、日语句子（含片段和误标为 zh-CN 的句子），只统计非中文的条数。
 
+语音识别停滞检测（IR-003，设计见 `.ai-delivery/features/007-v1/design.md`）：
+
+- 行为：仅系统声音模式。运行中由 `src/web/stallWatchdog.ts` 每秒检查一次（另在混音 AudioContext 状态变化时立即检查），出现以下任一情况即结束本次运行，页面与字幕小窗显示“出错”，提示“翻译已中断：语音识别已停止输出结果……”，已有字幕保留，可直接点击“开始”重新共享：识别会话意外结束；混音链路中断（AudioContext 不在运行，或送给识别器的混音输出轨道已结束，静音时同样检测）；混音有声音（RMS ≥ −50 dBFS）累计 30 秒仍没有任何识别结果（静音暂停计时、不清零）。停止、共享结束、翻译不可用等既有结束路径不变，结束后不会再出现停滞提示。麦克风模式不启用该检测。
+- 测试：单元测试见 `tests/unit/stallWatchdog.test.ts`、`tests/unit/displayAudio.test.ts`（`npm test`）。端到端测试见 `tests/e2e/stall.spec.ts`，走真实服务，故障在浏览器中注入，生产代码没有测试开关：`tests/e2e/speechStall.ts` 包装 `WebSocket`，按需截住语音服务（`AIDH_DEP_SPEECH_STT_HOST`）的下行消息来模拟识别器静默停止；同一文件记录页面创建的混音 AudioContext 及其输出轨道，`breakAudioChain` 用来挂起、关闭它或停止输出轨道（AC-2）；`tests/e2e/translationOverride.ts` 的 `TRANSLATION_FAILURE_SCRIPT` 在运行中让接下来若干句的定稿翻译返回 `upstream_rejected` 或 `upstream_unavailable`（AC-7）。单独运行：`npm run build && xvfb-run -a --server-args="-screen 0 1920x1080x24" npx playwright test tests/e2e/stall.spec.ts -g "AC-2"`（约 1.5 分钟；`-g "AC-7"` 约 4 分钟；整个文件约 18 分钟，含 5 分钟不误报用例）。
+
 ## 日志
 
 日志为 JSON 行（pino），只输出白名单字段，取值逐项校验，不合格的字段直接丢弃；从不记录识别原文、译文、令牌或密钥。

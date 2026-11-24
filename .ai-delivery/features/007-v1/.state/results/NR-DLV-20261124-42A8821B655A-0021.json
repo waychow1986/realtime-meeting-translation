@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S22",
+  "result": "done",
+  "summary": "批次 2（AC-2、AC-7）：生产逻辑（health/onChange、audio-chain）已在批次 1 实现，本批补端到端测试与 README；实际运行：lint、typecheck、build 通过，快速测试 npm test 251 项全部通过（约 5 秒）；本批新写的 4 个端到端用例单独运行全部通过——AC-2 有声音时挂起/关闭/停止输出轨道（约 33 秒）、AC-2 静音期间挂起（约 40 秒）、AC-7 停止与关闭共享标签页各 35 秒无停滞提示（约 2.3 分钟）、AC-7 单句 upstream_rejected 与连续 3 句 upstream_unavailable（约 1.9 分钟）；另做变异检查：临时去掉看门狗的 audio-chain 判定后两个 AC-2 用例均失败（约 2.3 分钟，已恢复源码并重新构建）；既有端到端整套（npm run test:e2e）与集成测试未在会话中运行，交给平台的开发者检查与 G3 独立测试。",
+  "asks": [],
+  "outputs": [
+    "tests/e2e/stall.spec.ts",
+    "tests/e2e/speechStall.ts",
+    "tests/e2e/translationOverride.ts",
+    "README.md"
+  ]
+}
