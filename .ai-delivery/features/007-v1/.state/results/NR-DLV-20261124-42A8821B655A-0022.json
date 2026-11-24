@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S23",
+  "result": "done",
+  "summary": "第 2 批（AC-2、AC-7）代码审查：混音链中断判定与已有结束路径的实现符合技术方案，两条验收标准都有实现改坏时会失败的测试；这是最后一批，测试计划中引用的两项开发者检查（TS-04、TS-17）也逐项核对过，仍然有效。没有阻断问题，另记 1 条观察项。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/007-v1/.state/results/NR-DLV-20261124-42A8821B655A-0022.json"
+  ],
+  "review": {
+    "mode": "code-review",
+    "conclusion": "本批覆盖 AC-2（混音链被挂起或中断时转为“出错”并提示）和 AC-7（已有结束路径不变）。相关的产品代码在第 1 批已经写好：displayAudio.ts 的混音链监视、stallWatchdog.ts 的 audio-chain 判定，以及 main.ts 中各种结束原因的处理。本批只新增端到端用例和测试用的初始化脚本（speechStall.ts 中的 breakAudioChain，translationOverride.ts 中运行时注入翻译失败的脚本），另外更新了 README。所以这次既审了本批的改动，也按 AC-2、AC-7 重新读了它们依赖的产品代码。\n\n产品代码与技术方案一致。混音 AudioContext 不在 running 状态，或者送给识别器的混音输出轨道已经结束，都判为 broken。看门狗每秒检查一次，AudioContext 发生 statechange 时也会立即检查，静音期间同样有效。判定只触发一次，之后结束本次运行，显示“出错”和停滞提示，字幕小窗经现有的状态同步也显示“出错”。stopRun 先把 run 置空并停止看门狗，然后才释放音频，所以停止、共享结束、翻译连续失败这几条结束路径都不会再触发停滞提示。release() 关闭 AudioContext 时引起的 statechange，因为订阅已经先取消，也不会再判定一次。麦克风模式没有监视器，不会创建看门狗。没有新增日志，不涉及识别文本或凭据：测试从注入的环境变量读取语音服务主机，README 只写了变量名。持续集成、部署脚本和基础设施定义都没有改动。\n\n验收标准与测试的核对结果：\n- AC-2：单元测试 tests/unit/displayAudio.test.ts 的“health is ok only while the context runs and the mixed output track is live”断言 AudioContext 变为 suspended、或者输出轨道变为 ended 时判为 broken；“onChange reports context state changes…”断言 statechange 能通知到、取消订阅后不再通知。tests/unit/stallWatchdog.test.ts 的两个“音频链路异常”用例断言静音时也以 audio-chain 触发，并且 statechange 回调会立即检查。去掉状态判断或轨道判断，或者不在 statechange 时检查，这些测试都会失败。端到端测试 tests/e2e/stall.spec.ts 新增了两个用例。有声音时的用例对同一次会话依次挂起 AudioContext、关闭 AudioContext、停止输出轨道，每次都断言 30 秒内转为“出错”、提示是停滞提示、“开始”可用、“停止”不可用、字幕保留、小窗显示“出错”，然后重新开始，回到“正在听”并出现新的定稿字幕。静音期间挂起的用例断言判定发生在声音恢复之前。挂起或关闭后电平读数和静音一样，所以去掉 audio-chain 判定后这两个用例会失败；编码记录的变异检查也看到了这个结果。\n- AC-7：端到端新增两个用例。第一个点击“停止”后断言状态是“已停止”、没有提示，再重新开始，关闭被共享的标签页后断言显示“共享已结束”提示；两种情况在之后 35 秒内状态和提示都不变，也不出现停滞提示。第二个让单独一句翻译被内容过滤拒绝，断言运行一直是“正在听”、没有提示、后面的句子继续出定稿；再让连续 3 句翻译不可用，断言转为“出错”，提示是原来的“翻译已中断”，之后 35 秒内没有被停滞提示替换。“只丢弃被拒绝的那一句”这项既有行为，由 tests/unit/captionPipeline.test.ts 中 upstream_rejected 的既有用例证明。麦克风模式（测试计划 TS-16）不会创建看门狗，tests/unit/displayAudio.test.ts 的“a microphone input has no monitor”和既有的麦克风端到端用例都保留着。\n\n开发者检查：这是最后一批，测试计划中引用开发者检查的场景逐项核对过。TS-04（AC-1 的 SDK 事件路径）引用 npm test 中的 tests/unit/recognition.test.ts 和 tests/unit/stallWatchdog.test.ts。TS-17（AC-8 复现测试）引用 npm run test:e2e 中的“识别器静默停止”用例，以及 docs/verification/007-ac8-prefix-run.txt。runtime/deployment.json 声明了这两条命令。上述测试文件和用例本批没有改动，第 1 批审查已确认它们在实现改坏时会失败，现在仍然成立。技术方案可测性约定中声明的其他开发者命令都没有变化。\n\n没有阻断问题。观察项 1 条：AC-2 端到端用例的判定时限是 30 秒，没有用技术方案端到端设计中写的 5 秒。",
+    "items": [],
+    "findings": [
+      {
+        "ownerStep": "S22",
+        "blocking": false,
+        "text": "（观察项）位置：tests/e2e/stall.spec.ts 新增的 AC-2 用例，经 expectStalled 断言状态在触发后不超过 30 秒离开“正在听”。技术方案的端到端用例设计写的是混音链挂起时“5 s 内状态‘出错’”，实现也会在 1 秒内判定。现在用 30 秒做上限符合 AC-2 的文字，但对“停止输出轨道”这一种情况区分力不够：如果以后有人去掉对输出轨道 readyState 的检查，混音电平仍然有声音，识别器收不到音频，看门狗会在大约 30 秒后改以“有声音无结果”触发，端到端可能在临界值附近偶尔通过。这项判断目前由单元测试 displayAudio.test.ts 中“输出轨道为 ended 时判为 broken”的断言把关，所以不作为阻断问题；建议把端到端的时限收紧到技术方案写的 5 秒，让端到端也能直接区分 audio-chain 和 no-results 两种判定。"
+      }
+    ]
+  }
+}
