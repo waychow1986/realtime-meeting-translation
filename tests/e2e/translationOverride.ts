@@ -123,3 +123,49 @@ export async function overrideTranslations(context: BrowserContext, rules: Overr
 export function translationCalls(page: Page): Promise<TranslationCall[]> {
   return page.evaluate<TranslationCall[]>('(window.__rtmtTranslations || []).slice()');
 }
+
+export type InjectedFailureCode = 'upstream_rejected' | 'upstream_unavailable';
+
+/**
+ * Runtime-armed translation failures (IR-003 AC-7): `window.__rtmtTest.failFinals(code, sentences)` makes the final
+ * translation of the next `sentences` distinct sentences end with an NDJSON `error` line of `code` — every request
+ * of such a sentence, including the client's retry. Partial requests and all other sentences go to the real service.
+ * `window.__rtmtTest.failedFinals()` lists `{ at, code }` of the sentences failed so far.
+ */
+export const TRANSLATION_FAILURE_SCRIPT = `(() => {
+  const test = (window.__rtmtTest = window.__rtmtTest || {});
+  let armed = null;
+  const failed = new Map();
+  const log = [];
+  test.failFinals = (code, sentences) => { armed = { code, left: sentences }; };
+  test.failedFinals = () => log.slice();
+  const original = window.fetch.bind(window);
+  window.fetch = async (input, init) => {
+    const url = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
+    if (!/\\/api\\/translations$/.test(new URL(url, location.href).pathname) || !init || typeof init.body !== 'string') {
+      return original(input, init);
+    }
+    let body;
+    try { body = JSON.parse(init.body); } catch { return original(input, init); }
+    if (body.kind !== 'final') return original(input, init);
+    let code = failed.get(body.text);
+    if (!code && armed && armed.left > 0) {
+      code = armed.code;
+      armed.left -= 1;
+      failed.set(body.text, code);
+      log.push({ at: Date.now(), code });
+    }
+    if (!code) return original(input, init);
+    const line = JSON.stringify({ type: 'error', code }) + '\\n';
+    return new Response(line, { status: 200, headers: { 'Content-Type': 'application/x-ndjson' } });
+  };
+})();`;
+
+/** Arms the failure of the next `sentences` final translations; returns the arming time (epoch ms). */
+export function failFinalTranslations(page: Page, code: InjectedFailureCode, sentences: number): Promise<number> {
+  return page.evaluate<number>(`(window.__rtmtTest.failFinals(${JSON.stringify(code)}, ${sentences}), Date.now())`);
+}
+
+export function failedFinals(page: Page): Promise<{ at: number; code: InjectedFailureCode }[]> {
+  return page.evaluate('window.__rtmtTest.failedFinals()');
+}

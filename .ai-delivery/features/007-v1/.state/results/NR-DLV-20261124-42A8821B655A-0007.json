@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S7",
+  "result": "done",
+  "summary": "按技术负责人对 OD-1 的回答修订 IR-003 技术方案：AC-1 在独立测试中以“识别器静默停止”（有声音、拦截语音服务入站消息）场景判定，SDK 非错误结束事件路径以单元测试 recognition.test.ts 与 stallWatchdog.test.ts 为证据、G4 由人确认，产品不加测试开关；该证据方式同步写入当前技术基线的可测性约定，其余方案（仅浏览器端看门狗、依赖与部署声明不变）保持。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/007-v1/design.md",
+    ".ai-delivery/features/007-v1/runtime/deployment.json",
+    "docs/deployment.json"
+  ]
+}

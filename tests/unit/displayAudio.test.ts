@@ -14,6 +14,7 @@ import {
 class FakeTrack implements TrackLike {
   readonly listeners: (() => void)[] = [];
   stopped = false;
+  readyState: 'live' | 'ended' = 'live';
   constructor(readonly kind: 'audio' | 'video') {}
   stop(): void {
     this.stopped = true;
@@ -56,12 +57,35 @@ class FakeNode implements AudioNodeLike {
   }
 }
 
+class FakeAnalyser extends FakeNode {
+  fftSize = 2048;
+  level = 0;
+  getFloatTimeDomainData(array: Float32Array): void {
+    array.fill(this.level);
+  }
+}
+
 class FakeContext implements AudioContextLike<FakeStream> {
   readonly destination = new FakeNode('speakers');
   readonly nodes: FakeNode[] = [];
+  readonly stateListeners = new Set<() => void>();
+  state = 'running';
   sourceInput?: FakeStream;
   resumed = false;
   closed = false;
+  createAnalyser(): FakeAnalyser {
+    return this.add(new FakeAnalyser('analyser')) as FakeAnalyser;
+  }
+  addEventListener(_type: 'statechange', listener: () => void): void {
+    this.stateListeners.add(listener);
+  }
+  removeEventListener(_type: 'statechange', listener: () => void): void {
+    this.stateListeners.delete(listener);
+  }
+  setState(state: string): void {
+    this.state = state;
+    this.stateListeners.forEach((listener) => listener());
+  }
   async resume(): Promise<void> {
     this.resumed = true;
   }
@@ -160,9 +184,11 @@ describe('requestDisplayAudio', () => {
 
     expect(h.ctx.sourceInput?.getTracks()).toEqual([audio]);
     expect(shared.getVideoTracks).not.toHaveBeenCalled();
-    const [source, gain, mono] = h.ctx.nodes as [FakeNode, FakeNode, FakeNode];
+    const [source, gain, mono, analyser] = h.ctx.nodes as [FakeNode, FakeNode, FakeNode, FakeNode];
     expect(source.connections).toEqual([gain]);
-    expect(gain.connections).toEqual([mono]);
+    // The stall monitor's analyser (TD-703) is a bypass tap: it never feeds any output.
+    expect(gain.connections).toEqual([mono, analyser]);
+    expect(analyser.connections).toEqual([]);
     expect({ count: gain.channelCount, mode: gain.channelCountMode, interpretation: gain.channelInterpretation }).toEqual({
       count: 1,
       mode: 'explicit',
@@ -182,7 +208,7 @@ describe('requestDisplayAudio', () => {
     acquired.release();
     acquired.release();
     expect(tracks.every((t) => t.stopped)).toBe(true);
-    expect(h.ctx.nodes.slice(0, 2).every((node) => node.disconnected)).toBe(true);
+    expect(h.ctx.nodes.filter((node) => node.name !== 'mono').every((node) => node.disconnected)).toBe(true);
     expect(h.ctx.closed).toBe(true);
     tracks[1]?.end();
     expect(onEnded).not.toHaveBeenCalled();
@@ -226,6 +252,64 @@ describe('requestDisplayAudio', () => {
     });
     await expect(requestDisplayAudio(failed.deps, () => undefined)).rejects.toMatchObject({ kind: 'share-failed' });
     expect(failed.ctx.closed).toBe(true);
+  });
+});
+
+describe('AudioChainMonitor of a system-audio share (TD-703)', () => {
+  async function shared() {
+    const h = harness(async () => new FakeStream([new FakeTrack('video'), new FakeTrack('audio')]));
+    const acquired = await requestDisplayAudio(h.deps, () => undefined);
+    const analyser = h.ctx.nodes.find((node) => node.name === 'analyser') as FakeAnalyser;
+    const mono = h.ctx.nodes.find((node) => node.name === 'mono') as FakeNode;
+    return { h, acquired, monitor: acquired.monitor!, analyser, monoTrack: mono.stream!.tracks[0]! };
+  }
+
+  it('reads the level over a ~0.7 s window of the mixed audio', async () => {
+    const { analyser } = await shared();
+    expect(analyser.fftSize).toBe(32768);
+  });
+
+  it.each([
+    [0, false],
+    [0.001, false], // −60 dBFS
+    [0.01, true], // −40 dBFS
+  ])('isVoiced at RMS %s is %s (threshold −50 dBFS)', async (level, voiced) => {
+    const { monitor, analyser } = await shared();
+    analyser.level = level;
+    expect(monitor.isVoiced()).toBe(voiced);
+  });
+
+  it('health is ok only while the context runs and the mixed output track is live', async () => {
+    const { h, monitor, monoTrack } = await shared();
+    expect(monitor.health()).toBe('ok');
+    h.ctx.state = 'suspended';
+    expect(monitor.health()).toBe('broken');
+    h.ctx.state = 'running';
+    monoTrack.readyState = 'ended';
+    expect(monitor.health()).toBe('broken');
+  });
+
+  it('onChange reports context state changes until unsubscribed or released', async () => {
+    const { h, acquired, monitor } = await shared();
+    const first = vi.fn();
+    const second = vi.fn();
+    const unsubscribe = monitor.onChange(first);
+    monitor.onChange(second);
+    h.ctx.setState('suspended');
+    expect(first).toHaveBeenCalledTimes(1);
+    unsubscribe();
+    h.ctx.setState('running');
+    expect(first).toHaveBeenCalledTimes(1);
+    expect(second).toHaveBeenCalledTimes(2);
+    acquired.release();
+    h.ctx.setState('closed');
+    expect(second).toHaveBeenCalledTimes(2);
+    expect(h.ctx.stateListeners.size).toBe(0);
+  });
+
+  it('a microphone input has no monitor', async () => {
+    const acquired = await acquireMicrophone(async () => new FakeStream([new FakeTrack('audio')]));
+    expect(acquired.monitor).toBeUndefined();
   });
 });
 

@@ -1,4 +1,4 @@
-import type { AcquiredAudio, StreamLike, TrackLike } from './audioSource.js';
+import type { AcquiredAudio, AudioChainMonitor, StreamLike, TrackLike } from './audioSource.js';
 
 /**
  * getDisplayMedia options (TD-102). Video is requested only because browsers require it; it is never read,
@@ -55,14 +55,28 @@ export interface DestinationNodeLike<S> extends AudioNodeLike {
   readonly stream: S;
 }
 
-/** Structural subset of `AudioContext` used for the downmix (TD-106). */
+export interface AnalyserNodeLike extends AudioNodeLike {
+  fftSize: number;
+  getFloatTimeDomainData(array: Float32Array<ArrayBuffer>): void;
+}
+
+/** Structural subset of `AudioContext` used for the downmix (TD-106) and the stall monitor (TD-703). */
 export interface AudioContextLike<S> {
+  readonly state: string;
   resume(): Promise<void>;
   close(): Promise<void>;
   createMediaStreamSource(stream: S): AudioNodeLike;
   createGain(): GainNodeLike;
   createMediaStreamDestination(): DestinationNodeLike<S>;
+  createAnalyser(): AnalyserNodeLike;
+  addEventListener(type: 'statechange', listener: () => void): void;
+  removeEventListener(type: 'statechange', listener: () => void): void;
 }
+
+/** −50 dBFS: at or above this RMS the shared audio counts as "有声音" for the stall watchdog (TD-703). */
+export const VOICE_RMS_THRESHOLD = 0.00316;
+/** ~0.68 s at 48 kHz. */
+export const ANALYSER_FFT_SIZE = 32768;
 
 export interface DisplayAudioDeps<S extends StreamLike> {
   getDisplayMedia(options: DisplayOptions): Promise<S>;
@@ -125,15 +139,49 @@ export function requestDisplayAudio<S extends StreamLike>(
       destination.channelCount = 1;
       source.connect(gain);
       gain.connect(destination);
+      // Bypass tap for the stall monitor (TD-703): reads the mixed level, feeds no output.
+      const analyser = ctx.createAnalyser();
+      analyser.fftSize = ANALYSER_FFT_SIZE;
+      gain.connect(analyser);
+      const samples = new Float32Array(analyser.fftSize);
+      const outputTracks = destination.stream.getAudioTracks();
+      const stateListeners = new Set<() => void>();
+
+      const monitor: AudioChainMonitor = {
+        health: () =>
+          ctx.state === 'running' && outputTracks.length > 0 && outputTracks.every((track) => track.readyState === 'live')
+            ? 'ok'
+            : 'broken',
+        isVoiced: () => {
+          analyser.getFloatTimeDomainData(samples);
+          let sum = 0;
+          for (const sample of samples) sum += sample * sample;
+          return Math.sqrt(sum / samples.length) >= VOICE_RMS_THRESHOLD;
+        },
+        onChange: (listener) => {
+          if (released) return () => undefined;
+          const wrapped = () => listener();
+          stateListeners.add(wrapped);
+          ctx.addEventListener('statechange', wrapped);
+          return () => {
+            if (!stateListeners.delete(wrapped)) return;
+            ctx.removeEventListener('statechange', wrapped);
+          };
+        },
+      };
 
       return {
         stream: destination.stream,
+        monitor,
         release: () => {
           if (released) return;
           released = true;
+          stateListeners.forEach((listener) => ctx.removeEventListener('statechange', listener));
+          stateListeners.clear();
           stopAll(shared);
           source.disconnect();
           gain.disconnect();
+          analyser.disconnect();
           closeQuietly(ctx);
         },
       };

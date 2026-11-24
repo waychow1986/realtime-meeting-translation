@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S20",
+  "result": "done",
+  "summary": "第 1 批（AC-1、AC-3、AC-4、AC-5、AC-6、AC-8）已按技术方案实现：混音链 analyser 监视（TD-701）、StallWatchdog（TD-702）、recognition.ts 区分错误取消与会话结束（TD-704）、main.ts 停滞时转为“出错”并显示 MESSAGES.stalled、可重新开始；另为满足 AC-5/FR-12“静音后继续出字幕”，在 recognition.ts 关闭 SDK 的 data: URL 计时 Worker（WebWorkerLoadType=off，该 Worker 被页面 CSP script-src 'self' 拦截，长静音后 SDK 发送循环静默中断；有单元测试先失败后通过，并经 e2e 证实），既有 displayAudio 单元测试中 gain 的连接断言按设计的 analyser 旁路改为 [mono, analyser]，系统声音模式下看门狗建立前的会话结束沿用原有按出错处理（技术细节，自行决定）；实际运行的测试：复现用例（AC-8，tests/e2e/stall.spec.ts 第一个用例）修改前运行一次失败（状态 50 秒内一直为“正在听”，约 1.5 分钟，记录于 docs/verification/007-ac8-prefix-run.txt）、修改后通过（1.7 分钟）；新写单元测试（stallWatchdog、recognition、displayAudio 新增部分）实现前 9 项失败、实现后通过，全部快速测试 247 项通过（约 5 秒），lint、typecheck、build 通过；新写的 3 个端到端用例（停滞复现与重新开始、45 秒静音不误报、5 分钟持续不误报）整体运行一次全部通过（8.2 分钟，其中静音用例在加入 CSP 修复前失败一次）；既有端到端整套与长时间回归未在会话中运行，交给平台的开发者检查，验收标准由 G3 独立测试验证。",
+  "asks": [],
+  "outputs": [
+    "src/web/audioSource.ts",
+    "src/web/displayAudio.ts",
+    "src/web/stallWatchdog.ts",
+    "src/web/recognition.ts",
+    "src/web/main.ts",
+    "src/web/messages.ts",
+    "tests/unit/stallWatchdog.test.ts",
+    "tests/unit/recognition.test.ts",
+    "tests/unit/displayAudio.test.ts",
+    "tests/e2e/speechStall.ts",
+    "tests/e2e/stall.spec.ts",
+    "tests/e2e/fixtures.ts",
+    "tests/support/tts.ts",
+    "docs/verification/007-ac8-prefix-run.txt"
+  ]
+}

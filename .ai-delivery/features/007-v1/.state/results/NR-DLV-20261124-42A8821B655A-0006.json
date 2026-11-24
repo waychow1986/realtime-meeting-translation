@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S7",
+  "result": "needs-answer",
+  "summary": "写出 IR-003 技术方案（全量技术基线 + 本次方案）：仅改浏览器端，在系统声音混音链上旁路 AnalyserNode 并监视 AudioContext 状态与输出轨道，新增 StallWatchdog 在识别会话非错误结束、混音链挂起或中断、有声音累计 30 秒无识别结果时以“出错 + 停滞提示”结束运行，麦克风与既有停止路径不变；服务端、依赖与错误日志规则不变；以实验 E-1 与 SDK 1.53.0 源码为证据。AC-1 的验收证据方式需技术负责人决定（OD-1）。",
+  "asks": [
+    {
+      "kind": "decide",
+      "category": "technical",
+      "question": "AC-1（识别会话以非错误原因结束）的验收证据方式如何确定？Speech SDK 1.53.0 只有在其内部音频源结束时才发出 canceled(EndOfStream) / sessionStopped（源码 ServiceRecognizerBase.js:705-724），页面外（包括测试初始化脚本）无法按需制造，R1 又不允许产品中加测试开关。方案对这两个事件都立即判定停滞（TD-703），逻辑由单元测试证明；端到端与独立测试能制造的是它的可观察后果——识别会话不再产生结果且不报错（拦截语音 WebSocket 入站消息），该场景在有声音时 30 秒内提示（与 AC-3 相同路径），静音期间不提示。详见 design.md 开放决策 OD-1。",
+      "recommended": "AC-1 在独立测试中以“识别器静默停止”场景（共享内容持续有声音，拦截语音服务入站消息）执行并判定，SDK 事件路径（EndOfStream / sessionStopped → 出错 + 停滞提示）以候选验证中运行的单元测试 tests/unit/recognition.test.ts 与 tests/unit/stallWatchdog.test.ts 为证据；独立测试在报告中注明这一证据来源，G4 时由人确认。",
+      "alternatives": [
+        "AC-1 在独立测试中记为 unverifiable（测试缺口），证据只取候选验证中的单元测试，G4 时由人确认。",
+        "要求独立测试另找能真实触发 SDK 非错误结束事件的方法（目前没有已知可行方法，可能导致 AC-1 无法完成验收）。"
+      ]
+    }
+  ],
+  "outputs": [
+    ".ai-delivery/features/007-v1/design.md",
+    ".ai-delivery/features/007-v1/runtime/deployment.json",
+    "docs/deployment.json"
+  ]
+}

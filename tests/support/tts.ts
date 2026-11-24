@@ -184,17 +184,18 @@ async function writeAtomic(file: string, data: Buffer | string): Promise<void> {
 /**
  * Synthesizes each sentence of the set with the real Speech TTS service and concatenates them
  * (16 kHz mono PCM: 1 s leading silence, 2 s between sentences, 4 s trailing silence). The WAV and the
- * per-sentence start/end times are cached in the system temp directory.
+ * per-sentence start/end times are cached in the system temp directory. `gapMs` replaces the 2 s between
+ * sentences (0 gives one continuous speech segment, used by the stall tests).
  */
-export async function ensureSpeechAudio(set: SentenceSetName): Promise<SpeechAudio> {
+export async function ensureSpeechAudio(set: SentenceSetName, gapMs = SENTENCE_GAP_MS): Promise<SpeechAudio> {
   const { fixture, data } = setOf(set);
   const ssmls = data.sentences.map((sentence) => buildSentenceSsml(fixture.voice, fixture.locale, sentence));
   const digest = createHash('sha256')
-    .update(JSON.stringify([ssmls, LEADING_SILENCE_MS, SENTENCE_GAP_MS, TRAILING_SILENCE_MS]))
+    .update(JSON.stringify([ssmls, LEADING_SILENCE_MS, gapMs, TRAILING_SILENCE_MS]))
     .digest('hex')
     .slice(0, 16);
   const dir = path.join(os.tmpdir(), 'rtmt-tts-cache');
-  const file = path.join(dir, `${set}-${digest}.wav`);
+  const file = path.join(dir, gapMs === SENTENCE_GAP_MS ? `${set}-${digest}.wav` : `${set}-gap${gapMs}-${digest}.wav`);
   const timingsFile = `${file}.json`;
   if (existsSync(file) && existsSync(timingsFile)) {
     return JSON.parse(await readFile(timingsFile, 'utf8')) as SpeechAudio;
@@ -204,9 +205,9 @@ export async function ensureSpeechAudio(set: SentenceSetName): Promise<SpeechAud
   const timings: SentenceTiming[] = [];
   let cursorMs = LEADING_SILENCE_MS;
   for (const [index, ssml] of ssmls.entries()) {
-    if (index > 0) {
-      parts.push(silence(SENTENCE_GAP_MS));
-      cursorMs += SENTENCE_GAP_MS;
+    if (index > 0 && gapMs > 0) {
+      parts.push(silence(gapMs));
+      cursorMs += gapMs;
     }
     const pcm = pcmOf(await synthesize(ssml));
     parts.push(pcm);

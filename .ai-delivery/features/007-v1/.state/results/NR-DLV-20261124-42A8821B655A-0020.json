@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S21",
+  "result": "done",
+  "summary": "第 1 批复审：上一轮的阻断问题（关闭语音 SDK 的计时 Worker，主页面在后台时音频上送会被节流）已解决。修订改为让 SDK 的计时走同源 Worker，不放宽 CSP，并补了能在实现改坏时失败的单元测试和端到端测试；本轮改动没有引入新的阻断问题，另记 2 条观察项。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/007-v1/.state/results/NR-DLV-20261124-42A8821B655A-0020.json"
+  ],
+  "review": {
+    "mode": "code-review",
+    "conclusion": "这次是复审，只看上一轮的阻断问题和本轮的改动（recognition.ts、新增的 sdkTimers.ts 和 sdkTimerWorker.ts、构建脚本、对应的单元测试和端到端测试）。\n\n上一轮的阻断问题已解决。上一轮的问题是：recognition.ts 把 SDK 的计时 Worker 关掉，音频上送改用主线程定时器，翻译主页面在后台时会被节流。修订删掉了这项设置，SDK 用回自己设计的 Worker 计时方式；SDK 原来从 data:/blob: 地址加载 Worker，会被页面 CSP 拦截，现在改成在创建识别器之前，把 SDK 的计时函数换成页面自己同源提供的 /sdk-timer-worker.js。这个脚本符合现有的 script-src 'self'，CSP 没有放宽。Worker 创建失败或报错时，已经排好的计时会按原定时间改到主线程执行，SDK 的上送不会卡住。计时函数在创建识别器之前替换，替换只做一次，几次运行共用一个 Worker。新文件由构建脚本生成到 dist/web，静态服务和 Dockerfile 都会带上它。持续集成、部署脚本和基础设施定义都没有改动；没有新增日志，也不涉及识别文本或凭据。\n\n测试核对：tests/unit/recognition.test.ts 断言这项配置不再是 off，并断言 SDK 的计时会发到 /sdk-timer-worker.js；把关闭 Worker 的设置加回去，或者去掉计时替换，这个测试都会失败。tests/unit/sdkTimers.test.ts 断言计时只由 Worker 触发、同一计时只回调一次、取消后不再回调，以及 Worker 出错或创建失败时按原定时间改到主线程。tests/e2e/stall.spec.ts 新增的“翻译主页面在后台”用例把主页面定时器按后台节流对齐，断言 45 秒静音前后都一直是“正在听”、静音后的语音及时出字幕、页面启动了 /sdk-timer-worker.js，而且没有违反 CSP。按编码的运行记录，这个用例在修复前失败、修复后通过。本批其他验收标准（AC-1、AC-3、AC-4、AC-5、AC-6、AC-8）对应的代码和测试本轮没有改动，上一轮已逐条核对过，都有实现改坏时会失败的测试；测试计划 TS-04 和 TS-17 引用的开发者检查也已核对过，本轮仍然有效。\n\n没有阻断问题。观察项有两条：技术方案还没有记下这个同源计时 Worker 的决定（这项改动对麦克风模式同样生效）；替换计时函数依赖打包时 SDK 和补丁引用的是同一份模块，这一点由新的端到端用例把关。",
+    "items": [],
+    "findings": [
+      {
+        "ownerStep": "S20",
+        "blocking": false,
+        "text": "（观察项）技术方案还没有记下“SDK 的计时改由同源 Worker /sdk-timer-worker.js 提供”这个实现决定：技术方案中静态资源仍然只列出 index.html、app.js 和 styles.css，也没有说明这项改动对麦克风模式同样生效。修复前，麦克风模式下 SDK 的 Worker 被 CSP 拦截；现在两种模式都改用能正常工作的 Worker，出错时退回主线程。这个变化是让行为恢复到 SDK 原本的设计，没有发现会破坏功能需求 FR-17 所说麦克风行为的情况，但建议在技术方案中补上这个决定和它对麦克风模式的影响，方便以后维护时核对。"
+      },
+      {
+        "ownerStep": "S20",
+        "blocking": false,
+        "text": "（观察项）src/web/sdkTimers.ts 第 1 行从 SDK 包内部路径 distrib/lib/src/common/Timeout.js 引入并替换 Timeout 的计时函数。这只有在打包后，SDK 主入口用的也是同一份 Timeout 模块时才生效；本环境没有安装依赖，审查时没能读 SDK 的源码确认这一点。如果升级 SDK 或修改打包配置后主入口改用另一份构建，替换会悄悄失效，SDK 又会回到被 CSP 拦截的 Worker。现在 tests/e2e/stall.spec.ts 的“翻译主页面在后台”用例断言页面启动了 /sdk-timer-worker.js，一旦失效，这个用例就会失败，所以不作为阻断问题；升级 SDK 时请注意这个依赖内部路径的地方。"
+      }
+    ]
+  }
+}

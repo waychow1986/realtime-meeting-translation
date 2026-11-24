@@ -1,0 +1,111 @@
+{
+ "schemaVersion": 1,
+ "stepId": "S9",
+ "result": "done",
+ "summary": "细化计划：完整档，AC-1～AC-8 分两批编码，每批之后各有一次代码审查。第 1 批是复现测试、直接原因与修复（约 72 分钟），第 2 批是混音链挂起检测与既有结束路径回归（约 37 分钟）。按实际步骤数重新核算预算，会话数调为 20 次、时长调为 10 小时。",
+ "asks": [],
+ "outputs": [],
+ "plan": {
+  "schemaVersion": 1,
+  "steps": [
+   {
+    "id": "C1",
+    "capability": "code",
+    "zone": "build",
+    "dependsOn": [],
+    "batch": 1
+   },
+   {
+    "id": "R1",
+    "capability": "review",
+    "zone": "build",
+    "dependsOn": [
+     "C1"
+    ],
+    "batch": 1
+   },
+   {
+    "id": "C2",
+    "capability": "code",
+    "zone": "build",
+    "dependsOn": [
+     "R1"
+    ],
+    "batch": 2
+   },
+   {
+    "id": "R2",
+    "capability": "review",
+    "zone": "build",
+    "dependsOn": [
+     "C2"
+    ],
+    "batch": 2
+   }
+  ],
+  "omitted": [
+   {
+    "capability": "spec",
+    "reason": "spec.md 已写成并覆盖 AC-1～AC-8；G2 第 1 轮没有退回规格，I1 决定规格不变。"
+   },
+   {
+    "capability": "solution",
+    "reason": "design.md 已按 G2 退回意见修订（补 Edge 证据与 H-2、对齐 30 秒时限），本次没有需要重做的方案内容。"
+   },
+   {
+    "capability": "plan",
+    "reason": "本步骤就是最后一个技术方案之后的细化计划，G2 之前不需要再计划一次。"
+   }
+  ],
+  "batches": [
+   {
+    "n": 1,
+    "criteria": [
+     "AC-1",
+     "AC-3",
+     "AC-4",
+     "AC-5",
+     "AC-6",
+     "AC-8"
+    ]
+   },
+   {
+    "n": 2,
+    "criteria": [
+     "AC-2",
+     "AC-7"
+    ]
+   }
+  ],
+  "factors": [
+   {
+    "name": "change-size",
+    "lean": "medium",
+    "basis": "只改浏览器端：新增 stallWatchdog.ts，修改 displayAudio.ts、audioSource.ts、recognition.ts、main.ts、messages.ts；另有 3 个单元测试文件、1 个端到端用例文件与受控触发脚本，约 6～7 个端到端用例。"
+   },
+   {
+    "name": "modules",
+    "lean": "light",
+    "basis": "只涉及 src/web 一个模块；服务端、依赖、部署与日志规则都不变（TD-708）。"
+   },
+   {
+    "name": "new-or-first",
+    "lean": "light",
+    "basis": "已有项目的第 7 号交付，技术基线第 2 版与部署声明都已存在，不是接管后的首个交付。"
+   },
+   {
+    "name": "risk",
+    "lean": "medium",
+    "basis": "没有数据迁移，也不涉及凭据。风险在于误报会打断正常使用（AC-5、AC-6），既有结束路径可能被改写（AC-7）；另有宪章约束：不记录识别文本或翻译内容。"
+   }
+  ],
+  "tier": "full",
+  "budget": {
+   "revisions": 4,
+   "sessions": 20,
+   "hours": 10.0
+  },
+  "items": [],
+  "reason": "【档位】四项依据合起来只支持标准档：改动规模中等，只涉及一个模块，不是首个交付，风险中等。tierFloor 是 full，所以给完整档，每批编码之后都安排一次代码审查。\n\n【缺陷修复的分批】需求原文是问题报告 IR-003，按缺陷修复处理。AC-1～AC-8（含 R2 的小窗状态同步、R3 补进 AC-7 的翻译连续失败、R4 对 AC-5 的限定）都属于“消除报告的问题加防止复发的最小措施”。Q-2 自动恢复、Q-3 麦克风模式、Q-4 长时间验收、Q-5 健康信号都已由人决定本次不纳入；g2Decisions 的 I1（三种停滞共用一条提示）、I2（TA-1）也已决定。所以没有附加功能批次，也没有意图以外的工作。批次先后遵守技术方案“技术先后依赖”的 4 条：\n（1）AC-8 复现用例与 tests/e2e/speechStall.ts 先于任何产品代码，单独提交，并在该提交上运行；\n（2）AudioChainMonitor 接口先于 StallWatchdog；\n（3）recognition.ts 的 onSessionEnded 与 main.ts 的处理在同一次改动中完成；\n（4）MESSAGES.stalled 先于引用它的端到端断言。\n\n【第 1 批：直接原因、复现测试与修复。AC-1、AC-3、AC-4、AC-5、AC-6、AC-8】按顺序：\n① 写 speechStall.ts（WebSocket 包装，以及第 2 批要用的 AudioContext 包装）、页面状态时间线辅助、tts 的无间隔拼接，以及 stall.spec.ts 中的“识别器静默停止”用例。只提交这些，在该提交上单独运行这条用例，确认失败于“状态仍为正在听”的断言，写入 docs/verification/007-ac8-prefix-run.txt（TD-707）。这次运行同时验证待验证假设 H-1；H-1 不成立时，按技术方案的后备做法处理。\n② displayAudio.ts 建旁路 Analyser，定义完整的 AudioChainMonitor 接口，实现 isVoiced（TD-701 的电平部分）。\n③ StallWatchdog：有声累计、no-results、session-ended，只触发一次，stop（TD-702）。\n④ recognition.ts 加 onSessionEnded；main.ts 接线：noteResult、stopRun('stalled')、MESSAGES.stalled，小窗状态经既有同步变为“出错”；麦克风模式不变（TD-703～TD-705）。\n⑤ 单元测试：stallWatchdog.test.ts、recognition.test.ts（测试计划 TS-04 引用的开发者检查，即 AC-1 SDK 事件路径的证据，按 OD-1 保持文件名与覆盖内容），以及 displayAudio.test.ts 中 isVoiced 的用例。\n⑥ 端到端用例：识别器静默停止（修复后通过，含重新开始 AC-4 与小窗状态，即 TS-17 引用的开发者检查）、静音不误报（AC-5）、连续 5 分钟不误报（AC-6，按 I2 的每 60 秒区间判定）。\n预计用时约 72 分钟：\n- 复现用例与受控触发脚本 13 分钟；\n- 修复前单独运行与留档 5 分钟；\n- 产品代码与单元测试 30 分钟；\n- lint、typecheck、build、npm test 多次运行 3 分钟；\n- 编写其余端到端用例 8 分钟；\n- 单独运行本批新写的端到端用例约 10 分钟：复现用例约 2.5 分钟，静音用例约 1.5 分钟，5 分钟连续用例约 6 分钟。\n另留约 10 分钟写结果，并应对 H-1 的后备做法，合计不超过 90 分钟。\n\n【第 2 批：混音链挂起检测与既有结束路径回归。AC-2、AC-7】\n① AudioChainMonitor 实现 health() 与 onChange()：看 ctx.state 与混音输出轨道的 readyState，订阅 statechange，release() 取消订阅（TD-701 的状态部分）。\n② StallWatchdog 加 audio-chain 判定，静音期间同样判定（FR-4、R4）。\n③ 在 displayAudio.test.ts、stallWatchdog.test.ts 中补对应用例。\n④ 端到端用例：\n- AC-2：混音链 suspend，有声期间与静音期间各一次；混音输出轨道 stop。\n- AC-7：关闭共享标签页、点“停止”、单句被内容过滤拒绝、翻译连续 3 句失败，都保持原有结果，之后 35 秒内不出现停滞提示。\n⑤ 在 README 中补充静默停滞检测的说明与测试方法。docs/deployment.json 归技术方案所有，编码不改。\n预计用时约 37 分钟：代码与单元测试 12 分钟，编写端到端用例 10 分钟，单独运行新用例约 6 分钟（混音链约 3 分钟，既有路径约 2.5 分钟），快速测试与构建 2 分钟，README 2 分钟，写结果 5 分钟。\n第 2 批排在第 1 批之后，依据技术依赖：它扩展第 1 批建立的 AudioChainMonitor 与 StallWatchdog；AC-7 的“停止后不再出现停滞提示”依赖 stopRun 停止看门狗这一结束方式。AC-2 与 AC-7 放在同一批，是因为 release() 关闭混音 ctx、共享轨道结束都会改变 health() 的判断，要一起验证“共享已结束”“已停止”不被改写成停滞提示（FR-9、FR-10）。这一点是本计划按技术关联作的推断，技术方案没有直接写明。\n\n【为什么两批】合成一批约 109 分钟（72 + 37），超出 90 分钟时限。第 1 批按依赖不宜再拆：复现测试、直接原因与修复要在同一批完成，才能取得“修复前失败、修复后通过”的证据。去掉任一批都会有验收标准无人实现：去掉第 2 批，AC-2 无人实现。\n\n【开发者检查的落点】测试计划引用的开发者检查：TS-04（AC-1）与 TS-17（AC-8）都在第 1 批实现，由第 1 批之后的代码审查核对。第 2 批若改动这些文件，由第 2 批之后的代码审查再核对（与 tasks-qa.md 第 2 节一致）。\n\n【不计入用时】npm run test:e2e 全量（约 45～55 分钟）、集成测试全量与全量回归由平台在准备测试环境时执行；独立测试的全部场景交 G3。待验证假设 H-2（Windows 11 上 Edge 的节能与睡眠标签页）由人在 Windows 11 设备上手动验证，建议在 G4 前完成，不排进编码批次。只有 H-2 失败、需要按后备做法改用 Worker 时钟时，才另需编码；届时按退回处理，现在不预排。\n\n【用时依据】各用例的单个用时取自技术方案“可测性约定”与端到端用例设计，都是估计；编码与编写用时也是本计划的估计。\n\n【预算】按 G2 退回意见，按实际步骤数重新核算：\n- 已用会话 11 次：意图 1、计划 2（含本次）、规格 1、技术方案 3、测试计划 3、首次计划 1。\n- 余下步骤 6 个：编码 2、代码审查 2、测试环境 1、测试脚本 1。\n- 另留约 3 次，给审查后返工与 G3、G4 可能的退回。\n会话数由 12 调为 20。时长：已用约 1 小时，余下按每次编码 1.0～1.5 小时、审查各 0.5 小时、测试环境约 1.5 小时（含平台全量端到端约 1 小时）、测试脚本约 1 小时、返工约 1.5 小时估算，合计约 7.5 小时，所以由 8 小时调为 10 小时。修订次数 4 不变。"
+ }
+}
