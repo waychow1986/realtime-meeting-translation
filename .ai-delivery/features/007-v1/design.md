@@ -1,7 +1,7 @@
 # 企业实时翻译 · 修复：系统声音模式识别静默停滞时页面仍显示“正在听”（IR-003）技术方案
 
 > 依据：已确认的意图第 2 版（AC-1～AC-8，含 Q-1～Q-5、R1～R4 的人工答案）、`spec.md`（FR-1～FR-19、假设 A-1～A-7）、项目宪章、技术基线第 2 版（本目录 `technical-baseline.md`，来源为交付 DLV-20261121-9919BA0E9588 的 `003-v1/design.md`；它是第 3 版的增量方案，沿用的第 1、2 版方案见 `.ai-delivery/features/001-v1/design.md`、`002-v1/design.md`）与仓库现有代码（提交 4a336c5）。
-> 本次 `g2Decisions` 为空，没有需要沿用的 G2 决定。技术负责人已回答本方案上一版提出的 OD-1（AC-1 的验收证据方式），采纳推荐方案，本版据此修订（见开放决策 OD-1）。
+> `g2Decisions`：I1（三种停滞共用同一条提示，不按原因区分）与本方案一致（TD-705 只有一条 `MESSAGES.stalled`）；I2（AC-6 的量化 TA-1）属于测试计划，本方案的端到端设计与之一致（“连续 5 分钟”用例按每 60 s 区间至少一条新定稿判定）。G2 第 1 轮退回意见（技术方案部分）本版逐条处理：① U-1 补充 Edge 的证据——Microsoft 官方文档（睡眠标签页的例外、强节流策略）与实验 E-2（Edge 158 中正在共享采集的后台页面定时器仍为每 1 s 一次，对照页面被强节流为每 60 s 一次）；文档与实验都覆盖不了的 Windows 11 上 Edge“节能（energy saver，原效率模式）”改为待验证假设 H-2，写明验证步骤与后备做法；② 把“判定略晚于 30 s”的几处表述（TD-702、看门狗计时、SLO、TD-707、端到端用例）改为与 30 s 时限对齐，并说明计时方式为什么能保证不晚于 30 s。范围不变。技术负责人此前对 OD-1（AC-1 的验收证据方式）的决定继续有效。
 > 本方案只决定“怎么做”，不改变已确认的产品行为。改动全部在浏览器端（`src/web/`），服务端、依赖、部署与日志规则不变。
 
 ## 当前技术基线
@@ -181,7 +181,7 @@
 
 **并行与隔离**：端到端 `workers: 1` 串行（共用一块 Xvfb 屏幕与依赖配额），每个 worker 在 `18180 + workerIndex` 端口启动构建产物，播放器标签页标题为 `RTMT-player-<workerIndex>`，服务日志写入 `test-results/server-logs/`，每个测试只读自己开始之后的日志（`readTestLog`）。集成测试在随机端口启动 `buildApp`，日志写入内存。应用无状态、依赖实例不保存数据，与其它使用同一 `dev` 实例的运行之间只共享配额与并发连接数。应用可在执行环境内的 `localhost` 启动（`npm run build && node dist/server/main.js`）。
 
-**已知测试限制**：Playwright 路由启用后字幕小窗样式表不生效（涉及小窗样式的用例用麦克风输入）；Playwright Firefox 中 SDK 的 blob AudioWorklet 被 CSP 拦截，端到端只覆盖 Chromium；小窗能否悬浮在全屏之上无法自动化证明（DD-101）；**【本次】** Speech SDK 1.53.0 的“识别会话以非错误原因结束”事件（`canceled` 且 `EndOfStream`、`sessionStopped`）只在 SDK 内部音频源结束时发出，无法从页面外按需触发；该路径由单元测试 `tests/unit/recognition.test.ts`、`tests/unit/stallWatchdog.test.ts` 证明，端到端与独立测试以“识别器静默停止”（拦截入站消息）验证其可观察结果（证据方式已由技术负责人决定，见下条与本次方案 OD-1）。
+**已知测试限制**：Playwright 路由启用后字幕小窗样式表不生效（涉及小窗样式的用例用麦克风输入）；Playwright Firefox 中 SDK 的 blob AudioWorklet 被 CSP 拦截，端到端只覆盖 Chromium；小窗能否悬浮在全屏之上无法自动化证明（DD-101）；**【本次】** Speech SDK 1.53.0 的“识别会话以非错误原因结束”事件（`canceled` 且 `EndOfStream`、`sessionStopped`）只在 SDK 内部音频源结束时发出，无法从页面外按需触发；该路径由单元测试 `tests/unit/recognition.test.ts`、`tests/unit/stallWatchdog.test.ts` 证明，端到端与独立测试以“识别器静默停止”（拦截入站消息）验证其可观察结果（证据方式已由技术负责人决定，见下条与本次方案 OD-1）。**【本次】** 自动化测试（候选验证与独立测试）只在 Linux 上的 Chromium 中运行，无法覆盖 Windows 11 上 Edge 的节能与睡眠标签页对后台页面定时器的影响；这一项由人在 Windows 11 设备上按本次方案 H-2 的步骤手动验证。
 
 **证据方式（已决定，沿用）**：AC-9（第 3 版，未预期异常仍记 error）在独立测试中记 `unverifiable`，证据为候选验证中运行的 `translationFailure.int.test.ts`（D-301）。**【本次】** 第 7 号交付 AC-1（识别会话以非错误原因结束）在独立测试中以“识别器静默停止”场景执行并判定：共享内容持续有声音，按“受控触发”拦截语音服务入站消息，判定 30 s 内转为“出错”并显示停滞提示；SDK 事件路径（`canceled`/`EndOfStream`、`sessionStopped` → 出错 + 停滞提示）以候选验证中运行的单元测试 `tests/unit/recognition.test.ts` 与 `tests/unit/stallWatchdog.test.ts` 为证据；独立测试报告须注明这一证据来源，G4 时由人确认。产品中不加测试开关（技术负责人对 OD-1 的决定）。
 
@@ -202,7 +202,7 @@
 
 | # | 不确定的事实 | 会影响的决定 | 结论 | 证据 |
 | --- | --- | --- | --- | --- |
-| U-1 | 翻译主页面通常在后台（用户停留在被共享的视频标签页），后台页面的定时器会被节流到什么程度？若被“强节流”（每分钟一次），1 s 检查会延迟到 1 分钟，超过 30 s 时限 | 检查时钟用主线程定时器还是 Worker / AudioWorklet | Chrome 的强节流只在“页面隐藏超过 5 分钟、静音 30 s、链式计数 ≥ 5、**且 WebRTC 未在使用**”时才生效，“WebRTC 在使用”的定义包含页面有处于 `live` 的 `MediaStreamTrack`；系统声音运行期间页面始终持有 `live` 的共享轨道，因此只受普通节流（每秒最多一次、对齐到整秒）。1 s 间隔的主线程定时器可用 | Chrome 官方文档 “Heavy throttling of chained JS timers beginning in Chrome 88”（developer.chrome.com/blog/timer-throttling-in-chrome-88，“WebRTC is not in use … a 'live' MediaStreamTrack”）；Edge 为 Chromium 内核 |
+| U-1 | 翻译主页面通常在后台（用户停留在被共享的视频标签页，报告环境为 Windows 11 上的 Microsoft Edge），后台页面的定时器会被节流或暂停到什么程度？若被“强节流”（每分钟一次）或页面被冻结（睡眠标签页），1 s 检查会延迟到 1 分钟甚至停止，超过 30 s 时限 | 检查时钟用主线程定时器还是 Worker 等其它时钟；是否需要后备做法 | **强节流**：Chrome 文档写明强节流只在“页面隐藏超过 5 分钟、静音 30 s、链式计数 ≥ 5、且 WebRTC 未在使用（含页面持有 `live` 的 `MediaStreamTrack`）”时生效；Edge 的策略文档写明 Edge 同样有该功能（后台标签页的 JavaScript 定时器在页面隐藏 5 分钟以上后每分钟最多运行一次），未配置策略时“由功能自身的内部逻辑控制”，并链接到 Chromium 的设计说明。实验 E-2 在 Edge 158 上直接观察到：持有 `live` 共享采集的隐藏页面，1 s 定时器的间隔始终为 1000 ms；同时隐藏、但没有采集的对照页面被强节流为 60000 ms。说明 Edge 保留了“采集中不强节流”的豁免。**睡眠标签页（页面冻结、暂停定时器）**：Edge 官方支持文档写明，“正在捕获窗口或屏幕”“正在播放音频”“正在采集用户媒体”的页面不会进入睡眠；节能（原效率模式）让后台标签页更早睡眠时，用的是同一套睡眠机制和同一个“始终保持这些站点处于活动状态”列表。**未被覆盖**：文档没有写明节能对“采集中”页面的定时器还有没有别的限制，也没有写明“捕获窗口或屏幕”是否包括本应用使用的标签页采集；E-2 在 Linux 上运行，无法开启 Windows 的节能。结论：1 s 主线程定时器可用（Chrome 文档、Edge 文档与 E-2）；“Windows 11 上 Edge 的节能与睡眠标签页不会推迟采集中页面的定时器”列为待验证假设 H-2，附验证步骤与后备做法（开放决策 H-2） | Chrome 文档 “Heavy throttling of chained JS timers beginning in Chrome 88”（developer.chrome.com/blog/timer-throttling-in-chrome-88）；Microsoft Learn “Microsoft Edge Browser Policy Documentation: IntensiveWakeUpThrottlingEnabled”（learn.microsoft.com/deployedge/microsoft-edge-policies/intensivewakeupthrottlingenabled，页面更新于 2026-11-03）；Microsoft 支持 “Learn about performance features in Microsoft Edge”（support.microsoft.com/topic/7b36f363-2119-448a-8de6-375cfd88ab25，“睡眠标签页”的例外列表与“节能”小节）；实验 E-2；待验证假设 H-2 |
 | U-2 | 混音用 `AudioContext` 被挂起后，混音输出轨道是否仍是 `live`、识别端是否会因此察觉？电平测量会读到什么？ | 是否必须显式检查 `AudioContext.state` | 挂起后输出轨道仍为 `live`、`muted=false`，Analyser 读数为 0（与静音无法区分）；`statechange` 事件依次给出 `suspended`、`running`、`closed`。因此只看电平会把挂起当作静音（AC-5 不提示），必须显式检查状态 | 实验 E-1 |
 | U-3 | `AnalyserNode` 旁路接在 Gain 上、不连接任何输出时，是否能读到共享音频电平 | 电平测量节点接在旁路还是串在链路中 | 能：播放 0.1 增益正弦波时 RMS ≈ 0.0707，静音时恰为 0，恢复后读数恢复 | 实验 E-1 |
 | U-4 | 对混音输出轨道调用 `stop()` 是否触发 `ended` 事件 | 混音链“中断”用事件还是轮询发现 | 不触发（W3C Media Capture 规范：`stop()` 不派发 `ended`），`readyState` 变为 `ended`；因此每次检查时轮询 `readyState` | W3C Media Capture and Streams §MediaStreamTrack.stop()；实验 E-1 复核 |
@@ -261,20 +261,20 @@
 要点：
 
 1. **只在页面内发现，不上报**：三种停滞都能由页面自己观察到（SDK 事件、混音链状态、电平 + 识别结果），不需要服务端参与，符合 FR-19 与 Q-5。
-2. **检查时钟用 1 s 主线程定时器，混音链挂起另用事件立即发现**：运行期间页面持有 `live` 的共享轨道，不受 Chrome 强节流（U-1）；`statechange` 事件不依赖定时器。
-3. **“有声音”按时间累计、静音暂停计时**：每次检查把距上次检查的时间（最多计 2 s）在“有声音”时累加，收到识别结果清零，静音期间不累加也不清零（规格 A-1）。
+2. **检查时钟用 1 s 主线程定时器，混音链挂起另用事件立即发现**：运行期间页面持有 `live` 的共享轨道，Chrome 与 Edge 都不会对它强节流，Edge 也不会让它进入睡眠（U-1、实验 E-2）；Windows 11 上 Edge 节能的影响为待验证假设 H-2（后备做法见开放决策）；`statechange` 事件不依赖定时器。
+3. **“有声音”按时间累计、静音暂停计时**：每次检查时，若“有声音”，就把距上次检查的时间累加进去（单次最多计 2 s，只在检查被推迟超过 1 s 时才起作用）；收到识别结果时清零累计，但不重置上次检查时刻；静音期间不累加也不清零（规格 A-1）。因此判定不会晚于“最近一次识别结果之后有声音累计满 30 s”的时刻（推导见“看门狗计时”）。
 
 ## 技术决策与替代方案
 
 | 决策 ID | 决定 | 理由 | 备选 | 证据 | 来源 |
 |---|---|---|---|---|---|
 | TD-701 | **混音链监视**：`requestDisplayAudio` 在建好 `source → gain → destination` 后，再建 `AnalyserNode`（`fftSize = 32768`，`smoothingTimeConstant` 不用），`gain.connect(analyser)`，analyser 不连接任何输出。返回的 `AcquiredAudio` 增加 `monitor: AudioChainMonitor`：`health()` —— `ctx.state === 'running'` 且混音输出轨道（`destination.stream.getAudioTracks()[0]`）`readyState === 'live'` 时为 `'ok'`，否则 `'broken'`；`isVoiced()` —— 取 `getFloatTimeDomainData` 的 RMS，≥ `VOICE_RMS_THRESHOLD = 0.00316`（−50 dBFS）为真；`onChange(listener)` —— 订阅 `ctx` 的 `statechange`，返回取消订阅函数。`release()` 额外断开 analyser 并取消全部订阅。`AudioContextLike` 增加 `state`、`createAnalyser()`、`addEventListener/removeEventListener('statechange')`，`TrackLike` 增加可选 `readyState`（保持 DOM 无关、可在 Node 下单元测试） | 挂起的混音链在电平上与静音无法区分，必须显式看状态（E-1）；`stop()` 不触发 `ended`，要看 `readyState`（U-4）；旁路 analyser 能读到电平且不改变送往识别的音频（E-1、U-3）；`fftSize` 取最大值使每次读数覆盖约 0.68～0.74 s 音频（48 / 44.1 kHz），1 s 一次的抽样能较好代表这一秒是否有声音；−50 dBFS 远高于数字静音（读数恰为 0，E-1）又远低于正常语音电平，符合“音量明显高于静音”（意图假设 4、规格 A-6） | ① AudioWorklet 在音频线程逐块累计有声样本（更精确，但要新增一个 worklet 脚本文件与构建入口；SDK 的 blob worklet 已有被 CSP 拦截的先例），不采用；② 把 analyser 串在链路中（没有必要，E-1 已证明旁路可读）；③ 只看电平不看状态（挂起会被当作静音，AC-2 无法满足） | 实验 E-1；U-2、U-3、U-4 | FR-2、FR-3、FR-4、FR-12；AC-2、AC-3、AC-5 |
-| TD-702 | **停滞判定 `StallWatchdog`**（新文件 `src/web/stallWatchdog.ts`）：构造参数 `{ monitor, onStall(cause), now?, setInterval?, clearInterval? }`；常量 `STALL_THRESHOLD_MS = 30_000`、`CHECK_INTERVAL_MS = 1_000`、`MAX_CREDIT_PER_CHECK_MS = 2_000`。`start()`：`voicedMs = 0`、`lastCheck = now()`，启动 1 s 定时检查并订阅 `monitor.onChange(check)`。`check()`：若 `monitor.health() === 'broken'` → `fire('audio-chain')`；否则 `dt = min(now() − lastCheck, 2000)`，`lastCheck = now()`，`monitor.isVoiced()` 为真时 `voicedMs += dt`；`voicedMs ≥ 30000` → `fire('no-results')`。`noteResult()`：`voicedMs = 0`。`noteSessionEnded()`：`fire('session-ended')`。`fire()` 只生效一次：先 `stop()`（清定时器、取消订阅）再调用 `onStall`。`stop()` 幂等 | 三种情况在一个地方判定，“先发生者为准、只触发一次”由类本身保证（FR-9）；静音不累计也不清零、识别结果清零，正是规格 A-1；单次最多计 2 s 是为了在定时器偶发延迟（例如浏览器忙）时不把一次抽样放大成长时间“有声音”，避免误报（AC-5、AC-6 优先），代价是延迟时判定略晚于 30 s；混音链挂起与会话结束不需要等 30 s，发现即判定，满足“不超过 30 秒”（FR-1、FR-2，A-7） | ① 混音链挂起后再等 30 s 才判定（规格只要求“不超过”，无收益，且延长用户看错状态的时间）；② 用“距最近识别结果的墙钟时间”（不区分静音，违反 Q-1 答案）；③ 在 Web Worker 里计时（U-1 已证明不需要） | U-1；规格 A-1、A-7 | FR-1～FR-4、FR-9、FR-12、FR-13；AC-1～AC-3、AC-5、AC-6 |
+| TD-702 | **停滞判定 `StallWatchdog`**（新文件 `src/web/stallWatchdog.ts`）：构造参数 `{ monitor, onStall(cause), now?, setInterval?, clearInterval? }`；常量 `STALL_THRESHOLD_MS = 30_000`、`CHECK_INTERVAL_MS = 1_000`、`MAX_CREDIT_PER_CHECK_MS = 2_000`。`start()`：`voicedMs = 0`、`lastCheck = now()`，启动 1 s 定时检查并订阅 `monitor.onChange(check)`。`check()`：若 `monitor.health() === 'broken'` → `fire('audio-chain')`；否则 `dt = min(now() − lastCheck, 2000)`，`lastCheck = now()`，`monitor.isVoiced()` 为真时 `voicedMs += dt`；`voicedMs ≥ 30000` → `fire('no-results')`。`noteResult()`：`voicedMs = 0`。`noteSessionEnded()`：`fire('session-ended')`。`fire()` 只生效一次：先 `stop()`（清定时器、取消订阅）再调用 `onStall`。`stop()` 幂等 | 三种情况在一个地方判定，“先发生者为准、只触发一次”由类本身保证（FR-9）；静音不累计也不清零、识别结果清零，正是规格 A-1；`noteResult()` 只清零 `voicedMs`、不重置 `lastCheck`：结果到达后的第一次检查会把结果之前那一小段（不足一个检查间隔）也计入，因此每次检查时 `voicedMs` 不小于自最近一次识别结果起的有声音时长，判定最迟在有声音累计满 30 s 的那一刻作出，不会晚于 30 s（推导与上下界见“看门狗计时”）。单次最多计 2 s 是为了在检查被推迟时，不把一次抽样放大成很长的“有声音”而误报（AC-5、AC-6）；这条上限只在两次检查相隔超过 2 s 时起作用，而采集中的页面检查间隔为 1000 ms（U-1、实验 E-2），所以正常运行中不会推迟判定；检查被推迟属于待验证假设 H-2 的失败情形，按 H-2 的后备做法处理。混音链挂起与会话结束不需要等 30 s，发现即判定，满足“不超过 30 秒”（FR-1、FR-2，A-7） | ① 混音链挂起后再等 30 s 才判定（规格只要求“不超过”，无收益，且延长用户看错状态的时间）；② 用“距最近识别结果的墙钟时间”（不区分静音，违反 Q-1 答案）；③ 在 Web Worker 里计时（U-1、E-2 表明不需要；保留为 H-2 失败时的后备做法）；④ 收到识别结果时同时重置 `lastCheck`（判定会落在结果后 30～31 s，超过 30 s 时限，不采用） | U-1、实验 E-2、待验证假设 H-2；规格 A-1、A-7 | FR-1～FR-4、FR-9、FR-12、FR-13；AC-1～AC-3、AC-5、AC-6 |
 | TD-703 | **识别会话事件**：`RecognitionHandlers` 增加 `onSessionEnded(cause: 'session_stopped' \| 'end_of_stream')`。`recognizer.canceled`：`reason === Error` → `onFailure(errorCode)`（不变）；`reason === EndOfStream` → `onSessionEnded('end_of_stream')`（原来直接忽略）。`recognizer.sessionStopped` → `onSessionEnded('session_stopped')`（原来是 `onFailure('session_stopped')`）。`disposed` 之后一律忽略（不变）。控制器（`main.ts`）中：**麦克风**运行 `session_stopped` → `stopRun('error')`（与修复前相同，提示 `interrupted`），`end_of_stream` → 忽略（与修复前相同）；**系统声音**运行（状态为正在听）两者都 → `watchdog.noteSessionEnded()` | 把“识别会话以非错误原因结束”作为独立事件交给控制器，系统声音按 FR-1 处理，麦克风保持原样（FR-17、Q-3）；`EndOfStream` 之后 SDK 会接着发出 `sessionStopped`（U-5），由 `fire()` 只生效一次与 `run !== current` 保证只处理一次 | 在 `recognition.ts` 内按输入方式分支（让识别模块知道输入方式，职责混乱）；继续让 `sessionStopped` 走 `onFailure`（系统声音会显示 `interrupted` 而不是规格要求的停滞提示） | U-5；`src/web/recognition.ts` 现状 | FR-1、FR-6、FR-17；AC-1 |
 | TD-704 | **识别结果计入**：控制器在把 `onRecognizing` / `onRecognized` 交给字幕管线之前，若 `text.trim() !== ''` 则 `watchdog?.noteResult()`。空文本（SDK 的 `NoMatch` 整句结果在 `recognition.ts` 中被转成空字符串）不计入 | 规格把“识别结果”定义为“识别中”或“整句”结果；没有文字的 `NoMatch` 不是用户能看到字幕的结果，按规格 A-6，纯音乐、音效累计 30 s 无文字结果应提示中断；把它算作结果会让 A-6 不成立 | 把 `NoMatch` 也算作结果（更不易误报，但与规格 A-6 不符） | `src/web/recognition.ts` `recognized` 处理；规格 A-6 | FR-3、FR-13；AC-3、AC-6 |
 | TD-705 | **停滞后的结束方式**：`StopReason` 增加 `'stalled'`。`StallWatchdog.onStall` → `if (run === current) stopRun('stalled')`。`stopRun`：既有步骤不变（`run = null`、`pipeline.endRun()`、`audio.release()`、令牌刷新停止、`session.dispose()`），另 `watchdog.stop()`；`setState('error')`，`showNotice(MESSAGES.stalled)`（`data-kind="error"`）。`MESSAGES.stalled = '翻译已中断：语音识别已停止输出结果。请点击“开始”并重新选择共享内容，重新开始翻译。'`。`console.debug('speech recognition stalled', cause)` 只记枚举原因。看门狗在 `setState('running')` 之后创建并 `start()`，保存在 `Run.watchdog`；任何其它结束原因经 `stopRun` 一并 `stop()` | 沿用页面现有“出错”结束方式（规格 FR-5、A-3）：按钮可用性、字幕保留（`endRun` 不清空字幕，FR-7）、释放共享（重新开始需重新选择共享内容，AC-4）、小窗状态经既有 `captionWindow.setState` 同步为“出错”（FR-8）；`audio.release()` 先置 `released` 再停止轨道，不会再触发“共享已结束”（FR-9、FR-10） | 新增状态名称（违反意图假设 1）；只改提示不结束运行（规格要求本次运行结束，A-3） | `src/web/main.ts` `stopRun`、`setState`；`src/web/pip.ts:56`；`src/web/displayAudio.ts` `release` | FR-5～FR-11、FR-14、FR-16；AC-1～AC-4、AC-7 |
 | TD-706 | **受控制造停滞（只在测试初始化脚本中）**：新文件 `tests/e2e/speechStall.ts` 导出两个初始化脚本。① `WebSocket` 包装：记录 URL 主机等于 STT 主机的连接；页面上下文中暴露 `window.__rtmtTest.stallRecognizer()`，调用后这些连接收到的消息不再派发给 SDK（拦截 `onmessage` 赋值与 `addEventListener('message')`），发送不受影响。② `AudioContext` 包装：子类化 `window.AudioContext` 并记录实例，`window.__rtmtTest.mixContext()` 返回第一个不带构造参数创建的实例（页面混音用），测试对其调用 `suspend()` / `close()`，或对记录下的该实例 `createMediaStreamDestination()` 结果的轨道调用 `stop()`。生产代码不加任何开关 | R1 已允许“只在浏览器中受控制造停滞、其余真实”；SDK 用全局 `WebSocket` 建连（U-6），拦截入站消息即可让识别器不报错地停止送出结果——这正是 IR-003 的现象，也是 AC-8 复现测试在修复前代码上能稳定失败的方式；`AudioContext` 包装能区分页面混音实例与 SDK 实例（SDK 以 `{ sampleRate: 16000 }` 创建，U-7） | Playwright `routeWebSocket`（会替换真实连接为路由处理器，且第 2 版已发现启用路由影响小窗样式，不采用）；在生产代码中加测试开关（R1 不允许） | U-6、U-7；SDK 源码出处见 U-6；第 3 版 TD-310 | AC-1～AC-3、AC-8；R1 |
-| TD-707 | **AC-8 复现测试与修复前运行记录**：`tests/e2e/stall.spec.ts` 中的“识别器静默停止”用例（系统声音，播放器播放连续英语素材）：等到出现第一条定稿中文字幕后调用 `stallRecognizer()`，断言在之后 45 s 内状态变为“出错”且提示为 `MESSAGES.stalled`（45 s = 30 s 有声音时长 + 句间 2 s 静音不计入 + 检查与节流余量）。编码先只提交这条用例与 `speechStall.ts`、不改产品代码，在该提交上运行这条用例，确认它失败于“状态仍为正在听”的断言，把 Playwright 列表报告摘要（用例名、失败断言、提交 SHA，不含任何依赖接入信息）写入 `docs/verification/007-ac8-prefix-run.txt`；修复后同一用例通过 | AC-8 要求修复前失败、修复后通过；沿用第 3 版 `docs/verification/003-ac4-prefix-run.txt` 的留档方式；测试只依赖公开 DOM 与初始化脚本，修复前后代码都能运行 | 只写单元测试（修复前不存在被测模块，无法证明“修复前失败”） | 第 3 版 `docs/verification/003-ac4-prefix-run.txt` | FR-18；AC-8 |
+| TD-707 | **AC-8 复现测试与修复前运行记录**：`tests/e2e/stall.spec.ts` 中的“识别器静默停止”用例（系统声音）：播放器素材为“普通英语句组（句间 2 s 间隔，用于产生第一条定稿）+ 至少 40 s 无句间间隔的持续语音段”（`tests/support/tts.ts` 增加句间间隔可设为 0 的拼接方式）；出现第一条定稿中文字幕且播放进入持续语音段后，调用 `stallRecognizer()` 并记录触发时刻；断言按页面内状态时间线，状态在触发后不超过 30 s 变为“出错”，提示为 `MESSAGES.stalled`（依据“看门狗计时”的推导：持续有声音时判定不晚于触发后 30 s；用例最多等 50 s 才判失败，多出的 20 s 只是测试的等待上限，不是产品时限）。编码先只提交这条用例与 `speechStall.ts`、不改产品代码，在该提交上运行这条用例，确认它失败于“状态仍为正在听”的断言，把 Playwright 列表报告摘要（用例名、失败断言、提交 SHA，不含任何依赖接入信息）写入 `docs/verification/007-ac8-prefix-run.txt`；修复后同一用例通过 | AC-8 要求修复前失败、修复后通过；沿用第 3 版 `docs/verification/003-ac4-prefix-run.txt` 的留档方式；测试只依赖公开 DOM 与初始化脚本，修复前后代码都能运行 | 只写单元测试（修复前不存在被测模块，无法证明“修复前失败”） | 第 3 版 `docs/verification/003-ac4-prefix-run.txt` | FR-18；AC-8 |
 | TD-708 | **部署与声明**：`docs/deployment.json` 只更新 `web` 的 `description`（加上“系统声音模式识别静默停滞时转为出错并提示”）；`errorLogRules` 不变（服务端日志写法不变）；`docs/dependencies.json` 不变；本 Feature 目录 `runtime/deployment.json` 与第 3 版相同 | 改动只在浏览器端，服务端行为、依赖与日志都没有变化 | — | `docs/deployment.json`、`docs/dependencies.json` 现状 | FR-19 |
 
 ## 技术先后依赖
@@ -387,7 +387,10 @@ stopRun(reason)：run = null → pipeline.endRun() → audio.release()（断开 
 
 - 只在状态为“正在听”期间存在；“正在启动…”期间不计时，重新开始时新建实例（FR-11 不继承计时）。
 - `voicedMs` 只在 `isVoiced()` 为真的检查中增加 `min(dt, 2000)`；静音检查不变（暂停）；`noteResult()` 清零。
-- 判定时刻：会话结束、混音链挂起 —— 事件到达即判定（挂起也会在下一次 1 s 检查时被发现）；混音输出轨道被 `stop()` —— 下一次检查（≤ 约 1 s，后台对齐到整秒）；有声音无结果 —— 有声音累计到 30 s 的那次检查（约 30～31 s 的有声音时长）。
+- 判定时刻：会话结束、混音链挂起 —— 事件到达即判定（挂起也会在下一次 1 s 检查时被发现）；混音输出轨道被 `stop()` —— 下一次检查（≤ 1 s）；有声音无结果 —— 见下面的推导，不晚于最近一次识别结果后有声音累计满 30 s。
+- “有声音”的测量方式：每次检查用 `isVoiced()` 的一次抽样（覆盖最近约 0.7 s）代表这一检查间隔是否有声音，测量分辨率为一个检查间隔（1 s）。规格的“有声音累计 30 s”按这一测量计算。
+- 为什么不晚于 30 s（对齐 Q-1 的 30 s 时限）：设检查时刻为 c₀ < c₁ < c₂ …（间隔 1000 ms，U-1、实验 E-2），最近一次识别结果在 r，c₀ ≤ r < c₁。`noteResult()` 在 r 把 `voicedMs` 清零，但 `lastCheck` 仍是 c₀，所以 c₁ 时计入的是整个 [c₀, c₁]，其中包含 r 之前不足 1 s 的一段。之后每个有声音的间隔都计入整个间隔。于是在任一检查时刻 cₖ，`voicedMs` ≥ [r, cₖ] 内有声音的时长。第一次满足 `voicedMs ≥ 30000` 的检查，就是判定时刻。有声音的时长每累计 1 s 就有一次检查，所以判定最迟发生在 r 之后有声音时长累计达到 30 s 的那一刻；因为多计了 r 之前的一段，也可能提前不到一个检查间隔（不早于有声音累计 29 s）。共享内容持续有声音时，判定落在 (r + 29 s, r + 30 s]。测试人为制造“识别器不再送出结果”的时刻 t 不早于 r，所以判定也不晚于 t + 30 s。
+- 前提：两次检查相隔不超过 2 s。超过时单次只计 2 s，判定可能晚于 30 s。采集中的页面在 Chrome 与 Edge 中检查间隔为 1000 ms（U-1、实验 E-2）；Windows 11 上 Edge 节能能否维持这一前提是待验证假设 H-2，失败时按 H-2 的后备做法更换时钟。
 
 ### 主页面与小窗
 
@@ -415,7 +418,7 @@ stopRun(reason)：run = null → pipeline.endRun() → audio.release()（断开 
 
 ## SLO、限制、扩缩容、重试与恢复
 
-- 唯一时限：判定时长 30 s（Q-1）。实现的判定延迟：会话结束、混音链挂起约 0～1 s；混音输出轨道中断 ≤ 约 1 s；有声音无结果为 30 s 有声音时长（+ ≤ 1 s 检查间隔）。
+- 唯一时限：判定时长 30 s（Q-1）。实现的判定时刻：会话结束、混音链挂起在 0～1 s 内；混音输出轨道中断不超过 1 s；有声音无结果不晚于最近一次识别结果后有声音累计满 30 s（持续有声音时为结果后 29～30 s，推导见“看门狗计时”）。全部不超过 30 s，前提是检查间隔不超过 2 s（U-1、实验 E-2；Windows 11 上 Edge 节能的情况见 H-2）。
 - 资源：每秒一次读取 32768 个浮点采样并求 RMS，主线程开销约为亚毫秒级；`AnalyserNode` 在音频线程的开销可忽略。
 - 不自动恢复（Q-2）：恢复方式是用户点“开始”重新共享。
 - 已知局限：见开放决策 OD-2（SDK 内部音频链）、OD-3（音量判定把纯音乐也算作“有声音”，规格 A-6 已接受）。
@@ -443,7 +446,7 @@ stopRun(reason)：run = null → pipeline.endRun() → audio.release()（断开 
 
 | 文件 | 覆盖 | 要点 |
 | --- | --- | --- |
-| `stallWatchdog.test.ts`（新） | FR-1～FR-4、FR-9、FR-11～FR-13 | 假 monitor + 注入时钟/定时器：持续有声音、无结果 → 第 30 s 的检查触发 `no-results`、29 s 时未触发；每 10 s 一次 `noteResult` → 120 s 内不触发；有声 20 s + 静音 60 s + 有声 10 s → 在累计 30 s 时触发（静音暂停不清零）；全程静音 10 分钟 → 不触发；`health` 变为 broken（静音期间也一样）→ 下一次检查或 `onChange` 回调时立即触发 `audio-chain`；`noteSessionEnded` → 立即触发 `session-ended`；连续两种原因 → `onStall` 只调用一次；定时器延迟 10 s 的一次检查只计 2 s；`stop()` 后不再触发且已取消订阅 |
+| `stallWatchdog.test.ts`（新） | FR-1～FR-4、FR-9、FR-11～FR-13 | 假 monitor + 注入时钟/定时器：持续有声音、无结果 → 第 30 次检查触发 `no-results`、第 29 次未触发；`noteResult()` 发生在两次检查之间（例如上次检查后 400 ms）→ 触发时刻距该结果不超过 30 s 且超过 29 s（对齐 30 s 时限，见“看门狗计时”）；每 10 s 一次 `noteResult` → 120 s 内不触发；有声 20 s + 静音 60 s + 有声 10 s → 在累计 30 s 时触发（静音暂停不清零）；全程静音 10 分钟 → 不触发；`health` 变为 broken（静音期间也一样）→ 下一次检查或 `onChange` 回调时立即触发 `audio-chain`；`noteSessionEnded` → 立即触发 `session-ended`；连续两种原因 → `onStall` 只调用一次；定时器延迟 10 s 的一次检查只计 2 s；`stop()` 后不再触发且已取消订阅 |
 | `displayAudio.test.ts`（改） | TD-701 | 结构化假 `AudioContext`：analyser 从 gain 旁路连接、未连接输出；`health()` 在 `state` 为 `suspended`/`closed`/`interrupted` 或输出轨道 `readyState === 'ended'` 时为 broken；`isVoiced()` 对 RMS 0、−60 dBFS、−40 dBFS 的样本分别为假、假、真；`onChange` 订阅 `statechange` 并可取消；`release()` 断开 analyser、取消订阅、不触发 `onEnded`；既有用例保持 |
 | `recognition.test.ts`（新） | TD-703、FR-17 | `vi.mock('microsoft-cognitiveservices-speech-sdk')` 提供假 `SpeechRecognizer`：`canceled(Error)` → `onFailure(errorCode)`；`canceled(EndOfStream)` → `onSessionEnded('end_of_stream')`；`sessionStopped` → `onSessionEnded('session_stopped')`；`dispose()` 后任何事件都不回调 |
 
@@ -455,7 +458,7 @@ stopRun(reason)：run = null → pipeline.endRun() → audio.release()（断开 
 
 | 用例 | 覆盖 | 方法与判定 | 单个用时（估计） |
 | --- | --- | --- | --- |
-| 识别器静默停止（AC-8 复现） | AC-1（按 OD-1 的决定）、AC-3、AC-8 | 连续英语素材（`meeting` 组连续两遍以上，保证触发后仍有 ≥ 60 s 语音）；出现第一条中文定稿后 `stallRecognizer()`；45 s 内状态为“出错”、`alert` 文本等于 `MESSAGES.stalled`；字幕保留（定稿条数不减少）；“开始”可用、“停止”不可用；共享已结束（播放器标签页的捕获指示消失 / 页面无 live 轨道） | 约 2 分钟 |
+| 识别器静默停止（AC-8 复现） | AC-1（按 OD-1 的决定）、AC-3、AC-8 | 素材与触发方式见 TD-707（普通句组 + 至少 40 s 持续语音段，在持续语音段中触发）；按页面状态时间线，触发后不超过 30 s 状态为“出错”（等待上限 50 s）、`alert` 文本等于 `MESSAGES.stalled`；字幕保留（定稿条数不减少）；“开始”可用、“停止”不可用；共享已结束（播放器标签页的捕获指示消失 / 页面无 live 轨道） | 约 2 分钟 |
 | 混音链挂起（静音期间与有声期间各一次） | AC-2、FR-4 | 运行中对 `mixContext()` 调用 `suspend()`：有声期间与素材静音段中各一次；5 s 内状态“出错”、提示为 `MESSAGES.stalled`；另一用例对混音输出轨道 `stop()`，同样判定 | 约 1.5 分钟 × 2 |
 | 停滞后重新开始 | AC-4、FR-11 | 接上一用例：点击“开始”，自动选中播放器标签页，回到“正在听”、提示消失、出现新的中文定稿 | 并入上一用例 |
 | 小窗状态同步 | FR-8 | 识别器静默停止用例中打开字幕小窗（麦克风以外的小窗样式限制不影响状态文字）：小窗 `#pip-status` 文本变为“出错”，小窗中没有提示文字 | 并入第一个用例 |
@@ -515,11 +518,39 @@ const a = ctx.createAnalyser(); a.fftSize = 32768; g.connect(a);
 
 复现：`npx playwright install chromium` 后用 Node 运行上述脚本（`chromium.launch()` + `page.evaluate`）。
 
+### 实验 E-2：Edge 中正在共享采集的后台页面，1 s 定时器是否被强节流（Microsoft Edge 158.0.4370.33 Linux 版，headed + Xvfb，约 11 分钟，含两次无效尝试）
+
+目的：取得 U-1 在 Edge 上的证据。做法：在仓库外的临时目录下载 Edge 安装包，并在用户目录中解包（`dpkg-deb -x`，不安装、不需要 root）；写一次性 Node 脚本（Node 26 自带的 `WebSocket` 走原始 CDP，`Runtime.evaluate` 带 `userGesture: true` 调用 `getDisplayMedia`）。实验结束后安装包与脚本均已删除。
+
+```bash
+curl -sO https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_158.0.4370.33-1_amd64.deb
+dpkg-deb -x microsoft-edge-stable_158.0.4370.33-1_amd64.deb root
+# 用本机 http 服务提供三个页面（标题 RTMT-player、capture、control），每个页面都运行
+#   setInterval(() => ticks.push(performance.now()), 1000)，并记录 visibilitychange
+xvfb-run -a node exp3.mjs root/opt/microsoft/msedge/msedge 130
+#   exp3.mjs 用以下参数启动 Edge，同一窗口打开三个标签页：
+#   --no-sandbox --remote-debugging-port=19222 --user-data-dir=<临时目录>
+#   --auto-select-tab-capture-source-by-title=RTMT-player
+#   --enable-features=IntensiveWakeUpThrottling:grace_period_seconds/10   # 把强节流的 5 分钟宽限缩短为 10 s
+#   接着：capture 页 getDisplayMedia({video:true,audio:true})（自动选中 RTMT-player 标签页）
+#   → Target.activateTarget(control) → Target.createTarget(front)，使 capture、control 都变为隐藏
+#   → 等待 130 s，统计页面隐藏 40 s 之后两次定时器回调的间隔
+```
+
+观察结果：
+
+| 页面 | `visibilityState` | 共享轨道 | 隐藏 40 s 后的回调次数 | 最大间隔 | 前几个间隔（ms） |
+| --- | --- | --- | --- | --- | --- |
+| capture（正在采集） | hidden | `audio:live, video:live` | 100 | 1000 ms | 1000, 1000, 1000, 1000, 1000, 1000 |
+| control（对照，无采集） | hidden | — | 2 | 60000 ms | 60000 |
+
+结论：在 Edge 中，强节流确实生效（见对照页面），但不作用于持有 `live` 采集轨道的页面。前两次尝试经 Playwright 打开页面，所有页面的 `visibilityState` 都是 `visible`，无法形成后台条件，判为无效，已改用原始 CDP。本实验没有覆盖 Windows 上的“节能”和睡眠标签页的计时，见 H-2。
+
 ## 支持 Runbook
 
 | 现象 | 排查 | 处理 |
 | --- | --- | --- |
-| 用户报告“翻译已中断：语音识别已停止输出结果” | 服务端没有对应日志（按 Q-5 不上报）；询问用户浏览器、共享方式、出现前运行了多久、页面是否在后台、Edge 是否开启“睡眠标签页”/效率模式 | 点“开始”重新共享即可；频繁出现时另开交付考虑健康信号（Q-5）或自动恢复（Q-2） |
+| 用户报告“翻译已中断：语音识别已停止输出结果” | 服务端没有对应日志（按 Q-5 不上报）；询问用户浏览器、共享方式、出现前运行了多久、页面是否在后台、Edge 是否开启“睡眠标签页”或节能（原效率模式）、翻译页面是否在“始终保持这些站点处于活动状态”列表中 | 点“开始”重新共享即可；频繁出现时另开交付考虑健康信号（Q-5）或自动恢复（Q-2） |
 | 播放纯音乐或音效约 30 s 后出现上述提示 | 规格 A-6 已接受的行为（按音量判定有无声音） | 无需处理；需要区分人声时另开交付 |
 | 静音时出现上述提示 | 不应发生（AC-5）；可能是混音链被浏览器挂起（`audio-chain`）或 SDK 发出了会话结束事件 | 按产品缺陷报告，附浏览器版本与操作步骤 |
 
@@ -529,4 +560,7 @@ const a = ctx.createAnalyser(); a.fftSize = 32768; g.connect(a);
 - **OD-2（残余风险，不需决定）· SDK 内部音频链**：SDK 自建的 16 kHz `AudioContext` 无法被页面监视（U-7）。它若在共享内容静音期间被挂起，页面要到声音恢复后累计 30 s 才提示；有声音时与“有声音无结果”相同，30 s 内提示。AC-2 指的“混音用的音频处理链”（页面自己的混音 `AudioContext`）已被直接监视。
 - **OD-3（已由规格接受，记录）**：“有声音”按音量判定（−50 dBFS），纯音乐、音效也算作有声音（规格 A-6）。
 - **H-1（待验证假设）· 拦截入站消息后 SDK 不报错**：依据是源码中没有等待服务端消息的超时（U-6）；本会话没有依赖接入变量，未用真实服务验证。已做：阅读 `ServiceRecognizerBase.js`、`WebsocketMessageAdapter.js`。还缺：在真实 `dev` 语音服务上运行一次。验证步骤：编码在提交 AC-8 用例时于修复前代码上运行它，观察触发后 60 s 内状态始终为“正在听”、无 `alert`（这正是修复前失败的预期）。后备做法：若 SDK 在拦截后以错误取消（页面显示 `interrupted`），改为同时丢弃页面发往语音服务的音频帧（拦截二进制 `send`），使服务端无从产生结果；若仍报错，改用“让识别器读不到声音”的方式——对 SDK 实例（`{ sampleRate: 16000 }`）调用 `suspend()`，此时混音链健康、电平有声，判定走 `no-results`，同样满足 AC-3 与 AC-8。
+- **H-2（待验证假设）· Windows 11 上 Edge 的节能与睡眠标签页不会推迟采集中页面的 1 s 检查**：U-1 的证据（Chrome 文档、Edge 的强节流策略与睡眠标签页文档、实验 E-2）表明，采集中的后台页面既不会被强节流，也不会进入睡眠。但 Microsoft 文档没有写明节能（原效率模式）对采集中页面的定时器有没有其它限制，也没有写明“捕获窗口或屏幕”这一例外是否包括标签页采集；E-2 在 Linux 版 Edge 上运行，无法开启 Windows 的节能。已做：查阅上述文档；实验 E-2。还缺：在 Windows 11 + Edge 最新稳定版、开启节能时观察一次。平台的独立测试环境为 Linux + Chromium，不能执行这一步，需由人在 Windows 11 设备上手动完成，建议在 G4 前进行，结果记入独立测试报告的备注。
+  - 验证步骤：① Edge“设置 → 系统和性能”中把节能设为始终开启并选节省最多的档位（设备用电池供电时更容易触发），打开“自动让标签页进入睡眠”并设为最短时长；翻译页面所在站点不要加入“始终保持这些站点处于活动状态”。② 打开候选部署的页面，选“系统声音”，共享一个持续播放英语演讲的标签页，出现字幕后，在翻译页面的开发者工具控制台执行 `window.__h2=[];setInterval(()=>__h2.push(Date.now()),1000)`，然后关闭开发者工具（开发者工具打开时页面不会睡眠）。③ 切换到被共享的标签页，保持至少 35 分钟（节能会让后台标签页在 5 分钟或 30 分钟后睡眠）。④ 回到翻译页面：页面没有重新载入，字幕在这段时间内持续更新；打开控制台执行 `Math.max(...__h2.slice(1).map((t,i)=>t-__h2[i]))`，结果 ≤ 2000 即通过；`edge://discards` 中翻译页面不是冻结或已丢弃状态。
+  - 后备做法（验证失败时）：(a) 页面仍在运行、只是定时器被推迟（最大间隔 > 2000 ms，但字幕持续更新）：把检查时钟换成专用 Worker 的 1 s 定时器，由它向页面发消息触发 `check()`。Worker 脚本作为同源静态文件 `dist/web/stallClock.js` 由 esbuild 另建一个入口生成，CSP `script-src 'self'` 允许同源 Worker；`StallWatchdog` 已支持注入 `setInterval`/`clearInterval`，只需更换时钟适配，判定逻辑不变。换完后按同样步骤重新验证。(b) 页面被冻结（最大间隔达到分钟级，字幕也停止更新）：冻结期间页面中的任何脚本都无法运行，页面内的检测做不到 30 s 时限。此时至少保证用户回到页面时状态如实：监听 Page Lifecycle 的 `resume` 事件，运行中恢复后立即检查；若距上次检查超过 30 s，直接判定为停滞（`no-results`）。冻结期间做不到 30 s 时限，属于平台条件不满足已确认的体验要求，届时以“需要决定的事项”交人决定（例如在使用引导中提示把站点加入“始终保持这些站点处于活动状态”，或由管理员配置 `SleepingTabsBlockedForUrls` 策略），本方案不自行降低要求。
 - 建议，未纳入，待 G2 决定：无（规格已列的“按原因分别提示”建议保持在规格中，本方案不另行增加）。
