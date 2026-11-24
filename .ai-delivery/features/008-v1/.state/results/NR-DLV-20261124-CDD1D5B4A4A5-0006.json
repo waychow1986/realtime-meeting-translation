@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S8",
+  "result": "done",
+  "summary": "按人对 OD-1 的决定（A）定稿字幕行距技术方案：顶栏“字号”位置换成“字幕显示”按钮，popover 浮层内放“字号”（原样移入，档位与保存行为不变）和“行距”（紧凑/标准/宽松）两组，顶栏布局要求不变；使用引导“调整字号”一条改写操作路径（TD-809）；列明随之必须同时修改的现有端到端用例位置；其余决定（CSS 变量三档、rtmt.captionSpacing 本机保存、小窗同步、不做背景透明度）不变。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/008-v1/design.md"
+  ]
+}
