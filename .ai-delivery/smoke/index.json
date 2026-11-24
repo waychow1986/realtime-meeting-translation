@@ -1,0 +1,43 @@
+{
+  "schemaVersion" : 1,
+  "cases" : [ {
+    "id" : "SMK-001",
+    "title" : "正在听时切换字幕行距，已显示字幕立即按新档位显示、翻译不中断",
+    "path" : "SMK-001",
+    "source" : {
+      "deliveryId" : "DLV-20261124-CDD1D5B4A4A5",
+      "scenario" : "TS-07"
+    },
+    "lastRun" : {
+      "seconds" : 25,
+      "deliveryId" : "DLV-20261124-CDD1D5B4A4A5",
+      "at" : "2026-11-24T20:53:52.193721900Z"
+    }
+  }, {
+    "id" : "SMK-002",
+    "title" : "选择的字幕行距在同一浏览器再次打开时恢复",
+    "path" : "SMK-002",
+    "source" : {
+      "deliveryId" : "DLV-20261124-CDD1D5B4A4A5",
+      "scenario" : "TS-09"
+    },
+    "lastRun" : {
+      "seconds" : 12,
+      "deliveryId" : "DLV-20261124-CDD1D5B4A4A5",
+      "at" : "2026-11-24T20:54:14.460550300Z"
+    }
+  }, {
+    "id" : "SMK-003",
+    "title" : "（补的老主路径）开始收听英文语音后出现中文字幕，停止后字幕保留",
+    "path" : "SMK-003",
+    "source" : {
+      "deliveryId" : "DLV-20261124-CDD1D5B4A4A5",
+      "scenario" : null
+    },
+    "lastRun" : {
+      "seconds" : 21,
+      "deliveryId" : "DLV-20261124-CDD1D5B4A4A5",
+      "at" : "2026-11-24T20:54:43.843138600Z"
+    }
+  } ]
+}
