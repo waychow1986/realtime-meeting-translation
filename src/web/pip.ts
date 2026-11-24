@@ -40,6 +40,7 @@ export class CaptionWindow {
   private opening = false;
   private state: AppState = 'idle';
   private captionSize = 'm';
+  private captionSpacing = 'normal';
 
   constructor(
     private readonly elements: CaptionWindowElements,
@@ -61,6 +62,13 @@ export class CaptionWindow {
   setCaptionSize(size: string): void {
     this.captionSize = size;
     if (this.current) this.current.win.document.body.dataset.captionSize = size;
+  }
+
+  setCaptionSpacing(spacing: string): void {
+    this.captionSpacing = spacing;
+    if (!this.current) return;
+    this.current.win.document.body.dataset.captionSpacing = spacing;
+    this.current.view.scrollToEnd();
   }
 
   private toggle(): void {
@@ -114,6 +122,7 @@ export class CaptionWindow {
     const body = doc.body;
     body.className = 'pip';
     body.dataset.captionSize = this.captionSize;
+    body.dataset.captionSpacing = this.captionSpacing;
     const bar = doc.createElement('header');
     bar.className = 'pip-bar status-box';
     const indicator = doc.createElement('span');

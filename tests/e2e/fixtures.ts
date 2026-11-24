@@ -339,6 +339,31 @@ export async function displayTracks(page: Page): Promise<{ displayCalls: number;
   })`);
 }
 
+export function displayButton(page: Page) {
+  return page.getByRole('button', { name: '字幕显示' });
+}
+
+/** Opens the “字幕显示” popover holding the caption size (字号) and line spacing (行距) groups. */
+export async function openCaptionDisplay(page: Page): Promise<void> {
+  const button = displayButton(page);
+  if ((await button.getAttribute('aria-expanded')) !== 'true') await button.click();
+  await expect(page.locator('#display-panel')).toBeVisible();
+  await expect(button).toHaveAttribute('aria-expanded', 'true');
+}
+
+export async function closeCaptionDisplay(page: Page): Promise<void> {
+  if ((await displayButton(page).getAttribute('aria-expanded')) === 'true') await page.keyboard.press('Escape');
+  await expect(page.locator('#display-panel')).toBeHidden();
+  await expect(displayButton(page)).toHaveAttribute('aria-expanded', 'false');
+}
+
+/** Selects a caption size (小/中/大/特大) or line spacing (紧凑/标准/宽松) through the popover, then closes it. */
+export async function chooseCaptionDisplay(page: Page, name: string): Promise<void> {
+  await openCaptionDisplay(page);
+  await page.getByRole('radio', { name, exact: true }).check();
+  await closeCaptionDisplay(page);
+}
+
 /** Selects the input source by its visible radio label (麦克风 / 系统声音). */
 export async function selectSource(page: Page, name: '麦克风' | '系统声音'): Promise<void> {
   await page.getByRole('radio', { name }).check();

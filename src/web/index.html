@@ -25,13 +25,22 @@
           <span class="status-caption">当前状态</span>
           <strong id="status" role="status" aria-live="polite">未开始</strong>
         </div>
-        <fieldset id="caption-size" class="choice segmented">
-          <legend>字号</legend>
-          <label><input type="radio" name="caption-size" value="s" />小</label>
-          <label><input type="radio" name="caption-size" value="m" checked />中</label>
-          <label><input type="radio" name="caption-size" value="l" />大</label>
-          <label><input type="radio" name="caption-size" value="xl" />特大</label>
-        </fieldset>
+        <button id="display-button" type="button" popovertarget="display-panel" aria-expanded="false">字幕显示<span aria-hidden="true">▾</span></button>
+        <div id="display-panel" popover>
+          <fieldset id="caption-size" class="choice segmented">
+            <legend>字号</legend>
+            <label><input type="radio" name="caption-size" value="s" />小</label>
+            <label><input type="radio" name="caption-size" value="m" checked />中</label>
+            <label><input type="radio" name="caption-size" value="l" />大</label>
+            <label><input type="radio" name="caption-size" value="xl" />特大</label>
+          </fieldset>
+          <fieldset id="caption-spacing" class="choice segmented">
+            <legend>行距</legend>
+            <label><input type="radio" name="caption-spacing" value="compact" />紧凑</label>
+            <label><input type="radio" name="caption-spacing" value="normal" checked />标准</label>
+            <label><input type="radio" name="caption-spacing" value="loose" />宽松</label>
+          </fieldset>
+        </div>
         <div class="pip-control">
           <button id="pip-button" type="button" aria-pressed="false">弹出字幕小窗</button>
           <span id="pip-unsupported" class="pip-unsupported" role="note" hidden></span>
@@ -43,7 +52,7 @@
     </header>
     <p id="notice" class="notice" role="alert" data-kind="error" hidden></p>
     <main class="workspace">
-      <section id="caption-panel" class="caption-panel" data-caption-size="m" aria-label="中文字幕">
+      <section id="caption-panel" class="caption-panel" data-caption-size="m" data-caption-spacing="normal" aria-label="中文字幕">
         <div id="caption-scroll" class="caption-scroll">
           <p class="hint">选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。</p>
           <ol id="captions" class="captions" aria-live="polite"></ol>
@@ -94,7 +103,7 @@
         <li><strong>选择输入方式：</strong>“麦克风”识别您身边的发言；“系统声音”识别电脑正在播放的声音（如网页会议、在线视频）。</li>
         <li><strong>点击“开始”：</strong>麦克风模式需在浏览器提示时允许使用麦克风；随时点击“停止”结束。</li>
         <li><strong>系统声音：</strong>点击“开始”后，在浏览器弹出的共享窗口中选择要翻译的内容（如会议所在的标签页），并<strong>勾选共享音频</strong>（如“同时分享标签页中的音频”）后再点击“分享”。</li>
-        <li><strong>调整字号：</strong>在“字号”中选择“小 / 中 / 大 / 特大”，字幕立即按新字号显示。</li>
+        <li><strong>调整字号：</strong>点击“字幕显示”，在“字号”中选择“小 / 中 / 大 / 特大”，字幕立即按新字号显示。</li>
         <li><strong>字幕小窗：</strong>可点击“弹出字幕小窗”让字幕悬浮在会议或视频窗口之上；浏览器不支持时该按钮不可用，并会显示原因。</li>
       </ol>
       <p class="guide-note">字幕只显示在当前页面，刷新或关闭页面后即清空。可随时点击顶栏的“？”（使用引导）按钮再次查看本说明。</p>

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S16",
+  "result": "done",
+  "summary": "第 1 批完成字幕行距紧凑/标准/宽松（含“字幕显示”浮层、小窗同步、rtmt.captionSpacing 保存与恢复，背景透明度按 Q1＝C 不做；使用引导不加“调整行距”），已运行：lint、typecheck、build 通过，全量单元测试 254 项通过（约 5 秒，新写偏好测试实现前 4 项失败、实现后通过），全量集成测试 16 项通过（约 54 秒），新写端到端 captionSpacing.spec.ts 8 个用例实现前抽测 1 个失败、实现后全部通过（约 1.2 分钟），topbar 顶栏 2 个用例（含新写的浮层位于视口内）通过（约 3 秒），为适配浮层而改动的 IQA-119、IQA-121、IQA-122、IQA-305/307 共 4 个既有用例通过（约 1.8 分钟）；未运行：其余未改动的既有端到端用例，以及只改了排除条件的 captions.spec.ts 断言辅助所在用例，交由 G3 独立测试与平台在最终提交上验证。",
+  "asks": [],
+  "outputs": [
+    "src/web/preferences.ts",
+    "src/web/main.ts",
+    "src/web/pip.ts",
+    "src/web/index.html",
+    "src/web/styles.css",
+    "README.md",
+    "tests/unit/preferences.test.ts",
+    "tests/e2e/captionSpacing.spec.ts",
+    "tests/e2e/fixtures.ts",
+    "tests/e2e/ui.ts",
+    "tests/e2e/topbar.spec.ts",
+    "tests/e2e/ui.spec.ts",
+    "tests/e2e/pip.spec.ts",
+    "tests/e2e/non-chinese.spec.ts",
+    "tests/e2e/captions.spec.ts",
+    ".ai-delivery/features/008-v1/.state/results/NR-DLV-20261124-CDD1D5B4A4A5-0011.json"
+  ]
+}
