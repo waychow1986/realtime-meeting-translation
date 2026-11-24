@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S20",
+  "result": "done",
+  "summary": "修复 S21 阻断问题：撤销 WebWorkerLoadType='off'（不再把 SDK 定时器改到会被后台节流的主线程），改为让语音 SDK 的 Timeout 走同源 Worker（/sdk-timer-worker.js，符合现有 CSP script-src 'self'，不放宽 CSP，麦克风与系统声音模式同样恢复 SDK 原本设计的 Worker 计时，Worker 启动失败才退回主线程），属技术方案应补记的实现决定；实际运行的测试：快速测试 18 个文件 251 项全部通过（约 5 秒），其中复现测试 recognition.test.ts 修改前失败（expected 'off' not to be 'off'）、修改后通过，新增 sdkTimers 单元测试 4 项通过；新写的端到端用例“主页面定时器按后台节流对齐”（因 Xvfb 无窗口管理器无法真正隐藏页面，以初始化脚本按 Chromium 后台规则把主页面定时器对齐到整秒来模拟）在修复前构建上失败（静音后第 2 段语音 45 秒内无新字幕，约 2.1 分钟）、修复后通过（约 1.6 分钟），本批改动所依赖的既有用例“长时间无声不误报”在修复后通过（约 1.5 分钟）；lint、typecheck、build 通过；其余端到端（含 5 分钟不误报与停滞复现）与集成测试未在会话中运行，交给平台开发者检查与 G3 独立测试，真实浏览器后台标签页的效果亦待测试环境验证。",
+  "asks": [],
+  "outputs": [
+    "src/web/sdkTimers.ts",
+    "src/web/sdkTimerWorker.ts",
+    "src/web/recognition.ts",
+    "scripts/build.mjs",
+    "tests/unit/sdkTimers.test.ts",
+    "tests/unit/recognition.test.ts",
+    "tests/e2e/stall.spec.ts"
+  ]
+}

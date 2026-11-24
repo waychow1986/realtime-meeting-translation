@@ -10,6 +10,7 @@ import {
   type SpeechRecognitionResult,
 } from 'microsoft-cognitiveservices-speech-sdk';
 import type { SpeechTokenResponse } from '../shared/contracts.js';
+import { SDK_TIMER_WORKER_URL, installSdkTimers } from './sdkTimers.js';
 
 export class MicrophoneError extends Error {
   constructor(readonly kind: 'denied' | 'not-found' | 'unavailable' | 'unsupported') {
@@ -105,12 +106,10 @@ export function createRecognitionSession(
   config.authorizationToken = token.token;
   config.setProperty(PropertyId.SpeechServiceConnection_LanguageIdMode, 'Continuous');
   config.setProperty(PropertyId.Speech_SegmentationSilenceTimeoutMs, String(token.segmentationSilenceMs));
-  // The SDK otherwise paces audio sending with a timer worker loaded from a data: URL; the page CSP
-  // (`script-src 'self'`) blocks it, and the send loop then dies silently (observed after long silences).
-  config.setProperty(PropertyId.WebWorkerLoadType, 'off');
   config.outputFormat = OutputFormat.Simple;
   const lid = AutoDetectSourceLanguageConfig.fromLanguages(token.candidateLanguages);
   const audio = AudioConfig.fromStreamInput(stream);
+  installSdkTimers(() => new Worker(SDK_TIMER_WORKER_URL));
   const recognizer = SpeechRecognizer.FromConfig(config, lid, audio);
   let disposed = false;
 

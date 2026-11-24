@@ -242,3 +242,62 @@ test.describe('IR-003 系统声音：语音识别停滞', () => {
     await expect(page.locator('#notice')).toBeHidden();
   });
 });
+
+/**
+ * Emulates a hidden translation page: Chromium wakes the timers of a hidden page at most once per second (aligned
+ * to whole seconds). The test harness cannot really hide the page (Playwright gives each page its own window and
+ * disables background throttling; Xvfb has no window manager to minimize it), so the page's main-thread
+ * `setTimeout` is aligned the same way. Worker timers are untouched, as in the browser. Also records the URLs of the
+ * workers the page starts and the CSP violations it reports.
+ */
+const HIDDEN_PAGE_TIMERS = `(() => {
+  const nativeSetTimeout = window.setTimeout.bind(window);
+  window.setTimeout = (handler, delay, ...args) => {
+    const ms = Number(delay) || 0;
+    if (ms <= 0) return nativeSetTimeout(handler, delay, ...args);
+    const wake = Math.ceil((performance.now() + ms) / 1000) * 1000;
+    return nativeSetTimeout(handler, wake - performance.now(), ...args);
+  };
+  const workers = (window.__workerUrls = []);
+  const NativeWorker = window.Worker;
+  window.Worker = class extends NativeWorker {
+    constructor(url, options) { super(url, options); workers.push(String(url)); }
+  };
+  const violations = (window.__cspViolations = []);
+  document.addEventListener('securitypolicyviolation', (e) => violations.push(e.effectiveDirective + ' ' + e.blockedURI));
+})();`;
+
+test.describe('IR-003 系统声音：翻译主页面在后台', () => {
+  test('主页面定时器按后台节流对齐：45 秒静音前后始终“正在听”，静音后的语音仍及时出字幕', async ({ harness }) => {
+    test.setTimeout(300_000);
+    const { page } = harness;
+    await page.addInitScript({ content: HIDDEN_PAGE_TIMERS });
+    await page.addInitScript({ content: STATUS_LOG });
+    await page.goto('/');
+
+    const { segmentStarts } = await startWithMaterial(harness, [
+      { pcm: () => normalSpeech('meeting') },
+      { pcm: async () => silencePcm(45_000) },
+      { pcm: () => normalSpeech('multi') },
+      { pcm: () => normalSpeech('long') },
+    ]);
+    const runningSince = Date.now();
+    await waitForFinalCaptions(page, 1);
+
+    for (const segment of [2, 3]) {
+      await waitUntil(segmentStarts[segment]!);
+      const before = await finalCount(page);
+      await expect
+        .poll(() => finalCount(page), { timeout: 45_000, message: `segment ${segment}` })
+        .toBeGreaterThan(before);
+    }
+
+    // The SDK paces audio upload with worker timers served by the page itself, not with throttled page timers.
+    expect(await page.evaluate<string[]>('window.__workerUrls')).toContain('/sdk-timer-worker.js');
+    expect(await page.evaluate<string[]>('window.__cspViolations')).toEqual([]);
+
+    expect(await leftRunningAt(page, runningSince)).toBeNull();
+    await expect(statusText(page)).toHaveText(RUNNING);
+    await expect(page.locator('#notice')).toBeHidden();
+  });
+});

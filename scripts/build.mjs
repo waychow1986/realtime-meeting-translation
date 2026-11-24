@@ -33,9 +33,22 @@ await build({
   logLevel: 'warning',
 });
 
+await build({
+  entryPoints: [path.join(root, 'src/web/sdkTimerWorker.ts')],
+  outfile: path.join(dist, 'web/sdk-timer-worker.js'),
+  bundle: true,
+  platform: 'browser',
+  target: ['chrome120', 'edge120'],
+  format: 'iife',
+  minify: true,
+  sourcemap: false,
+  legalComments: 'none',
+  logLevel: 'warning',
+});
+
 await mkdir(path.join(dist, 'web'), { recursive: true });
 for (const file of ['index.html', 'styles.css']) {
   await copyFile(path.join(root, 'src/web', file), path.join(dist, 'web', file));
 }
 
-console.log('build ok: dist/server/main.js, dist/web/{index.html,app.js,styles.css}');
+console.log('build ok: dist/server/main.js, dist/web/{index.html,app.js,sdk-timer-worker.js,styles.css}');

@@ -52,6 +52,7 @@ vi.mock('microsoft-cognitiveservices-speech-sdk', async (importOriginal) => {
 });
 
 const { CancellationReason, PropertyId, ResultReason } = await import('microsoft-cognitiveservices-speech-sdk');
+const { Timeout } = await import('microsoft-cognitiveservices-speech-sdk/distrib/lib/src/common/Timeout.js');
 // recognition.ts is browser code (DOM types); the unit-test program is type-checked without DOM, so the module is
 // loaded through a non-literal specifier and typed structurally.
 const RECOGNITION_MODULE = '../../src/web/recognition.js';
@@ -114,10 +115,34 @@ describe('createRecognitionSession: how the SDK reports the end of recognition (
   });
 });
 
-describe('createRecognitionSession: SDK timers under the page CSP', () => {
-  it("turns off the SDK's data: URL timer worker, which `script-src 'self'` blocks", () => {
-    configProperties.clear();
-    session();
-    expect(configProperties.get(PropertyId.WebWorkerLoadType)).toBe('off');
+describe('createRecognitionSession: SDK timers under the page CSP and in background tabs', () => {
+  it("keeps the SDK's worker timers (not main-thread timers, which hidden pages throttle) and serves them from the page's own origin", () => {
+    const workers: { url: string; posted: unknown[] }[] = [];
+    vi.stubGlobal(
+      'Worker',
+      class {
+        readonly posted: unknown[] = [];
+        constructor(readonly url: string) {
+          workers.push(this);
+        }
+        postMessage(message: unknown) {
+          this.posted.push(message);
+        }
+        addEventListener() {}
+        terminate() {}
+      },
+    );
+    try {
+      configProperties.clear();
+      session();
+      expect(configProperties.get(PropertyId.WebWorkerLoadType)).not.toBe('off');
+
+      const fired = vi.fn();
+      Timeout.setTimeout(fired, 120);
+      expect(workers.map((w) => w.url)).toEqual(['/sdk-timer-worker.js']);
+      expect(workers[0]!.posted).toEqual([expect.objectContaining({ method: 'set', delay: 120 })]);
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 });
