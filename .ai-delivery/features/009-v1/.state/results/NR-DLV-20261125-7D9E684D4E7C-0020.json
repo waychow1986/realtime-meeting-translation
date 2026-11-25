@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S25",
+  "result": "done",
+  "summary": "按分支代码把系统现状更新为“导出字幕”交付发布后的状态：新增 captionTranscript/exportText/download 三个模块、字幕区导出工具条与 §8.7 导出行为、内存导出记录、部署描述、测试与字幕写入链约定，每条带出处，其余部分未改。",
+  "asks": [],
+  "outputs": [".ai-delivery/system-current.md"]
+}

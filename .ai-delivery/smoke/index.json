@@ -10,8 +10,8 @@
     },
     "lastRun" : {
       "seconds" : 25,
-      "deliveryId" : "DLV-20261124-CDD1D5B4A4A5",
-      "at" : "2026-11-24T20:53:52.193721900Z"
+      "deliveryId" : "DLV-20261125-7D9E684D4E7C",
+      "at" : "2026-11-25T08:34:40.062007100Z"
     }
   }, {
     "id" : "SMK-002",
@@ -22,9 +22,9 @@
       "scenario" : "TS-09"
     },
     "lastRun" : {
-      "seconds" : 12,
-      "deliveryId" : "DLV-20261124-CDD1D5B4A4A5",
-      "at" : "2026-11-24T20:54:14.460550300Z"
+      "seconds" : 13,
+      "deliveryId" : "DLV-20261125-7D9E684D4E7C",
+      "at" : "2026-11-25T08:35:03.823230300Z"
     }
   }, {
     "id" : "SMK-003",
@@ -35,9 +35,22 @@
       "scenario" : null
     },
     "lastRun" : {
-      "seconds" : 21,
-      "deliveryId" : "DLV-20261124-CDD1D5B4A4A5",
-      "at" : "2026-11-24T20:54:43.843138600Z"
+      "seconds" : 22,
+      "deliveryId" : "DLV-20261125-7D9E684D4E7C",
+      "at" : "2026-11-25T08:35:37.017062200Z"
+    }
+  }, {
+    "id" : "SMK-004",
+    "title" : "已停止时导出字幕：下载 1 个 .txt，内容与页面中文定稿字幕一致",
+    "path" : "SMK-004",
+    "source" : {
+      "deliveryId" : "DLV-20261125-7D9E684D4E7C",
+      "scenario" : "TS-03"
+    },
+    "lastRun" : {
+      "seconds" : 33,
+      "deliveryId" : "DLV-20261125-7D9E684D4E7C",
+      "at" : "2026-11-25T08:36:18.404730600Z"
     }
   } ]
 }

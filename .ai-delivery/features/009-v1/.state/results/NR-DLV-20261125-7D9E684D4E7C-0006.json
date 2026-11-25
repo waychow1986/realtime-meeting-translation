@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S8",
+  "result": "done",
+  "summary": "按人对 D-1、D-2 的回答（均选 A）定稿“导出本次字幕”技术方案：新增 TD-911（保持页面顺序，被拖慢的一句写成其后各条中最早的定稿时刻，整列不倒序）与 TD-912（按钮与不可用原因说明并排放在字幕区顶部工具条，字幕区改为两行网格，顶栏与已验收布局用例不变），并相应更新技术先后依赖、可测性约定与开放决策；依赖与部署声明沿用上一版，无新的待决事项。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/009-v1/design.md",
+    ".ai-delivery/features/009-v1/runtime/deployment.json",
+    "docs/deployment.json",
+    ".ai-delivery/features/009-v1/.state/results/NR-DLV-20261125-7D9E684D4E7C-0006.json"
+  ]
+}

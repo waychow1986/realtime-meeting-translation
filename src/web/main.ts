@@ -1,5 +1,8 @@
 import { CaptionPipeline } from './captionPipeline.js';
+import { CaptionTranscript } from './captionTranscript.js';
 import { DomCaptionView } from './captionView.js';
+import { downloadText } from './download.js';
+import { exportFileName, formatExport } from './exportText.js';
 import { initGuide } from './guide.js';
 import type { InputSource } from '../shared/contracts.js';
 import { acquireMicrophone, type AcquiredAudio } from './audioSource.js';
@@ -108,6 +111,21 @@ function init(): void {
     },
     mirroredView,
   );
+  const transcript = new CaptionTranscript(mirroredView);
+  const exportButton = requireElement('export-button', HTMLButtonElement);
+  const exportHint = requireElement('export-hint', HTMLElement);
+  const updateExport = (): void => {
+    const empty = transcript.count() === 0;
+    exportButton.disabled = empty;
+    exportHint.hidden = !empty;
+  };
+  transcript.onChange(updateExport);
+  updateExport();
+  exportButton.addEventListener('click', () => {
+    if (transcript.count() === 0) return;
+    const at = new Date();
+    downloadText<HTMLAnchorElement>(document, exportFileName(at), formatExport(transcript.entries(), at));
+  });
 
   const setState = (next: AppState): void => {
     state = next;
@@ -195,7 +213,7 @@ function init(): void {
   };
 
   const pipeline = new CaptionPipeline({
-    view: mirroredView,
+    view: transcript,
     translate: withInputSource(() => run?.source ?? selectedSource, requestTranslation),
     onTranslationUnavailable: () => stopRun('error'),
   });
