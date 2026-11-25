@@ -53,6 +53,10 @@
     <p id="notice" class="notice" role="alert" data-kind="error" hidden></p>
     <main class="workspace">
       <section id="caption-panel" class="caption-panel" data-caption-size="m" data-caption-spacing="normal" aria-label="中文字幕">
+        <div class="caption-toolbar">
+          <button type="button" id="export-button" class="export-button" aria-describedby="export-hint" disabled>导出字幕</button>
+          <p id="export-hint" class="export-hint" role="note">还没有可导出的字幕。出现中文定稿字幕后即可导出。</p>
+        </div>
         <div id="caption-scroll" class="caption-scroll">
           <p class="hint">选择输入方式后点击“开始”，发言内容会自动识别并以中文字幕显示在这里。</p>
           <ol id="captions" class="captions" aria-live="polite"></ol>

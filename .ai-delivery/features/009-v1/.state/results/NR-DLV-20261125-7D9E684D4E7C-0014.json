@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S21",
+  "result": "done",
+  "summary": "已实现批次 1“导出本次字幕”（CaptionTranscript 记录中文定稿字幕、exportText 生成文本与文件名含 D-1 时刻规则、download 浏览器内下载、字幕区工具条按钮与原因说明、README 说明；技术细节自定：换行写为空格、按段号排序、空文本定稿不记录），lint、typecheck、build 通过；全量单元测试 21 个文件 273 项通过（约 5 秒，其中新写 3 个文件 19 项在实现前因模块不存在失败、实现后通过），全量集成测试 6 个文件 16 项通过（约 71 秒），本批新写端到端用例 tests/e2e/exportCaptions.spec.ts 5 个场景全部通过（约 1.7 分钟，在页面接线后首次运行），既有端到端用例按规则未在会话中运行，交由平台开发者检查与 G3 独立测试验证。",
+  "asks": [],
+  "outputs": [
+    "src/web/captionTranscript.ts",
+    "src/web/exportText.ts",
+    "src/web/download.ts",
+    "src/web/main.ts",
+    "src/web/index.html",
+    "src/web/styles.css",
+    "README.md",
+    "tests/unit/captionTranscript.test.ts",
+    "tests/unit/exportText.test.ts",
+    "tests/unit/download.test.ts",
+    "tests/e2e/exportCaptions.spec.ts"
+  ]
+}
