@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S7",
+  "result": "done",
+  "summary": "写出“导出本次字幕”产品规格：19 条功能需求覆盖意图 AC-1～AC-8，并按 G1 答案（Q1 时间写法、Q2 不导出未译提示、R1 导出时不发请求、R2 出错状态可导出、R3 时刻为定稿时刻）写明判定口径；9 条默认值写成假设，3 条建议列入范围外边界待 G2 决定，无新的待决问题。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/009-v1/spec.md",
+    ".ai-delivery/features/009-v1/.state/results/NR-DLV-20261125-7D9E684D4E7C-0004.json"
+  ]
+}
