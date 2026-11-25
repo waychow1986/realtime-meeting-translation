@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S10",
+  "result": "done",
+  "summary": "细化计划：技术方案与测试计划已写成，导出字幕的全部改动（AC-1～AC-8 与 TS-07 引用的单元测试）在 1 批编码内完成（预计约 60～70 分钟，时限 90 分钟），其后为该批代码审查；完整档（tierFloor），预算不变。",
+  "asks": [],
+  "outputs": [],
+  "plan": {
+    "schemaVersion": 1,
+    "steps": [
+      {"id": "P1", "capability": "code", "zone": "build", "dependsOn": [], "batch": 1},
+      {"id": "P2", "capability": "review", "zone": "build", "dependsOn": ["P1"], "batch": 1}
+    ],
+    "omitted": [
+      {"capability": "spec", "reason": "规格已写成（spec.md，FR-001～FR-019），技术方案没有引出需要改写规格的业务变化，D-1、D-2 已由人决定并落实在技术方案中，不再重做规格。"},
+      {"capability": "solution", "reason": "技术方案已写成（design.md），不确定项 U-1～U-4 均已由实验或代码得出结论，没有待人决定事项，不需要再做技术方案。"},
+      {"capability": "plan", "reason": "本次即是技术方案之后的细化计划；之后设计区没有新的技术方案，不需要再次计划。"}
+    ],
+    "batches": [
+      {"n": 1, "criteria": ["AC-1", "AC-2", "AC-3", "AC-4", "AC-5", "AC-6", "AC-7", "AC-8"]}
+    ],
+    "factors": [
+      {"name": "change-size", "lean": "light", "basis": "只改浏览器端：新增 3 个小模块（captionTranscript.ts、exportText.ts、download.ts）与 2 个单元测试文件、1 个端到端用例文件，修改 main.ts、index.html、styles.css、README 与部署声明描述；服务端、接口、依赖不变。"},
+      {"name": "modules", "lean": "light", "basis": "只涉及前端页面这一个模块（src/web），不改 src/server、src/shared、captionPipeline 等核心状态机。"},
+      {"name": "new-or-first", "lean": "light", "basis": "既有项目，已有系统现状（release，2026-11-24）与部署声明，不是新项目，也不是接管后首个交付。"},
+      {"name": "risk", "lean": "medium", "basis": "无数据迁移、无凭据与配置变更；但有隐私约束（AC-7：不经服务器、不写入浏览器存储），且字幕区布局改为网格会影响已验收的布局（D-2/TD-912），需审查与独立测试回归。"}
+    ],
+    "tier": "full",
+    "budget": {"revisions": 3, "sessions": 13, "hours": 5.0},
+    "items": [],
+    "reason": "档位：四项依据倾向轻量至中等（改动小、单模块、既有项目，隐私与布局回归风险中等），按 tierFloor 给完整档；完整档要求每批编码后有代码审查，故第 1 批编码后安排第 1 批代码审查。\n\n批次：只有 1 批，包含 AC-1～AC-8。排序依据是技术方案“技术先后依赖”：index.html 工具条与 #export-button/#export-hint 必须与 styles.css 网格改动同时生效且先于 main.ts 装配；CaptionTranscript 先于 main.ts 替换 view；formatExport 依赖 TranscriptEntry 结构；端到端用例依赖按钮名称、说明文字与导出格式。这些部件彼此紧密依赖，任何一部分单独合入都无法独立验证某条验收标准（例如只有按钮没有记录器时 AC-1 无法下载有内容的文件），且合计用时在时限内，因此不拆批。测试计划 TS-07 引用的开发者检查（tests/unit/captionTranscript.test.ts、tests/unit/exportText.test.ts，注入时钟覆盖跨秒、跨午夜、TD-911 倒序处理、文件名格式）排在本批，与覆盖的 AC-3 同批。\n\n第 1 批预计用时约 60～70 分钟（会话时限 90 分钟，留约 20 分钟写结果与余量）：实现 3 个新模块与 main.ts/index.html/styles.css 装配、README 与 docs/deployment.json 描述约 25～30 分钟；编写 2 个单元测试文件约 8 分钟，全量单元测试约 10 秒；新写端到端用例文件 tests/e2e/exportCaptions.spec.ts（约 7 个用例）编写约 10 分钟，单独运行整个文件约 7～9 分钟（技术方案可测性约定，估计），按修改后再跑一次计约 15 分钟；npm ci、lint、typecheck、build 约 2 分钟；全量集成测试约 3～5 分钟（本次不改，估计）。既有端到端整套（约 50～60 分钟）不在编码会话中运行、不计入用时；技术方案“编码后的快速自查”中建议的既有 topbar.spec.ts、ui.spec.ts 布局回归属于既有端到端，不计入批次用时，由 G3 独立测试回归。\n\n本交付不是缺陷修复，没有附加功能批次。规格中列出的 3 条“建议，未纳入，待 G2 决定”（使用引导加导出说明、关闭/刷新前提醒导出、跨午夜标注日期变化）意图中没有，本计划不排；如 G2 决定纳入，按技术方案均只涉及 index.html/main.ts 或 formatExport，可并入第 1 批（预计各加 5～10 分钟，仍在时限内），不改变批数。本计划没有按假设排批的业务细节。"
+  }
+}
