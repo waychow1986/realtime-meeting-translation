@@ -1,12 +1,12 @@
 # 系统现状：realtime-meeting-translation（会议实时中文字幕）
 
-> 本文件只记录仓库代码中已有的事实，每条注明出处（仓库相对路径）。对应代码版本：交付 DLV-20261124-CDD1D5B4A4A5（第 8 号 Feature“字幕行距可调”）分支发布后的状态。
+> 本文件只记录仓库代码中已有的事实，每条注明出处（仓库相对路径）。对应代码版本：交付 DLV-20261125-7D9E684D4E7C（第 9 号 Feature“导出字幕”）分支发布后的状态。
 
 ## 1. 系统概览
 
 - 形态：单个 Web 服务 `web`，同时提供浏览器页面（静态文件）和两个 POST 接口；浏览器经 Azure Speech SDK 直接连接语音服务做流式识别，服务端只签发短时语音令牌并代理大模型流式翻译（出处：`src/server/http/app.ts`、`src/web/recognition.ts`、`docs/deployment.json`）。
-- 用户可见能力：选择输入方式（麦克风 / 系统声音）→“开始”→ 识别外语发言 → 显示临时与定稿中文字幕；“停止”立即释放采集；可调字号与行距；可弹出字幕小窗；首次打开显示使用引导（出处：`src/web/index.html`、`src/web/main.ts`）。
-- 状态与存储：服务端无状态、无数据库；字幕只保存在当前页面内存（DOM）中，刷新即清空；浏览器本地只保存三项界面偏好（见 §7.2）（出处：`src/web/captionView.ts`、`src/web/preferences.ts`、`src/web/index.html` 引导说明“字幕只显示在当前页面，刷新或关闭页面后即清空”）。
+- 用户可见能力：选择输入方式（麦克风 / 系统声音）→“开始”→ 识别外语发言 → 显示临时与定稿中文字幕；“停止”立即释放采集；可调字号与行距；可弹出字幕小窗；可把本页出现过的中文定稿字幕导出为本地文本文件；首次打开显示使用引导（出处：`src/web/index.html`、`src/web/main.ts`）。
+- 状态与存储：服务端无状态、无数据库；字幕只保存在当前页面内存（DOM 与导出用的 `CaptionTranscript` 记录）中，刷新即清空；导出文件在浏览器内生成，不经过服务端（见 §8.7）；浏览器本地只保存三项界面偏好（见 §7.2）（出处：`src/web/captionView.ts`、`src/web/preferences.ts`、`src/web/index.html` 引导说明“字幕只显示在当前页面，刷新或关闭页面后即清空”）。
 
 ## 2. 技术栈和版本
 
@@ -51,10 +51,13 @@
 
 | 模块 | 职责 | 出处 |
 | --- | --- | --- |
-| `index.html` | 页面结构：顶栏控制区、提示条、字幕区、系统声音说明栏、使用引导对话框 | `src/web/index.html` |
-| `main.ts` | 页面装配：状态切换、开始/停止流程、令牌刷新、字号与行距的应用和保存、“字幕显示”弹出面板定位、输入方式切换 | `src/web/main.ts` |
+| `index.html` | 页面结构：顶栏控制区、提示条、字幕区（含“导出字幕”工具条）、系统声音说明栏、使用引导对话框 | `src/web/index.html` |
+| `main.ts` | 页面装配：状态切换、开始/停止流程、令牌刷新、字号与行距的应用和保存、“字幕显示”弹出面板定位、输入方式切换、“导出字幕”按钮的可用状态与点击导出 | `src/web/main.ts` |
 | `captionPipeline.ts` | 字幕状态机：临时/定稿翻译请求、节流、重试、中文判定与重译、提示条目 | `src/web/captionPipeline.ts` |
 | `captionView.ts` | `DomCaptionView`：只用 `textContent` 写字幕；停留在底部时自动跟随，否则显示“回到最新字幕 ↓” | `src/web/captionView.ts` |
+| `captionTranscript.ts` | `CaptionTranscript`：包装 `CaptionView`，每次调用先转发给内层视图再记录；只在内存中按段 id 顺序记下中文定稿字幕（`id`、`text`、`finalizedAt`），提示条目、被移除与被中断的字幕不记录；新增记录时通知监听者 | `src/web/captionTranscript.ts` |
+| `exportText.ts` | 导出文件文本 `formatExport` 与文件名 `exportFileName`（本地时间） | `src/web/exportText.ts` |
+| `download.ts` | `downloadText`：用 `Blob`（`text/plain;charset=utf-8`）+ `URL.createObjectURL` + 隐藏 `<a download>` 触发本地下载，随后移除链接并在下一轮事件循环释放 URL | `src/web/download.ts` |
 | `mirroredCaptionView.ts` | `MirroredCaptionView`：每次变更先写主页面、再写字幕小窗；小窗写入异常时断开小窗 | `src/web/mirroredCaptionView.ts` |
 | `pip.ts` | `CaptionWindow`：Document Picture-in-Picture 字幕小窗（560×260），同步状态、字号与行距 | `src/web/pip.ts` |
 | `preferences.ts` | 界面偏好读写（`localStorage`），存储异常时退回默认值 | `src/web/preferences.ts` |
@@ -146,6 +149,7 @@
 - 服务端不保存任何业务数据；内存中只有语音令牌缓存（最长 240 秒）和限流桶（键为加盐哈希，空闲 10 分钟后清理）（出处：`src/server/speech/tokenService.ts`、`src/server/http/rateLimit.ts`）。
 - 浏览器端字幕段 `CaptionSegment`：`id`、`runEpoch`、识别原文 `sourceText`（只用于请求翻译，从不渲染，字幕段不再变化时释放）、`sourceLanguage`、`status`（`interim`/`finalizing`/`final`/`interrupted`/`dropped`）、已显示译文等（出处：`src/web/captionPipeline.ts`）。
 - 字幕 DOM：`<ol id="captions">` 下每条为 `li.caption`，属性 `data-segment-id`、`data-status`，提示条目另有 `data-kind="notice"`（出处：`src/web/captionView.ts`、`src/web/styles.css`）。
+- 导出记录 `TranscriptEntry`：`id`（与字幕段 id / `data-segment-id` 相同，升序即页面顺序）、`text`（写到页面上的同一字符串）、`finalizedAt`（该条在页面上成为定稿时的 `Date.now()` 毫秒）；由 `CaptionTranscript` 保存在内存数组中，只增不清，页面刷新或关闭即丢失；只记录状态变为 `final` 且非提示、文字非空的段（出处：`src/web/captionTranscript.ts`）。
 
 ### 7.2 浏览器本地存储（`localStorage`）
 
@@ -157,7 +161,7 @@
 
 - 读写都包在 `try/catch` 中：读取异常按未保存处理，写入异常被忽略；因此存储被禁用时页面照常工作，选择只在本次打开期间生效（出处：`src/web/preferences.ts` `createPreferences`）。
 - 输入方式不保存，每次打开都从“麦克风”开始（出处：`src/web/main.ts` 注释 “Input source is not restored from storage”）。
-- 不保存任何字幕、识别原文或译文（出处：`src/web/preferences.ts` 文件注释 “Never stores caption content”，全部写入点只有上表三个键）。
+- 不保存任何字幕、识别原文或译文（出处：`src/web/preferences.ts` 文件注释 “Never stores caption content”，全部写入点只有上表三个键）；导出功能不读写 `localStorage`、`sessionStorage` 或 IndexedDB（出处：`src/web/captionTranscript.ts`、`src/web/exportText.ts`、`src/web/download.ts`）。
 
 ## 8. 浏览器端行为
 
@@ -186,6 +190,7 @@
 ### 8.4 字幕区与“字幕显示”设置
 
 - 字幕区 `#caption-panel` 背景为 `--caption-bg`（`#0d1117`），定稿字幕白色 `--caption-final`；临时（`interim`/`finalizing`）为浅灰 `--caption-interim`、左侧虚线、末尾“…”；被中断（`interrupted`）为浅灰斜体；提示条目颜色 `--caption-notice`、字号为当前字号的 0.75 倍、左侧实线（出处：`src/web/styles.css`）。
+- 字幕区 `#caption-panel` 为两行网格（`grid-template-rows: auto minmax(0, 1fr)`）：第一行为导出工具条 `.caption-toolbar`（背景同为 `--caption-bg`，内边距 `10px 24px 0`，≤ 640 px 时 `8px 16px 0`，不随字幕滚动），第二行为 `.caption-scroll`（`position: relative`、`min-height: 0`）（出处：`src/web/styles.css`、`src/web/index.html`）。
 - 字幕区只在 `.caption-scroll` 内滚动；停留在底部（距底 ≤ 48 px）时新字幕自动跟随，否则显示“回到最新字幕 ↓”（出处：`src/web/captionView.ts`、`src/web/uiState.ts`、`src/web/styles.css`）。
 - “字幕显示”按钮通过 HTML `popover`（`popovertarget="display-panel"`）打开面板 `#display-panel`，面板内有两组单选：“字号”（`name="caption-size"`）与“行距”（`name="caption-spacing"`）；面板打开时由 `placeDisplayPanel` 以 `position: fixed` 定位在按钮下方 6 px 处，左右保持距视口边缘 ≥ 8 px；按钮的 `aria-expanded` 随面板开关更新；窗口尺寸变化时关闭面板；≤ 640 px 时面板内的“字号”“行距”分组标题仍然可见（出处：`src/web/index.html`、`src/web/main.ts`、`src/web/styles.css` `#display-panel`）。
 - 字号 4 档：`s` 小 24 px、`m` 中 32 px（默认）、`l` 大 40 px、`xl` 特大 52 px，由字幕区与小窗 `body` 上的 `data-caption-size` 设置 CSS 变量 `--caption-size`（出处：`src/web/styles.css`、`src/web/preferences.ts`）。
@@ -214,6 +219,15 @@
 - `<dialog id="guide">` 以 `showModal()` 打开；未看过时页面加载即打开；关闭（“知道了”或 Esc）后写入 `rtmt.guideSeen=1`；“使用引导”按钮可随时再次打开（出处：`src/web/guide.ts`、`src/web/index.html`）。
 - 引导共 5 条；其中“调整字号”一条的文案为“点击‘字幕显示’，在‘字号’中选择‘小 / 中 / 大 / 特大’，字幕立即按新字号显示”，引导中没有关于行距的条目（出处：`src/web/index.html`）。
 
+### 8.7 导出字幕
+
+- 位置：只在主页面字幕区顶部工具条 `.caption-toolbar` 中，按钮 `#export-button`“导出字幕”（`aria-describedby="export-hint"`，初始 HTML 为 `disabled`），旁边为说明 `#export-hint`（`role="note"`）“还没有可导出的字幕。出现中文定稿字幕后即可导出。”；字幕小窗中没有导出控件（出处：`src/web/index.html`、`src/web/pip.ts`）。
+- 可用状态：`CaptionTranscript.count()` 为 0 时按钮不可用、说明显示，否则按钮可用、说明隐藏；页面初始化时与每次新增记录时更新，与运行状态（未开始 / 正在听 / 已停止 / 出错等）无关；点击时记录为 0 则不做任何事（出处：`src/web/main.ts` `updateExport` 及点击处理）。
+- 字幕写入链：`CaptionPipeline` → `CaptionTranscript` → `MirroredCaptionView` → 主页面 / 小窗，因此记录在页面已显示定稿后才发生（出处：`src/web/main.ts`、`src/web/captionTranscript.ts`）。
+- 导出内容：以点击时刻 `new Date()` 为导出时间；文本为 `导出日期：YYYY-MM-DD`、一行空行，之后按 `id` 升序每条一行 `HH:MM:SS 字幕文字`，每行以 `\n` 结尾；日期与时间按浏览器本地时间、24 小时制，秒以下舍去；字幕文字中的 `\r\n`、`\r`、`\n`、U+2028、U+2029 替换为空格；某条的定稿时刻晚于其后各条时，写其后各条中最早的定稿时刻，使时间不倒序（出处：`src/web/exportText.ts` `formatExport`）。
+- 不包含：识别原文、临时字幕、被中断字幕、“（此句未能翻译成中文）”提示条目（出处：`src/web/captionTranscript.ts`）。
+- 文件：名称 `字幕-YYYYMMDD-HHMMSS.txt`（本地导出时间），类型 `text/plain;charset=utf-8`，经 `downloadText` 在浏览器内生成下载，不发出网络请求；导出不清空字幕与记录，可再次导出（出处：`src/web/exportText.ts` `exportFileName`、`src/web/download.ts`、`src/web/main.ts`）。
+
 ## 9. 安全与日志
 
 ### 9.1 安全
@@ -233,7 +247,7 @@
 
 ## 10. 部署
 
-- 部署声明（`docs/deployment.json`，schemaVersion 2）：一个服务 `web`，以仓库根目录和 `Dockerfile` 构建，端口 8080，健康检查 `/healthz`，对外暴露；服务描述包含“字号与字幕行距可调并保存在本机浏览器”（出处：`docs/deployment.json`）。
+- 部署声明（`docs/deployment.json`，schemaVersion 2）：一个服务 `web`，以仓库根目录和 `Dockerfile` 构建，端口 8080，健康检查 `/healthz`，对外暴露；服务描述包含“字号与字幕行距可调并保存在本机浏览器”与“可把本次中文定稿字幕导出为本地文本文件（在浏览器内生成，不经服务器）”（出处：`docs/deployment.json`）。
 - 错误日志规则：`app-error-or-fatal`（`level` 为 `error`/`fatal`，高）、`upstream-errors-burst`（`event=upstream_error` 5 分钟内 10 次，中）、`node-crash-output`（匹配 Node 崩溃输出，高）（出处：`docs/deployment.json` `operations.errorLogRules`）。
 - 镜像：两阶段构建，构建阶段 `npm ci` + `npm run build`，运行阶段 `npm ci --omit=dev`、只复制 `dist/`，`NODE_ENV=production`，`CMD ["node", "dist/server/main.js"]`；`.dockerignore` 排除 `tests`、`.ai-delivery`、`infra`、`docs` 等（出处：`Dockerfile`、`.dockerignore`）。
 
@@ -241,11 +255,12 @@
 
 | 层次 | 位置 | 说明 | 出处 |
 | --- | --- | --- | --- |
-| 单元 | `tests/unit/` | 覆盖 `app`、`captionPipeline`、`chineseText`、`clientAbort`、`config`、`displayAudio`、`logger`、`mirroredCaptionView`、`preferences`（含行距的默认值、无效值、存储异常）、`rateLimit`、`recognition`、`sdkTimers`、`stallWatchdog`、`support`、`tokenService`、`translateClient`、`translator`、`uiState` | `tests/unit/*.test.ts` |
+| 单元 | `tests/unit/` | 覆盖 `app`、`captionPipeline`、`captionTranscript`、`chineseText`、`clientAbort`、`config`、`displayAudio`、`download`、`exportText`、`logger`、`mirroredCaptionView`、`preferences`（含行距的默认值、无效值、存储异常）、`rateLimit`、`recognition`、`sdkTimers`、`stallWatchdog`、`support`、`tokenService`、`translateClient`、`translator`、`uiState` | `tests/unit/*.test.ts` |
 | 集成 | `tests/integration/` | 真实依赖实例：语音令牌、流式识别、翻译、翻译中止、中文判定、翻译失败 | `tests/integration/*.int.test.ts` |
-| 端到端 | `tests/e2e/` | Playwright + headed Chromium，假麦克风播放 TTS 合成 WAV，服务端为构建产物，走真实依赖实例；用例文件：`captions`、`captionSpacing`、`chinese-only`、`isolation`、`microphone`、`non-chinese`、`pip`、`stall`、`stop`、`streaming`、`system`、`topbar`、`ui` | `tests/e2e/*.spec.ts`、`playwright.config.ts`、`tests/e2e/fixtures.ts` |
+| 端到端 | `tests/e2e/` | Playwright + headed Chromium，假麦克风播放 TTS 合成 WAV，服务端为构建产物，走真实依赖实例；用例文件：`captions`、`captionSpacing`、`chinese-only`、`exportCaptions`、`isolation`、`microphone`、`non-chinese`、`pip`、`stall`、`stop`、`streaming`、`system`、`topbar`、`ui` | `tests/e2e/*.spec.ts`、`playwright.config.ts`、`tests/e2e/fixtures.ts` |
 
 - 行距端到端用例 `tests/e2e/captionSpacing.spec.ts`：三档与默认、实测行距与相邻字幕间距的大小关系、运行中切换、保存与恢复、无效保存值、存储不可用 / 只读、字幕小窗同步（出处：`tests/e2e/captionSpacing.spec.ts` 各 `test(...)` 标题）。
+- 导出端到端用例 `tests/e2e/exportCaptions.spec.ts`（`EXP-1`～`EXP-5`）：刚打开页面不可用且点击不下载并显示原因、只在主页面工具条；正在听与已停止时导出的内容、顺序、时刻与页面一致，不发请求、不写存储，刷新后清空且不可用；第 1 句晚于第 2 句定稿时的时间写法；未能翻译的提示与识别原文不导出；“出错”状态下仍可导出（出处：`tests/e2e/exportCaptions.spec.ts` 各 `test(...)` 标题）。
 - 端到端辅助：`openCaptionDisplay`、`closeCaptionDisplay`（Esc 关闭）、`chooseCaptionDisplay`（打开“字幕显示”面板选择字号或行距后关闭）；布局测量辅助在 `tests/e2e/ui.ts`（含 `probeSpacing`、`lineDistance`、`captionDistance`）（出处：`tests/e2e/fixtures.ts`、`tests/e2e/ui.ts`）。
 - 顶栏用例：宽屏顶栏 1 行、约 480 px 宽最多 2 行；“字幕显示”面板在宽屏与约 480 px 宽时完整位于视口内、两组名称可见、无横向滚动（出处：`tests/e2e/topbar.spec.ts`）。
 - 生产代码中没有测试开关；故障注入通过浏览器初始化脚本包装 `fetch`、`WebSocket` 实现（出处：`tests/e2e/translationOverride.ts`、`tests/e2e/speechStall.ts`）。
@@ -255,6 +270,6 @@
 - 文案：界面与提示全部为简体中文，集中在 `messages.ts` 与 `index.html`（出处：`src/web/messages.ts`、`src/web/index.html`）。
 - 界面偏好：新增偏好使用 `rtmt.` 前缀的 `localStorage` 键，通过 `createPreferences` 读写，取值先用类型守卫（如 `isCaptionSize`、`isCaptionSpacing`）校验，无效时回落默认值（出处：`src/web/preferences.ts`）。
 - 字幕显示选项：以字幕区 / 小窗 `body` 上的 `data-*` 属性切换 CSS 变量，样式只写在 `styles.css`，主页面与小窗共用同一份样式表（出处：`src/web/styles.css`、`src/web/main.ts`、`src/web/pip.ts`）。
-- 字幕写入：唯一的 `CaptionPipeline` 通过 `CaptionView` 接口写入；主页面与小窗经 `MirroredCaptionView` 同步（出处：`src/web/captionPipeline.ts`、`src/web/mirroredCaptionView.ts`）。
+- 字幕写入：唯一的 `CaptionPipeline` 通过 `CaptionView` 接口写入；`CaptionView` 以包装方式串接（`CaptionTranscript` 包装 `MirroredCaptionView`），主页面与小窗经 `MirroredCaptionView` 同步（出处：`src/web/captionPipeline.ts`、`src/web/captionTranscript.ts`、`src/web/mirroredCaptionView.ts`、`src/web/main.ts`）。
 - 前后端共用的类型与常量放在 `src/shared/`（出处：`src/shared/contracts.ts`、`src/shared/chineseText.ts`）。
 - 代码注释中以 `TD-xxx`、`FR-xxx`、`IQA-xxx` 等编号引用各次交付的设计与规格条目（出处：如 `src/web/preferences.ts` `TD-801`、`src/web/pip.ts` `TD-104`）。
