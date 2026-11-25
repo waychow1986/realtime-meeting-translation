@@ -9,6 +9,7 @@ import {
   captionTexts,
   captionTimeline,
   captureStartedAt,
+  chooseCaptionDisplay,
   expect,
   startButton,
   startSystemAudio,
@@ -245,7 +246,7 @@ test.describe('重译仍非中文 → 中文提示，翻译继续（麦克风，
     expectNoticeStyle(await captionStyles(page, 'main'));
     expectNoticeStyle(await captionStyles(page, 'pip'));
     for (const [label, px] of [['小', 24], ['中', 32], ['大', 40], ['特大', 52]] as const) {
-      await page.getByRole('radio', { name: label, exact: true }).check();
+      await chooseCaptionDisplay(page, label);
       await expect.poll(async () => (await captionStyles(page, 'main')).normal.fontSize).toBe(px);
       const main = await captionStyles(page, 'main');
       expect(main.notice.fontSize).toBeCloseTo(px * 0.75, 1);

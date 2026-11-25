@@ -27,7 +27,7 @@ export interface LayoutProbe {
 
 /** The four FR-127 items first, then the remaining controls that must not overlap them. */
 export const FR127_CONTROLS = ['#input-source', '#start-button', '#stop-button', '.status-box'];
-const OTHER_CONTROLS = ['h1', '#caption-size', '#pip-button', '#guide-open'];
+const OTHER_CONTROLS = ['h1', '#display-button', '#pip-button', '#guide-open'];
 
 // Browser-side source text: the test tsconfig has no DOM lib.
 const LAYOUT_PROBE = `(() => {
@@ -121,6 +121,80 @@ const STYLE_PROBE = `(() => {
 
 export function probeCaptionStyle(page: Page): Promise<CaptionStyleProbe> {
   return page.evaluate<CaptionStyleProbe>(STYLE_PROBE);
+}
+
+export interface CaptionMetrics {
+  segmentId: string;
+  status: string;
+  kind: string;
+  fontSize: number;
+  lineHeight: number;
+  paddingTop: number;
+  paddingBottom: number;
+  marginTop: number;
+  /** Top of every rendered text line (deduplicated, ascending), in CSS pixels. */
+  lineTops: number[];
+}
+
+export interface SpacingProbe {
+  /** `data-caption-spacing` of the main caption panel, or of the caption window `body`. */
+  spacing: string;
+  captions: CaptionMetrics[];
+}
+
+/**
+ * Measures the non-empty captions of the main page (`main`) or of the caption window (`pip`): computed line height,
+ * padding and margin, plus the top of each text line from `Range.getClientRects()`. Within one caption the difference
+ * of consecutive line tops is the baseline-to-baseline line distance (same font size).
+ */
+function spacingProbeSource(where: 'main' | 'pip'): string {
+  return `(() => {
+    const win = ${where === 'pip' ? 'documentPictureInPicture.window' : 'window'};
+    if (!win) return null;
+    const doc = win.document;
+    const host = ${where === 'pip' ? 'doc.body' : "doc.getElementById('caption-panel')"};
+    const items = [...doc.querySelectorAll('${where === 'pip' ? '#pip-captions' : '#captions'} > li.caption')].filter((li) => li.textContent.trim());
+    return {
+      spacing: host.dataset.captionSpacing || '',
+      captions: items.map((li) => {
+        const cs = win.getComputedStyle(li);
+        const range = doc.createRange();
+        range.selectNodeContents(li);
+        const tops = [];
+        for (const rect of range.getClientRects()) {
+          if (rect.width < 1 || rect.height < 1) continue;
+          if (!tops.some((t) => Math.abs(t - rect.top) < 2)) tops.push(rect.top);
+        }
+        tops.sort((a, b) => a - b);
+        return {
+          segmentId: li.dataset.segmentId || '',
+          status: li.dataset.status || '',
+          kind: li.dataset.kind || '',
+          fontSize: parseFloat(cs.fontSize),
+          lineHeight: parseFloat(cs.lineHeight),
+          paddingTop: parseFloat(cs.paddingTop),
+          paddingBottom: parseFloat(cs.paddingBottom),
+          marginTop: parseFloat(cs.marginTop),
+          lineTops: tops,
+        };
+      }),
+    };
+  })()`;
+}
+
+export function probeSpacing(page: Page, where: 'main' | 'pip' = 'main'): Promise<SpacingProbe> {
+  return page.evaluate<SpacingProbe>(spacingProbeSource(where));
+}
+
+/** Distance between the first two text lines of one caption (null when it has a single line). */
+export function lineDistance(caption: CaptionMetrics): number | null {
+  const [first, second] = caption.lineTops;
+  return first === undefined || second === undefined ? null : second - first;
+}
+
+/** Distance from the last text line of one caption to the first text line of the next one. */
+export function captionDistance(previous: CaptionMetrics, next: CaptionMetrics): number {
+  return next.lineTops[0]! - previous.lineTops[previous.lineTops.length - 1]!;
 }
 
 function channel(value: number): number {

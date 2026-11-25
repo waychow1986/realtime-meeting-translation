@@ -5,6 +5,7 @@ import {
   NOT_RUNNING,
   RUNNING,
   captionTimeline,
+  chooseCaptionDisplay,
   expect,
   selectSource,
   startButton,
@@ -134,7 +135,7 @@ test.describe('字幕小窗：麦克风模式', () => {
 
     // Caption size switches apply to the window at once (IQA-119), without interrupting capture.
     for (const [label, size] of [['特大', 'xl'], ['小', 's'], ['中', 'm']] as const) {
-      await page.getByRole('radio', { name: label, exact: true }).check();
+      await chooseCaptionDisplay(page, label);
       view = await pipView(page);
       expect(view.captionSize).toBe(size);
       expect(view.captionFontSize).toBe(await mainCaptionFontSize(page));

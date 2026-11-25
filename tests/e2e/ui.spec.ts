@@ -3,8 +3,11 @@ import {
   ERROR,
   NOT_RUNNING,
   RUNNING,
+  chooseCaptionDisplay,
+  closeCaptionDisplay,
   expect,
   hanCount,
+  openCaptionDisplay,
   startButton,
   statusText,
   stopButton,
@@ -183,8 +186,10 @@ test.describe('字幕区样式与字号', () => {
     await page.goto('/');
     const sizeRadios = page.locator('#caption-size input[type="radio"][name="caption-size"]');
     await expect(sizeRadios).toHaveCount(4);
+    await openCaptionDisplay(page);
     expect((await page.locator('#caption-size label').allInnerTexts()).map((t) => t.trim())).toEqual([...SIZE_LABELS]);
     await expect(page.getByRole('radio', { name: '中', exact: true })).toBeChecked();
+    await closeCaptionDisplay(page);
     await expect(page.locator('#caption-panel')).toHaveAttribute('data-caption-size', 'm');
 
     await startButton(page).click();
@@ -217,7 +222,7 @@ test.describe('字幕区样式与字号', () => {
     const before = await timelineLength(page);
     const sizes: number[] = [];
     for (const label of SIZE_LABELS) {
-      await page.getByRole('radio', { name: label, exact: true }).check();
+      await chooseCaptionDisplay(page, label);
       const measured = await probeCaptionStyle(page);
       expect(measured.final).not.toBeNull();
       const size = measured.final!.fontSize;
@@ -312,7 +317,7 @@ test.describe('各尺寸布局', () => {
 
     await startButton(page).click();
     await expect(statusText(page)).toHaveText(RUNNING, { timeout: 10_000 });
-    await page.getByRole('radio', { name: '特大', exact: true }).check();
+    await chooseCaptionDisplay(page, '特大');
     await waitForFinalCaptions(page, 2);
     await checkAllSizes('running');
 

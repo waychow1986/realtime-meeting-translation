@@ -1,6 +1,18 @@
 import type { Page } from '@playwright/test';
 import { playMaterial } from '../support/player.js';
-import { ERROR, RUNNING, expect, selectSource, startButton, statusText, stopButton, test } from './fixtures.js';
+import {
+  ERROR,
+  RUNNING,
+  chooseCaptionDisplay,
+  closeCaptionDisplay,
+  expect,
+  openCaptionDisplay,
+  selectSource,
+  startButton,
+  statusText,
+  stopButton,
+  test,
+} from './fixtures.js';
 
 /**
  * G4 UI defects (AC-11): the system-audio instructions must fold away while listening so the captions are the main
@@ -8,14 +20,14 @@ import { ERROR, RUNNING, expect, selectSource, startButton, statusText, stopButt
  * rows at about 480 px wide. Accessible names stay unchanged.
  */
 
-const TOPBAR_ITEMS = ['h1', '#input-source', '#start-button', '#stop-button', '.status-box', '#caption-size', '#pip-button', '#guide-open'];
+const TOPBAR_ITEMS = ['h1', '#input-source', '#start-button', '#stop-button', '.status-box', '#display-button', '#pip-button', '#guide-open'];
 /** Controls whose height, corner radius and look must match (the "pill" items of the control bar). */
 const UNIFORM_CONTROLS = [
   '#input-source label',
   '#start-button',
   '#stop-button',
   '.status-box',
-  '#caption-size label',
+  '#display-button',
   '#pip-button',
   '#guide-open',
 ];
@@ -52,7 +64,7 @@ const TOPBAR_PROBE = `(() => {
     return cs.display !== 'none' && cs.visibility !== 'hidden' && +cs.opacity > 0 && box.width > 1 && box.height > 1 && cs.appearance !== 'none';
   }).length;
   const look = (label) => { const cs = getComputedStyle(label); return [cs.backgroundColor, cs.color, cs.fontWeight].join('|'); };
-  const selectedDistinct = ['input-source', 'caption-size'].every((name) => {
+  const selectedDistinct = ['input-source', 'caption-size', 'caption-spacing'].every((name) => {
     const labels = [...document.querySelectorAll('#' + name + ' label')];
     const on = labels.filter((l) => l.querySelector('input').checked).map(look);
     const off = labels.filter((l) => !l.querySelector('input').checked).map(look);
@@ -66,10 +78,15 @@ function probeTopbar(page: Page): Promise<TopbarProbe> {
 }
 
 async function expectUnchangedNames(page: Page): Promise<void> {
-  for (const name of ['麦克风', '系统声音', '小', '中', '大', '特大']) {
+  for (const name of ['麦克风', '系统声音']) {
     await expect(page.getByRole('radio', { name, exact: true })).toHaveCount(1);
   }
-  for (const name of ['开始', '停止', '弹出字幕小窗', '使用引导']) {
+  await openCaptionDisplay(page);
+  for (const name of ['小', '中', '大', '特大', '紧凑', '标准', '宽松']) {
+    await expect(page.getByRole('radio', { name, exact: true })).toHaveCount(1);
+  }
+  await closeCaptionDisplay(page);
+  for (const name of ['开始', '停止', '字幕显示', '弹出字幕小窗', '使用引导']) {
     await expect(page.getByRole('button', { name, exact: true })).toBeVisible();
   }
 }
@@ -98,17 +115,45 @@ test.describe('顶栏统一样式', () => {
     await page.setViewportSize({ width: 480, height: 800 });
     await expectProductTopbar(page, 2, '480 system');
     await selectSource(page, '麦克风');
-    await page.getByRole('radio', { name: '特大', exact: true }).check();
+    await chooseCaptionDisplay(page, '特大');
     await expect(page.locator('#caption-panel')).toHaveAttribute('data-caption-size', 'xl');
     await expectProductTopbar(page, 2, '480 microphone');
 
     // The segmented options still work by clicking their visible text.
     await page.locator('#input-source label', { hasText: '系统声音' }).click();
     await expect(page.locator('#source-system')).toBeChecked();
+    await openCaptionDisplay(page);
     await page.locator('#caption-size label', { hasText: /^中$/ }).click();
     await expect(page.locator('#caption-panel')).toHaveAttribute('data-caption-size', 'm');
+    await page.locator('#caption-spacing label', { hasText: /^宽松$/ }).click();
+    await expect(page.locator('#caption-panel')).toHaveAttribute('data-caption-spacing', 'loose');
+    await closeCaptionDisplay(page);
     await page.getByRole('button', { name: '使用引导' }).click();
     await expect(page.locator('dialog#guide')).toHaveAttribute('open', '');
+  });
+
+  test('字幕显示弹出面板：宽屏与约 480 像素宽时完整位于视口内，字号与行距两组名称可见，页面无横向滚动', async ({ harness }) => {
+    const { page } = harness;
+    for (const width of [1366, 480]) {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto('/');
+      await openCaptionDisplay(page);
+      const box = await page.locator('#display-panel').boundingBox();
+      expect(box, `${width}: panel box`).not.toBeNull();
+      expect(box!.x, `${width}: panel left`).toBeGreaterThanOrEqual(0);
+      expect(box!.y, `${width}: panel top`).toBeGreaterThanOrEqual(0);
+      expect(box!.x + box!.width, `${width}: panel right`).toBeLessThanOrEqual(width);
+      expect(box!.y + box!.height, `${width}: panel bottom`).toBeLessThanOrEqual(800);
+      await expect(page.getByRole('group', { name: '字号' })).toBeVisible();
+      await expect(page.getByRole('group', { name: '行距' })).toBeVisible();
+      await expect(page.locator('#display-panel legend', { hasText: '字号' })).toBeVisible();
+      await expect(page.locator('#display-panel legend', { hasText: '行距' })).toBeVisible();
+      const overflow = await page.evaluate<boolean>(
+        'document.documentElement.scrollWidth > document.documentElement.clientWidth',
+      );
+      expect(overflow, `${width}: horizontal scroll`).toBe(false);
+      await closeCaptionDisplay(page);
+    }
   });
 });
 

@@ -11,6 +11,9 @@
   --caption-interim: #b6c2cf;
   --caption-notice: #c9b48f;
   --caption-size: 32px;
+  --caption-line-height: 1.5;
+  --caption-pad-y: 4px;
+  --caption-gap: 6px;
   --state-color: #57606a;
 }
 
@@ -143,6 +146,28 @@ body > .workspace {
   opacity: 0;
   appearance: none;
   cursor: inherit;
+}
+
+/* "字幕显示" popover: caption size and line spacing (positioned by main.ts under its button). */
+#display-panel {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: calc(100vw - 16px);
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--control-radius);
+  background: #ffffff;
+  color: var(--text);
+  box-shadow: 0 6px 20px rgb(31 35 40 / 18%);
+}
+
+#display-panel:popover-open {
+  display: flex;
+}
+
+#display-panel .choice legend {
+  min-width: 2.5em;
 }
 
 .segmented label:hover {
@@ -501,6 +526,25 @@ body[data-source='system'] .workspace:has(#system-details:not([open])) {
   --caption-size: 52px;
 }
 
+/* Line spacing: line distance inside one caption and the distance between consecutive captions. */
+[data-caption-spacing='compact'] {
+  --caption-line-height: 1.4;
+  --caption-pad-y: 2px;
+  --caption-gap: 0px;
+}
+
+[data-caption-spacing='normal'] {
+  --caption-line-height: 1.5;
+  --caption-pad-y: 4px;
+  --caption-gap: 6px;
+}
+
+[data-caption-spacing='loose'] {
+  --caption-line-height: 1.8;
+  --caption-pad-y: 4px;
+  --caption-gap: 14px;
+}
+
 .hint {
   margin: 0 0 8px;
   color: #9da7b3;
@@ -520,18 +564,18 @@ body[data-source='system'] .workspace:has(#system-details:not([open])) {
 .caption {
   min-width: 0;
   margin: 0;
-  padding: 4px 0 4px 16px;
+  padding: var(--caption-pad-y) 0 var(--caption-pad-y) 16px;
   border-left: 4px solid transparent;
   color: var(--caption-final);
   font-size: var(--caption-size);
-  line-height: 1.5;
+  line-height: var(--caption-line-height);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   word-break: normal;
 }
 
 .caption + .caption {
-  margin-top: 6px;
+  margin-top: var(--caption-gap);
 }
 
 .caption:empty {
@@ -707,6 +751,16 @@ body.pip .pip-scroll {
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
+  }
+
+  /* Inside the popover the group names "字号" / "行距" stay visible: the two groups are told apart by them. */
+  #display-panel .choice legend {
+    position: static;
+    width: auto;
+    height: auto;
+    margin-right: 8px;
+    overflow: visible;
+    clip-path: none;
   }
 
   .guide-open {

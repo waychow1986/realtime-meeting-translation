@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createPreferences, type PreferenceStorage } from '../../src/web/preferences.js';
+import { CAPTION_SPACINGS, createPreferences, isCaptionSpacing, type PreferenceStorage } from '../../src/web/preferences.js';
 
 function memoryStorage(initial: Record<string, string> = {}): PreferenceStorage & { data: Map<string, string> } {
   const data = new Map(Object.entries(initial));
@@ -44,6 +44,32 @@ describe('preferences', () => {
     }
   });
 
+  it('defaults the caption spacing to "normal" and restores a stored spacing with rtmt.captionSpacing', () => {
+    const storage = memoryStorage({ 'rtmt.captionSize': 'l' });
+    const prefs = createPreferences(() => storage);
+    expect(prefs.captionSpacing()).toBe('normal');
+    prefs.setCaptionSpacing('loose');
+    expect(storage.data.get('rtmt.captionSpacing')).toBe('loose');
+    expect(createPreferences(() => storage).captionSpacing()).toBe('loose');
+    prefs.setCaptionSpacing('compact');
+    expect(createPreferences(() => storage).captionSpacing()).toBe('compact');
+    // The caption size is stored independently and unchanged.
+    expect(storage.data.get('rtmt.captionSize')).toBe('l');
+    expect([...storage.data.keys()].sort()).toEqual(['rtmt.captionSize', 'rtmt.captionSpacing']);
+  });
+
+  it('ignores invalid stored caption spacings', () => {
+    for (const value of ['', 'tight', 'Loose', 'NORMAL', '1.5']) {
+      expect(createPreferences(() => memoryStorage({ 'rtmt.captionSpacing': value })).captionSpacing()).toBe('normal');
+    }
+  });
+
+  it('accepts exactly the three caption spacings', () => {
+    expect(CAPTION_SPACINGS).toEqual(['compact', 'normal', 'loose']);
+    for (const value of CAPTION_SPACINGS) expect(isCaptionSpacing(value)).toBe(true);
+    for (const value of ['', 'tight', 'Loose', null, undefined, 1.5]) expect(isCaptionSpacing(value)).toBe(false);
+  });
+
   it('degrades to "always show guide, default size" when storage throws or is unavailable', () => {
     for (const source of [() => throwing, () => null, () => {
       throw new Error('access denied');
@@ -53,6 +79,9 @@ describe('preferences', () => {
       expect(prefs.captionSize()).toBe('m');
       expect(() => prefs.markGuideSeen()).not.toThrow();
       expect(() => prefs.setCaptionSize('l')).not.toThrow();
+      expect(prefs.captionSpacing()).toBe('normal');
+      expect(() => prefs.setCaptionSpacing('loose')).not.toThrow();
+      expect(prefs.captionSpacing()).toBe('normal');
     }
   });
 });

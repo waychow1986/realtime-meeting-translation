@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S7",
+  "result": "done",
+  "summary": "写出字幕行距可调的产品规格：19 条功能需求覆盖三档行距（字幕内行距与字幕间距）、立即生效、本机保存与恢复、字幕小窗同步与本地保存不可用；按 Q1=C 删去背景透明度（AC-2 标为本次不做），无新的待决问题。",
+  "asks": [],
+  "outputs": [
+    ".ai-delivery/features/008-v1/spec.md"
+  ]
+}

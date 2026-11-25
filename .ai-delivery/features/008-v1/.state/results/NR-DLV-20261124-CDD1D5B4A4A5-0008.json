@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "stepId": "S10",
+  "result": "done",
+  "summary": "细化计划：完整档，实施区只剩 1 批编码（AC-1～AC-7 全部）及其代码审查，预计约 55～65 分钟，不超过 90 分钟的会话时限；把“使用引导是否加入‘调整行距’一条”作为范围事项交人决定。",
+  "asks": [],
+  "outputs": [".ai-delivery/features/008-v1/.state/results/NR-DLV-20261124-CDD1D5B4A4A5-0008.json"],
+  "plan": {
+    "schemaVersion": 1,
+    "steps": [
+      {"id": "P1", "capability": "code", "zone": "build", "dependsOn": [], "batch": 1},
+      {"id": "P2", "capability": "review", "zone": "build", "dependsOn": ["P1"], "batch": 1}
+    ],
+    "omitted": [
+      {"capability": "spec", "reason": "规格 spec.md 已按已确认意图（含 Q1＝C、R1、R2 的答案）写成，本次细化没有需要重写的内容。"},
+      {"capability": "solution", "reason": "技术方案 design.md 已定稿，OD-1 已由人决定（A），没有未决的技术问题，不需再做技术方案。"},
+      {"capability": "plan", "reason": "本步骤即技术方案之后的细化计划，之后不再需要另一次计划。"}
+    ],
+    "batches": [
+      {"n": 1, "criteria": ["AC-1", "AC-2", "AC-3", "AC-4", "AC-5", "AC-6", "AC-7"]}
+    ],
+    "factors": [
+      {"name": "change-size", "lean": "light", "basis": "只改浏览器端 5 个源文件（preferences.ts、main.ts、pip.ts、index.html、styles.css）与 README，加 1 个新端到端文件和少量现有用例的定位调整；沿用字号的现成实现方式。"},
+      {"name": "modules", "lean": "medium", "basis": "涉及偏好存储、主页面顶栏（字号移入新的“字幕显示”浮层）、字幕样式与字幕小窗同步 4 处，并要修改 topbar/ui/captions 三个现有端到端文件；不涉及服务端、接口与部署。"},
+      {"name": "new-or-first", "lean": "medium", "basis": "非新项目，但项目还没有系统现状（system-current.md）与部署声明，现状靠代码与第 2、3、7 号设计推断。"},
+      {"name": "risk", "lean": "light", "basis": "没有数据迁移；只新增一个本机界面偏好键 rtmt.captionSpacing（白名单校验，不存字幕内容）；不改凭据与服务端。主要风险是顶栏布局回归（已由实验 E-1 和 OD-1 的决定处理）。"}
+    ],
+    "tier": "full",
+    "budget": {"revisions": 4, "sessions": 13, "hours": 7.0},
+    "items": [
+      {
+        "category": "business",
+        "question": "要不要在使用引导中加入“调整行距”一条？技术方案与规格都把它列为“建议，未纳入，待 G2 决定”。意图没有这项工作；引导第 4 条“调整字号”的操作路径按 OD-1 的答复改写，已在范围内，不在此问之列。",
+        "recommended": "不加入：保持已确认意图的范围，本次只按 OD-1 的答复改写“调整字号”一条的操作路径。",
+        "alternatives": ["加入“调整行距”一条（在第 1 批编码中一并完成，只改 index.html 的引导文字，批次与用时基本不变，但扩大了范围，测试计划需相应补一项核对）。"]
+      }
+    ],
+    "reason": "档位：tierFloor 为 full，按四项依据（改动规模 light、模块数 medium、首个有现状文档前的交付 medium、风险 light）本可为标准档，仍按 tierFloor 给完整档；完整档每批编码后都有代码审查。\n\n批次：只设 1 批，覆盖 AC-1～AC-7 全部。排序依据是技术方案“技术先后依赖”：preferences.ts 的行距类型与读写先于 main.ts、pip.ts；pip.ts 的 setCaptionSpacing 先于 main.ts 的 applyCaptionSpacing；index.html 浮层与行距控件、styles.css 的 [data-caption-spacing] 规则先于新端到端用例；把 #caption-size 移入浮层必须与现有端到端用例（topbar.spec.ts、ui.ts、ui.spec.ts、captions.spec.ts）的定位修改放在同一次改动中。这些依赖彼此紧耦合且总量放得进一个会话，拆开反而会让中间状态的类型检查或现有用例失败，所以不拆。AC-2 按 Q1＝C 本次不做透明度，第 1 批只需保证不加透明度、背景保持 rgb(13,17,23)（TD-808），由同一批的新用例核对。\n\n第 1 批预计用时（按技术方案“可测性约定”，均为估计）：实现约 30～35 分钟（5 个源文件、单元用例、新端到端文件 tests/e2e/captionSpacing.spec.ts 与测量辅助函数、现有用例定位调整、README）；lint/typecheck/build 约 1 分钟；全量单元测试约 10 秒；全量集成测试约 3～5 分钟；单独运行新文件 captionSpacing.spec.ts 约 6～8 分钟；单独运行本批改动的现有端到端用例（topbar.spec.ts 两个用例、ui.spec.ts 中操作字号的 IQA-118/119/121/122、captions.spec.ts 的 IQA-001 主用例）约 6～8 分钟（参照同类需“正在听”的用例每个约 1～1.5 分钟估计）；合计约 50～60 分钟，另留约 10 分钟修正与写结果，总计约 60～70 分钟，低于 90 分钟时限。既有端到端整套（约 50～60 分钟）不在编码会话中运行，不计入；验收由 G3 的独立测试（tasks-qa.md TS-01～TS-15）验证。\n\n测试计划：tasks-qa.md 的所有场景都由测试脚本在测试环境验证，没有引用开发者检查的场景，无需另排开发者检查的编写；技术方案列出的单元与端到端自测已含在第 1 批中。\n\n本交付不是缺陷修复，没有附加功能批次。业务细节没有按假设排批的项：规格与技术方案已写明行距取值、默认值与退化行为。"
+  }
+}

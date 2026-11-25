@@ -7,7 +7,13 @@ import { ShareError, requestDisplayAudio, type AudioContextLike, type DisplayAud
 import { MESSAGES, STATE_LABELS, shareNoAudioMessage, type AppState } from './messages.js';
 import { MirroredCaptionView } from './mirroredCaptionView.js';
 import { CaptionWindow } from './pip.js';
-import { createPreferences, isCaptionSize, type CaptionSize } from './preferences.js';
+import {
+  createPreferences,
+  isCaptionSize,
+  isCaptionSpacing,
+  type CaptionSize,
+  type CaptionSpacing,
+} from './preferences.js';
 import {
   MicrophoneError,
   createRecognitionSession,
@@ -71,6 +77,9 @@ function init(): void {
   const jumpLatest = requireElement('jump-latest', HTMLButtonElement);
   const sourceRadios = [...document.querySelectorAll<HTMLInputElement>('input[name="input-source"]')];
   const sizeRadios = [...document.querySelectorAll<HTMLInputElement>('input[name="caption-size"]')];
+  const spacingRadios = [...document.querySelectorAll<HTMLInputElement>('input[name="caption-spacing"]')];
+  const displayButton = requireElement('display-button', HTMLButtonElement);
+  const displayPanel = requireElement('display-panel', HTMLElement);
   const systemPanel = requireElement('system-panel', HTMLElement);
   const systemUnsupported = requireElement('system-unsupported', HTMLElement);
   const systemDetails = requireElement('system-details', HTMLDetailsElement);
@@ -128,6 +137,28 @@ function init(): void {
     captionWindow.setCaptionSize(size);
     for (const radio of sizeRadios) radio.checked = radio.value === size;
     if (follow) captionView.scrollToEnd();
+  };
+
+  const applyCaptionSpacing = (spacing: CaptionSpacing): void => {
+    const follow = isNearBottom(captionScroll);
+    captionPanel.dataset.captionSpacing = spacing;
+    captionWindow.setCaptionSpacing(spacing);
+    for (const radio of spacingRadios) radio.checked = radio.value === spacing;
+    if (follow) captionView.scrollToEnd();
+  };
+
+  // The display popover sits in the top layer; anchor it under its button and keep it inside the viewport.
+  const placeDisplayPanel = (): void => {
+    const anchor = displayButton.getBoundingClientRect();
+    const margin = 8;
+    displayPanel.style.position = 'fixed';
+    displayPanel.style.margin = '0';
+    displayPanel.style.right = 'auto';
+    displayPanel.style.bottom = 'auto';
+    displayPanel.style.top = `${Math.round(anchor.bottom + 6)}px`;
+    const width = displayPanel.offsetWidth;
+    const maxLeft = Math.max(margin, document.documentElement.clientWidth - width - margin);
+    displayPanel.style.left = `${Math.round(Math.min(Math.max(anchor.left, margin), maxLeft))}px`;
   };
 
   const selectSource = (): void => {
@@ -292,11 +323,27 @@ function init(): void {
       preferences.setCaptionSize(radio.value);
     });
   }
+  for (const radio of spacingRadios) {
+    radio.addEventListener('change', () => {
+      if (!radio.checked || !isCaptionSpacing(radio.value)) return;
+      applyCaptionSpacing(radio.value);
+      preferences.setCaptionSpacing(radio.value);
+    });
+  }
+  displayPanel.addEventListener('toggle', (event) => {
+    const open = (event as ToggleEvent).newState === 'open';
+    if (open) placeDisplayPanel();
+    displayButton.setAttribute('aria-expanded', String(open));
+  });
+  window.addEventListener('resize', () => {
+    if (displayPanel.matches(':popover-open')) displayPanel.hidePopover();
+  });
   // Input source is not restored from storage: every load starts with the microphone (FR-102).
   const microphone = sourceRadios.find((radio) => radio.value === 'microphone');
   if (microphone) microphone.checked = true;
   selectSource();
   applyCaptionSize(preferences.captionSize());
+  applyCaptionSpacing(preferences.captionSpacing());
   setState('idle');
   showNotice(null);
   initGuide(
